@@ -20,8 +20,8 @@ export default function Footer() {
   ];
 
   const navLinks = [
-    { name: "Terminal", path: "/" },
-    { name: "Laboratory", path: "/tools" },
+    { name: "Home", path: "/" },
+    { name: "Tools", path: "/tools" },
     { name: "Privacy", path: "/privacy" },
     { name: "Terms", path: "/terms" }
   ];
@@ -38,7 +38,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col">
               <span className="font-black tracking-[0.2em] text-xs uppercase leading-none">Shaad Dev</span>
-              <span className="text-[8px] text-primary tracking-[0.4em] uppercase font-bold">Studio v3.0</span>
+              <span className="text-[8px] text-primary tracking-[0.3em] uppercase font-bold">Mobile and Web Solutions</span>
             </div>
           </div>
 
@@ -74,18 +74,18 @@ export default function Footer() {
 
         {/* Bottom Section: Copyright & Legal Meta */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 gap-6">
-          <div className="text-[9px] font-black text-white/20 uppercase tracking-[0.6em] text-center md:text-left">
-            SYSTEM DESIGN © 2026 SHAAD DEV STUDIO — PHASE 10 SECURED
+          <div className="text-[10px] font-bold text-white/55 text-center md:text-left">
+            © 2026 Shaad Dev Studio. Built with care.
           </div>
           
-          <div className="flex items-center gap-8 text-[8px] font-bold text-white/10 uppercase tracking-widest">
+          <div className="flex items-center gap-8 text-[9px] font-semibold text-white/45 uppercase tracking-wide">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-3 h-3" />
-              <span>ENCRYPTED_CONNECTION: ACTIVE</span>
+              <ShieldCheck className="w-3 h-3 text-primary" />
+              <span>Secure Experience</span>
             </div>
             <div className="flex items-center gap-2">
-              <Globe className="w-3 h-3" />
-              <span>GEOLOCATION: GLOBAL_SYNCED</span>
+              <Globe className="w-3 h-3 text-primary" />
+              <span>Available Worldwide</span>
             </div>
           </div>
         </div>

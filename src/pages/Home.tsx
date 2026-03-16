@@ -97,15 +97,10 @@ function ParticleField() {
 const profileData = {
   name: "Rizwan Rasheed",
   id: "STUDIO-PRO-01",
-  role: "Lead Software Architect",
-  summary: "Specializing in high-performance cross-platform applications and scalable backend systems. Turning complex ideas into digital gold with precision and passion.",
-  status: "AVAILABLE FOR GIGS",
+  role: "Software Engineer",
+  summary: "I build clear, reliable mobile and web products with strong performance, maintainable code, and practical business outcomes.",
+  status: "Available for Projects",
   expertise: ["Distributed Systems", "Mobile Engineering", "Computational Performance"],
-  metrics: [
-    { label: "Code Quality", value: "A+" },
-    { label: "Reliability", value: "99.9%" },
-    { label: "Architecture", value: "SOLID" }
-  ],
   telemetry: [
     { label: "Years Experience", value: "5+", icon: ActivityIcon },
     { label: "Systems Scaled", value: "120+", icon: Cpu },
@@ -148,14 +143,14 @@ const profileData = {
       company: "Kairos Business Solutions Singapore",
       role: "Mobile Application Developer",
       period: "Jul 2023 - Present",
-      desc: "Architecting high-performance mobile systems using Flutter and React Native. Implementing secure payment gateways (Stripe, Apple Pay) and CI/CD pipelines.",
+      desc: "Building production mobile apps using Flutter and React Native, including payment integrations and CI/CD pipelines for stable releases.",
       stack: ["Flutter", "React Native", "Laravel", "CI/CD", "AWS"]
     },
     {
       company: "Mercury Sols",
       role: "Mobile App Developer",
       period: "Apr 2020 - Aug 2023",
-      desc: "Developed cross-platform applications with a focus on intuitive UI/UX and responsive architecture. Transformed complex requirements into high-fidelity products.",
+      desc: "Developed cross-platform applications focused on clear UX, reliable architecture, and shipping features aligned with client goals.",
       stack: ["Flutter", "Dart", "UI/UX"]
     }
   ],
@@ -172,21 +167,21 @@ const profileData = {
       client: "Alex Rivera",
       id: "LOG-A24",
       service: "App Store Optimization",
-      text: "Rizwan's ASO engine transformed our visibility. We saw a 300% increase in impressions within 48 hours. Absolute wizardry.",
+      text: "Rizwan improved our app listing assets and copy. Our store visibility and conversion rate both improved within the first release cycle.",
       location: "San Francisco, USA"
     },
     {
       client: "Sarah Chen",
       id: "LOG-S09",
       service: "Scalable Architecture",
-      text: "The computational pipelines he built are rock solid. We handle 50k concurrent users with zero latency spikes. Impeccable engineering.",
+      text: "The architecture is stable and easier for our team to maintain. We saw fewer production issues and faster delivery.",
       location: "London, UK"
     },
     {
       client: "Markus Thulin",
       id: "LOG-M12",
       service: "Mobile Infrastructure",
-      text: "Hands down the most proficient Flutter lead I've worked with. He doesn't just write code; he architected our entire mobile ecosystem.",
+      text: "Great communication and clean implementation. He helped us improve app performance and delivery quality significantly.",
       location: "Stockholm, SE"
     }
   ],
@@ -194,7 +189,7 @@ const profileData = {
     { 
       title: "ASO Studio v2", 
       id: "MODULE-ASO",
-      desc: "Advanced visual synthesis engine for App Store prominence.", 
+      desc: "A practical tool for generating store-ready screenshot layouts and metadata previews.", 
       path: "/tools/aso-screenshot",
       icon: Smartphone,
       color: "#00F0FF"
@@ -202,7 +197,7 @@ const profileData = {
     { 
       title: "Core Pipeline", 
       id: "MODULE-VID",
-      desc: "Low-level FFmpeg automation for scale video processing.", 
+      desc: "Automation pipeline for media processing and export workflows.", 
       path: "#",
       icon: Zap,
       color: "#FF0055"
@@ -220,38 +215,38 @@ const TECH_ICON_MAP: Record<string, string> = {
   "SwiftUI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
   "KMP (Kotlin)": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
   "Dart": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
-  "App Store Connect": "https://cdn.simpleicons.org/appstore/FFFFFF",
-  "Google Play Console": "https://cdn.simpleicons.org/googleplay/FFFFFF",
+  "App Store Connect": APP_STORE_ICON_URL,
+  "Google Play Console": PLAY_STORE_ICON_URL,
   "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  "Next.js": "https://cdn.simpleicons.org/nextdotjs/FFFFFF",
+  "Next.js": "https://cdn.simpleicons.org/nextdotjs",
   "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-  "Responsive UI": "https://cdn.simpleicons.org/css3/FFFFFF",
-  "Motion / Animation": "https://cdn.simpleicons.org/framer/FFFFFF",
+  "Responsive UI": "https://cdn.jsdelivr.net/npm/simple-icons/icons/css3.svg",
+  "Motion / Animation": "https://cdn.simpleicons.org/framer",
   "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   "Go": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
   "Laravel": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
-  "REST APIs": "https://cdn.simpleicons.org/openapiinitiative/FFFFFF",
-  "Authentication": "https://cdn.simpleicons.org/auth0/FFFFFF",
-  "Payment Integrations": "https://cdn.simpleicons.org/stripe/FFFFFF",
-  "End-to-End Architecture": "https://cdn.simpleicons.org/miro/FFFFFF",
-  "CI/CD": "https://cdn.simpleicons.org/githubactions/FFFFFF",
-  "Performance Tuning": "https://cdn.simpleicons.org/speedtest/FFFFFF",
-  "Scalable Deployments": "https://cdn.simpleicons.org/kubernetes/FFFFFF",
-  "Monitoring": "https://cdn.simpleicons.org/grafana/FFFFFF",
-  "Production Debugging": "https://cdn.simpleicons.org/sentry/FFFFFF",
-  "AWS": "https://cdn.simpleicons.org/amazonaws/FFFFFF",
+  "REST APIs": "https://cdn.simpleicons.org/openapiinitiative",
+  "Authentication": "https://cdn.simpleicons.org/auth0",
+  "Payment Integrations": "https://cdn.simpleicons.org/stripe",
+  "End-to-End Architecture": "https://cdn.simpleicons.org/miro",
+  "CI/CD": "https://cdn.simpleicons.org/githubactions",
+  "Performance Tuning": "https://cdn.simpleicons.org/speedtest",
+  "Scalable Deployments": "https://cdn.simpleicons.org/kubernetes",
+  "Monitoring": "https://cdn.simpleicons.org/grafana",
+  "Production Debugging": "https://cdn.simpleicons.org/sentry",
+  "AWS": "https://cdn.jsdelivr.net/npm/simple-icons/icons/amazonwebservices.svg",
   "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
   "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
   "Redis": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
-  "Storage & Caching": "https://cdn.simpleicons.org/cloudflare/FFFFFF",
-  "OpenAI / LLMs": "https://cdn.simpleicons.org/openai/FFFFFF",
-  "LangChain": "https://cdn.simpleicons.org/langchain/FFFFFF",
-  "FFmpeg": "https://cdn.simpleicons.org/ffmpeg/FFFFFF",
-  "GitHub Actions": "https://cdn.simpleicons.org/githubactions/FFFFFF",
-  "Postman": "https://cdn.simpleicons.org/postman/FFFFFF",
-  "Figma": "https://cdn.simpleicons.org/figma/FFFFFF"
+  "Storage & Caching": "https://cdn.simpleicons.org/cloudflare",
+  "OpenAI / LLMs": "https://cdn.jsdelivr.net/npm/simple-icons/icons/openai.svg",
+  "LangChain": "https://cdn.simpleicons.org/langchain",
+  "FFmpeg": "https://cdn.simpleicons.org/ffmpeg",
+  "GitHub Actions": "https://cdn.simpleicons.org/githubactions",
+  "Postman": "https://cdn.simpleicons.org/postman",
+  "Figma": "https://cdn.simpleicons.org/figma"
 };
 
 const getProjectInitials = (name?: string) => {
@@ -305,13 +300,6 @@ const CustomCursor = () => {
 };
 
 export default function Home() {
-  const [booting, setBooting] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return !sessionStorage.getItem('hasBooted');
-    }
-    return true;
-  });
-  const [bootLogs, setBootLogs] = useState<string[]>([]);
   const [apps, setApps] = useState<any[]>([]);
   const [failedIcons, setFailedIcons] = useState<Record<string, boolean>>({});
   const [failedScreenshots, setFailedScreenshots] = useState<Record<string, boolean>>({});
@@ -371,18 +359,16 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (!booting) {
-        gsap.from(".module-card", {
-          opacity: 0,
-          y: 30,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power4.out"
-        });
-      }
+      gsap.from(".module-card", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out"
+      });
     });
     return () => ctx.revert();
-  }, [booting]);
+  }, []);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -394,75 +380,9 @@ export default function Home() {
       document.body.style.overflow = previousOverflow;
     };
   }, [mobileMenuOpen]);
-  useEffect(() => {
-    if (!booting) return;
-
-    const logs = [
-      "INITIALIZING SYSTEM KERNEL...",
-      "LOADING NEURAL LAYERS...",
-      "ESTABLISHING SECURE PROTOCOL...",
-      "MOUNTING MEMORY REPOSITORIES...",
-      "OPTIMIZING RENDERING ENGINE...",
-      "PROFILE: RIZWAN RASHEED LOADED.",
-      "SYSTEM STABLE. REDIRECTING..."
-    ];
-    
-    let i = 0;
-    const interval = setInterval(() => {
-      setBootLogs(prev => [...prev, logs[i]]);
-      i++;
-      if (i === logs.length) {
-        clearInterval(interval);
-        setTimeout(() => {
-          setBooting(false);
-          sessionStorage.setItem('hasBooted', 'true');
-        }, 800);
-      }
-    }, 200);
-    
-    return () => clearInterval(interval);
-  }, [booting]);
 
   return (
-    <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/40 font-mono overflow-x-hidden cursor-none">
-      <CustomCursor />
-      
-      {/* Boot Sequence */}
-      <AnimatePresence>
-        {booting && (
-          <motion.div 
-            exit={{ opacity: 0, scale: 1.1 }}
-            className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-12"
-          >
-            <div className="w-full max-w-lg space-y-4">
-              <div className="flex justify-between items-center text-primary text-xs font-black tracking-widest uppercase">
-                <span>System Status: Booting</span>
-                <span className="animate-pulse">Active</span>
-              </div>
-              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="h-full bg-primary"
-                />
-              </div>
-              <div className="space-y-1">
-                {bootLogs.map((log, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="text-[10px] text-white/50 tracking-tighter"
-                  >
-                    <span className="text-primary mr-2">&gt;</span> {log}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/40 font-mono overflow-x-hidden">
 
       {/* Background World */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
@@ -486,21 +406,18 @@ export default function Home() {
               <span className="font-black text-primary text-xl -rotate-45 leading-none">R</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-black tracking-[0.2em] text-lg uppercase leading-none">Shaad Dev</span>
-              <span className="text-[9px] text-primary tracking-[0.5em] uppercase font-bold">Studio v3.0</span>
+              <span className="font-black tracking-[0.08em] text-lg uppercase leading-none">Shaad Dev Studio</span>
+              <span className="text-[10px] text-primary/90 tracking-[0.12em] font-semibold">Mobile and Web Solutions</span>
             </div>
           </div>
-          <div className="hidden lg:flex items-center gap-8 border-l border-white/10 pl-8 font-black uppercase text-[10px] tracking-[0.3em]">
-            <a href="#expertise" className="text-white/40 hover:text-primary transition-all">Expertise</a>
-            <a href="#modules" className="text-white/40 hover:text-primary transition-all">Modules</a>
-            <a href="#reviews" className="text-white/40 hover:text-primary transition-all">Reviews</a>
-            <Link to="/tools" className="text-white/40 hover:text-primary transition-all">Laboratory</Link>
+          <div className="hidden lg:flex items-center gap-8 border-l border-white/20 pl-8 font-black uppercase text-[10px] tracking-[0.3em]">
+            <a href="#expertise" className="text-white/85 hover:text-primary transition-all">Skills</a>
+            <a href="#modules" className="text-white/85 hover:text-primary transition-all">Projects</a>
+            <a href="#reviews" className="text-white/85 hover:text-primary transition-all">Client Reviews</a>
+            <Link to="/tools" className="text-white/85 hover:text-primary transition-all">Tools</Link>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Link to="/tools" className="hidden sm:flex btn-primary py-2 px-4 text-[10px]">
-            INITIALIZE LAB
-          </Link>
           <button
             type="button"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -520,18 +437,18 @@ export default function Home() {
             exit={{ opacity: 0, y: -12 }}
             className="fixed top-[72px] left-0 right-0 z-40 px-4 lg:hidden"
           >
-            <div className="rounded-2xl border border-white/10 bg-black/95 backdrop-blur-xl p-4 space-y-3 shadow-2xl shadow-black/60">
-              <a href="#expertise" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Expertise
+            <div className="rounded-2xl border border-white/20 bg-black/95 backdrop-blur-xl p-4 space-y-3 shadow-2xl shadow-black/60">
+              <a href="#expertise" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Skills
               </a>
-              <a href="#modules" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Modules
+              <a href="#modules" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Projects
               </a>
-              <a href="#reviews" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Reviews
+              <a href="#reviews" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Client Reviews
               </a>
-              <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Laboratory
+              <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Tools
               </Link>
             </div>
           </motion.div>
@@ -543,29 +460,29 @@ export default function Home() {
         <section className="min-h-screen flex items-center justify-center pt-8 sm:pt-20">
           <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             
-            <div className="space-y-16">
+            <div className="space-y-12">
               <div className="space-y-6">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 border border-primary/30 text-primary text-[10px] font-black tracking-widest uppercase rounded-sm"
+                  className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 border border-primary/30 text-primary text-[10px] font-black tracking-wide uppercase rounded-sm"
                 >
-                  <Cpu className="w-3.5 h-3.5" /> ID: {profileData.id} — ARCHITECT
+                  <Cpu className="w-3.5 h-3.5" /> {profileData.role}
                 </motion.div>
                 
-                <h1 className="text-5xl sm:text-7xl md:text-[8rem] font-black tracking-tighter leading-[0.8] uppercase">
-                  Digital<br />
-                  <span className="text-primary italic">Synthesis.</span>
+                <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.95] uppercase">
+                  Rizwan Rasheed<br />
+                  <span className="block mt-2 text-2xl sm:text-4xl md:text-5xl text-primary">Builds Software That Solves Real Problems</span>
                 </h1>
-                <p className="max-w-xl text-white/50 text-xl leading-relaxed italic">
-                  "{profileData.summary}"
+                <p className="max-w-xl text-white/85 text-lg sm:text-xl leading-relaxed">
+                  {profileData.summary}
                 </p>
 
                 {/* System Telemetry Bar */}
                 <div className="flex flex-wrap gap-8 pt-6">
                   {profileData.telemetry.map(t => (
                     <div key={t.label} className="flex flex-col gap-1 border-l-2 border-primary/20 pl-4">
-                      <div className="flex items-center gap-2 text-white/30 text-[9px] font-black tracking-widest uppercase">
+                      <div className="flex items-center gap-2 text-white/75 text-[10px] font-black tracking-wide uppercase">
                         <t.icon className="w-3 h-3" /> {t.label}
                       </div>
                       <div className="text-2xl font-black text-white">{t.value}</div>
@@ -574,30 +491,21 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-12 border-y border-white/10 py-12">
-                {profileData.metrics.map(m => (
-                  <div key={m.label} className="space-y-1">
-                    <div className="text-[10px] text-white/20 font-black uppercase tracking-widest">{m.label}</div>
-                    <div className="text-4xl font-black text-white">{m.value}</div>
-                  </div>
-                ))}
-              </div>
-
                 <div className="flex flex-wrap items-center gap-10">
-                  <a href="#modules" className="group flex items-center gap-6 text-xs font-black tracking-[0.4em] uppercase text-primary">
-                    ENTER ARCHIVES <div className="w-20 h-px bg-primary group-hover:w-40 transition-all" />
+                  <a href="#modules" className="group flex items-center gap-4 text-xs font-black tracking-[0.2em] uppercase text-primary">
+                    View Projects <div className="w-12 h-px bg-primary group-hover:w-20 transition-all" />
                   </a>
                   <div className="flex items-center gap-6">
-                    <a href="https://github.com/Rizwan884" target="_blank" className="text-white/40 hover:text-primary transition-all">
+                    <a href="https://github.com/Rizwan884" target="_blank" className="text-white/70 hover:text-primary transition-all">
                       <Github className="w-5 h-5" />
                     </a>
-                    <a href="https://www.linkedin.com/in/rashidrizwan-connect/" target="_blank" className="text-white/40 hover:text-primary transition-all">
+                    <a href="https://www.linkedin.com/in/rashidrizwan-connect/" target="_blank" className="text-white/70 hover:text-primary transition-all">
                       <Linkedin className="w-5 h-5" />
                     </a>
-                    <a href="https://wa.me/923126733459" target="_blank" className="text-white/40 hover:text-primary transition-all">
+                    <a href="https://wa.me/923126733459" target="_blank" className="text-white/70 hover:text-primary transition-all">
                       <MessageCircle className="w-5 h-5" />
                     </a>
-                    <a href="mailto:rizwanrasheed046@gmail.com" className="text-white/40 hover:text-primary transition-all">
+                    <a href="mailto:rizwanrasheed046@gmail.com" className="text-white/70 hover:text-primary transition-all">
                       <Mail className="w-5 h-5" />
                     </a>
                   </div>
@@ -620,53 +528,32 @@ export default function Home() {
                     className="w-full h-full object-cover mix-blend-screen brightness-125 hover:scale-105 transition-transform duration-1000"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-                  
-                  {/* Persona HUD Overlay */}
-                  <div className="absolute top-8 right-8 space-y-4">
-                    <Hexagon className="w-8 h-8 text-primary animate-spin-slow" />
-                    <div className="h-20 w-[1px] bg-primary/30 mx-auto" />
-                  </div>
 
-                  <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
-                    <div className="space-y-2">
-                      <div className="text-[8px] font-black text-primary tracking-[0.5em] uppercase">User Authorized</div>
-                      <div className="text-2xl font-black uppercase tracking-tighter">Rizwan Rasheed</div>
-                    </div>
-                    <div className="flex gap-1">
-                      {[1, 2, 3, 4].map(i => (
-                        <div key={i} className="w-1 h-8 bg-primary/20" style={{ height: `${20 + i * 10}%` }} />
-                      ))}
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="inline-flex flex-wrap items-center gap-2 rounded-xl border border-white/15 bg-black/60 backdrop-blur px-3 py-2">
+                      <span className="text-[10px] font-black uppercase tracking-wide text-primary">{profileData.role}</span>
+                      <span className="text-white/50">|</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-white/90">{profileData.status}</span>
                     </div>
                   </div>
                 </div>
-                
-                {/* Floating Tech Badges */}
-                <motion.div 
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-12 -right-12 p-8 bg-black border border-primary/40 shadow-2xl shadow-primary/20 z-20"
-                >
-                  <Globe className="w-8 h-8 text-primary mb-4" />
-                  <div className="text-[8px] font-black text-white/30 uppercase tracking-[0.3em]">Network</div>
-                  <div className="text-xl font-black">GLOBAL</div>
-                </motion.div>
               </div>
             </motion.div>
           </div>
         </section>
 
         {/* Modules Section */}
-        <section id="modules" className="py-40 bg-black/50 scroll-mt-28 sm:scroll-mt-32">
+        <section id="modules" className="py-20 sm:py-28 bg-black/50 scroll-mt-28 sm:scroll-mt-32">
           <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-32">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 sm:mb-24">
               <div className="space-y-4">
-                <div className="text-primary font-black text-[10px] tracking-[0.5em] uppercase">Deployment Repositories</div>
-                <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
-                  Core<br />Modules.
+                <div className="text-primary font-black text-[11px] tracking-[0.2em] uppercase">Portfolio Projects</div>
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none">
+                  Featured<br />Projects.
                 </h2>
               </div>
-              <p className="max-w-md text-white/30 text-lg font-medium leading-relaxed border-l border-white/10 pl-8">
-                Proprietary systems designed for maximum computational efficiency and high-fidelity user interaction.
+              <p className="max-w-md text-white/75 text-base sm:text-lg font-medium leading-relaxed border-l border-white/10 pl-6">
+                Selected tools and client apps with direct store links and short, practical summaries.
               </p>
             </div>
 
@@ -681,17 +568,15 @@ export default function Home() {
                     
                     <div className="relative z-10 space-y-6">
                       <div className="flex items-center justify-between">
-                        <div className="text-[9px] font-black text-primary tracking-[0.4em] uppercase px-2 py-1 bg-primary/10 border border-primary/20">
-                          INTERNAL MODULE
-                        </div>
+                        <div />
                         <ExternalLink className="w-4 h-4 text-primary/40 group-hover:text-primary transition-colors" />
                       </div>
                       <div className="space-y-3">
                         <h3 className="text-3xl font-black uppercase tracking-tighter group-hover:text-primary transition-colors">{proj.title}</h3>
-                        <p className="text-white/40 text-sm leading-relaxed">{proj.desc}</p>
+                        <p className="text-white/75 text-sm leading-relaxed">{proj.desc}</p>
                       </div>
-                      <div className="pt-4 flex items-center gap-3 text-[9px] font-black tracking-widest uppercase text-primary/40 group-hover:text-primary transition-colors">
-                        ACTIVATE MODULE <ChevronRight className="w-3 h-3" />
+                      <div className="pt-4 flex items-center gap-3 text-[9px] font-black tracking-wide uppercase text-primary/80 group-hover:text-primary transition-colors">
+                        Open Tool <ChevronRight className="w-3 h-3" />
                       </div>
                     </div>
                   </div>
@@ -704,7 +589,7 @@ export default function Home() {
                   <div className="h-full p-10 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.02] hover:border-primary/20 transition-all duration-500 overflow-hidden relative">
                     <div className="relative z-10 space-y-6">
                       <div className="flex items-center justify-between">
-                        <div className="text-[9px] font-black text-white/30 tracking-[0.4em] uppercase">
+                        <div className="text-[10px] font-black text-white/75 tracking-[0.2em] uppercase">
                           {app.category}
                         </div>
                         <div className="flex gap-3">
@@ -722,7 +607,7 @@ export default function Home() {
                       </div>
                       <div className="space-y-3">
                         <h3 className="text-3xl font-black uppercase tracking-tighter group-hover:text-primary transition-colors">{app.name}</h3>
-                        <p className="text-white/30 text-sm leading-relaxed line-clamp-2">{app.description}</p>
+                        <p className="text-white/80 text-sm leading-relaxed line-clamp-2">{app.description}</p>
                       </div>
                       
                       {/* Store Screenshot Preview */}
@@ -783,7 +668,7 @@ export default function Home() {
         </section>
 
         {/* Career & Education Archives */}
-        <section id="archives" className="py-40 border-t border-white/5 bg-black/30 scroll-mt-28 sm:scroll-mt-32">
+        <section id="archives" className="py-20 sm:py-28 border-t border-white/5 bg-black/30 scroll-mt-28 sm:scroll-mt-32">
           <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
               
@@ -791,7 +676,7 @@ export default function Home() {
               <div className="space-y-12">
                 <div className="flex items-center gap-4">
                   <Briefcase className="w-6 h-6 text-primary" />
-                  <h3 className="text-4xl font-black uppercase tracking-tighter">Employment<br />History.</h3>
+                  <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Professional<br />Experience.</h3>
                 </div>
                 <div className="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-white/10 ml-3 pl-12">
                   {profileData.employment.map((job, i) => (
@@ -800,8 +685,8 @@ export default function Home() {
                       <div className="space-y-2">
                         <div className="text-primary font-black text-[10px] tracking-widest uppercase">{job.period}</div>
                         <h4 className="text-2xl font-black uppercase">{job.role}</h4>
-                        <div className="text-white/40 text-[10px] font-bold uppercase tracking-widest">{job.company}</div>
-                        <p className="text-white/30 text-sm leading-relaxed max-w-md">{job.desc}</p>
+                        <div className="text-white/75 text-[10px] font-bold uppercase tracking-wide">{job.company}</div>
+                        <p className="text-white/80 text-sm leading-relaxed max-w-md">{job.desc}</p>
                         <div className="flex flex-wrap gap-2 pt-2">
                           {job.stack.map(s => (
                             <span key={s} className="px-2 py-1 bg-white/5 text-[8px] font-black uppercase tracking-widest text-white/20 select-none">
@@ -819,7 +704,7 @@ export default function Home() {
               <div className="space-y-12">
                 <div className="flex items-center gap-4">
                   <GraduationCap className="w-6 h-6 text-primary" />
-                  <h3 className="text-4xl font-black uppercase tracking-tighter">Academic<br />Archives.</h3>
+                  <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Education.</h3>
                 </div>
                 <div className="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-white/10 ml-3 pl-12">
                   {profileData.education.map((edu, i) => (
@@ -828,8 +713,8 @@ export default function Home() {
                       <div className="space-y-2">
                         <div className="text-primary font-black text-[10px] tracking-widest uppercase">{edu.period}</div>
                         <h4 className="text-2xl font-black uppercase">{edu.degree}</h4>
-                        <div className="text-white/40 text-[10px] font-bold uppercase tracking-widest">{edu.school}</div>
-                        <div className="text-white/20 text-[10px] uppercase tracking-widest">{edu.city}</div>
+                        <div className="text-white/75 text-[10px] font-bold uppercase tracking-wide">{edu.school}</div>
+                        <div className="text-white/60 text-[10px] uppercase tracking-wide">{edu.city}</div>
                       </div>
                     </div>
                   ))}
@@ -841,17 +726,17 @@ export default function Home() {
         </section>
 
         {/* Archives / Expertise */}
-        <section id="expertise" className="py-40 border-t border-white/5 scroll-mt-28 sm:scroll-mt-32">
+        <section id="expertise" className="py-20 sm:py-28 border-t border-white/5 scroll-mt-28 sm:scroll-mt-32">
           <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
               <div className="lg:col-span-1 space-y-8">
                 <div className="w-12 h-12 border-2 border-primary flex items-center justify-center rotate-45">
                   <Monitor className="w-6 h-6 text-primary -rotate-45" />
                 </div>
-                <h3 className="text-4xl font-black uppercase tracking-tighter">System<br />Expertise.</h3>
+                <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Technical<br />Skills.</h3>
                 <div className="h-px w-20 bg-primary" />
-                <p className="text-white/30 text-sm leading-relaxed">
-                  Engineered for maximum scale. These are the core stack components currently synchronized with the system.
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Technologies I use across mobile, frontend, backend, cloud, and AI-assisted tooling.
                 </p>
               </div>
               
@@ -904,39 +789,39 @@ export default function Home() {
         </section>
 
         {/* Validated Mission Reports (Testimonials) */}
-        <section id="reviews" className="py-40 bg-black/40 overflow-hidden border-y border-white/5 scroll-mt-28 sm:scroll-mt-32">
-          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 mb-20">
-            <div className="text-primary font-black text-[10px] tracking-[0.5em] uppercase mb-4">Social Proof Handshake</div>
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
-              Mission<br />Reports.
+        <section id="reviews" className="py-20 sm:py-28 bg-black/40 overflow-hidden border-y border-white/5 scroll-mt-28 sm:scroll-mt-32">
+          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 mb-12 sm:mb-16">
+            <div className="text-primary font-black text-[11px] tracking-[0.2em] uppercase mb-3">Client Feedback</div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none">
+              Reviews.
             </h2>
           </div>
-          
-          <div className="flex gap-8 px-5 sm:px-8 lg:px-12 animate-scroll">
-            <div className="flex gap-8 min-w-full">
-              {[...profileData.testimonials, ...profileData.testimonials].map((t, i) => (
-                <div key={i} className="min-w-[400px] p-10 bg-white/[0.02] border border-white/5 space-y-8 relative group">
+
+          <div className="px-5 sm:px-8 lg:px-12 overflow-x-auto pb-2 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]">
+            <div className="flex gap-6 w-max">
+              {profileData.testimonials.map((t, i) => (
+                <div key={i} className="snap-start min-w-[82vw] sm:min-w-[420px] max-w-[520px] p-8 bg-white/[0.03] border border-white/10 space-y-6 relative group rounded-xl">
                   <div className="absolute top-0 right-0 p-6">
                     <Hexagon className="w-8 h-8 text-white/5 group-hover:text-primary/20 transition-all" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
                       <div className="text-[10px] font-black text-primary tracking-widest">{t.id}</div>
-                      <div className="text-[9px] text-white/30 uppercase">{t.location}</div>
+                      <div className="text-[10px] text-white/70 uppercase tracking-wide">{t.location}</div>
                     </div>
                     <div className="flex gap-1 text-primary">
                       {[1, 2, 3, 4, 5].map(s => <Zap key={s} className="w-3 h-3 fill-current" />)}
                     </div>
                   </div>
-                  <p className="text-lg leading-relaxed text-white/60 italic font-medium">
-                    "{t.text}"
+                  <p className="text-base leading-relaxed text-white/85 font-medium">
+                    {t.text}
                   </p>
                   <div className="pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
                     <div>
                       <div className="text-lg sm:text-xl font-black uppercase tracking-tighter">{t.client}</div>
                       <div className="text-[9px] font-black text-primary uppercase tracking-widest">{t.service}</div>
                     </div>
-                    <div className="px-3 py-1 bg-primary text-black text-[9px] font-black uppercase tracking-widest">VALIDATED</div>
+                    <div className="px-3 py-1 bg-primary text-black text-[9px] font-black uppercase tracking-widest">Verified</div>
                   </div>
                 </div>
               ))}
