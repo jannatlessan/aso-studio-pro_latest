@@ -40,6 +40,7 @@ import {
   Briefcase,
   Menu,
   ChevronLeft,
+  X,
   Download,
   Layers,
   Sparkles,
@@ -110,23 +111,37 @@ const profileData = {
     { label: "Systems Scaled", value: "120+", icon: Cpu },
     { label: "Satisfied Clients", value: "45+", icon: Globe }
   ],
-  techStack: [
-    { name: "Flutter", icon: Smartphone, color: "#02539A" },
-    { name: "React Native", icon: Smartphone, color: "#61DAFB" },
-    { name: "SwiftUI", icon: Smartphone, color: "#007AFF" },
-    { name: "KMP (Kotlin)", icon: Smartphone, color: "#7F52FF" },
-    { name: "Next.js", icon: Globe, color: "#000000" },
-    { name: "Node.js", icon: Zap, color: "#339933" },
-    { name: "Go", icon: Terminal, color: "#00ADD8" },
-    { name: "TypeScript", icon: Code, color: "#3178C6" },
-    { name: "OpenAI / LLMs", icon: Cpu, color: "#412991" },
-    { name: "LangChain", icon: ActivityIcon, color: "#00A67E" },
-    { name: "AWS", icon: Cloud, color: "#FF9900" },
-    { name: "Docker", icon: Box, color: "#2496ED" },
-    { name: "PostgreSQL", icon: Database, color: "#336791" },
-    { name: "MongoDB", icon: Database, color: "#47A248" },
-    { name: "FFmpeg", icon: Play, color: "#00FACD" },
-    { name: "Redis", icon: ActivityIcon, color: "#DC382D" }
+  techCategories: [
+    {
+      name: "Mobile App Development",
+      icon: Smartphone,
+      stacks: ["Flutter", "React Native", "SwiftUI", "KMP (Kotlin)", "Dart", "App Store Connect", "Google Play Console"]
+    },
+    {
+      name: "Frontend Engineering",
+      icon: Layout,
+      stacks: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Responsive UI", "Motion / Animation"]
+    },
+    {
+      name: "Backend Engineering",
+      icon: Terminal,
+      stacks: ["Node.js", "Go", "Laravel", "REST APIs", "Authentication", "Payment Integrations"]
+    },
+    {
+      name: "Software Full Stack Engineer",
+      icon: Layers,
+      stacks: ["End-to-End Architecture", "CI/CD", "Performance Tuning", "Scalable Deployments", "Monitoring", "Production Debugging"]
+    },
+    {
+      name: "Cloud & Databases",
+      icon: Database,
+      stacks: ["AWS", "Docker", "PostgreSQL", "MongoDB", "Redis", "Storage & Caching"]
+    },
+    {
+      name: "AI & Other Tools",
+      icon: Settings2,
+      stacks: ["OpenAI / LLMs", "LangChain", "FFmpeg", "GitHub Actions", "Postman", "Figma"]
+    }
   ],
   employment: [
     {
@@ -197,6 +212,46 @@ const profileData = {
 
 const RIZWAN_ULTRA_IMAGE_URL = 'https://raw.githubusercontent.com/jannatlessan/pp270504/refs/heads/main/rizwan_ultra.png';
 
+const TECH_ICON_MAP: Record<string, string> = {
+  "Flutter": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  "SwiftUI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
+  "KMP (Kotlin)": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+  "Dart": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
+  "App Store Connect": "https://cdn.simpleicons.org/appstore/FFFFFF",
+  "Google Play Console": "https://cdn.simpleicons.org/googleplay/FFFFFF",
+  "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  "Next.js": "https://cdn.simpleicons.org/nextdotjs/FFFFFF",
+  "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+  "Responsive UI": "https://cdn.simpleicons.org/css3/FFFFFF",
+  "Motion / Animation": "https://cdn.simpleicons.org/framer/FFFFFF",
+  "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  "Go": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
+  "Laravel": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+  "REST APIs": "https://cdn.simpleicons.org/openapiinitiative/FFFFFF",
+  "Authentication": "https://cdn.simpleicons.org/auth0/FFFFFF",
+  "Payment Integrations": "https://cdn.simpleicons.org/stripe/FFFFFF",
+  "End-to-End Architecture": "https://cdn.simpleicons.org/miro/FFFFFF",
+  "CI/CD": "https://cdn.simpleicons.org/githubactions/FFFFFF",
+  "Performance Tuning": "https://cdn.simpleicons.org/speedtest/FFFFFF",
+  "Scalable Deployments": "https://cdn.simpleicons.org/kubernetes/FFFFFF",
+  "Monitoring": "https://cdn.simpleicons.org/grafana/FFFFFF",
+  "Production Debugging": "https://cdn.simpleicons.org/sentry/FFFFFF",
+  "AWS": "https://cdn.simpleicons.org/amazonaws/FFFFFF",
+  "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+  "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  "Redis": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+  "Storage & Caching": "https://cdn.simpleicons.org/cloudflare/FFFFFF",
+  "OpenAI / LLMs": "https://cdn.simpleicons.org/openai/FFFFFF",
+  "LangChain": "https://cdn.simpleicons.org/langchain/FFFFFF",
+  "FFmpeg": "https://cdn.simpleicons.org/ffmpeg/FFFFFF",
+  "GitHub Actions": "https://cdn.simpleicons.org/githubactions/FFFFFF",
+  "Postman": "https://cdn.simpleicons.org/postman/FFFFFF",
+  "Figma": "https://cdn.simpleicons.org/figma/FFFFFF"
+};
+
 const getProjectInitials = (name?: string) => {
   if (!name) return 'NA';
   const words = name
@@ -258,6 +313,8 @@ export default function Home() {
   const [apps, setApps] = useState<any[]>([]);
   const [failedIcons, setFailedIcons] = useState<Record<string, boolean>>({});
   const [failedScreenshots, setFailedScreenshots] = useState<Record<string, boolean>>({});
+  const [failedTechIcons, setFailedTechIcons] = useState<Record<string, boolean>>({});
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}projects.json`)
@@ -283,6 +340,33 @@ export default function Home() {
     setFailedScreenshots((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
   };
 
+  const markTechIconFailed = (name: string) => {
+    setFailedTechIcons((prev) => (prev[name] ? prev : { ...prev, [name]: true }));
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+  const renderProjectIcon = (app: any, sizeClass = 'w-14 h-14') => {
+    if (app.icon && !failedIcons[app.id]) {
+      return (
+        <img
+          src={app.icon}
+          alt={`${app.name} icon`}
+          className={`${sizeClass} rounded-2xl border border-white/10 object-cover grayscale group-hover:grayscale-0 transition-all`}
+          onError={() => markIconFailed(app.id)}
+        />
+      );
+    }
+
+    return (
+      <div className={`${sizeClass} rounded-2xl border border-primary/30 bg-[radial-gradient(circle_at_20%_20%,rgba(0,240,255,0.45),rgba(0,0,0,0.95))] flex items-center justify-center font-black text-lg tracking-wider text-white shadow-lg shadow-primary/20`}>
+        {getProjectInitials(app.name)}
+      </div>
+    );
+  };
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (!booting) {
@@ -297,6 +381,17 @@ export default function Home() {
     });
     return () => ctx.revert();
   }, [booting]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileMenuOpen]);
   useEffect(() => {
     if (!booting) return;
 
@@ -404,16 +499,47 @@ export default function Home() {
           <Link to="/tools" className="hidden sm:flex btn-primary py-2 px-4 text-[10px]">
             INITIALIZE LAB
           </Link>
-          <button className="lg:hidden p-2 border border-white/10 bg-white/5 rounded-lg active:scale-95 transition-all">
-            <Menu className="w-5 h-5 text-primary" />
+          <button
+            type="button"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="lg:hidden p-2 border border-white/10 bg-white/5 rounded-lg active:scale-95 transition-all"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5 text-primary" /> : <Menu className="w-5 h-5 text-primary" />}
           </button>
         </div>
       </nav>
 
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            className="fixed top-[72px] left-0 right-0 z-40 px-4 lg:hidden"
+          >
+            <div className="rounded-2xl border border-white/10 bg-black/95 backdrop-blur-xl p-4 space-y-3 shadow-2xl shadow-black/60">
+              <a href="#expertise" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Expertise
+              </a>
+              <a href="#modules" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Modules
+              </a>
+              <a href="#reviews" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Reviews
+              </a>
+              <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                Laboratory
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero */}
-      <main className="relative z-10">
-        <section className="min-h-screen flex items-center justify-center pt-20">
-          <div className="max-w-[1600px] mx-auto px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <main className="relative z-10 pt-20 sm:pt-0">
+        <section className="min-h-screen flex items-center justify-center pt-8 sm:pt-20">
+          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             
             <div className="space-y-16">
               <div className="space-y-6">
@@ -528,8 +654,8 @@ export default function Home() {
         </section>
 
         {/* Modules Section */}
-        <section id="modules" className="py-40 bg-black/50">
-          <div className="max-w-[1600px] mx-auto px-12">
+        <section id="modules" className="py-40 bg-black/50 scroll-mt-28 sm:scroll-mt-32">
+          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-32">
               <div className="space-y-4">
                 <div className="text-primary font-black text-[10px] tracking-[0.5em] uppercase">Deployment Repositories</div>
@@ -574,27 +700,6 @@ export default function Home() {
               {apps.map((app) => (
                 <div key={app.id} className="module-card group relative">
                   <div className="h-full p-10 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.02] hover:border-primary/20 transition-all duration-500 overflow-hidden relative">
-                    <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                      {app.icon ? (
-                        !failedIcons[app.id] ? (
-                          <img 
-                            src={app.icon} 
-                            alt="" 
-                            className="w-24 h-24 rounded-2xl grayscale group-hover:grayscale-0 transition-all"
-                            onError={() => markIconFailed(app.id)}
-                          />
-                        ) : (
-                          <div className="w-24 h-24 rounded-2xl border border-primary/30 bg-[radial-gradient(circle_at_20%_20%,rgba(0,240,255,0.45),rgba(0,0,0,0.95))] flex items-center justify-center font-black text-2xl tracking-wider text-white shadow-lg shadow-primary/20">
-                            {getProjectInitials(app.name)}
-                          </div>
-                        )
-                      ) : (
-                        <div className="w-24 h-24 rounded-2xl border border-primary/30 bg-[radial-gradient(circle_at_20%_20%,rgba(0,240,255,0.45),rgba(0,0,0,0.95))] flex items-center justify-center font-black text-2xl tracking-wider text-white shadow-lg shadow-primary/20">
-                          {getProjectInitials(app.name)}
-                        </div>
-                      )}
-                    </div>
-                    
                     <div className="relative z-10 space-y-6">
                       <div className="flex items-center justify-between">
                         <div className="text-[9px] font-black text-white/30 tracking-[0.4em] uppercase">
@@ -638,17 +743,34 @@ export default function Home() {
                           </div>
                         </div>
                       )}
-                      <div className="pt-6 border-t border-white/5 flex gap-4">
-                        {app.playStore && (
-                          <a href={app.playStore} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all">
-                            Google Play
-                          </a>
-                        )}
-                        {app.appStore && (
-                          <a href={app.appStore} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all">
-                            App Store
-                          </a>
-                        )}
+                      <div className="pt-6 border-t border-white/5 flex items-center justify-between gap-4">
+                        <div className="shrink-0">
+                          {renderProjectIcon(app)}
+                        </div>
+                        <div className="flex flex-wrap justify-end gap-3">
+                          {app.playStore ? (
+                            <a href={app.playStore} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all inline-flex items-center gap-2">
+                              <Play className="w-3 h-3" />
+                              Play Store
+                            </a>
+                          ) : (
+                            <span className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest text-white/30 inline-flex items-center gap-2 cursor-not-allowed">
+                              <Play className="w-3 h-3" />
+                              Play Store
+                            </span>
+                          )}
+                          {app.appStore ? (
+                            <a href={app.appStore} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all inline-flex items-center gap-2">
+                              <AppWindow className="w-3 h-3" />
+                              App Store
+                            </a>
+                          ) : (
+                            <span className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest text-white/30 inline-flex items-center gap-2 cursor-not-allowed">
+                              <AppWindow className="w-3 h-3" />
+                              App Store
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -659,8 +781,8 @@ export default function Home() {
         </section>
 
         {/* Career & Education Archives */}
-        <section id="archives" className="py-40 border-t border-white/5 bg-black/30">
-          <div className="max-w-[1600px] mx-auto px-12">
+        <section id="archives" className="py-40 border-t border-white/5 bg-black/30 scroll-mt-28 sm:scroll-mt-32">
+          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
               
               {/* Employment */}
@@ -717,8 +839,8 @@ export default function Home() {
         </section>
 
         {/* Archives / Expertise */}
-        <section id="expertise" className="py-40 border-t border-white/5">
-          <div className="max-w-[1600px] mx-auto px-12">
+        <section id="expertise" className="py-40 border-t border-white/5 scroll-mt-28 sm:scroll-mt-32">
+          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
               <div className="lg:col-span-1 space-y-8">
                 <div className="w-12 h-12 border-2 border-primary flex items-center justify-center rotate-45">
@@ -731,13 +853,42 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="lg:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-8">
-                {profileData.techStack.map(tech => (
-                  <div key={tech.name} className="group p-8 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.05] hover:border-primary/40 transition-all text-center space-y-4">
-                    <tech.icon className="w-10 h-10 mx-auto text-white/20 group-hover:text-primary transition-colors" />
-                    <div className="text-[10px] font-black uppercase tracking-[0.3em]">{tech.name}</div>
+              <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                {profileData.techCategories.map((category) => (
+                  <div key={category.name} className="group p-8 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.05] hover:border-primary/40 transition-all space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-11 h-11 border border-primary/30 bg-primary/10 rounded-xl flex items-center justify-center">
+                        <category.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="text-sm font-black uppercase tracking-[0.2em] text-white/90">{category.name}</div>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {category.stacks.map((stack) => {
+                        const iconUrl = TECH_ICON_MAP[stack];
+                        const isFailed = failedTechIcons[stack];
+
+                        return (
+                          <div key={`${category.name}-${stack}`} className="px-3 py-3 border border-white/10 bg-black/30 text-white/80 group-hover:border-primary/30 transition-colors rounded-lg flex flex-col items-center justify-center text-center gap-2 min-h-[102px]">
+                            {iconUrl && !isFailed ? (
+                              <img
+                                src={iconUrl}
+                                alt={`${stack} icon`}
+                                loading="lazy"
+                                className="w-8 h-8 object-contain"
+                                onError={() => markTechIconFailed(stack)}
+                              />
+                            ) : (
+                              <div className="w-8 h-8 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center text-[10px] font-black tracking-wider text-primary">
+                                {getProjectInitials(stack).slice(0, 2)}
+                              </div>
+                            )}
+                            <div className="text-[9px] font-black uppercase tracking-[0.12em] leading-tight">{stack}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
                     <div className="h-1 w-full bg-white/5 overflow-hidden">
-                      <motion.div 
+                      <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: "100%" }}
                         className="h-full bg-primary/40"
@@ -751,15 +902,15 @@ export default function Home() {
         </section>
 
         {/* Validated Mission Reports (Testimonials) */}
-        <section id="reviews" className="py-40 bg-black/40 overflow-hidden border-y border-white/5">
-          <div className="max-w-[1600px] mx-auto px-12 mb-20">
+        <section id="reviews" className="py-40 bg-black/40 overflow-hidden border-y border-white/5 scroll-mt-28 sm:scroll-mt-32">
+          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 mb-20">
             <div className="text-primary font-black text-[10px] tracking-[0.5em] uppercase mb-4">Social Proof Handshake</div>
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
               Mission<br />Reports.
             </h2>
           </div>
           
-          <div className="flex gap-8 px-12 animate-scroll">
+          <div className="flex gap-8 px-5 sm:px-8 lg:px-12 animate-scroll">
             <div className="flex gap-8 min-w-full">
               {[...profileData.testimonials, ...profileData.testimonials].map((t, i) => (
                 <div key={i} className="min-w-[400px] p-10 bg-white/[0.02] border border-white/5 space-y-8 relative group">
