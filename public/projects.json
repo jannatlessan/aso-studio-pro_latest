@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Kairos Time Entry TW",
+    "id": "PROJ-K01",
+    "description": "Manage your workday with ease. Track hours, update job statuses, and view project details specifically tailored for the Kinetic project.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.kairos.kairos_time_entry_tw",
+    "appStore": "https://apps.apple.com/pk/app/kairos-time-entry-tw/id6748434834",
+    "icon": "https://play-lh.googleusercontent.com/ZGqvTRe8YcsgbjUuSwX1KV7Q8NEbDNdXUUpgKVP169q8P7RnN-uVouKnj08caknPOQ=w240-h480-rw",
+    "category": "Enterprise / ERP",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  },
+  {
+    "name": "Epicor Kinetic Time Entry",
+    "id": "PROJ-K02",
+    "description": "Efficient and accurate fleet management. Designed for drivers to manage work hours and update job statuses in real-time.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.kairos.kairos_fleet_management",
+    "appStore": "https://apps.apple.com/pk/app/kinetic-time-entry/id6505063249",
+    "icon": "https://play-lh.googleusercontent.com/veg1UN6fV_OIcS7vqCh788FH3yy6bOmwUQ_DaC9MP-fuIgTjo0jtTMxrsyvWYyf0Iw=w240-h480-rw",
+    "category": "Enterprise / ERP",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  },
+  {
+    "name": "Selfiestreet",
+    "id": "PROJ-S01",
+    "description": "A social platform where users take photos/videos and publish them to screens in Italian squares (piazze).",
+    "playStore": "https://play.google.com/store/apps/details?id=com.goodbarber.selfiestreet",
+    "appStore": "https://apps.apple.com/pk/app/selfiestreet/id6590619126",
+    "icon": "https://play-lh.googleusercontent.com/ZGqvTRe8YcsgbjUuSwX1KV7Q8NEbDNdXUUpgKVP169q8P7RnN-uVouKnj08caknPOQ=w240-h480-rw",
+    "category": "Social / WebGL",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  },
+  {
+    "name": "FlashPad – Quick Notes",
+    "id": "PROJ-F01",
+    "description": "Lightweight and fast note-taking app for capturing ideas and reminders on the fly.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.flashpad.flashpad",
+    "appStore": "https://apps.apple.com/pk/app/flashpad-quick-notes/id6760437826",
+    "icon": "https://play-lh.googleusercontent.com/uR121GleN04e6U97e5T40h9Jd3fR5k9_V77651z47W7_2I6g5g6k=w240-h480-rw",
+    "category": "Utility / Notes",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  },
+  {
+    "name": "PhotoGem: AI Pix Prompt",
+    "id": "PROJ-P01",
+    "description": "A gallery of trending AI prompts to help users generate high-quality AI images.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.shaaddevstudio.picsprompt",
+    "icon": "https://play-lh.googleusercontent.com/veg1UN6fV_OIcS7vqCh788FH3yy6bOmwUQ_DaC9MP-fuIgTjo0jtTMxrsyvWYyf0Iw=w240-h480-rw",
+    "category": "AI / Generative",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  },
+  {
+    "name": "Volume Lock & Limiter",
+    "id": "PROJ-V01",
+    "description": "Control and lock your device's volume to prevent accidental changes.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock",
+    "appStore": "https://apps.apple.com/pk/app/volume-lock-limiter-pro/id6739434834",
+    "icon": "https://play-lh.googleusercontent.com/ZGqvTRe8YcsgbjUuSwX1KV7Q8NEbDNdXUUpgKVP169q8P7RnN-uVouKnj08caknPOQ=w240-h480-rw",
+    "category": "Utility / Control",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  },
+  {
+    "name": "BDVibes: Birthday Reminders",
+    "id": "PROJ-B01",
+    "description": "Never miss a birthday again with custom reminders and wishes.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.bdayvibes.app",
+    "appStore": "https://apps.apple.com/pk/app/bdvibes-birthday-reminders/id6738434834",
+    "icon": "https://play-lh.googleusercontent.com/uR121GleN04e6U97e5T40h9Jd3fR5k9_V77651z47W7_2I6g5g6k=w240-h480-rw",
+    "category": "Social / Utility",
+    "screenshot": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0a/7b/7b/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e/0a7b7b1e-6e8e-6e8e-6e8e-6e8e6e8e6e8e.png/300x0w.webp"
+  }
+]

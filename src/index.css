@@ -7,15 +7,12 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-primary: #2E5C6E;
-  --color-primary-light: #4A8FA3;
-  --color-primary-dark: #1D3D4A;
+  --color-primary: #5eead4;
+  --color-primary-light: #99f6e4;
+  --color-primary-dark: #2dd4bf;
   
-  --color-accent-coral: #C75B39;
-  --color-accent-amber: #B8860B;
-  --color-accent-green: #4A8068;
-  --color-accent-sky: #5B7B8A;
-  --color-accent-purple: #7B5EA7;
+  --color-accent-teal: #5eead4;
+  --color-accent-blue: #3b82f6;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -27,17 +24,17 @@
 }
 
 :root {
-  /* Default to Dark Theme as per current app aesthetic */
-  --bg: #121214;
-  --surface: #1C1C1E;
-  --surface-variant: #2C2C2E;
-  --text: #F5F5F5;
-  --text-secondary: #8E8E93;
-  --text-tertiary: #636366;
-  --border: #38383A;
-  --accent: #2E5C6E;
-  --line: rgba(255, 255, 255, 0.08);
-  --panel-bg: rgba(28, 28, 30, 0.6);
+  /* Rajesh Portfolio inspired theme */
+  --bg: #0a0e17;
+  --surface: #111827;
+  --surface-variant: #1f2937;
+  --text: #eae5ec;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --border: #1e293b;
+  --accent: #5eead4;
+  --line: rgba(94, 234, 212, 0.1);
+  --panel-bg: rgba(17, 24, 39, 0.7);
 }
 
 body {
