@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 import { useState, useRef, useEffect, Suspense, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
@@ -193,6 +195,25 @@ const profileData = {
   ]
 };
 
+const RIZWAN_ULTRA_IMAGE_URL = 'https://raw.githubusercontent.com/jannatlessan/pp270504/refs/heads/main/rizwan_ultra.png';
+
+const getProjectInitials = (name?: string) => {
+  if (!name) return 'NA';
+  const words = name
+    .split(/[^A-Za-z0-9]+/)
+    .map((word) => word.trim())
+    .filter(Boolean)
+    .slice(0, 3);
+
+  return words.map((word) => word[0]?.toUpperCase() ?? '').join('') || 'NA';
+};
+
+const resolveMediaUrl = (value?: string) => {
+  if (!value) return '';
+  if (/^https?:\/\//i.test(value)) return value;
+  return `${import.meta.env.BASE_URL}${value.replace(/^\/+/, '')}`;
+};
+
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
@@ -235,13 +256,32 @@ export default function Home() {
   });
   const [bootLogs, setBootLogs] = useState<string[]>([]);
   const [apps, setApps] = useState<any[]>([]);
+  const [failedIcons, setFailedIcons] = useState<Record<string, boolean>>({});
+  const [failedScreenshots, setFailedScreenshots] = useState<Record<string, boolean>>({});
   
   useEffect(() => {
-    fetch('/projects.json')
+    fetch(`${import.meta.env.BASE_URL}projects.json`)
       .then(res => res.json())
-      .then(data => setApps(data))
+      .then(data => {
+        const normalized = Array.isArray(data)
+          ? data.map((app) => ({
+              ...app,
+              icon: resolveMediaUrl(app.icon),
+              screenshot: resolveMediaUrl(app.screenshot)
+            }))
+          : [];
+        setApps(normalized);
+      })
       .catch(err => console.error("Error loading projects:", err));
   }, []);
+
+  const markIconFailed = (id: string) => {
+    setFailedIcons((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
+  };
+
+  const markScreenshotFailed = (id: string) => {
+    setFailedScreenshots((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -447,7 +487,7 @@ export default function Home() {
                 <div className="absolute inset-0 border border-primary/20" />
                 <div className="relative z-10 w-full h-full overflow-hidden bg-[#050505]">
                   <img 
-                    src="/src/assets/rizwan_ultra.png" 
+                    src={RIZWAN_ULTRA_IMAGE_URL}
                     alt="Rizwan Ultra Persona" 
                     className="w-full h-full object-cover mix-blend-screen brightness-125 hover:scale-105 transition-transform duration-1000"
                   />
@@ -536,18 +576,21 @@ export default function Home() {
                   <div className="h-full p-10 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.02] hover:border-primary/20 transition-all duration-500 overflow-hidden relative">
                     <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
                       {app.icon ? (
-                        <img 
-                          src={app.icon} 
-                          alt="" 
-                          className="w-24 h-24 rounded-2xl grayscale group-hover:grayscale-0 transition-all"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                            (e.target as HTMLImageElement).parentElement?.classList.add('fallback-avatar');
-                          }}
-                        />
+                        !failedIcons[app.id] ? (
+                          <img 
+                            src={app.icon} 
+                            alt="" 
+                            className="w-24 h-24 rounded-2xl grayscale group-hover:grayscale-0 transition-all"
+                            onError={() => markIconFailed(app.id)}
+                          />
+                        ) : (
+                          <div className="w-24 h-24 rounded-2xl border border-primary/30 bg-[radial-gradient(circle_at_20%_20%,rgba(0,240,255,0.45),rgba(0,0,0,0.95))] flex items-center justify-center font-black text-2xl tracking-wider text-white shadow-lg shadow-primary/20">
+                            {getProjectInitials(app.name)}
+                          </div>
+                        )
                       ) : (
-                        <div className="w-24 h-24 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center font-black text-4xl text-primary">
-                          {app.name.charAt(0)}
+                        <div className="w-24 h-24 rounded-2xl border border-primary/30 bg-[radial-gradient(circle_at_20%_20%,rgba(0,240,255,0.45),rgba(0,0,0,0.95))] flex items-center justify-center font-black text-2xl tracking-wider text-white shadow-lg shadow-primary/20">
+                          {getProjectInitials(app.name)}
                         </div>
                       )}
                     </div>
@@ -576,14 +619,23 @@ export default function Home() {
                       </div>
                       
                       {/* Store Screenshot Preview */}
-                      {app.screenshot && (
+                      {app.screenshot && !failedScreenshots[app.id] && (
                         <div className="relative mt-4 h-32 overflow-hidden rounded-lg border border-white/5 opacity-50 group-hover:opacity-100 group-hover:h-48 transition-all duration-700">
                           <img 
                             src={app.screenshot} 
                             alt={`${app.name} preview`} 
                             className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-1000"
+                            onError={() => markScreenshotFailed(app.id)}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                        </div>
+                      )}
+                      {(!app.screenshot || failedScreenshots[app.id]) && (
+                        <div className="relative mt-4 h-32 overflow-hidden rounded-lg border border-primary/20 bg-[linear-gradient(145deg,rgba(0,240,255,0.2),rgba(0,0,0,0.9))] opacity-70 group-hover:opacity-100 group-hover:h-48 transition-all duration-700 flex items-center justify-center">
+                          <div className="text-center px-4">
+                            <div className="text-3xl font-black tracking-widest text-white">{getProjectInitials(app.name)}</div>
+                            <div className="text-[9px] uppercase tracking-[0.35em] text-primary/80 mt-2">Preview</div>
+                          </div>
                         </div>
                       )}
                       <div className="pt-6 border-t border-white/5 flex gap-4">
