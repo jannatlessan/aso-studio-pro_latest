@@ -558,31 +558,6 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Internal Lab Tools First */}
-              {profileData.projects.map((proj) => (
-                <Link key={proj.title} to={proj.path} className="module-card group relative">
-                  <div className="h-full p-10 border border-primary/20 bg-primary/[0.02] hover:bg-primary/[0.05] hover:border-primary transition-all duration-500 overflow-hidden relative">
-                    <div className="absolute top-0 right-0 p-6 text-primary/5 group-hover:text-primary/10 transition-colors">
-                      <proj.icon className="w-32 h-32 -mr-8 -mt-8 rotate-12" />
-                    </div>
-                    
-                    <div className="relative z-10 space-y-6">
-                      <div className="flex items-center justify-between">
-                        <div />
-                        <ExternalLink className="w-4 h-4 text-primary/40 group-hover:text-primary transition-colors" />
-                      </div>
-                      <div className="space-y-3">
-                        <h3 className="text-3xl font-black uppercase tracking-tighter group-hover:text-primary transition-colors">{proj.title}</h3>
-                        <p className="text-white/75 text-sm leading-relaxed">{proj.desc}</p>
-                      </div>
-                      <div className="pt-4 flex items-center gap-3 text-[9px] font-black tracking-wide uppercase text-primary/80 group-hover:text-primary transition-colors">
-                        Open Tool <ChevronRight className="w-3 h-3" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-
               {/* Scraped Portfolio Apps */}
               {apps.map((app) => (
                 <div key={app.id} className="module-card group relative">
