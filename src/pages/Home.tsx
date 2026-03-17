@@ -156,7 +156,7 @@ const profileData = {
   ],
   education: [
     {
-      school: "Khawaja Fareed University of Engineering & Tech (KFUEIT)",
+      school: "Khawaja Fareed University of Engineering & Technology (KFUEIT)",
       degree: "BS Computer Science",
       period: "2017 - 2021",
       city: "Rahim Yar Khan"
@@ -381,6 +381,22 @@ export default function Home() {
     };
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/40 font-mono overflow-x-hidden">
 
@@ -431,27 +447,38 @@ export default function Home() {
 
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="fixed top-[72px] left-0 right-0 z-40 px-4 lg:hidden"
-          >
-            <div className="rounded-2xl border border-white/20 bg-black/95 backdrop-blur-xl p-4 space-y-3 shadow-2xl shadow-black/60">
-              <a href="#expertise" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Skills
-              </a>
-              <a href="#modules" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Projects
-              </a>
-              <a href="#reviews" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Client Reviews
-              </a>
-              <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                Tools
-              </Link>
-            </div>
-          </motion.div>
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeMobileMenu}
+              className="fixed inset-0 z-30 bg-black/50 backdrop-blur-[2px] lg:hidden"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              className="fixed top-[72px] left-0 right-0 z-40 px-4 lg:hidden"
+            >
+              <div className="rounded-2xl border border-white/20 bg-black/95 backdrop-blur-xl p-4 space-y-3 shadow-2xl shadow-black/60">
+                <a href="#expertise" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                  Skills
+                </a>
+                <a href="#modules" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                  Projects
+                </a>
+                <a href="#reviews" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                  Client Reviews
+                </a>
+                <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                  Tools
+                </Link>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
@@ -582,7 +609,7 @@ export default function Home() {
                       </div>
                       <div className="space-y-3">
                         <h3 className="text-3xl font-black uppercase tracking-tighter group-hover:text-primary transition-colors">{app.name}</h3>
-                        <p className="text-white/80 text-sm leading-relaxed line-clamp-2">{app.description}</p>
+                        <p className="text-white/80 text-sm leading-relaxed">{app.description}</p>
                       </div>
                       
                       {/* Store Screenshot Preview */}
@@ -664,7 +691,7 @@ export default function Home() {
                         <p className="text-white/80 text-sm leading-relaxed max-w-md">{job.desc}</p>
                         <div className="flex flex-wrap gap-2 pt-2">
                           {job.stack.map(s => (
-                            <span key={s} className="px-2 py-1 bg-white/5 text-[8px] font-black uppercase tracking-widest text-white/20 select-none">
+                            <span key={s} className="px-2 py-1 bg-white/10 border border-white/20 text-[8px] font-black uppercase tracking-widest text-white/90 select-none rounded-sm">
                               {s}
                             </span>
                           ))}
@@ -730,17 +757,19 @@ export default function Home() {
                         const isFailed = failedTechIcons[stack];
 
                         return (
-                          <div key={`${category.name}-${stack}`} className="px-3 py-3 border border-white/10 bg-black/30 text-white/80 group-hover:border-primary/30 transition-colors rounded-lg flex flex-col items-center justify-center text-center gap-2 min-h-[102px]">
+                          <div key={`${category.name}-${stack}`} className="px-3 py-3 border border-white/10 bg-black/30 text-white/90 group-hover:border-primary/30 transition-colors rounded-lg flex flex-col items-center justify-center text-center gap-2 min-h-[102px]">
                             {iconUrl && !isFailed ? (
-                              <img
-                                src={iconUrl}
-                                alt={`${stack} icon`}
-                                loading="lazy"
-                                className="w-8 h-8 object-contain"
-                                onError={() => markTechIconFailed(stack)}
-                              />
+                              <div className="w-10 h-10 rounded-lg border border-white/25 bg-white/90 p-1.5 flex items-center justify-center shadow-inner shadow-black/15">
+                                <img
+                                  src={iconUrl}
+                                  alt={`${stack} icon`}
+                                  loading="lazy"
+                                  className="w-full h-full object-contain"
+                                  onError={() => markTechIconFailed(stack)}
+                                />
+                              </div>
                             ) : (
-                              <div className="w-8 h-8 rounded-lg border border-primary/30 bg-primary/10 flex items-center justify-center text-[10px] font-black tracking-wider text-primary">
+                              <div className="w-10 h-10 rounded-lg border border-primary/40 bg-primary/15 flex items-center justify-center text-[10px] font-black tracking-wider text-primary">
                                 {getProjectInitials(stack).slice(0, 2)}
                               </div>
                             )}
@@ -772,10 +801,10 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="px-5 sm:px-8 lg:px-12 overflow-x-auto pb-2 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none]">
-            <div className="flex gap-6 w-max">
+          <div className="px-5 sm:px-8 lg:px-12 pb-2 overflow-visible md:overflow-x-auto md:snap-x md:snap-mandatory md:[scrollbar-width:none] md:[-ms-overflow-style:none]">
+            <div className="flex flex-col md:flex-row gap-6 w-full md:w-max">
               {profileData.testimonials.map((t, i) => (
-                <div key={i} className="snap-start min-w-[82vw] sm:min-w-[420px] max-w-[520px] p-8 bg-white/[0.03] border border-white/10 space-y-6 relative group rounded-xl">
+                <div key={i} className="w-full md:snap-start md:min-w-[420px] md:max-w-[520px] p-8 bg-white/[0.03] border border-white/10 space-y-6 relative group rounded-xl">
                   <div className="absolute top-0 right-0 p-6">
                     <Hexagon className="w-8 h-8 text-white/5 group-hover:text-primary/20 transition-all" />
                   </div>
