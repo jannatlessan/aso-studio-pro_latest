@@ -194,18 +194,37 @@ export default function PDFMerger() {
 
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Secure Online PDF Merger</h2>
-            
+            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Secure Client-Side PDF Document Merger</h2>
             <p>
-              Merging PDFs doesn't require uploading your sensitive documents to a random server. Our <strong>Free PDF Merger</strong> works entirely locally in your web browser. This means your personal and business records stay completely private.
+              Managing a multitude of separate PDF files—whether they are scanned invoices, scattered legal contracts, lengthy academic research papers, or various chapters of a comprehensive digital report—can result in an incredibly disorganized and confusing digital workspace. Our <strong>Professional PDF Merger</strong> provides a robust, zero-friction solution that allows you to effortlessly combine multiple fragmented PDF documents into a single, flawlessly organized master file.
             </p>
-            
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Why use our tool?</h3>
-            <ul className="list-disc pl-5 space-y-3">
-              <li><strong>Zero Uploads:</strong> We manipulate the file data buffers natively in the browser ensuring strict confidentiality.</li>
-              <li><strong>Lightning Fast:</strong> No network waiting times required to upload or process your PDF batches.</li>
-              <li><strong>Preserves Formatting:</strong> Using standard compliant algorithms, the document properties, fonts, and layouts remain intact during the join.</li>
-            </ul>
+            <p>
+              Unlike traditional PDF tools that force you into subscribing to expensive monthly proprietary software plans or shady online services that demand you upload your highly confidential business documents to their remote servers, our solution is engineered entirely differently. By processing the intricate structure of the PDF file format directly within your browser window, we offer an immensely powerful workflow utility that guarantees lightning-fast execution while maintaining absolute zero-trust privacy for your sensitive enterprise or personal data.
+            </p>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <ol className="list-decimal pl-5 space-y-3">
+              <li><strong>Add Your PDF Files:</strong> Drag and drop all the individual PDF files you wish to merge into the primary upload zone.</li>
+              <li><strong>Organize Document Order:</strong> Utilize the intuitive interface to reorder the documents. The first file on the list will become the initial pages of your new master document, followed sequentially by the rest.</li>
+              <li><strong>Remove Unwanted Files:</strong> If you accidentally upload the wrong version of a document, simply click the trash icon next to it to eject it from the merging queue.</li>
+              <li><strong>Combine & Download:</strong> Once your sequence is perfectly arranged, click the merge button. The tool will rapidly compile the pages and immediately prompt you to download your new, unified PDF artifact.</li>
+            </ol>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <div className="space-y-4">
+              <div>
+                <strong className="text-white block">1. Are my sensitive legal or financial PDFs secure?</strong>
+                <p>Absolutely 100% secure. Because our application utilizes advanced local WebAssembly and JavaScript PDF engine libraries, the entire merging process happens exclusively within the memory bank of your actual device. Your private documents are never transmitted over the internet to our servers.</p>
+              </div>
+              <div>
+                <strong className="text-white block">2. Do I lose the original text searchability within my merged PDF?</strong>
+                <p>No, you do not. Unlike rudimentary tools that simply rasterize your PDF into a series of flat images, our tool fundamentally restructures the PDF at the code level. Your critical text remains fully selectable, searchable, and intact within the new master document.</p>
+              </div>
+              <div>
+                <strong className="text-white block">3. Is there a hard limit on the number of PDFs I can merge?</strong>
+                <p>Technically, there is no hard-coded limit imposed by the tool itself. However, because the processing utilizes your local device's RAM to compile the final document, merging hundreds of massive, multi-gigabyte files simultaneously might be constrained by your specific computer's memory capacity.</p>
+              </div>
+            </div>
           </article>
           
           <RelatedTools currentPath="/tools/pdf-merger" />

@@ -1521,20 +1521,38 @@ export default function App() {
             
             {/* SEO Optimized Content Section */}
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">App Store Optimization (ASO) & Mockup Generator</h2>
-              
-              <p>
-                First impressions matter. When users discover your application on the Apple App Store or Google Play Store, the aesthetic quality of your listing directly impacts your conversion rate. Our <strong>App Store Screenshots Generator</strong> helps developers and marketers design polished, professional-grade mockups without relying on complex design software like Photoshop or Figma.
-              </p>
-              
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Best Practices for High-Converting App Store Screenshots</h3>
-              <ul className="list-disc pl-5 space-y-3">
-                <li><strong>Clear, High-Contrast Typography:</strong> Ensure your headline and subheadline clearly describe the specific feature shown in the image. Our tool allows custom fonts and colors to maximize readability.</li>
-                <li><strong>Follow the Guidelines:</strong> Ensure your exported resolutions match required platform specifications perfectly. Our tool comes pre-loaded with target device dimensions (e.g., iPhone 6.5", iPad 12.9").</li>
-                <li><strong>Showcase Core Features First:</strong> Order your screenshots logically. Put your app's "killer feature" on the very first screen. Use our drag-and-drop feature to rearrange your assets.</li>
-                <li><strong>Leverage Screen Real Estate:</strong> Try using a "Split Left/Right" layout pattern occasionally instead of standard top-text designs to create a visually engaging narrative as the user scrolls horizontally through your store listing.</li>
-              </ul>
-            </article>
+            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">App Store Optimization (ASO) & Mockup Generator</h2>
+            <p>
+              First impressions matter immensely in the highly competitive digital marketplace. When potential users discover your application on the Apple App Store or Google Play Store, the aesthetic quality of your store listing directly impacts your conversion rate. Our <strong>App Store Screenshots Generator</strong> helps developers, indie creators, and marketers design polished, professional-grade mockups without relying on complex, expensive, and heavy design software like Adobe Photoshop, Figma, or Sketch.
+            </p>
+            <p>
+              By leveraging our intuitive tool, you can rapidly generate stunning, high-resolution application screenshots that effectively communicate your app's core value proposition. Whether you are launching a brand-new application, pushing an important update, or conducting A/B testing on different store listings, having high-quality, perfectly sized mockups is a critical factor for achieving App Store Optimization (ASO) success and maximizing your downloads.
+            </p>
+            
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <ol className="list-decimal pl-5 space-y-3">
+              <li><strong>Upload Your Screenshots:</strong> Start by uploading the raw screenshots you took directly from your device simulator or physical hardware.</li>
+              <li><strong>Select Your Target Device & Template:</strong> Choose from a variety of predefined device frames (such as iPhone 6.5", iPad Pro) and select a layout template (Classic, Modern Gradient, Split, etc.) that best suits your app's style.</li>
+              <li><strong>Customize the Typography and Branding:</strong> Add compelling headlines and subheadlines. Use the configuration panel to adjust fonts, background colors, gradients, and text sizes to match your brand's unique identity.</li>
+              <li><strong>Export Your Creations:</strong> Once you are satisfied with the preview, hit the download button to export all your perfectly sized, high-resolution mockups in a convenient ZIP file, ready for immediate upload to the App Store Connect or Google Play Console.</li>
+            </ol>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <div className="space-y-4">
+              <div>
+                <strong className="text-white block">1. What dimensions does the App Store require for screenshots?</strong>
+                <p>Apple requires specific dimensions for different devices. For instance, iPhone 6.5" displays require 1242 x 2688 pixels, while iPads often use 2048 x 2732 pixels. Our tool automatically scales and exports your mockups to these exact specifications, ensuring compliance with Apple's strict guidelines.</p>
+              </div>
+              <div>
+                <strong className="text-white block">2. Is my app data or screenshots uploaded to a server?</strong>
+                <p>Absolutely not. At ShaadDev Studio, we prioritize your privacy and zero-trust security. All image processing, framing, and text rendering are performed entirely locally directly within your web browser. Your sensitive pre-release application mockups never leave your device.</p>
+              </div>
+              <div>
+                <strong className="text-white block">3. Can I use custom fonts for my ASO text?</strong>
+                <p>Yes! We provide a selection of highly readable, modern fonts tailored for mobile displays. You can customize the typography to ensure your headline and subheadline capture the user's attention in a fraction of a second.</p>
+              </div>
+            </div>
+          </article>
 
             <div className="font-sans">
                 <RelatedTools currentPath="/tools/aso-screenshot" />

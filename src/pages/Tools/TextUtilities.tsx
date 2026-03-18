@@ -122,20 +122,38 @@ export default function TextUtilities() {
           </div>
 
           {/* SEO Optimized Content Section */}
-          <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider">Comprehensive Text & String Utilities</h2>
-            
+          <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
+            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Advanced Text Manipulation & Formatting Utilities</h2>
             <p>
-              Whether you are an author needing an accurate <strong>online word counter</strong> or a developer trying to rapidly <strong>encode text to Base64</strong>, our suite of string manipulation tools provides multiple formatting features in a single, convenient dashboard.
+              Working with large volumes of text, cleaning up raw data strings, or formatting content for various programming and editorial requirements can be an incredibly tedious process. Our comprehensive <strong>Text Utilities Suite</strong> provides developers, copywriters, data analysts, and content creators with an indispensable toolkit to quickly manipulate, transform, and analyze text strings without having to write custom scripts or switch between multiple different applications.
             </p>
-            
-            <h3 className="text-lg font-bold text-white mt-8 mb-4">Core Tool Features</h3>
-            <ul className="list-disc pl-5 space-y-3">
-              <li><strong>Word & Character Counting:</strong> Instantly analyze the length and density of your documents. See word counts, total character counts, and line counts update in real-time as you type or paste.</li>
-              <li><strong>Case Convertor:</strong> Effortlessly convert blocks of text into <code>UPPERCASE</code>, <code>lowercase</code>, or <code>Title Case</code> without having to re-type sentences.</li>
-              <li><strong>Whitespace Removal:</strong> The "Fix Spaces" utility quickly sanitizes badly formatted text by stripping out double or trailing spaces and normalizing the string formatting.</li>
-              <li><strong>Base 64 Encoder/Decoder:</strong> Easily convert raw strings into Base64 algorithms for API usage or decode existing Base64 strings to audit hidden configurations directly from your browser.</li>
-            </ul>
+            <p>
+              Whether you need to instantly strip out unnecessary whitespace, convert a messy block of text into a specific casing format (like camelCase for variables, or Title Case for articles), extract all the URLs from a document, or simply perform a fast character count for SEO optimization, this tool streamlines your entire workflow. By combining multiple operations into a single, cohesive, web-based interface, we save you valuable time and reduce human error, letting you focus on the actual logic and structure of your projects rather than mindlessly re-typing mundane text.
+            </p>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <ol className="list-decimal pl-5 space-y-3">
+              <li><strong>Input Your Text:</strong> Paste your raw, unformatted, or messy text block directly into the large input area provided on the screen.</li>
+              <li><strong>Select an Operation:</strong> Browse through the assorted quick-action buttons below the text box. Choose actions such as Upper Case, Lower Case, Title Case, or more specific developer actions like generating camelCase or sorting lines alphabetically.</li>
+              <li><strong>Review Real-Time Output:</strong> The text will be transformed instantly according to the operation you selected. You can easily chain multiple operations together to achieve your desired outcome.</li>
+              <li><strong>Copy to Clipboard:</strong> Once the text matches your exact requirements, utilize the one-click copy button to copy the transformed text back into your code editor, document, or content management system.</li>
+            </ol>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <div className="space-y-4">
+              <div>
+                <strong className="text-white block">1. Does this tool process my text on a remote server?</strong>
+                <p>Not at all. Everything you type or paste into the text utility is processed locally directly within your own web browser's memory. We do not transmit, analyze, or log your proprietary text, ensuring complete privacy, especially for sensitive code snippets or confidential articles.</p>
+              </div>
+              <div>
+                <strong className="text-white block">2. What kind of casing formats are supported?</strong>
+                <p>We support a wide array of cases crucial for both developers and writers, including standard UPPERCASE, lowercase, and Title Case, alongside programming-specific paradigms such as camelCase, snake_case, kebab-case, and PascalCase.</p>
+              </div>
+              <div>
+                <strong className="text-white block">3. Can I use this for counting characters and words?</strong>
+                <p>Yes, the tool features real-time analytics that automatically displays the accurate character count, word count, and line count of your input, which is particularly beneficial for SEO specialists aiming for specific content length constraints.</p>
+              </div>
+            </div>
           </article>
 
           <RelatedTools currentPath="/tools/text-utilities" />

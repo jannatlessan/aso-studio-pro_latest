@@ -473,18 +473,37 @@ export default function ImageResizer() {
           
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Free Bulk Image Resizer & Converter</h2>
-            
+            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Professional Bulk Image Resizer</h2>
             <p>
-              Optimizing imagery is highly essential for mobile app performance and website SEO. Our <strong>Bulk Image Resizer</strong> allows you to rapidly alter image dimensions, compress multiple file sizes, and perform batch format conversions seamlessly (like JPEG to WEBP) entirely localized within your internet browser. This tool handles single images and large batches natively. No files are uploaded to our servers, keeping your sensitive gallery assets completely safe and private.
+              In modern web development and digital content creation, optimizing image assets is absolutely essential for maintaining fast page load speeds, reducing bandwidth consumption, and ensuring a seamless user experience across a diverse range of devices. Our <strong>Professional Batch Image Resizer</strong> empowers developers, marketing teams, and designers to quickly scale, crop, and adjust the dimensions of multiple images simultaneously without compromising visual fidelity.
             </p>
-            
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Why Compress and Resize in Bulk?</h3>
-            <ul className="list-disc pl-5 space-y-3">
-              <li><strong>Time Saving Workflow:</strong> Don't waste time resizing photos sequentially one by one. Highlight dozens of pictures, choose a "Target Width" limitation, and let the processor standardize your album instantly.</li>
-              <li><strong>Modern WEBP Support:</strong> WEBP images are frequently 30% smaller than JPEGs while retaining identical visual fidelity. Converting an entire folder using our Bulk Output Format setting vastly shrinks project sizes.</li>
-              <li><strong>Exact vs Percentage Resizing:</strong> Reduce all images uniformly by 50% scale, or force them to conform strictly to a 1080px width envelope while automatically scaling the height dynamically.</li>
-            </ul>
+            <p>
+              Whether you are preparing a massive batch of product thumbnails for an e-commerce platform, adjusting hero images to perfectly fit a new responsive layout, or simply reducing dimensions to bypass strict file upload limits on social media networks, this robust utility handles it all. By eliminating the necessity of firing up heavy graphic editing suites for repetitive resizing tasks, our tool significantly streamlines your content pipeline, ensuring your website remains highly performant and SEO-friendly.
+            </p>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <ol className="list-decimal pl-5 space-y-3">
+              <li><strong>Upload Images:</strong> Click the dropzone area or drag-and-drop the images you wish to alter. You can upload multiple files at once for batch processing.</li>
+              <li><strong>Configure Dimensions:</strong> Enter your exact target width and height in pixels. Alternatively, use percentage-based scaling if you just need proportioned reduction.</li>
+              <li><strong>Lock Aspect Ratio:</strong> Choose whether to lock the original aspect ratio (to prevent distortion and stretching) or force the image to fit the exact absolute dimensions you have provided.</li>
+              <li><strong>Process & Download:</strong> Click the resize button. In moments, your scaled assets will be ready to download individually or packaged within a single, convenient ZIP archive.</li>
+            </ol>
+
+            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <div className="space-y-4">
+              <div>
+                <strong className="text-white block">1. Is my original image quality degraded during resizing?</strong>
+                <p>Our tool utilizes advanced canvas scaling algorithms that prioritize visual clarity. While making an image significantly smaller will naturally reduce its pixel count, making it sharper, we ensure the process doesn't introduce unnecessary artifacts or blurriness.</p>
+              </div>
+              <div>
+                <strong className="text-white block">2. Are my proprietary images uploaded to the cloud?</strong>
+                <p>No, we champion a privacy-first approach. All image manipulation—including decoding, resizing, and re-encoding—is executed entirely client-side using your browser's local resources. Your files never leave your computer.</p>
+              </div>
+              <div>
+                <strong className="text-white block">3. What image formats are supported by this resizer?</strong>
+                <p>We universally support the most common web-friendly image formats, primarily including PNG, JPEG (JPG), and WebP, allowing seamless integration into practically any modern web project.</p>
+              </div>
+            </div>
           </article>
 
           <RelatedTools currentPath="/tools/image-resizer" />
