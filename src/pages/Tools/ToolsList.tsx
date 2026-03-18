@@ -6,10 +6,17 @@ import {
   Terminal, 
   ChevronLeft,
   LayoutGrid,
-  Clock3
+  Clock3,
+  Lock,
+  FileJson,
+  Type,
+  Image as ImageIcon,
+  Music,
+  FileBox
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
+import SEO from '../../components/SEO';
 
 const tools = [
   {
@@ -22,13 +29,67 @@ const tools = [
     actionLabel: "Open Tool"
   },
   {
-    id: "CODE-002",
-    name: "Logic Beautifier",
-    description: "A planned utility for improving code readability and structure with guided formatting suggestions.",
-    icon: Terminal,
-    path: "#",
-    status: "Coming Soon",
-    actionLabel: "Not Available"
+    id: "SEC-001",
+    name: "Secure Password Generator",
+    description: "Instantly create strong, random, and highly secure passwords with customizable parameters to keep data safe.",
+    icon: Lock,
+    path: "/tools/password-generator",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "DEV-001",
+    name: "JSON Formatter",
+    description: "Quickly format, validate, and beautify your raw JSON responses. Perfect for debugging messy API payloads.",
+    icon: FileJson,
+    path: "/tools/json-formatter",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "TXT-001",
+    name: "Text & String Utilities",
+    description: "Character counters, base64 encoding/decoding, and text case converters for quick daily text manipulations.",
+    icon: Type,
+    path: "/tools/text-utilities",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "IMG-001",
+    name: "Image Resizer & Converter",
+    description: "Resize and convert images instantly in your browser. Complete data privacy.",
+    icon: ImageIcon,
+    path: "/tools/image-resizer",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "IMG-002",
+    name: "Smart Image Compressor",
+    description: "Compress images with maximum efficiency and size savings without losing visual quality.",
+    icon: ImageIcon,
+    path: "/tools/image-compressor",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "AUD-001",
+    name: "Audio Merger",
+    description: "Merge MP3, WAV, and OGG files together securely offline using Web Audio API.",
+    icon: Music,
+    path: "/tools/audio-merger",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "PDF-001",
+    name: "Secure PDF Merger",
+    description: "Combine multiple PDF documents into one seamlessly in your browser with zero server uploads.",
+    icon: FileBox,
+    path: "/tools/pdf-merger",
+    status: "Ready",
+    actionLabel: "Open Tool"
   }
 ];
 
@@ -51,6 +112,11 @@ export default function ToolsList() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-[#020202] text-[#E0E0E0] p-5 sm:p-8 md:p-12 selection:bg-primary/30 font-mono">
+      <SEO 
+        title="Tools & Utilities | Shaad Dev Studio" 
+        description="Simple utilities to support app marketing and product workflows." 
+        url="https://shaaddev.studio/tools" 
+      />
       <div className="max-w-6xl mx-auto space-y-12">
 
         {/* Header */}

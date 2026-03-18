@@ -34,6 +34,8 @@ import JSZip from 'jszip';
 import confetti from 'canvas-confetti';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
+import SEO from '../../components/SEO';
+import RelatedTools from '../../components/RelatedTools';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -653,6 +655,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg text-text transition-colors duration-300 selection:bg-primary/30">
+      <SEO 
+        title="ASO Screenshot Pro | App Store Layout Creator" 
+        description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
+        url="https://shaaddev.studio/tools/aso-screenshot" 
+      />
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <input
@@ -1511,6 +1518,28 @@ export default function App() {
                 </div>
               </div>
             )}
+            
+            {/* SEO Optimized Content Section */}
+            <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
+              <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">App Store Optimization (ASO) & Mockup Generator</h2>
+              
+              <p>
+                First impressions matter. When users discover your application on the Apple App Store or Google Play Store, the aesthetic quality of your listing directly impacts your conversion rate. Our <strong>App Store Screenshots Generator</strong> helps developers and marketers design polished, professional-grade mockups without relying on complex design software like Photoshop or Figma.
+              </p>
+              
+              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Best Practices for High-Converting App Store Screenshots</h3>
+              <ul className="list-disc pl-5 space-y-3">
+                <li><strong>Clear, High-Contrast Typography:</strong> Ensure your headline and subheadline clearly describe the specific feature shown in the image. Our tool allows custom fonts and colors to maximize readability.</li>
+                <li><strong>Follow the Guidelines:</strong> Ensure your exported resolutions match required platform specifications perfectly. Our tool comes pre-loaded with target device dimensions (e.g., iPhone 6.5", iPad 12.9").</li>
+                <li><strong>Showcase Core Features First:</strong> Order your screenshots logically. Put your app's "killer feature" on the very first screen. Use our drag-and-drop feature to rearrange your assets.</li>
+                <li><strong>Leverage Screen Real Estate:</strong> Try using a "Split Left/Right" layout pattern occasionally instead of standard top-text designs to create a visually engaging narrative as the user scrolls horizontally through your store listing.</li>
+              </ul>
+            </article>
+
+            <div className="font-sans">
+                <RelatedTools currentPath="/tools/aso-screenshot" />
+            </div>
+
           </div>
         </div>
       </main>

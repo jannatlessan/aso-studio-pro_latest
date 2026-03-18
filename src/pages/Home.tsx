@@ -56,6 +56,7 @@ import {
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 
 // Particle System for the 10/10 Experience
 function ParticleField() {
@@ -399,6 +400,11 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/40 font-mono overflow-x-hidden">
+      <SEO 
+        title={`${profileData.name} - ${profileData.role}`} 
+        description={profileData.summary} 
+        url="https://shaaddev.studio" 
+      />
 
       {/* Background World */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-40">

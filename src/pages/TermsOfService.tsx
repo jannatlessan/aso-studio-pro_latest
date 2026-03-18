@@ -3,10 +3,16 @@ import { motion } from 'motion/react';
 import { FileText, ChevronLeft, Scale, AlertCircle, Zap, ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] font-mono selection:bg-primary/30">
+      <SEO 
+        title="Terms of Service | Shaad Dev Studio" 
+        description="Terms of service and user agreements for Shaad Dev Studio tools and platforms." 
+        url="https://shaaddev.studio/terms" 
+      />
       {/* Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 bg-[#020202]/60 backdrop-blur-xl border-b border-white/5">
         <Link to="/" className="flex items-center gap-3 group">
