@@ -19,7 +19,7 @@ import FormatterWorker from './formatterWorker?worker';
 
 
 export default function JSONFormatter() {
-  const [input, setInput] = useState('{"name": "Shaad Dev Studio", "tools": ["ASO", "Formatter"], "active": true}');
+  const [input, setInput] = useState('{"name": "ShaadDev Studio", "tools": ["ASO", "Formatter"], "active": true}');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
@@ -124,7 +124,7 @@ export default function JSONFormatter() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="JSON Formatter & Validator | Shaad Dev Studio" 
+        title="Free Online JSON Formatter | ShaadDev Studio" 
         description="Format, prettify, and validate JSON data quickly directly from your browser." 
         url="https://shaaddev.studio/tools/json-formatter" 
       />

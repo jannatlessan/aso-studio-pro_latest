@@ -85,7 +85,7 @@ export default function PDFMerger() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="PDF Merger & Joiner | Free Online Tool | Shaad Dev Studio" 
+        title="Free Online PDF Merger | ShaadDev Studio" 
         description="Merge multiple PDF files into one document securely in your browser. 100% free and local processing without server uploads." 
         url="https://shaaddev.studio/tools/pdf-merger" 
       />

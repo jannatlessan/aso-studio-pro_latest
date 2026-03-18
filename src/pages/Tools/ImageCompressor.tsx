@@ -205,7 +205,7 @@ export default function ImageCompressor() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="Smart Image Compressor | Reduce Image File Sizes | Shaad Dev Studio" 
+        title="Free Online Image Compressor | ShaadDev Studio" 
         description="Compress bulk or individual image files without losing quality. Export to WEBP and JPEG optimized entirely within your browser locally." 
         url="https://shaaddev.studio/tools/image-compressor" 
       />

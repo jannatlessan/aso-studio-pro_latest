@@ -51,7 +51,7 @@ export default function PasswordGenerator() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="Secure Password Generator | Shaad Dev Studio" 
+        title="Free Online Password Generator | ShaadDev Studio" 
         description="Generate strong, secure, and random passwords instantly for your daily data protection needs." 
         url="https://shaaddev.studio/tools/password-generator" 
       />

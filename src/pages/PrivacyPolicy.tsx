@@ -9,8 +9,8 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] font-mono selection:bg-primary/30">
       <SEO 
-        title="Privacy Policy | Shaad Dev Studio" 
-        description="Privacy policy for Shaad Dev Studio tools. We prioritize privacy, performance, and transparency." 
+        title="Privacy Policy | ShaadDev Studio" 
+        description="Privacy policy for ShaadDev Studio tools. We prioritize privacy, performance, and transparency." 
         url="https://shaaddev.studio/privacy" 
       />
       {/* Header */}
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
               <span className="text-primary italic">Protocol.</span>
             </h1>
             <p className="text-white/40 text-lg italic max-w-2xl">
-              "Your data is your property. Shaad Dev Studio is designed to respect and protect your digital footprint with maximum encryption standards."
+              "Your data is your property. ShaadDev Studio is designed to respect and protect your digital footprint with maximum encryption standards."
             </p>
           </div>
 
@@ -72,7 +72,7 @@ export default function PrivacyPolicy() {
                 <div className="w-2 h-2 bg-primary" /> 01. Data Collection Initialization
               </h2>
               <p className="leading-relaxed">
-                Shaad Dev Studio initializes data collection only when necessary for core module functionality. We collect minimal technical metadata including browser type, operating system version, and session telemetry to optimize the rendering engine and computational performance.
+                ShaadDev Studio initializes data collection only when necessary for core module functionality. We collect minimal technical metadata including browser type, operating system version, and session telemetry to optimize the rendering engine and computational performance.
               </p>
             </section>
 

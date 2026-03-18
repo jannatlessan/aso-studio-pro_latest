@@ -656,7 +656,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-bg text-text transition-colors duration-300 selection:bg-primary/30">
       <SEO 
-        title="ASO Screenshot Pro | App Store Layout Creator" 
+        title="Free Online ASO Screenshot Generator | ShaadDev Studio" 
         description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
         url="https://shaaddev.studio/tools/aso-screenshot" 
       />
@@ -1103,7 +1103,7 @@ export default function App() {
             {/* Footer / Copyright */}
             <footer className="pt-8 pb-4 border-t border-border">
               <div className="flex flex-col items-center gap-2">
-                <p className="text-[10px] text-text-tertiary font-medium">© 2026 Shaad Dev Studio</p>
+                <p className="text-[10px] text-text-tertiary font-medium">© 2026 ShaadDev Studio</p>
                 <div className="flex gap-4">
                   <span className="text-[9px] text-text-tertiary uppercase tracking-widest">Enterprise Edition</span>
                   <span className="text-[9px] text-text-tertiary uppercase tracking-widest">v2.4.0</span>

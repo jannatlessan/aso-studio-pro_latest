@@ -9,8 +9,8 @@ export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] font-mono selection:bg-primary/30">
       <SEO 
-        title="Terms of Service | Shaad Dev Studio" 
-        description="Terms of service and user agreements for Shaad Dev Studio tools and platforms." 
+        title="Terms of Service | ShaadDev Studio" 
+        description="Terms of service and user agreements for ShaadDev Studio tools and platforms." 
         url="https://shaaddev.studio/terms" 
       />
       {/* Header */}
@@ -72,7 +72,7 @@ export default function TermsOfService() {
                 <div className="w-2 h-2 bg-primary" /> 01. Authorization of Usage
               </h2>
               <p className="leading-relaxed">
-                Shaad Dev Studio grants you a non-exclusive, non-transferable authorization to utilize our suite of laboratory modules for professional, development, or commercial purposes. Use of our internal logic for reverse-engineering or unauthorized data mining is strictly prohibited.
+                ShaadDev Studio grants you a non-exclusive, non-transferable authorization to utilize our suite of laboratory modules for professional, development, or commercial purposes. Use of our internal logic for reverse-engineering or unauthorized data mining is strictly prohibited.
               </p>
             </section>
 
@@ -81,7 +81,7 @@ export default function TermsOfService() {
                 <div className="w-2 h-2 bg-primary" /> 02. Intellectual Property Rights
               </h2>
               <p className="leading-relaxed">
-                While you retain ownership of the data you input, the underlying system patterns, UI/UX configurations, and the "Cyber-Pro" design system remain the exclusive property of Shaad Dev Studio. No extraction of core modular code is permitted.
+                While you retain ownership of the data you input, the underlying system patterns, UI/UX configurations, and the "Cyber-Pro" design system remain the exclusive property of ShaadDev Studio. No extraction of core modular code is permitted.
               </p>
             </section>
 
@@ -90,7 +90,7 @@ export default function TermsOfService() {
                 <div className="w-2 h-2 bg-primary" /> 03. Liability & Performance
               </h2>
               <p className="leading-relaxed">
-                All Shaad Dev Studio modules are provided "AS IS" with a target uptime protocol of 99.9%. We are not liable for external service interruptions or data variances resulting from user-side browser environment limitations.
+                All ShaadDev Studio modules are provided "AS IS" with a target uptime protocol of 99.9%. We are not liable for external service interruptions or data variances resulting from user-side browser environment limitations.
               </p>
             </section>
 

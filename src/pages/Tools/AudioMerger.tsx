@@ -151,7 +151,7 @@ let blob: Blob;
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="Audio Merger & Joiner | Free Online Tool | Shaad Dev Studio" 
+        title="Free Online Audio Merger | ShaadDev Studio" 
         description="Merge multiple MP3, WAV, or OGG audio files into a single track directly in your browser. Fast, local processing with no file uploads required." 
         url="https://shaaddev.studio/tools/audio-merger" 
       />

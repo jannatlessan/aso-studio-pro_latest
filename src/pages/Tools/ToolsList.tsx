@@ -113,7 +113,7 @@ export default function ToolsList() {
   return (
     <div ref={containerRef} className="min-h-screen bg-[#020202] text-[#E0E0E0] p-5 sm:p-8 md:p-12 selection:bg-primary/30 font-mono">
       <SEO 
-        title="Tools & Utilities | Shaad Dev Studio" 
+        title="Tools & Utilities | ShaadDev Studio" 
         description="Simple utilities to support app marketing and product workflows." 
         url="https://shaaddev.studio/tools" 
       />

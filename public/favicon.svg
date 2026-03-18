@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="#020202" />
+  
+  <!-- "S" Logo path -->
+  <path 
+    d="M365 242.5C365 330 295 385 240 385C160 385 130 330 130 290" 
+    fill="none" 
+    stroke="#00F0FF" 
+    stroke-width="56" 
+    stroke-linecap="round" 
+  />
+  <path 
+    d="M147 242.5C147 155 217 100 272 100C352 100 382 155 382 195" 
+    fill="none" 
+    stroke="#00F0FF" 
+    stroke-width="56" 
+    stroke-linecap="round" 
+  />
+</svg>

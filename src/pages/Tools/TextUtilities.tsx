@@ -49,7 +49,7 @@ export default function TextUtilities() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="Text & String Utilities | Shaad Dev Studio" 
+        title="Free Online Text "Text & String Utilities | ShaadDev Studio" String Utilities | ShaadDev Studio" 
         description="Convert string case, analyze word count, and manage encodings conveniently." 
         url="https://shaaddev.studio/tools/text-utilities" 
       />

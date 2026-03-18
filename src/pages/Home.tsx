@@ -428,7 +428,7 @@ export default function Home() {
               <span className="font-black text-primary text-xl -rotate-45 leading-none">R</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-black tracking-[0.08em] text-lg uppercase leading-none">Shaad Dev Studio</span>
+              <span className="font-black tracking-[0.08em] text-lg uppercase leading-none">ShaadDev Studio</span>
               <span className="text-[10px] text-primary/90 tracking-[0.12em] font-semibold">Mobile and Web Solutions</span>
             </div>
           </div>

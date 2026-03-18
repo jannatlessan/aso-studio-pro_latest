@@ -210,7 +210,7 @@ export default function ImageResizer() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="Bulk Image Resizer | Convert Multiple Images Free | Shaad Dev Studio" 
+        title="Free Online Bulk Image Resizer | ShaadDev Studio" 
         description="Fast, local, high-quality bulk image resizing and format conversion tool. Resize single or multiple images instantly entirely in your browser." 
         url="https://shaaddev.studio/tools/image-resizer" 
       />
