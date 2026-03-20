@@ -126,8 +126,7 @@ export default function JSONFormatter() {
       <SEO 
         title="Free Online JSON Formatter | ShaadDev Studio" 
         description="Format, prettify, and validate JSON data quickly directly from your browser." 
-        url="https://shaaddev.studio/tools/json-formatter" 
-      />
+        url="https://shaaddev.studio/tools/json-formatter" keywords="json formatter, format json online, pretify syntax" />
       
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
@@ -287,7 +286,7 @@ export default function JSONFormatter() {
               <li><strong>Secure Local Processing:</strong> Whether you are inspecting API tokens, secure environment variables, or private user data, this formatter runs entirely locally on your device. None of your JSON data is transmitted off your machine.</li>
               <li><strong>Custom Indentation:</strong> Toggle freely between 2-space and 4-space indentations based on your team's code formatting standards.</li>
             </ul>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Validate Thoroughly</h4><p className="text-white/70">A single missing comma breaks JSON parsing. Always validate before saving your files.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Secure Data First</h4><p className="text-white/70">Ensure no hardcoded credentials or private data exist before sharing the formatted payloads.</p></div></div></section></article>
 
           <RelatedTools currentPath="/tools/json-formatter" />
         </div>

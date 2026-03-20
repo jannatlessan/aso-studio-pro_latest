@@ -363,8 +363,8 @@ export default function Home() {
       gsap.from(".module-card", {
         opacity: 0,
         y: 30,
-        duration: 1,
-        stagger: 0.1,
+        duration: 0.8,
+        stagger: 0.05,
         ease: "power4.out"
       });
     });

@@ -51,8 +51,7 @@ export default function TextUtilities() {
       <SEO 
         title="Free Online Text & String Utilities | ShaadDev Studio"
         description="Convert string case, analyze word count, and manage encodings conveniently."
-        url="https://shaaddev.studio/tools/text-utilities" 
-      />
+        url="https://shaaddev.studio/tools/text-utilities" keywords="text utilities, base64 encode, counting strings" />
       
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
@@ -154,7 +153,7 @@ export default function TextUtilities() {
                 <p>Yes, the tool features real-time analytics that automatically displays the accurate character count, word count, and line count of your input, which is particularly beneficial for SEO specialists aiming for specific content length constraints.</p>
               </div>
             </div>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">SEO Character Limits</h4><p className="text-white/70">Keep Meta Titles under 60 characters and Meta Descriptions under 160 characters for optimal search display.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Base64 Security</h4><p className="text-white/70">Encoding is not secure encryption. Never use Base64 to hide secret API tokens inside client code.</p></div></div></section></article>
 
           <RelatedTools currentPath="/tools/text-utilities" />
         </div>

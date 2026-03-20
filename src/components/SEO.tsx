@@ -7,9 +7,18 @@ interface SEOProps {
   name?: string;
   url?: string;
   image?: string;
+  keywords?: string;
 }
 
-export default function SEO({ title, description, type = 'website', name = 'ShaadDev Studio', url = 'https://shaaddev.studio', image = 'https://shaaddev.studio/og-image.jpg' }: SEOProps) {
+export default function SEO({ 
+  title, 
+  description, 
+  type = 'website', 
+  name = 'ShaadDev Studio', 
+  url = 'https://shaaddev.studio', 
+  image = 'https://shaaddev.studio/og-image.jpg',
+  keywords = 'developer tools, web apps, productivity'
+}: SEOProps) {
   const isTool = url.includes('/tools/');
 
   const defaultSchema = {
@@ -42,6 +51,7 @@ export default function SEO({ title, description, type = 'website', name = 'Shaa
       {/* Standard metadata tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
       
       {/* OpenGraph tags */}
       <meta property="og:type" content={type} />

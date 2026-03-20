@@ -658,8 +658,7 @@ export default function App() {
       <SEO 
         title="Free Online ASO Screenshot Generator | ShaadDev Studio" 
         description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
-        url="https://shaaddev.studio/tools/aso-screenshot" 
-      />
+        url="https://shaaddev.studio/tools/aso-screenshot" keywords="aso screenshot, app store asset grab, play store shots" />
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <input
@@ -1552,7 +1551,7 @@ export default function App() {
                 <p>Yes! We provide a selection of highly readable, modern fonts tailored for mobile displays. You can customize the typography to ensure your headline and subheadline capture the user's attention in a fraction of a second.</p>
               </div>
             </div>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Keep It Clean</h4><p className="text-white/70">Avoid cluttered photographic backgrounds to ensure the interface pops on the app store.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Highlight Features</h4><p className="text-white/70">Call out the core UI elements using the device frame as a realistic anchor.</p></div></div></section></article>
 
             <div className="font-sans">
                 <RelatedTools currentPath="/tools/aso-screenshot" />

@@ -53,8 +53,7 @@ export default function PasswordGenerator() {
       <SEO 
         title="Free Online Password Generator | ShaadDev Studio" 
         description="Generate strong, secure, and random passwords instantly for your daily data protection needs." 
-        url="https://shaaddev.studio/tools/password-generator" 
-      />
+        url="https://shaaddev.studio/tools/password-generator" keywords="password generator, strong safe keys, uncrackable pword" />
       
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
@@ -210,7 +209,7 @@ export default function PasswordGenerator() {
                 <p>While the traditional advice was to rotate passwords frequently, modern guidance suggests that if your password is very strong, unique to that specific service, and hasn't been part of a known data breach, you do not need to change it regularly—just ensure you never reuse it anywhere else.</p>
               </div>
             </div>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Length Over Complexity</h4><p className="text-white/70">A standard 16+ character password is mathematically harder to break than a short one with excessive symbols.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Never Reuse</h4><p className="text-white/70">Generate entirely unique passwords for every active service and store them in a secure password manager.</p></div></div></section></article>
           
           <RelatedTools currentPath="/tools/password-generator" />
           </div>

@@ -87,8 +87,7 @@ export default function PDFMerger() {
       <SEO 
         title="Free Online PDF Merger | ShaadDev Studio" 
         description="Merge multiple PDF files into one document securely in your browser. 100% free and local processing without server uploads." 
-        url="https://shaaddev.studio/tools/pdf-merger" 
-      />
+        url="https://shaaddev.studio/tools/pdf-merger" keywords="pdf merger, join pdf documents, stitch pages" />
       
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
@@ -225,7 +224,7 @@ export default function PDFMerger() {
                 <p>Technically, there is no hard-coded limit imposed by the tool itself. However, because the processing utilizes your local device's RAM to compile the final document, merging hundreds of massive, multi-gigabyte files simultaneously might be constrained by your specific computer's memory capacity.</p>
               </div>
             </div>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Logical Sequencing</h4><p className="text-white/70">Ensure the page order makes chronological sense to tell a cohesive document narrative.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Optimize Source Docs</h4><p className="text-white/70">Pre-compress huge individual PDFs before merging them together to avoid bloat.</p></div></div></section></article>
           
           <RelatedTools currentPath="/tools/pdf-merger" />
         </div>

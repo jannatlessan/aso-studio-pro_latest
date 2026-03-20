@@ -207,8 +207,7 @@ export default function ImageCompressor() {
       <SEO 
         title="Free Online Image Compressor | ShaadDev Studio" 
         description="Compress bulk or individual image files without losing quality. Export to WEBP and JPEG optimized entirely within your browser locally." 
-        url="https://shaaddev.studio/tools/image-compressor" 
-      />
+        url="https://shaaddev.studio/tools/image-compressor" keywords="image compressor, jpeg minimizer, webp optimize" />
       
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
@@ -446,7 +445,7 @@ export default function ImageCompressor() {
                 <p>Yes. Our compression engine intelligently handles alpha channels, meaning your transparent backgrounds (logos, UI elements, etc.) will be perfectly maintained while still benefiting from substantial file size reductions.</p>
               </div>
             </div>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Prioritize WebP</h4><p className="text-white/70">For web applications, WebP generally offers ~30% better compression than standard JPEG.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Quality Sweet Spot</h4><p className="text-white/70">A compression ratio of 75-80% is the optimal balance between visual quality and file size.</p></div></div></section></article>
 
           <RelatedTools currentPath="/tools/image-compressor" />
         </div>

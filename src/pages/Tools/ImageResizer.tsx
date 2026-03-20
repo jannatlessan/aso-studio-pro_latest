@@ -212,8 +212,7 @@ export default function ImageResizer() {
       <SEO 
         title="Free Online Bulk Image Resizer | ShaadDev Studio" 
         description="Fast, local, high-quality bulk image resizing and format conversion tool. Resize single or multiple images instantly entirely in your browser." 
-        url="https://shaaddev.studio/tools/image-resizer" 
-      />
+        url="https://shaaddev.studio/tools/image-resizer" keywords="image resizer, crop images online, pixel width scaler" />
       
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
@@ -504,7 +503,7 @@ export default function ImageResizer() {
                 <p>We universally support the most common web-friendly image formats, primarily including PNG, JPEG (JPG), and WebP, allowing seamless integration into practically any modern web project.</p>
               </div>
             </div>
-          </article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Lock Aspect Ratio</h4><p className="text-white/70">Always check the aspect ratio lock to prevent destructive image stretching.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Standardize Outputs</h4><p className="text-white/70">Scale all hero images to a uniform width to stabilize CLS on your website.</p></div></div></section></article>
 
           <RelatedTools currentPath="/tools/image-resizer" />
         </div>
