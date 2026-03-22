@@ -301,9 +301,9 @@ export default function BackgroundRemover() {
     setErrorMsg('');
 
     try {
-      // Absolute origin-prefixed path to prevent 'Invalid base URL' errors in specific browser environments
+      // Official IMG.LY 1.7.0 CDN path - verified to contain the correct isnet_fp16 models
       const config: Config = {
-        publicPath: `${window.location.origin}/background-removal-data/`,
+        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
         progress: (key) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
