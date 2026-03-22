@@ -500,36 +500,77 @@ export default function VideoToGifMaker() {
 
       {/* SEO Environment block */}
       <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
-        <div className="max-w-5xl mx-auto space-y-20">
-          <div className="text-center space-y-6">
-             <h2 className="text-4xl md:text-6xl font-black text-white" itemProp="headline">Best Free Video to GIF Converter</h2>
-             <p className="text-white/60 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" itemProp="description">
-               Transform MP4, WebM, and QuickTime videos into extremely high-definition animated GIFs instantly. No file size limits, no server uploads, and absolutely zero subscriptions. AuraCut AI executes elite FFmpeg WebAssembly binaries directly on your local edge node for peerless data privacy and speed.
+        <div className="max-w-6xl mx-auto space-y-24">
+          <div className="text-center space-y-8 max-w-4xl mx-auto">
+             <h2 className="text-4xl md:text-6xl font-black text-white leading-tight" itemProp="headline">The Ultimate Free Video to GIF Converter</h2>
+             <p className="text-white/60 text-lg md:text-xl leading-relaxed" itemProp="description">
+               Transform MP4, WebM, and QuickTime videos into extremely high-definition animated GIFs instantly. No file size limits, no server uploads, watermarks, and absolutely zero subscriptions. AuraCut Studio executes elite FFmpeg WebAssembly binaries directly on your local edge node for peerless data privacy and encoding speed. Perfect for social media managers, Discord emotes, and Reddit memes.
              </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8" itemScope itemType="https://schema.org/FAQPage">
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4 transition-transform hover:-translate-y-2" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                <ShieldCheck className="w-10 h-10 text-rose-400" />
-                <h3 className="text-white font-extrabold text-xl" itemProp="name">Is this tool actually private?</h3>
-                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                  <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Yes, 100%. Our architecture is fundamentally different from commercial competitors. Every single megabyte of your video never leaves your device. We boot an isolated instance of the legendary FFmpeg terminal engine locally inside your browser's V8 execution context to compile the GIF entirely offline.</p>
-                </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
+                <Film className="w-8 h-8 text-rose-400" />
+                <h3 className="text-white font-bold">Universal Format Support</h3>
+                <p className="text-sm text-white/50">Convert .mp4, .mov, or .webm directly into animated .gif files without worrying about container incompatibilities.</p>
              </div>
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4 transition-transform hover:-translate-y-2" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                <Sparkles className="w-10 h-10 text-amber-400" />
-                <h3 className="text-white font-extrabold text-xl" itemProp="name">How do you achieve Cinematic Quality?</h3>
-                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                  <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Standard converters generate terrible color banding because they map raw frames directly to standard 256-color bit depths. We utilize a computational Two-Pass logic threshold. Phase One explicitly sweeps your video slice to manufacture an optimal global palette mapping. Phase Two leverages Sierra2-4A temporal dithering applied against that precise histogram.</p>
-                </div>
+             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
+                <Maximize className="w-8 h-8 text-orange-400" />
+                <h3 className="text-white font-bold">Lossless Compression</h3>
+                <p className="text-sm text-white/50">Our native engine automatically extracts the original video's resolution (up to 1080p HD) to maintain absolute crispness.</p>
              </div>
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4 transition-transform hover:-translate-y-2" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                <SlidersHorizontal className="w-10 h-10 text-orange-400" />
-                <h3 className="text-white font-extrabold text-xl" itemProp="name">Can I edit frame rates and slow motion?</h3>
-                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                  <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Absolutely. AuraCut GIF Studio exposes a hyper-granular physics interface. You can set geometric resolutions anywhere from 240p to 1080p width limits. We even implemented a dedicated setpts manipulation slider, allowing you to synthesize sub-frame hyper-lapses (3.0x speed) or extreme cinematic slow-mo (0.2x speed) sequences flawlessly.</p>
-                </div>
+             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
+                <SkipForward className="w-8 h-8 text-amber-400" />
+                <h3 className="text-white font-bold">Precision Frame Trimming</h3>
+                <p className="text-sm text-white/50">Isolate exact milliseconds of your video using our precise time-envelope editor before rendering the final slice.</p>
              </div>
+             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
+                <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                <h3 className="text-white font-bold">No Watermarks</h3>
+                <p className="text-sm text-white/50">Exported GIFs are completely unbranded and yours to keep forever with custom file names dynamically generated.</p>
+             </div>
+          </div>
+
+          <div className="space-y-12 max-w-4xl mx-auto">
+            <h3 className="text-3xl font-black text-white text-center">Frequently Asked Questions</h3>
+            <div className="grid gap-6" itemScope itemType="https://schema.org/FAQPage">
+               <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <div className="flex items-center gap-4">
+                     <ShieldCheck className="w-8 h-8 text-rose-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Is this Video to GIF converter actually private and secure?</h4>
+                  </div>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Yes, 100%. Our architecture is fundamentally different from commercial competitors. Every single megabyte of your video never leaves your device. We boot an isolated instance of the legendary FFmpeg terminal engine locally inside your browser's V8 execution context to compile the GIF entirely offline in your RAM.</p>
+                  </div>
+               </div>
+               <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <div className="flex items-center gap-4">
+                     <Sparkles className="w-8 h-8 text-amber-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">How do you achieve Cinematic output quality without pixelation?</h4>
+                  </div>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Standard converters generate terrible color banding because they map raw frames directly to standard 256-color bit depths. We utilize a computational Two-Pass logic threshold. Phase One explicitly sweeps your video slice to manufacture an optimal global palette mapping. Phase Two leverages Sierra2-4A temporal dithering applied against that precise histogram to simulate millions of colors.</p>
+                  </div>
+               </div>
+               <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <div className="flex items-center gap-4">
+                     <SlidersHorizontal className="w-8 h-8 text-orange-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Can I edit FPS (framerate) and apply slow motion to my GIF?</h4>
+                  </div>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Absolutely. AuraCut GIF Studio exposes a hyper-granular physics interface. You can set geometric resolutions anywhere from 240p to 1080p width limits. We even implemented a dedicated playback speed manipulation slider, allowing you to synthesize sub-frame hyper-lapses (3.0x speed) or extreme cinematic slow-mo (0.2x speed) sequences flawlessly.</p>
+                  </div>
+               </div>
+               <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <div className="flex items-center gap-4">
+                     <Film className="w-8 h-8 text-sky-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Is there a maximum file size limit for video uploads?</h4>
+                  </div>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Since the processing happens entirely on your local machine rather than our servers, there are no artificial file size limits. However, processing massive 4K video files or hours of footage may require significant RAM and CPU power from your device. We recommend trimming long videos and keeping the output width under 1080px for the fastest generation times.</p>
+                  </div>
+               </div>
+            </div>
           </div>
         </div>
       </section>
