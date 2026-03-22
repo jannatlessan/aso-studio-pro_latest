@@ -71,9 +71,8 @@ export default function VideoToGifMaker() {
      const ENGAGING_MESSAGES = [
         "Analyzing video frames...",
         "Identifying color palettes...",
-        "Applying Sierra-2-4A dithering...",
-        "Compressing temporal redundancy...",
         "Applying pristine Lanczos scaling...",
+        "Compressing temporal redundancy...",
         "Finalizing GIF envelope..."
      ];
      let msgIndex = 0;
@@ -84,7 +83,7 @@ export default function VideoToGifMaker() {
            setProgressText(ENGAGING_MESSAGES[msgIndex]);
         }, 3000); 
      } else if (processState === 'loading_engine') {
-        setProgressText(hasLoadedEngineThisSession ? 'Waking up cached FFmpeg Engine...' : 'Securely downloading FFmpeg WebAssembly core...');
+        setProgressText(hasLoadedEngineThisSession ? 'Waking up neural renderer...' : 'Downloading advanced processing core...');
      }
      return () => clearInterval(interval);
   }, [processState]);
@@ -207,7 +206,7 @@ export default function VideoToGifMaker() {
     } catch (err: any) {
       console.error(err);
       setProcessState('error');
-      setErrorMsg(err.message || 'An error occurred during FFmpeg processing. The file might be corrupted or too large for available RAM.');
+      setErrorMsg(err.message || 'An error occurred during video processing. The file might be corrupted or too large for available RAM.');
     }
   };
 
@@ -325,6 +324,12 @@ export default function VideoToGifMaker() {
             <div className="space-y-4">
               <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50 animate-pulse">{progressText}</h3>
               <p className="text-xs text-white/40 uppercase tracking-widest font-mono">{Math.round(simulatedProgress)}% Complete</p>
+            </div>
+            
+            <div className="pt-4 border-t border-white/5">
+              <p className="text-[10px] text-amber-500/80 font-bold uppercase tracking-widest leading-relaxed flex items-center justify-center gap-1.5">
+                <ShieldCheck className="w-3 h-3" /> Please do not close or refresh this tab
+              </p>
             </div>
           </div>
         )}
