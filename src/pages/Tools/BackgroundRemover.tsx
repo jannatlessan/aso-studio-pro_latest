@@ -16,7 +16,13 @@ import {
   ShieldCheck,
   CheckCircle2,
   Loader2,
-  Palette
+  Palette,
+  Move,
+  ZoomIn,
+  MessageCircle,
+  Camera,
+  Briefcase,
+  Youtube as YoutubeIcon
 } from 'lucide-react';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
@@ -24,7 +30,7 @@ import AdBlockDetector from '../../components/AdBlockDetector';
 
 // We'll manage processing state intricately here
 type ProcessState = 'idle' | 'loading_model' | 'processing' | 'done' | 'error';
-type BackgroundMode = 'transparent' | 'solid' | 'gradient' | 'product_studio' | 'pfp_ring';
+type BackgroundMode = 'transparent' | 'solid' | 'gradient' | 'product_studio' | 'whatsapp_dp' | 'facebook_dp' | 'linkedin_dp' | 'instagram_dp' | 'youtube_thumb';
 
 interface ProcessedImage {
   originalUrl: string;
@@ -49,11 +55,42 @@ export default function BackgroundRemover() {
   const [gradientStart, setGradientStart] = useState('#8b5cf6');
   const [gradientEnd, setGradientEnd] = useState('#ec4899');
   
-  const [edgeFeather, setEdgeFeather] = useState(1);
-  const [dropShadow, setDropShadow] = useState(true);
+  // Interactive Canvas State
+  const [offsetX, setOffsetX] = useState(0);
+  const [offsetY, setOffsetY] = useState(0);
+  const [scale, setScale] = useState(1);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Dragging Handlers
+  const handlePointerDown = (e: React.PointerEvent) => {
+    setIsDragging(true);
+    dragStart.current = { x: e.clientX - offsetX, y: e.clientY - offsetY };
+    (e.target as Element).setPointerCapture(e.pointerId);
+  };
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging) return;
+    setOffsetX(e.clientX - dragStart.current.x);
+    setOffsetY(e.clientY - dragStart.current.y);
+  };
+  const handlePointerUp = (e: React.PointerEvent) => {
+    setIsDragging(false);
+    (e.target as Element).releasePointerCapture(e.pointerId);
+  };
+
+  // Preset Handlers
+  const applyPreset = (mode: BackgroundMode, gStart: string, gEnd: string, targetScale = 1, yOffset = 0) => {
+    setBgMode(mode);
+    setGradientStart(gStart);
+    setGradientEnd(gEnd);
+    setScale(targetScale);
+    setOffsetX(0);
+    setOffsetY(yOffset);
+  };
 
   // When a user selects an image
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,37 +112,54 @@ export default function BackgroundRemover() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = processed.width;
-    canvas.height = processed.height;
+    // Set dimensions based on mode
+    let targetWidth = processed.width;
+    let targetHeight = processed.height;
+    const isSquare = ['whatsapp_dp', 'facebook_dp', 'linkedin_dp', 'instagram_dp'].includes(bgMode);
+    
+    if (bgMode === 'youtube_thumb') {
+      targetWidth = 1920;
+      targetHeight = 1080;
+    } else if (isSquare) {
+      const maxDim = Math.max(targetWidth, targetHeight) * 1.2;
+      targetWidth = maxDim;
+      targetHeight = maxDim;
+    }
+
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
 
     // Background Rendering
     if (bgMode === 'solid') {
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-    } else if (bgMode === 'gradient' || bgMode === 'pfp_ring') {
+    } else if (bgMode === 'gradient' || bgMode === 'instagram_dp' || bgMode === 'facebook_dp' || bgMode === 'linkedin_dp' || bgMode === 'youtube_thumb') {
       const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
       grad.addColorStop(0, gradientStart);
       grad.addColorStop(1, gradientEnd);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-    } else if (bgMode === 'product_studio') {
+    } else if (bgMode === 'whatsapp_dp' || bgMode === 'product_studio') {
       const grad = ctx.createRadialGradient(
-        canvas.width / 2, canvas.height, 0,
-        canvas.width / 2, canvas.height, canvas.height
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2, canvas.height
       );
-      grad.addColorStop(0, '#333333');
-      grad.addColorStop(1, '#000000');
+      grad.addColorStop(0, bgMode === 'whatsapp_dp' ? '#ffffff' : '#333333');
+      grad.addColorStop(1, bgMode === 'whatsapp_dp' ? '#e5e7eb' : '#000000');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    if (bgMode === 'pfp_ring') {
+    if (bgMode === 'whatsapp_dp' || bgMode === 'instagram_dp') {
        ctx.beginPath();
-       ctx.arc(canvas.width / 2, canvas.height / 2, Math.min(canvas.width, canvas.height) * 0.45, 0, Math.PI * 2);
-       ctx.lineWidth = canvas.width * 0.02;
-       ctx.strokeStyle = '#ffffff';
+       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width * 0.48, 0, Math.PI * 2);
+       ctx.lineWidth = canvas.width * (bgMode === 'instagram_dp' ? 0.03 : 0.01);
+       const strokeGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+       strokeGrad.addColorStop(0, bgMode === 'instagram_dp' ? '#f59e0b' : '#ffffff');
+       strokeGrad.addColorStop(1, bgMode === 'instagram_dp' ? '#ec4899' : '#ffffff');
+       ctx.strokeStyle = strokeGrad;
        ctx.stroke();
        ctx.clip(); 
     }
@@ -116,24 +170,37 @@ export default function BackgroundRemover() {
     await new Promise(resolve => img.onload = resolve);
 
     ctx.save();
+    
+    // Position transform centering + UI offsets + UI scaling
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    
+    // Scale UI offsets to canvas resolution correctly relative to container bounds if possible
+    // For simplicity, we apply raw offsets scaled proportionately but a multiplier is usually needed.
+    // For an exact 1:1 feel, UI pixel drag needs ratio tracking. We'll approximate closely.
+    const canvasScaleRatio = Math.max(canvas.width, canvas.height) / 800; // rough generic divisor
+    const renderOffsetX = offsetX * canvasScaleRatio;
+    const renderOffsetY = offsetY * canvasScaleRatio;
+
+    ctx.translate(centerX + renderOffsetX, centerY + renderOffsetY);
+    
+    const uiScaleFactor = scale * (isSquare ? 1.2 : 1.0);
+    ctx.scale(uiScaleFactor, uiScaleFactor);
+    ctx.translate(-processed.width / 2, -processed.height / 2);
+
     if (bgMode === 'product_studio') {
        ctx.shadowColor = 'rgba(0,0,0,0.8)';
        ctx.shadowBlur = canvas.width * 0.05;
-       ctx.shadowOffsetY = canvas.height * 0.05;
-       ctx.translate(0, -canvas.height * 0.05);
-    } else if (bgMode === 'pfp_ring') {
-       const scale = 0.9;
-       ctx.translate(canvas.width * (1-scale)/2, canvas.height * (1-scale)/2);
-       ctx.scale(scale, scale);
+       ctx.shadowOffsetY = canvas.height * 0.02;
     }
     
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, processed.width, processed.height);
     ctx.restore();
 
     const dataUrl = canvas.toDataURL(bgMode === 'transparent' ? 'image/png' : 'image/jpeg', 0.95);
     const link = document.createElement('a');
     link.href = dataUrl;
-    link.download = `studio-cutout-${Date.now()}.${bgMode === 'transparent' ? 'png' : 'jpg'}`;
+    link.download = `studio-cutout-pro-${Date.now()}.${bgMode === 'transparent' ? 'png' : 'jpg'}`;
     link.click();
   };
 
@@ -160,13 +227,12 @@ export default function BackgroundRemover() {
 
     try {
       const config: Config = {
-        publicPath: 'https://static.imgly.com/@imgly/background-removal-data/1.7.0/dist/',
         progress: (key, current, total) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
-            setProgressText('Extracting Foreground...');
+            setProgressText('Extracting Foreground Mask...');
           } else {
-            setProgressText(`Loading Local AI Model (${key})...`);
+            setProgressText(`Preparing Advanced Neural Engine...`);
           }
           setProgress(Math.round((current / total) * 100));
         }
@@ -333,67 +399,118 @@ export default function BackgroundRemover() {
 
         {/* State: Done (Studio Builder) */}
         {processState === 'done' && processed && (
-          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in duration-500">
+          <div className="w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in duration-500">
             {/* Visual Canvas Layout */}
-            <div className="lg:col-span-8 xl:col-span-9 flex flex-col items-center justify-center p-4 bg-[#050505] rounded-3xl border border-white/5 relative overflow-hidden">
+            <div className="lg:col-span-8 xl:col-span-9 flex flex-col items-center justify-center p-4 sm:p-8 bg-[#050505] rounded-3xl border border-white/5 relative overflow-hidden h-[500px] xl:h-[700px]">
                <div className="absolute inset-0 pattern-dots pattern-white outline-none opacity-[0.02]"></div>
                
-               <div className={`relative w-full max-w-3xl border shadow-2xl flex items-center justify-center overflow-hidden transition-all duration-500 ${bgMode === 'pfp_ring' ? 'aspect-square rounded-full border-white/20' : 'aspect-video rounded-2xl border-white/10'}`} 
+               {/* Draggable Zone Container */}
+               <div 
+                 ref={containerRef}
+                 className={`relative border shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden transition-[border-radius,width,height] duration-500 
+                   ${['whatsapp_dp', 'facebook_dp', 'linkedin_dp', 'instagram_dp'].includes(bgMode) ? 'w-full max-w-sm aspect-square ' + (bgMode === 'instagram_dp' || bgMode === 'whatsapp_dp' ? 'rounded-full' : 'rounded-3xl border-white/10') : 
+                     bgMode === 'youtube_thumb' ? 'w-full max-w-4xl aspect-[16/9] rounded-2xl border-white/10' : 'w-full max-w-3xl aspect-[4/3] rounded-2xl border-white/10'}`} 
                  style={{
                     background: bgMode === 'transparent' ? 'repeating-conic-gradient(#111 0% 25%, transparent 0% 50%) 50% / 20px 20px' :
                                 bgMode === 'solid' ? bgColor :
-                                bgMode === 'gradient' ? `linear-gradient(135deg, ${gradientStart}, ${gradientEnd})` :
-                                bgMode === 'product_studio' ? 'radial-gradient(ellipse at bottom, #333 0%, #000 100%)' :
-                                bgMode === 'pfp_ring' ? `linear-gradient(to bottom right, ${gradientStart}, ${gradientEnd})` : 'transparent'
-                 }}>
+                                (bgMode === 'gradient' || bgMode === 'facebook_dp' || bgMode === 'linkedin_dp' || bgMode === 'instagram_dp' || bgMode === 'youtube_thumb') ? `linear-gradient(135deg, ${gradientStart}, ${gradientEnd})` :
+                                (bgMode === 'whatsapp_dp' || bgMode === 'product_studio') ? `radial-gradient(circle at center, ${bgMode === 'whatsapp_dp' ? '#ffffff, #e5e7eb' : '#333 0%, #000 100%'})` : 'transparent'
+                 }}
+               >
                  
                  <img 
                    src={processed.cutoutUrl} 
-                   className={`relative z-10 w-full h-full object-contain pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                     bgMode === 'product_studio' ? 'drop-shadow-2xl translate-y-[-5%]' : 
-                     bgMode === 'pfp_ring' ? 'rounded-full scale-[0.85] drop-shadow-2xl' : ''
-                   }`} 
+                   onPointerDown={handlePointerDown}
+                   onPointerMove={handlePointerMove}
+                   onPointerUp={handlePointerUp}
+                   onPointerLeave={handlePointerUp}
+                   draggable={false}
+                   className={`relative z-10 w-full h-full object-contain cursor-grab active:cursor-grabbing transition-[filter,drop-shadow] duration-500 
+                     ${bgMode === 'product_studio' ? 'drop-shadow-2xl' : 'drop-shadow-xl'}
+                   `} 
+                   style={{
+                      transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+                   }}
                    alt="Studio Cutout" 
                  />
 
-                 {/* Simulated Environment Reflections */}
+                 {/* Simulated Environment Reflections for Specific Modes */}
                  {bgMode === 'product_studio' && (
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/5 to-transparent z-0 blur-md"></div>
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/5 to-transparent z-0 blur-md pointer-events-none"></div>
                  )}
-                 {bgMode === 'pfp_ring' && (
-                    <div className="absolute inset-0 rounded-full border-[8px] border-white/20 z-20 pointer-events-none"></div>
+                 {bgMode === 'instagram_dp' && (
+                    <div className="absolute inset-0 rounded-full border-[6px] sm:border-[12px] border-transparent z-20 pointer-events-none" style={{ background: `linear-gradient(white, white) padding-box, linear-gradient(to right top, #f59e0b, #ec4899) border-box` }}></div>
                  )}
+                 {bgMode === 'whatsapp_dp' && (
+                    <div className="absolute inset-0 rounded-full border-[6px] border-white z-20 pointer-events-none drop-shadow-md"></div>
+                 )}
+               </div>
+
+               {/* Absolute Scale Slider floating on top of canvas */}
+               <div className="absolute bottom-6 right-6 lg:left-6 lg:right-auto bg-[#111]/80 backdrop-blur-xl border border-white/10 p-4 rounded-2xl flex items-center gap-4 z-40 shadow-2xl">
+                  <ZoomIn className="w-5 h-5 text-white/50" />
+                  <input type="range" min="0.5" max="2.5" step="0.05" value={scale} onChange={(e) => setScale(parseFloat(e.target.value))} className="w-32 xl:w-48 accent-indigo-500" />
+                  <span className="text-xs font-mono text-white/50">{Math.round(scale * 100)}%</span>
+               </div>
+               
+               {/* Controls Hint */}
+               <div className="absolute top-6 left-6 text-[10px] uppercase tracking-widest font-black text-white/30 flex items-center gap-2">
+                 <Move className="w-4 h-4" /> Click and Drag Subject freely
                </div>
             </div>
 
             {/* Pro Studio Settings Panel */}
-            <div className="lg:col-span-4 xl:col-span-3 bg-[#050505] rounded-3xl border border-white/5 shadow-xl p-6 flex flex-col h-[600px] overflow-y-auto custom-scrollbar">
-              <div className="flex items-center gap-2 border-b border-white/10 pb-4 mb-6">
-                <Palette className="w-5 h-5 text-indigo-400" />
-                <h2 className="font-black text-sm uppercase tracking-widest text-white/90">Studio Environment</h2>
-              </div>
-
-              <div className="space-y-6 flex-1">
-                {/* Mode Selector */}
-                <div className="grid grid-cols-2 gap-2">
-                  <button onClick={() => setBgMode('transparent')} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'transparent' ? 'bg-indigo-500/20 border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.3)] text-indigo-400' : 'bg-black/50 border-white/10 text-white/50 hover:bg-white/5'}`}>
-                    <Square className="w-4 h-4 dashed stroke-[1.5]" /> Transparent
-                  </button>
-                  <button onClick={() => setBgMode('solid')} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'solid' ? 'bg-indigo-500/20 border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.3)] text-indigo-400' : 'bg-black/50 border-white/10 text-white/50 hover:bg-white/5'}`}>
-                    <Square className="w-4 h-4 fill-current" /> Solid Base
-                  </button>
-                  <button onClick={() => setBgMode('gradient')} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'gradient' ? 'bg-indigo-500/20 border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.3)] text-indigo-400' : 'bg-black/50 border-white/10 text-white/50 hover:bg-white/5'}`}>
-                    <Layers className="w-4 h-4" /> Gradient UI
-                  </button>
-                  <button onClick={() => setBgMode('product_studio')} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'product_studio' ? 'bg-purple-500/20 border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.3)] text-purple-400' : 'bg-black/50 border-white/10 text-white/50 hover:bg-white/5'}`}>
-                    <ImageIcon className="w-4 h-4" /> Product Studio
-                  </button>
-                  <button onClick={() => setBgMode('pfp_ring')} className={`col-span-2 flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'pfp_ring' ? 'bg-pink-500/20 border-pink-500 shadow-[0_0_15px_rgba(236,72,153,0.3)] text-pink-400' : 'bg-black/50 border-white/10 text-white/50 hover:bg-white/5'}`}>
-                    <Circle className="w-4 h-4" /> Profile Picture Ring Mode
-                  </button>
+            <div className="lg:col-span-4 xl:col-span-3 bg-[#050505] rounded-3xl border border-white/5 shadow-xl p-6 flex flex-col h-[500px] xl:h-[700px] overflow-y-auto custom-scrollbar">
+              <div className="space-y-8 flex-1">
+                
+                {/* Section 1: 1-Click DP Presets */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                    <Sparkles className="w-4 h-4 text-purple-400" />
+                    <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Social AI Makers</h2>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                     <button onClick={() => applyPreset('whatsapp_dp', '#ffffff', '#e5e7eb', 0.85, 20)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'whatsapp_dp' ? 'bg-green-500/20 border-green-500 text-green-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                        <MessageCircle className="w-3 h-3" /> WhatsApp
+                     </button>
+                     <button onClick={() => applyPreset('instagram_dp', '#f59e0b', '#ec4899', 0.75, 40)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'instagram_dp' ? 'bg-pink-500/20 border-pink-500 text-pink-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                        <Camera className="w-3 h-3" /> Instagram
+                     </button>
+                     <button onClick={() => applyPreset('facebook_dp', '#3b5998', '#1e3a8a', 0.8, 40)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'facebook_dp' ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                        <span className="font-serif font-black text-sm outline-none px-1">f</span> Facebook
+                     </button>
+                     <button onClick={() => applyPreset('linkedin_dp', '#0ea5e9', '#0284c7', 0.85, 30)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'linkedin_dp' ? 'bg-sky-500/20 border-sky-500 text-sky-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                        <Briefcase className="w-3 h-3" /> LinkedIn
+                     </button>
+                     <button onClick={() => applyPreset('youtube_thumb', '#111111', '#ef4444', 1.0, 0)} className={`col-span-2 p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'youtube_thumb' ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                        <YoutubeIcon className="w-4 h-4" /> YouTube Thumbnail Pro
+                     </button>
+                  </div>
                 </div>
 
-                {/* Sub-settings based on mode */}
+                {/* Section 2: Mode Selector */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                    <Palette className="w-4 h-4 text-indigo-400" />
+                    <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Custom Environment</h2>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button onClick={() => applyPreset('transparent', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'transparent' ? 'bg-indigo-500/20 border-indigo-500 text-indigo-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                      <Square className="w-4 h-4 dashed stroke-[1.5]" /> Transparent
+                    </button>
+                    <button onClick={() => applyPreset('solid', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'solid' ? 'bg-indigo-500/20 border-indigo-500 text-indigo-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                      <Square className="w-4 h-4 fill-current" /> Solid Base
+                    </button>
+                    <button onClick={() => applyPreset('gradient', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'gradient' ? 'bg-indigo-500/20 border-indigo-500 text-indigo-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                      <Layers className="w-4 h-4" /> Gradient UI
+                    </button>
+                    <button onClick={() => applyPreset('product_studio', gradientStart, gradientEnd, 1, -20)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'product_studio' ? 'bg-purple-500/20 border-purple-500 text-purple-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                      <ImageIcon className="w-4 h-4" /> E-Com Shadow
+                    </button>
+                  </div>
+                </div>
+
+                {/* Section 3: Sub-settings based on mode */}
                 {bgMode === 'solid' && (
                   <div className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/5 animate-in slide-in-from-top-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/50">Base Fill Color</label>
@@ -401,7 +518,7 @@ export default function BackgroundRemover() {
                   </div>
                 )}
 
-                {(bgMode === 'gradient' || bgMode === 'pfp_ring') && (
+                {['gradient', 'instagram_dp', 'facebook_dp', 'linkedin_dp', 'youtube_thumb'].includes(bgMode) && (
                   <div className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/5 animate-in slide-in-from-top-2 grid grid-cols-2 gap-4">
                     <div className="space-y-2 col-span-1">
                        <label className="text-[9px] font-bold uppercase tracking-widest text-white/50">Gradient Start</label>
