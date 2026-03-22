@@ -302,8 +302,9 @@ export default function BackgroundRemover() {
 
     try {
       // Explicit configuration for assets to prevent first-visit loading failures
+      // Synchronized to match the installed package version (1.7.0 in package.json)
       const config: Config = {
-        publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.5.7/dist/',
+        publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.7.0/dist/',
         progress: (key) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
