@@ -41,7 +41,8 @@ const tools = [
     icon: Film,
     path: "/tools/video-to-gif",
     status: "Trending",
-    color: "rose"
+    color: "rose",
+    actionLabel: "Open Tool"
   },
   {
     id: "QR-001",
