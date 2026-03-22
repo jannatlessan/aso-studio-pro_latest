@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
+  Film,
   Smartphone, 
   ChevronRight, 
   Terminal, 
@@ -33,6 +34,15 @@ import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 
 const tools = [
+  {
+    id: "VID-001",
+    name: "Video to GIF Maker",
+    description: "Convert any video into an exceptionally high-quality animated GIF instantly. 100% offline edge-processing running locally in your browser.",
+    icon: Film,
+    path: "/tools/video-to-gif",
+    status: "Trending",
+    color: "rose"
+  },
   {
     id: "QR-001",
     name: "QR Code Generator",
