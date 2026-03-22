@@ -40,6 +40,9 @@ const FILTER_MAP: Record<FilterPreset, string> = {
   cool: 'hue-rotate(180deg) saturate(1.5) blur(0px)',
   warm: 'sepia(40%) saturate(1.4) hue-rotate(-15deg)',
   dramatic: 'contrast(1.4) brightness(0.9) saturate(1.2)',
+  neon: 'saturate(2.5) contrast(1.3) hue-rotate(45deg)'
+};
+
 interface ProcessedImage {
   originalUrl: string;
   cutoutUrl: string; 
@@ -54,8 +57,54 @@ export default function BackgroundRemover() {
   const [processed, setProcessed] = useState<ProcessedImage | null>(null);
   const [processState, setProcessState] = useState<ProcessState>('idle');
   const [progress, setProgress] = useState(0);
+  const [simulatedProgress, setSimulatedProgress] = useState(0);
   const [progressText, setProgressText] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Smooth Loading Effect
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (processState === 'loading_model' || processState === 'processing') {
+       interval = setInterval(() => {
+          setSimulatedProgress(prev => {
+             // Slowly asymptotically approach 95%
+             if (prev >= 95) return 95;
+             const remaining = 95 - prev;
+             // move 2% of the remaining distance every 100ms
+             const increment = Math.max(0.1, remaining * 0.02);
+             return prev + increment;
+          });
+       }, 100);
+    } else if (processState === 'done') {
+       setSimulatedProgress(100);
+    } else {
+       setSimulatedProgress(0);
+    }
+    return () => clearInterval(interval);
+  }, [processState]);
+
+  // Engaging Messages Rotator Effect
+  useEffect(() => {
+     let interval: ReturnType<typeof setInterval>;
+     const ENGAGING_MESSAGES = [
+        "Igniting neural core...",
+        "Scanning image geometry...",
+        "Identifying main subject...",
+        "Analyzing complex shadows...",
+        "Isolating foreground boundaries...",
+        "Refining delicate edges...",
+        "Applying transparent composite..."
+     ];
+     let msgIndex = 0;
+     if (processState === 'loading_model' || processState === 'processing') {
+        setProgressText(ENGAGING_MESSAGES[0]);
+        interval = setInterval(() => {
+           msgIndex = (msgIndex + 1) % ENGAGING_MESSAGES.length;
+           setProgressText(ENGAGING_MESSAGES[msgIndex]);
+        }, 3000); // Change text exactly every 3 seconds for reliable smoothness
+     }
+     return () => clearInterval(interval);
+  }, [processState]);
 
   // Pro Studio Settings
   const [bgMode, setBgMode] = useState<BackgroundMode>('transparent');
@@ -251,27 +300,12 @@ export default function BackgroundRemover() {
     setErrorMsg('');
 
     try {
-      const ENGAGING_MESSAGES = [
-        "Igniting neural core...",
-        "Scanning image geometry...",
-        "Identifying main subject...",
-        "Analyzing complex shadows...",
-        "Isolating foreground boundaries...",
-        "Refining delicate edges..."
-      ];
-
       const config: Config = {
-        progress: (key, current, total) => {
-          const percentage = Math.round((current / total) * 100);
-          const msgIndex = Math.min(Math.floor(percentage / 18), ENGAGING_MESSAGES.length - 1);
-          
+        progress: (key) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
-            setProgressText("Applying transparent composite...");
-          } else {
-            setProgressText(ENGAGING_MESSAGES[msgIndex]);
           }
-          setProgress(percentage);
+          // We ignore the choppy numeric progress and rely on our butter-smooth React timers
         }
       };
 
@@ -392,14 +426,14 @@ export default function BackgroundRemover() {
         {(processState === 'loading_model' || processState === 'processing') && (
           <div className="w-full max-w-md p-10 bg-[#050505] border border-white/5 rounded-3xl shadow-2xl space-y-8 animate-in zoom-in-95 duration-500 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
-               <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300" style={{ width: `${progress}%` }}></div>
+               <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300" style={{ width: `${Math.round(simulatedProgress)}%` }}></div>
             </div>
             
             <Loader2 className="w-16 h-16 text-indigo-500 animate-spin mx-auto" />
             
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50">{progressText}</h3>
-              <p className="text-xs text-white/40 uppercase tracking-widest font-mono">{progress}% Complete</p>
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50 animate-pulse">{progressText}</h3>
+              <p className="text-xs text-white/40 uppercase tracking-widest font-mono">{Math.round(simulatedProgress)}% Complete</p>
             </div>
             
           </div>
