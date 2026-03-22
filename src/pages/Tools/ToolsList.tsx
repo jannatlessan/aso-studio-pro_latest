@@ -24,7 +24,8 @@ import {
   Percent, 
   Youtube,
   FileText,
-  Search
+  Search,
+  Wand2
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
@@ -172,6 +173,15 @@ const tools = [
     description: "Compress JPEG, PNG, and WebP images locally with maximum size savings and zero visible quality loss.",
     icon: ImageIcon,
     path: "/tools/image-compressor",
+    status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "IMG-003",
+    name: "Bulk Image Enhancer",
+    description: "Edit bulk images quickly. Apply Brightness, Contrast, Saturation, and other real-time filters instantly to all your photos.",
+    icon: Wand2,
+    path: "/tools/bulk-image-enhancer",
     status: "Ready",
     actionLabel: "Open Tool"
   },
