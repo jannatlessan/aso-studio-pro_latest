@@ -16,6 +16,7 @@
     "@ffmpeg/util": "^0.12.2",
     "@google/genai": "^1.29.0",
     "@imgly/background-removal": "^1.7.0",
+    "@imgly/background-removal-data": "^1.4.5",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@tailwindcss/vite": "^4.1.14",
