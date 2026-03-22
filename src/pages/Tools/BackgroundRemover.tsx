@@ -160,7 +160,7 @@ export default function BackgroundRemover() {
 
     try {
       const config: Config = {
-        publicPath: window.location.origin + '/assets/bg-removal/',
+        publicPath: 'https://static.imgly.com/@imgly/background-removal-data/1.7.0/dist/',
         progress: (key, current, total) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
@@ -302,7 +302,7 @@ export default function BackgroundRemover() {
             {processState === 'loading_model' && (
                <p className="text-[10px] text-white/30 uppercase tracking-widest mt-4">
                  <Sparkles className="w-3 h-3 inline mr-1 text-purple-400 mb-0.5" />
-                 Initialize Local WebAssembly processing environment...
+                 First run downloads a 40MB WebAssembly Model locally into your browser. 
                </p>
             )}
           </div>
