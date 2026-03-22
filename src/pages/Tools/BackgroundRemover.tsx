@@ -156,6 +156,7 @@ export default function BackgroundRemover() {
     if (!file) return;
 
     // Reset everything
+    if (fileInputRef.current) fileInputRef.current.value = '';
     setSourceImage(file);
     setProcessed(null);
     setProcessState('idle');
@@ -300,12 +301,13 @@ export default function BackgroundRemover() {
     setErrorMsg('');
 
     try {
+      // Explicit configuration for assets to prevent first-visit loading failures
       const config: Config = {
+        publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal-data@1.5.7/dist/',
         progress: (key) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
           }
-          // We ignore the choppy numeric progress and rely on our butter-smooth React timers
         }
       };
 
@@ -331,9 +333,11 @@ export default function BackgroundRemover() {
       setProgressText('Analysis Complete!');
       
     } catch (err: any) {
-      console.error(err);
+      console.error('AuraCut AI Error:', err);
+      // Detailed error reporting to help identify first-visit environment issues
+      const detailedMsg = err.message || 'The AI engine encountered an environmental error.';
       setProcessState('error');
-      setErrorMsg(err.message || 'An error occurred during AI processing. Please try a different image.');
+      setErrorMsg(`${detailedMsg} (Code: ERR_AI_INIT_FAIL)`);
     }
   };
 
@@ -365,7 +369,7 @@ export default function BackgroundRemover() {
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => { setSourceImage(null); setProcessed(null); setProcessState('idle'); }} className="h-8 px-4 text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
+            <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessed(null); setProcessState('idle'); }} className="h-8 px-4 text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
               <RefreshCcw className="w-3 h-3" /> Reset Tool
             </button>
             <button onClick={handleExport} disabled={processState !== 'done'} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed">
@@ -455,10 +459,22 @@ export default function BackgroundRemover() {
 
         {/* Error State */}
         {processState === 'error' && (
-           <div className="w-full max-w-lg p-8 bg-red-500/10 border border-red-500/20 rounded-3xl text-center space-y-4">
-              <h3 className="text-xl font-bold text-red-400">Processing Failed</h3>
-              <p className="text-sm text-red-300/80">{errorMsg}</p>
-              <button onClick={() => { setSourceImage(null); setProcessState('idle'); }} className="px-6 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 rounded-lg text-xs font-bold uppercase tracking-widest transition-colors">Try Another Image</button>
+           <div className="w-full max-w-lg p-10 bg-[#050505] border border-red-500/20 rounded-3xl text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-500">
+              <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto">
+                 <RefreshCcw className="w-8 h-8 text-red-400" />
+              </div>
+              <div className="space-y-2">
+                 <h3 className="text-xl font-bold text-white">AI Engine Stalled</h3>
+                 <p className="text-sm text-white/40 leading-relaxed">{errorMsg}</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                 <button onClick={executeRemoval} className="flex-1 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95">
+                   Restart AI Core
+                 </button>
+                 <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessState('idle'); }} className="flex-1 px-8 py-3 bg-white/5 hover:bg-white/10 text-white/50 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors border border-white/5">
+                   Abort & Change Image
+                 </button>
+              </div>
            </div>
         )}
 
