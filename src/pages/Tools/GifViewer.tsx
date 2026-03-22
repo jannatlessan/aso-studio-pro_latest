@@ -383,63 +383,76 @@ export default function GifViewer() {
       <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
         <div className="max-w-6xl mx-auto space-y-24">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
-             <h2 className="text-4xl md:text-6xl font-black text-white leading-tight" itemProp="headline">The Best Online GIF Viewer & GIF to Video Converter</h2>
+             <h2 className="text-4xl md:text-6xl font-black text-white leading-tight" itemProp="headline">The Ultimate GIF Viewer & GIF to Video Converter</h2>
              <p className="text-white/60 text-lg md:text-xl leading-relaxed" itemProp="description">
-               Natively, internet browsers cannot pause or scrub animated GIFs. We solved that. Upload any standard .gif archive here to instantly pause the animation, scrub linearly through the temporal timeline frame-by-frame, convert your GIF to MP4 video, and extract absolute high-definition PNG splices instantly to your local machine. Absolutely zero cloud tracking and zero server limits.
+               Stop struggling with unpausable animations. AuraCut GIF Studio is a professional-grade solution that transforms archaic .gif files into modern, interactive experiences. Convert GIFs to MP4 videos, scrub frame-by-frame with millisecond precision, and extract lossless PNG frames—all executed 100% offline in your browser for absolute privacy. Perfect for animators, developers, and social media creators.
              </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
-                <PlaySquare className="w-8 h-8 text-sky-400" />
-                <h3 className="text-white font-bold">Unrestricted Playback Control</h3>
-                <p className="text-sm text-white/50">Gain the granular ability to formally pause, resume, and linearly scrub animations exactly as if they were standard MP4 videos.</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <div className="bg-white/[0.02] border border-white/5 p-8 rounded-3xl space-y-4 hover:border-sky-500/30 transition-colors group">
+                <PlaySquare className="w-10 h-10 text-sky-400 group-hover:scale-110 transition-transform" />
+                <h3 className="text-white font-black text-xl">Lossless GIF to MP4</h3>
+                <p className="text-sm text-white/50 leading-relaxed">Our advanced FFmpeg pipeline transposes GIF frames into high-bitrate H.264 MP4 videos while preserving every single pixel and color value from the original source.</p>
              </div>
-             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
-                <Camera className="w-8 h-8 text-emerald-400" />
-                <h3 className="text-white font-bold">Meticulous Frame Extraction</h3>
-                <p className="text-sm text-white/50">Capture absolute split-second microframes from your loops seamlessly and export them instantly as pristine lossless .png images.</p>
+             <div className="bg-white/[0.02] border border-white/5 p-8 rounded-3xl space-y-4 hover:border-emerald-500/30 transition-colors group">
+                <Camera className="w-10 h-10 text-emerald-400 group-hover:scale-110 transition-transform" />
+                <h3 className="text-white font-black text-xl">Frame-Perfect Slicing</h3>
+                <p className="text-sm text-white/50 leading-relaxed">Isolate specific moments from your animations. Scrub through the timeline and export individual frames as transparent PNGs with zero compression artifacts.</p>
              </div>
-             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
-                <ShieldCheck className="w-8 h-8 text-indigo-400" />
-                <h3 className="text-white font-bold">Client-Side Edge Security</h3>
-                <p className="text-sm text-white/50">Your files legally never leave your local RAM. We execute the FFmpeg compiler locally inside your browser architecture natively.</p>
-             </div>
-             <div className="bg-white/[0.02] border border-white/5 p-6 rounded-2xl space-y-4">
-                <CheckCircle2 className="w-8 h-8 text-teal-400" />
-                <h3 className="text-white font-bold">Always Free. No Watermarks.</h3>
-                <p className="text-sm text-white/50">AuraCut does not inject paywalls or annoying corporate watermarks into your highly valuable extracted frame content outputs.</p>
+             <div className="bg-white/[0.02] border border-white/5 p-8 rounded-3xl space-y-4 hover:border-amber-500/30 transition-colors group">
+                <ShieldCheck className="w-10 h-10 text-amber-400 group-hover:scale-110 transition-transform" />
+                <h3 className="text-white font-black text-xl">100% Local Logic</h3>
+                <p className="text-sm text-white/50 leading-relaxed">Your data remains yours. No servers, no uploads, no cloud tracking. Everything from decompressing LZW data to compiling MP4 streams happens in your RAM.</p>
              </div>
           </div>
 
           <div className="space-y-12 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-black text-white text-center">Frequently Asked Questions</h3>
+            <h3 className="text-3xl font-black text-white text-center">In-Depth GIF Viewer FAQ</h3>
             <div className="grid gap-6" itemScope itemType="https://schema.org/FAQPage">
                <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                   <div className="flex items-center gap-4">
                      <PlaySquare className="w-8 h-8 text-sky-400 shrink-0" />
-                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Why can't I normally pause a GIF on my computer?</h4>
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">How do I pause or rewind an animated GIF?</h4>
                   </div>
-                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
-                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">The GIF (Graphics Interchange Format) architecture was explicitly designed in the 1980s as a static bitmap image sequence format without a native temporal playback container. Most standard desktop environments and browsers implement basic "infinite loop" parsers that legally offer zero external control methods to stop, reverse, or edit the sequence dynamically without advanced software installed.</p>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12 border-l border-white/5 ml-4">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Standard browsers do not support pausing GIFs. AuraCut Studio solves this by instantly transcoding your .gif file into a temporary MP4 video stream using WebAssembly. This unlocks a standard video player interface where you can formally pause, rewind, loop, and scrub at will.</p>
                   </div>
                </div>
                <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                   <div className="flex items-center gap-4">
                      <Camera className="w-8 h-8 text-emerald-400 shrink-0" />
-                     <h4 className="text-white font-extrabold text-xl" itemProp="name">How does AuraCut extract the exact frame without losing quality?</h4>
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">How can I extract individual frames from a GIF animation?</h4>
                   </div>
-                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
-                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">When you drop your GIF into our viewer, our secure offline pipeline injects an FFmpeg WebAssembly terminal into your session to convert the archaic graphics sequence into a fluid, highly-compliant modern MP4 stream. When you click extract, our engine generates an HTML5 Canvas node mathematically mapped to the precise intrinsic aspect ratio of your video and copies the exact pixel RGB values of that given millisecond.</p>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12 border-l border-white/5 ml-4">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Simply upload your GIF to our extractor, pause at the exact frame you need, and click "Capture Frame". Our engine will instantaneously copy the pixel-perfect frame onto a hidden high-resolution canvas and generate a downloadable PNG image for you.</p>
                   </div>
                </div>
                <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                   <div className="flex items-center gap-4">
-                     <ShieldCheck className="w-8 h-8 text-indigo-400 shrink-0" />
-                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Is my uploaded GIF saved to a public server?</h4>
+                     <Download className="w-8 h-8 text-indigo-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Can I convert my GIF to an MP4 video file?</h4>
                   </div>
-                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12">
-                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">No, absolutely not. Because we implement bleeding-edge edge-compute technologies, all logic is handled natively by your device's physical CPU. Even if you drastically disconnect your WiFI immediately after the engine initializes, our tools will continue running perfectly because your data never transfers through a cloud environment.</p>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12 border-l border-white/5 ml-4">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Yes! In addition to viewing, AuraCut provides a dedicated "Download MP4" button. This allows you to formally convert any animated GIF into a modern H.264 video file, which is often much smaller in size and more compatible with social media platforms like Instagram or Twitter.</p>
+                  </div>
+               </div>
+               <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <div className="flex items-center gap-4">
+                     <Sparkles className="w-8 h-8 text-amber-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Does it support GIFs with transparent backgrounds?</h4>
+                  </div>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12 border-l border-white/5 ml-4">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Currently, when converting a GIF to MP4, transparency is flattened into a solid color (usually black or white) because the MP4 format does not natively support an alpha channel. However, when using our "Frame Extractor", the captured images are exported as high-quality PNGs, which can maintain pixel-perfect detail.</p>
+                  </div>
+               </div>
+               <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                  <div className="flex items-center gap-4">
+                     <ShieldCheck className="w-8 h-8 text-rose-400 shrink-0" />
+                     <h4 className="text-white font-extrabold text-xl" itemProp="name">Is there any limit to the GIF file size I can upload?</h4>
+                  </div>
+                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" className="pl-12 border-l border-white/5 ml-4">
+                    <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Our tool has no artificial file size limits. Because the conversion happens on your own computer, the only limit is your available RAM and CPU power. We've successfully processed heavy GIF archives over 100MB right in the browser!</p>
                   </div>
                </div>
             </div>
