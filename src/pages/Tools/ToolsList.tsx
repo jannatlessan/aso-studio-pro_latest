@@ -188,8 +188,8 @@ const tools = [
   },
   {
     id: "IMG-004",
-    name: "AI Background Remover",
-    description: "Instantly remove backgrounds using powerful on-device AI. Includes Pro studio drop-shadows and social profile picture generation.",
+    name: "AuraCut AI",
+    description: "Instantly isolate backgrounds using our local neural engine. Features DP Makers, layer filters, and pro studio drop-shadows.",
     icon: Layers,
     path: "/tools/background-remover",
     status: "Trending",

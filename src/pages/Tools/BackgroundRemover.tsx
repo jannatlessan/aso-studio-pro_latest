@@ -393,8 +393,12 @@ export default function BackgroundRemover() {
               <p className="text-xs text-white/40 uppercase tracking-widest font-mono">{progress}% Complete</p>
             </div>
             
+            <p className="text-[10px] text-amber-500/80 uppercase tracking-widest mt-6 font-bold animate-pulse">
+               ⚠️ Please do not close or refresh this tab while processing.
+            </p>
+
             {processState === 'loading_model' && (
-               <p className="text-[10px] text-white/30 uppercase tracking-widest mt-4">
+               <p className="text-[10px] text-white/30 uppercase tracking-widest mt-2">
                  <Sparkles className="w-3 h-3 inline mr-1 text-purple-400 mb-0.5" />
                  First run downloads a 40MB WebAssembly Model locally into your browser. 
                </p>
@@ -606,33 +610,59 @@ export default function BackgroundRemover() {
       {/* Hidden File Input */}
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" className="hidden" />
 
-      {/* SEO Content Structure */}
-      <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10">
+      {/* SEO Content Structure - Optimized for Google Search Strategy */}
+      <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
         <div className="max-w-4xl mx-auto space-y-16">
           <div className="text-center space-y-4">
-             <h2 className="text-3xl md:text-5xl font-black text-white">The Ultimate AuraCut Studio</h2>
-             <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed">
-               Built for uncompromising professionals. AuraCut extracts exquisite foreground details leveraging state-of-the-art WebAssembly machine learning—all entirely for free, forever. No subscriptions, no cloud latency.
+             <h2 className="text-3xl md:text-5xl font-black text-white" itemProp="headline">Free AI Background Remover Online</h2>
+             <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed" itemProp="description">
+               Remove backgrounds from images instantly for free with AuraCut AI. Built for professionals, our tool uses on-device WebAssembly machine learning to cut out subjects completely offline. No subscriptions, zero watermarks, and no cloud uploads.
              </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
              <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
                 <ShieldCheck className="w-8 h-8 text-indigo-400" />
-                <h3 className="text-white font-bold text-lg">100% Private</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Unlike generic background removers, your photos never leave your device. The AI neural network runs entirely inside your local browser memory.</p>
+                <h3 className="text-white font-bold text-lg">100% Private Offline Processing</h3>
+                <p className="text-sm text-white/50 leading-relaxed">Unlike generic background removers that upload your files, your photos never leave your device. The AI neural network runs entirely inside your local browser memory ensuring enterprise-grade privacy.</p>
              </div>
              <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
                 <Sparkles className="w-8 h-8 text-purple-400" />
-                <h3 className="text-white font-bold text-lg">Pro Studio Generator</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Automatically generate stunning e-commerce product showrooms with algorithmically calculated soft drop shadows and curved studio drops.</p>
+                <h3 className="text-white font-bold text-lg">E-Commerce Product Shadows</h3>
+                <p className="text-sm text-white/50 leading-relaxed">Generate stunning e-commerce product showrooms instantly. Our AI calculates soft drop shadows and generates professional curved portrait backdrops perfect for WooCommerce or Shopify.</p>
              </div>
              <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
                 <Circle className="w-8 h-8 text-pink-400" />
-                <h3 className="text-white font-bold text-lg">Instant PFP Maker</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Upload a selfie and our PFP Ring Mode will instantly center your face, mask the background, and wrap it in a glowing high-resolution ring.</p>
+                <h3 className="text-white font-bold text-lg">WhatsApp & Social PFP Maker</h3>
+                <p className="text-sm text-white/50 leading-relaxed">Create the perfect WhatsApp DP or Instagram profile picture. Upload a selfie and our PFP Ring Mode naturally centers your face and applies a high-resolution gradient ring.</p>
              </div>
           </div>
+
+          {/* Highly Ranked SEO FAQ Schema Section */}
+          <div className="pt-12 border-t border-white/10" itemScope itemType="https://schema.org/FAQPage">
+             <h2 className="text-2xl font-black mb-8 text-center text-white">Frequently Asked Questions</h2>
+             <div className="space-y-6">
+                <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                   <h3 className="text-lg font-bold text-white mb-2" itemProp="name">How do I remove the background from an image for free?</h3>
+                   <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                      <p className="text-white/50 leading-relaxed" itemProp="text">Simply drag and drop your image (JPG, PNG, or WebP) into the AuraCut AI upload box above. The advanced neuronal web logic will automatically detect the foreground subject, extract the background, and provide you with a transparent PNG ready for download instantly—all at absolutely zero cost.</p>
+                   </div>
+                </div>
+                <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                   <h3 className="text-lg font-bold text-white mb-2" itemProp="name">Is AuraCut AI truly private and safe to use?</h3>
+                   <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                      <p className="text-white/50 leading-relaxed" itemProp="text">Yes. Unlike standard cloud-based background removers, AuraCut AI runs the entire deep-learning model locally inside your browser utilizing WebAssembly. Your images are never uploaded to our servers, ensuring your strict data privacy remains unbroken.</p>
+                   </div>
+                </div>
+                <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                   <h3 className="text-lg font-bold text-white mb-2" itemProp="name">Can I use this tool to create YouTube Thumbnails?</h3>
+                   <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                      <p className="text-white/50 leading-relaxed" itemProp="text">Absolutely! AuraCut AI includes specialized 16:9 canvas settings via our Custom Environment panel. Just click the "YouTube Thumbnail Pro" preset, adjust your extracted subject's size, pick a dramatic gradient filter, and export a ready-to-use thumbnail natively.</p>
+                   </div>
+                </div>
+             </div>
+          </div>
+
         </div>
       </section>
       
