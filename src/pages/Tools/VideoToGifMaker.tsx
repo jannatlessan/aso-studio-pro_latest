@@ -168,7 +168,7 @@ export default function VideoToGifMaker() {
       await ffmpeg.writeFile('input.mp4', await fetchFile(videoMeta.file));
 
       const ptsMultiplier = (1 / speed).toFixed(4);
-      const vfCore = `setpts=${ptsMultiplier}*PTS,fps=${fps},scale=${width}:-1:flags=lanczos`;
+      const vfCore = `setpts=${ptsMultiplier}*(PTS-STARTPTS),fps=${fps},scale=${width}:-1:flags=lanczos`;
 
       // 2-Pass Palette Generation for High Quality GIF
       // Pass 1: Extract optimal 256 color palette from the video slice
@@ -186,7 +186,7 @@ export default function VideoToGifMaker() {
         '-to', endTime.toString(),
         '-i', 'input.mp4',
         '-i', 'palette.png',
-        '-filter_complex', `${vfCore}[x];[x][1:v]paletteuse=dither=sierra2_4a`,
+        '-filter_complex', `[0:v]${vfCore}[x];[x][1:v]paletteuse=dither=sierra2_4a`,
         '-y', 'output.gif'
       ]);
 
@@ -211,6 +211,7 @@ export default function VideoToGifMaker() {
   };
 
   const resetAll = () => {
+    if (fileInputRef.current) fileInputRef.current.value = '';
     setVideoMeta(null);
     setGifUrl(null);
     setProcessState('idle');
