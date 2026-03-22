@@ -31,6 +31,7 @@
   <url><loc>https://shaaddev.studio/tools/image-compressor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/tools/audio-merger</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/tools/pdf-merger</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/bulk-image-enhancer</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- Legal & Info -->
   <url><loc>https://shaaddev.studio/privacy</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
