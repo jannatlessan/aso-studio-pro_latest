@@ -43,6 +43,8 @@ const FILTER_MAP: Record<FilterPreset, string> = {
   neon: 'saturate(2.5) contrast(1.3) hue-rotate(45deg)'
 };
 
+let hasLoadedModelThisSession = false;
+
 interface ProcessedImage {
   originalUrl: string;
   cutoutUrl: string; 
@@ -258,15 +260,16 @@ export default function BackgroundRemover() {
         progress: (key, current, total) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
-            setProgressText('Extracting Foreground Mask...');
+            setProgressText('Extracting Foreground...');
           } else {
-            setProgressText(`Preparing Advanced Neural Engine...`);
+            setProgressText(hasLoadedModelThisSession ? 'Waking up Cached AI Engine...' : 'Preparing Offline AI Core Engine...');
           }
           setProgress(Math.round((current / total) * 100));
         }
       };
 
       const blob = await removeBackground(sourceImage, config);
+      hasLoadedModelThisSession = true;
       
       const originalUrl = URL.createObjectURL(sourceImage);
       const cutoutUrl = URL.createObjectURL(blob);
@@ -397,10 +400,10 @@ export default function BackgroundRemover() {
                ⚠️ Please do not close or refresh this tab while processing.
             </p>
 
-            {processState === 'loading_model' && (
-               <p className="text-[10px] text-white/30 uppercase tracking-widest mt-2">
+            {processState === 'loading_model' && !hasLoadedModelThisSession && (
+               <p className="text-[10px] text-white/30 uppercase tracking-widest mt-2 animate-in fade-in duration-1000">
                  <Sparkles className="w-3 h-3 inline mr-1 text-purple-400 mb-0.5" />
-                 First run downloads a 40MB WebAssembly Model locally into your browser. 
+                 First run securely downloads AI rendering assets temporarily to your browser. 
                </p>
             )}
           </div>
@@ -616,7 +619,7 @@ export default function BackgroundRemover() {
           <div className="text-center space-y-4">
              <h2 className="text-3xl md:text-5xl font-black text-white" itemProp="headline">Free AI Background Remover Online</h2>
              <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed" itemProp="description">
-               Remove backgrounds from images instantly for free with AuraCut AI. Built for professionals, our tool uses on-device WebAssembly machine learning to cut out subjects completely offline. No subscriptions, zero watermarks, and no cloud uploads.
+               Remove backgrounds from images instantly for free with AuraCut AI. Built for professionals, our tool uses strictly on-device artificial intelligence to cut out subjects completely offline. No subscriptions, zero watermarks, and no cloud uploads.
              </p>
           </div>
 
@@ -651,7 +654,7 @@ export default function BackgroundRemover() {
                 <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                    <h3 className="text-lg font-bold text-white mb-2" itemProp="name">Is AuraCut AI truly private and safe to use?</h3>
                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="text-white/50 leading-relaxed" itemProp="text">Yes. Unlike standard cloud-based background removers, AuraCut AI runs the entire deep-learning model locally inside your browser utilizing WebAssembly. Your images are never uploaded to our servers, ensuring your strict data privacy remains unbroken.</p>
+                      <p className="text-white/50 leading-relaxed" itemProp="text">Yes. Unlike standard cloud-based background removers, AuraCut AI runs the entire AI extraction directly inside your browser cache. Your images are never uploaded to our servers, ensuring your strict data privacy remains unbroken.</p>
                    </div>
                 </div>
                 <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
