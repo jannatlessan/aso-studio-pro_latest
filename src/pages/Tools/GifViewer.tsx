@@ -25,6 +25,7 @@ export default function GifViewer() {
   const [originalGifFile, setOriginalGifFile] = useState<File | null>(null);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [extractedFrameUrl, setExtractedFrameUrl] = useState<string | null>(null);
+  const [exportName, setExportName] = useState('aura-gif-export');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -124,6 +125,9 @@ export default function GifViewer() {
       setExtractedFrameUrl(null);
       setProcessState('done');
       
+      const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || 'animation';
+      setExportName(`${baseName}-aura-video`);
+      
       // Cleanup WASM memory
       await ffmpeg.deleteFile('input.gif');
       await ffmpeg.deleteFile('output.mp4');
@@ -164,8 +168,8 @@ export default function GifViewer() {
       <AdBlockDetector />
       <div className="min-h-screen bg-[#020202] text-white selection:bg-sky-500/30 font-sans">
       <SEO 
-        title="AuraCut Studio | Online GIF Viewer & Extractor"
-        description="Upload any GIF to perfectly pause, rewind, scrub frame-by-frame, and extract ultra high-definition PNG frame slices. 100% free and fully private offline processing."
+        title="AuraCut Studio | GIF to Video Converter & Viewer"
+        description="Upload any GIF to perfectly pause, rewind, scrub frame-by-frame, and convert to high-definition MP4 video. Extract ultra high-definition PNG frame slices. 100% free and fully private offline processing."
         url="https://shaaddev.studio/tools/gif-viewer"
       />
 
@@ -189,8 +193,13 @@ export default function GifViewer() {
             <button onClick={resetAll} className="h-8 px-4 text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
+            {videoUrl && (
+              <a href={videoUrl} download={`${exportName}.mp4`} className="h-8 px-5 text-xs font-bold bg-sky-500 hover:bg-sky-400 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(14,165,233,0.3)] uppercase tracking-widest animate-in fade-in zoom-in">
+                <PlaySquare className="w-3 h-3" /> Download MP4
+              </a>
+            )}
             {extractedFrameUrl && (
-              <a href={extractedFrameUrl} download={`aura-gif-frame-${Date.now()}.png`} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)] uppercase tracking-widest animate-in fade-in zoom-in">
+              <a href={extractedFrameUrl} download={`${exportName}-frame.png`} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)] uppercase tracking-widest animate-in fade-in zoom-in">
                 <Download className="w-3 h-3" /> Download High-Res Frame
               </a>
             )}
@@ -208,11 +217,11 @@ export default function GifViewer() {
             </div>
             
             <h2 className="text-5xl md:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-sky-500/50 pb-2">
-              Pause. Inspect.<br/>Extract GIFs.
+              Pause. Inspect.<br/>Convert GIFs.
             </h2>
             
             <p className="text-white/40 max-w-xl mx-auto text-lg leading-relaxed font-medium">
-              Native animated GIFs cannot be paused. Upload your GIF here to instantly unlock timeline scrubbing and high-definition PNG frame extraction locally.
+              Native animated GIFs cannot be paused or edited. Upload your GIF here to instantly unlock timeline scrubbing, MP4 video conversion, and high-definition PNG frame extraction.
             </p>
 
             <div 
@@ -304,6 +313,28 @@ export default function GifViewer() {
                 
                 <div className="space-y-4">
                    <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                     <PlaySquare className="w-4 h-4 text-sky-400" />
+                     <h2 className="font-black text-xs uppercase tracking-widest text-white/90">GIF to Video</h2>
+                   </div>
+                   <div className="p-4 bg-sky-500/5 border border-sky-500/20 rounded-xl space-y-4">
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/40">Export Filename</label>
+                        <input 
+                          type="text" 
+                          value={exportName} 
+                          onChange={(e) => setExportName(e.target.value)} 
+                          className="w-full bg-black border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:border-sky-500 outline-none transition-colors"
+                        />
+                      </div>
+                      <a href={videoUrl} download={`${exportName}.mp4`} className="w-full flex items-center justify-center gap-3 bg-sky-600 hover:bg-sky-500 py-3 rounded-lg shadow-lg transition-all border border-sky-400/20 font-black uppercase tracking-widest text-xs group">
+                        <PlaySquare className="w-4 h-4 group-hover:scale-110 transition-transform"/>
+                        Download as MP4
+                      </a>
+                   </div>
+                </div>
+
+                <div className="space-y-4">
+                   <div className="flex items-center gap-2 border-b border-white/10 pb-2">
                      <Camera className="w-4 h-4 text-emerald-400" />
                      <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Frame Extender</h2>
                    </div>
@@ -352,9 +383,9 @@ export default function GifViewer() {
       <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
         <div className="max-w-6xl mx-auto space-y-24">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
-             <h2 className="text-4xl md:text-6xl font-black text-white leading-tight" itemProp="headline">The Best Online GIF Viewer & Frame Extractor</h2>
+             <h2 className="text-4xl md:text-6xl font-black text-white leading-tight" itemProp="headline">The Best Online GIF Viewer & GIF to Video Converter</h2>
              <p className="text-white/60 text-lg md:text-xl leading-relaxed" itemProp="description">
-               Natively, internet browsers cannot pause or scrub animated GIFs. We solved that. Upload any standard .gif archive here to instantly pause the animation, scrub linearly through the temporal timeline frame-by-frame, and extract absolute high-definition PNG splices instantly to your local machine. Absolutely zero cloud tracking and zero server limits.
+               Natively, internet browsers cannot pause or scrub animated GIFs. We solved that. Upload any standard .gif archive here to instantly pause the animation, scrub linearly through the temporal timeline frame-by-frame, convert your GIF to MP4 video, and extract absolute high-definition PNG splices instantly to your local machine. Absolutely zero cloud tracking and zero server limits.
              </p>
           </div>
 
