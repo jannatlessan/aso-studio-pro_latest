@@ -31,6 +31,17 @@ import AdBlockDetector from '../../components/AdBlockDetector';
 // We'll manage processing state intricately here
 type ProcessState = 'idle' | 'loading_model' | 'processing' | 'done' | 'error';
 type BackgroundMode = 'transparent' | 'solid' | 'gradient' | 'product_studio' | 'whatsapp_dp' | 'facebook_dp' | 'linkedin_dp' | 'instagram_dp' | 'youtube_thumb';
+type FilterPreset = 'none' | 'grayscale' | 'vintage' | 'cool' | 'warm' | 'dramatic' | 'neon';
+
+const FILTER_MAP: Record<FilterPreset, string> = {
+  none: 'none',
+  grayscale: 'grayscale(100%)',
+  vintage: 'sepia(60%) contrast(1.2) brightness(0.9)',
+  cool: 'hue-rotate(180deg) saturate(1.5) blur(0px)',
+  warm: 'sepia(40%) saturate(1.4) hue-rotate(-15deg)',
+  dramatic: 'contrast(1.4) brightness(0.9) saturate(1.2)',
+  neon: 'saturate(2.5) contrast(1.3) hue-rotate(45deg)'
+};
 
 interface ProcessedImage {
   originalUrl: string;
@@ -59,6 +70,7 @@ export default function BackgroundRemover() {
   const [offsetX, setOffsetX] = useState(0);
   const [offsetY, setOffsetY] = useState(0);
   const [scale, setScale] = useState(1);
+  const [activeFilter, setActiveFilter] = useState<FilterPreset>('none');
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -129,6 +141,13 @@ export default function BackgroundRemover() {
     canvas.width = targetWidth;
     canvas.height = targetHeight;
 
+    // Apply Circular Clipping FIRST if needed
+    if (bgMode === 'whatsapp_dp' || bgMode === 'instagram_dp') {
+       ctx.beginPath();
+       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width * 0.5, 0, Math.PI * 2);
+       ctx.clip();
+    }
+
     // Background Rendering
     if (bgMode === 'solid') {
       ctx.fillStyle = bgColor;
@@ -150,18 +169,6 @@ export default function BackgroundRemover() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    if (bgMode === 'whatsapp_dp' || bgMode === 'instagram_dp') {
-       ctx.beginPath();
-       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width * 0.48, 0, Math.PI * 2);
-       ctx.lineWidth = canvas.width * (bgMode === 'instagram_dp' ? 0.03 : 0.01);
-       const strokeGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-       strokeGrad.addColorStop(0, bgMode === 'instagram_dp' ? '#f59e0b' : '#ffffff');
-       strokeGrad.addColorStop(1, bgMode === 'instagram_dp' ? '#ec4899' : '#ffffff');
-       ctx.strokeStyle = strokeGrad;
-       ctx.stroke();
-       ctx.clip(); 
     }
 
     const img = new Image();
@@ -194,8 +201,29 @@ export default function BackgroundRemover() {
        ctx.shadowOffsetY = canvas.height * 0.02;
     }
     
+    // Apply Active Filter to the Image context
+    ctx.filter = FILTER_MAP[activeFilter];
+    
     ctx.drawImage(img, 0, 0, processed.width, processed.height);
+    
+    // Reset shadow and filter for border drawing
+    ctx.filter = 'none';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowColor = 'transparent';
     ctx.restore();
+
+    // Draw Top Border Ring
+    if (bgMode === 'whatsapp_dp' || bgMode === 'instagram_dp') {
+       ctx.beginPath();
+       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width * 0.48, 0, Math.PI * 2);
+       ctx.lineWidth = canvas.width * (bgMode === 'instagram_dp' ? 0.04 : 0.02);
+       const strokeGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+       strokeGrad.addColorStop(0, bgMode === 'instagram_dp' ? '#f59e0b' : '#ffffff');
+       strokeGrad.addColorStop(1, bgMode === 'instagram_dp' ? '#ec4899' : '#ffffff');
+       ctx.strokeStyle = strokeGrad;
+       ctx.stroke();
+    }
 
     const dataUrl = canvas.toDataURL(bgMode === 'transparent' ? 'image/png' : 'image/jpeg', 0.95);
     const link = document.createElement('a');
@@ -288,7 +316,7 @@ export default function BackgroundRemover() {
                 <Wand2 className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">AI Cutout Pro</h1>
+                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">AuraCut AI</h1>
                 <p className="text-[10px] text-indigo-400 font-bold tracking-widest uppercase">100% Secure Local Processing</p>
               </div>
             </div>
@@ -314,15 +342,15 @@ export default function BackgroundRemover() {
         {processState === 'idle' && !sourceImage && (
           <div className="w-full max-w-2xl text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black uppercase tracking-widest">
-              <Sparkles className="w-3 h-3" /> Next-Gen Offline AI Model
+              <Sparkles className="w-3 h-3" /> AuraCut AI Engine
             </div>
             
             <h2 className="text-5xl md:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-indigo-500/50 pb-2">
-              Flawless Cutouts.<br/>Zero Servers.
+              AuraCut Studio.<br/>Zero Servers.
             </h2>
             
             <p className="text-white/40 max-w-xl mx-auto text-lg leading-relaxed font-medium">
-              Drop an image below to magically remove the background using high-fidelity neural networks running directly inside your browser GPU.
+              Drop an image below to magnetically isolate your layers using our offline deep neural networks.
             </p>
 
             <div 
@@ -430,6 +458,7 @@ export default function BackgroundRemover() {
                    `} 
                    style={{
                       transform: `translate(${offsetX}px, ${offsetY}px) scale(${scale})`,
+                      filter: FILTER_MAP[activeFilter]
                    }}
                    alt="Studio Cutout" 
                  />
@@ -439,7 +468,16 @@ export default function BackgroundRemover() {
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/5 to-transparent z-0 blur-md pointer-events-none"></div>
                  )}
                  {bgMode === 'instagram_dp' && (
-                    <div className="absolute inset-0 rounded-full border-[6px] sm:border-[12px] border-transparent z-20 pointer-events-none" style={{ background: `linear-gradient(white, white) padding-box, linear-gradient(to right top, #f59e0b, #ec4899) border-box` }}></div>
+                    <svg className="absolute inset-0 w-full h-full z-20 pointer-events-none drop-shadow-xl" viewBox="0 0 100 100">
+                       <circle cx="50" cy="50" r="48" fill="none" stroke="url(#instaGrad)" strokeWidth="3" />
+                       <defs>
+                          <linearGradient id="instaGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                             <stop offset="0%" stopColor="#f59e0b" />
+                             <stop offset="50%" stopColor="#ef4444" />
+                             <stop offset="100%" stopColor="#ec4899" />
+                          </linearGradient>
+                       </defs>
+                    </svg>
                  )}
                  {bgMode === 'whatsapp_dp' && (
                     <div className="absolute inset-0 rounded-full border-[6px] border-white z-20 pointer-events-none drop-shadow-md"></div>
@@ -510,7 +548,28 @@ export default function BackgroundRemover() {
                   </div>
                 </div>
 
-                {/* Section 3: Sub-settings based on mode */}
+                {/* Section 3: Foreground Filters */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                    <Sparkles className="w-4 h-4 text-pink-400" />
+                    <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Subject Filters</h2>
+                  </div>
+                  <div className="flex gap-2 pb-2 overflow-x-auto custom-scrollbar snap-x">
+                    {(Object.keys(FILTER_MAP) as FilterPreset[]).map(preset => (
+                      <button 
+                        key={preset}
+                        onClick={() => setActiveFilter(preset)}
+                        className={`flex-shrink-0 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest snap-start transition-all border ${
+                          activeFilter === preset ? 'bg-pink-500/20 border-pink-500 text-pink-400' : 'bg-black/50 border-white/10 hover:bg-white/5 text-white/50'
+                        }`}
+                      >
+                        {preset}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 4: Sub-settings based on mode */}
                 {bgMode === 'solid' && (
                   <div className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/5 animate-in slide-in-from-top-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/50">Base Fill Color</label>
@@ -551,9 +610,9 @@ export default function BackgroundRemover() {
       <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10">
         <div className="max-w-4xl mx-auto space-y-16">
           <div className="text-center space-y-4">
-             <h2 className="text-3xl md:text-5xl font-black text-white">The Ultimate Free Background Remover</h2>
+             <h2 className="text-3xl md:text-5xl font-black text-white">The Ultimate AuraCut Studio</h2>
              <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed">
-               Built for uncompromising professionals. Our tool extracts exquisite foreground details leveraging state-of-the-art WebAssembly machine learning—all entirely for free, forever.
+               Built for uncompromising professionals. AuraCut extracts exquisite foreground details leveraging state-of-the-art WebAssembly machine learning—all entirely for free, forever. No subscriptions, no cloud latency.
              </p>
           </div>
 
