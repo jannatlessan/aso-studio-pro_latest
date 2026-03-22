@@ -125,6 +125,14 @@ export default function VideoToGifMaker() {
       setVideoMeta({ file, url, duration: video.duration });
       setStartTime(0);
       setEndTime(Math.min(10, video.duration)); // default 10s slice
+      
+      // Preserve Original Quality (Visiblity) Default
+      const w = video.videoWidth || 720;
+      setWidth(Math.min(w, 1080)); // Default to exact original width (Max 1080px for RAM safety)
+      setFps(15);
+      setSpeed(1.0);
+      setPreset('custom');
+
       setProcessState('idle');
       setGifUrl(null);
       setErrorMsg('');
