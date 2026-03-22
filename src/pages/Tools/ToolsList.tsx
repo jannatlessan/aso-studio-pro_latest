@@ -319,9 +319,9 @@ export default function ToolsList() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
           {filteredTools.map((tool) => (
             <Link
-              to={tool.status === "Ready" || tool.status === "Trending" ? tool.path : "#"}
+              to={tool.status === "Ready" || tool.status === "Trending" || tool.status === "New" ? tool.path : "#"}
               key={tool.id}
-              className={`block tool-card group p-6 sm:p-8 border rounded-xl transition-all duration-300 relative overflow-hidden ${tool.status === 'Ready' || tool.status === 'Trending' ? 'border-white/10 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.06] cursor-pointer' : 'border-white/10 bg-white/[0.02] cursor-not-allowed'}`}
+              className={`block tool-card group p-6 sm:p-8 border rounded-xl transition-all duration-300 relative overflow-hidden ${tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? 'border-white/10 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.06] cursor-pointer' : 'border-white/10 bg-white/[0.02] cursor-not-allowed'}`}
             >
               <div className="absolute top-0 right-0 p-6 text-white/5">
                 <tool.icon className="w-28 h-28 -mr-10 -mt-10" />
@@ -335,8 +335,8 @@ export default function ToolsList() {
                     </div>
                     <div className="text-[11px] font-bold text-primary/90 tracking-wide">{tool.id}</div>
                   </div>
-                  <div className={`px-3 py-1.5 border rounded-full text-[10px] font-semibold uppercase tracking-wide inline-flex items-center gap-1.5 ${tool.status === 'Ready' || tool.status === 'Trending' ? 'border-primary/40 text-primary bg-primary/10' : 'border-white/20 text-white/60 bg-white/5'}`}>
-                    {tool.status !== 'Ready' && <Clock3 className="w-3 h-3" />}
+                  <div className={`px-3 py-1.5 border rounded-full text-[10px] font-semibold uppercase tracking-wide inline-flex items-center gap-1.5 ${tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? 'border-primary/40 text-primary bg-primary/10' : 'border-white/20 text-white/60 bg-white/5'}`}>
+                    {tool.status !== 'Ready' && tool.status !== 'Trending' && tool.status !== 'New' && <Clock3 className="w-3 h-3" />}
                     {tool.status}
                   </div>
                 </div>
@@ -349,7 +349,7 @@ export default function ToolsList() {
                 </div>
 
                 <div className="pt-4 border-t border-white/10">
-                  {tool.status === 'Ready' || tool.status === 'Trending' ? (
+                  {tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? (
                     <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
                       {tool.actionLabel} <ChevronRight className="w-4 h-4" />
                     </span>
