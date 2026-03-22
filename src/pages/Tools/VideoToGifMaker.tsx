@@ -39,6 +39,7 @@ export default function VideoToGifMaker() {
   const [width, setWidth] = useState(480);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(10);
+  const [speed, setSpeed] = useState(1.0);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -99,12 +100,15 @@ export default function VideoToGifMaker() {
     if (p === 'social') {
       setFps(12);
       setWidth(480);
+      setSpeed(1.0);
     } else if (p === 'high_res') {
       setFps(15);
       setWidth(720);
+      setSpeed(1.0);
     } else if (p === 'cinematic') {
       setFps(24);
       setWidth(1080);
+      setSpeed(1.0);
     }
   };
 
@@ -153,13 +157,16 @@ export default function VideoToGifMaker() {
       // Write the file to memory
       await ffmpeg.writeFile('input.mp4', await fetchFile(videoMeta.file));
 
+      const ptsMultiplier = (1 / speed).toFixed(4);
+      const vfCore = `setpts=${ptsMultiplier}*PTS,fps=${fps},scale=${width}:-1:flags=lanczos`;
+
       // 2-Pass Palette Generation for High Quality GIF
       // Pass 1: Extract optimal 256 color palette from the video slice
       await ffmpeg.exec([
         '-ss', startTime.toString(),
         '-to', endTime.toString(),
         '-i', 'input.mp4',
-        '-vf', `fps=${fps},scale=${width}:-1:flags=lanczos,palettegen`,
+        '-vf', `${vfCore},palettegen`,
         'palette.png'
       ]);
 
@@ -169,7 +176,7 @@ export default function VideoToGifMaker() {
         '-to', endTime.toString(),
         '-i', 'input.mp4',
         '-i', 'palette.png',
-        '-filter_complex', `fps=${fps},scale=${width}:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=sierra2_4a`,
+        '-filter_complex', `${vfCore}[x];[x][1:v]paletteuse=dither=sierra2_4a`,
         '-y', 'output.gif'
       ]);
 
@@ -198,6 +205,7 @@ export default function VideoToGifMaker() {
     setGifUrl(null);
     setProcessState('idle');
     setPreset('social');
+    setSpeed(1.0);
   };
 
   return (
@@ -411,6 +419,13 @@ export default function VideoToGifMaker() {
                       <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Encoding Specs</h2>
                     </div>
                     <div className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                      <div className="space-y-2">
+                         <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-white/50">
+                            <span className="flex items-center gap-1"><PlaySquare className="w-3 h-3"/> Playback Speed</span>
+                            <span className="text-amber-400">{speed.toFixed(1)}x</span>
+                         </div>
+                         <input type="range" min="0.2" max="3.0" step="0.1" value={speed} onChange={(e) => { setSpeed(parseFloat(e.target.value)); setPreset('custom'); }} className="w-full accent-amber-500" />
+                      </div>
                       <div className="space-y-2">
                          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-white/50">
                             <span className="flex items-center gap-1"><Gauge className="w-3 h-3"/> Frames Per Sec</span>
