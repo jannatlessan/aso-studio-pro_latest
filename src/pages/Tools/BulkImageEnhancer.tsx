@@ -16,7 +16,10 @@ import {
   Eye,
   Type,
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  Undo2,
+  Redo2,
+  History
 } from 'lucide-react';
 import JSZip from 'jszip';
 import Footer from '../../components/Footer';
@@ -42,6 +45,24 @@ interface ProcessedImage {
   blob: Blob;
 }
 
+interface AppState {
+  brightness: number;
+  contrast: number;
+  saturation: number;
+  grayscale: number;
+  blur: number;
+  sepia: number;
+  hueRotate: number;
+  watermarkText: string;
+  watermarkColor: string;
+  watermarkOpacity: number;
+  watermarkPosition: string;
+  watermarkSize: number;
+  watermarkMode: string;
+  description: string;
+  timestamp: number;
+}
+
 export default function BulkImageEnhancer() {
   const [images, setImages] = useState<ImageObj[]>([]);
   const [processed, setProcessed] = useState<ProcessedImage[]>([]);
@@ -65,10 +86,64 @@ export default function BulkImageEnhancer() {
   const [watermarkText, setWatermarkText] = useState('');
   const [watermarkColor, setWatermarkColor] = useState('#ffffff');
   const [watermarkOpacity, setWatermarkOpacity] = useState(80);
+  const [watermarkPosition, setWatermarkPosition] = useState<'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'center'>('bottom-right');
+  const [watermarkSize, setWatermarkSize] = useState(50);
+  const [watermarkMode, setWatermarkMode] = useState<'solid' | 'outline'>('solid');
+  
   const [outputFormat, setOutputFormat] = useState<'image/png' | 'image/jpeg' | 'image/webp'>('image/webp');
   const [outputQuality, setOutputQuality] = useState(0.9);
   
+  const [history, setHistory] = useState<AppState[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const getCurrentState = (): Omit<AppState, 'description' | 'timestamp'> => ({
+    brightness, contrast, saturation, grayscale, blur, sepia, hueRotate,
+    watermarkText, watermarkColor, watermarkOpacity, watermarkPosition, watermarkSize, watermarkMode
+  });
+
+  const commitHistory = (description: string, newStateFragment: Partial<AppState>) => {
+    const state = { ...getCurrentState(), ...newStateFragment };
+    setHistory(prev => {
+      const newHistory = prev.slice(0, historyIndex + 1);
+      newHistory.push({ ...state, description, timestamp: Date.now() });
+      if (newHistory.length > 50) newHistory.shift();
+      return newHistory;
+    });
+    setHistoryIndex(prev => Math.min(prev + 1, 49));
+  };
+
+  const applyHistoryState = (index: number) => {
+    const state = history[index];
+    if (!state) return;
+    
+    setBrightness(state.brightness);
+    setContrast(state.contrast);
+    setSaturation(state.saturation);
+    setGrayscale(state.grayscale);
+    setBlur(state.blur);
+    setSepia(state.sepia);
+    setHueRotate(state.hueRotate);
+    setWatermarkText(state.watermarkText);
+    setWatermarkColor(state.watermarkColor);
+    setWatermarkOpacity(state.watermarkOpacity);
+    setWatermarkPosition(state.watermarkPosition as any);
+    setWatermarkSize(state.watermarkSize);
+    setWatermarkMode(state.watermarkMode as any);
+    
+    setHistoryIndex(index);
+    setProcessed([]);
+  };
+
+  const undo = () => {
+    if (historyIndex > 0) applyHistoryState(historyIndex - 1);
+  };
+
+  const redo = () => {
+    if (historyIndex < history.length - 1) applyHistoryState(historyIndex + 1);
+  };
 
   const formatBytes = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
@@ -110,6 +185,9 @@ export default function BulkImageEnhancer() {
 
     setImages(prev => [...prev, ...newImages]);
     setSelectedIds(newSelectedIds);
+    if (history.length === 0) {
+      commitHistory('Uploaded Initial Asset Batch', {});
+    }
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -187,6 +265,7 @@ export default function BulkImageEnhancer() {
     setSepia(preset.values.sepia);
     setHueRotate(preset.values.hueRotate);
     setProcessed([]);
+    commitHistory(`Applied LUT: ${preset.name}`, preset.values);
   }
 
   const resetFilters = () => {
@@ -208,6 +287,7 @@ export default function BulkImageEnhancer() {
     setSaturation(125);
     setBlur(0.1);
     setProcessed([]);
+    commitHistory('Applied Auto-Magical Enhance', { brightness: 108, contrast: 115, saturation: 125, blur: 0.1 });
   };
 
   const processImages = async () => {
@@ -245,18 +325,60 @@ export default function BulkImageEnhancer() {
       
       // Add Watermark
       if (watermarkText) {
-        ctx.filter = 'none'; // reset filter so watermark isn't altered
+        ctx.filter = 'none'; // reset filter
         ctx.globalAlpha = watermarkOpacity / 100;
-        ctx.fillStyle = watermarkColor;
-        const fontSize = Math.max(14, img.width * 0.04);
-        ctx.font = `600 ${fontSize}px Inter, sans-serif`;
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'bottom';
-        // Stroke for visibility over any background
-        ctx.lineWidth = fontSize * 0.05;
-        ctx.strokeStyle = '#000000';
-        ctx.strokeText(watermarkText, img.width - (fontSize * 0.5), img.height - (fontSize * 0.5));
-        ctx.fillText(watermarkText, img.width - (fontSize * 0.5), img.height - (fontSize * 0.5));
+        
+        const fontSize = Math.max(14, (img.width * 0.1) * (watermarkSize / 100));
+        ctx.font = `800 ${fontSize}px Inter, sans-serif`;
+        
+        const padding = fontSize * 0.5;
+        let x = 0;
+        let y = 0;
+
+        switch (watermarkPosition) {
+          case 'bottom-right':
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'bottom';
+            x = img.width - padding;
+            y = img.height - padding;
+            break;
+          case 'bottom-left':
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'bottom';
+            x = padding;
+            y = img.height - padding;
+            break;
+          case 'top-right':
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'top';
+            x = img.width - padding;
+            y = padding;
+            break;
+          case 'top-left':
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            x = padding;
+            y = padding;
+            break;
+          case 'center':
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            x = img.width / 2;
+            y = img.height / 2;
+            break;
+        }
+
+        if (watermarkMode === 'outline') {
+           ctx.lineWidth = Math.max(2, fontSize * 0.03);
+           ctx.strokeStyle = watermarkColor;
+           ctx.strokeText(watermarkText, x, y);
+        } else {
+           ctx.fillStyle = watermarkColor;
+           ctx.shadowColor = 'rgba(0,0,0,0.5)';
+           ctx.shadowBlur = fontSize * 0.2;
+           ctx.fillText(watermarkText, x, y);
+           ctx.shadowBlur = 0;
+        }
         ctx.globalAlpha = 1.0;
       }
 
@@ -338,13 +460,44 @@ export default function BulkImageEnhancer() {
         </div>
       </nav>
 
+      {/* Edit History Modal */}
+      {showHistoryModal && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm" onClick={() => setShowHistoryModal(false)}>
+          <div className="bg-[#111] border border-white/10 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-white font-black uppercase tracking-widest flex items-center gap-2"><History className="w-5 h-5 text-primary"/> Edit History</h3>
+              <button onClick={() => setShowHistoryModal(false)} className="text-white/50 hover:text-white"><X className="w-5 h-5"/></button>
+            </div>
+            <div className="max-h-[60vh] overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+              {[...history].reverse().map((h, reversedIndex) => {
+                const i = history.length - 1 - reversedIndex;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => applyHistoryState(i)}
+                    className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between ${i === historyIndex ? 'bg-primary/20 border-primary text-white shadow-[0_0_15px_rgba(var(--primary-rgb),0.2)]' : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10'}`}
+                  >
+                    <div className="space-y-1">
+                      <span className="text-xs font-bold block">{h.description}</span>
+                      <span className="text-[9px] uppercase tracking-widest opacity-50">{new Date(h.timestamp).toLocaleTimeString()}</span>
+                    </div>
+                    {i === historyIndex && <Check className="w-4 h-4 text-primary"/>}
+                  </button>
+                )
+              })}
+              {history.length === 0 && <div className="text-center p-8 text-white/30 text-xs font-bold uppercase tracking-widest">No history recorded yet.</div>}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Fullscreen Preview Modal */}
       {previewImage && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 sm:p-8 backdrop-blur-xl" onClick={() => setPreviewImage(null)}>
-          <div className="relative max-w-7xl max-h-full flex items-center justify-center">
+          <div className="relative max-w-7xl max-h-[85vh] flex items-center justify-center">
             <button 
               onClick={(e) => { e.stopPropagation(); setPreviewImage(null); }}
-              className="absolute -top-10 right-0 lg:-right-10 bg-white/10 hover:bg-white/20 p-2 rounded-full text-white transition-colors"
+              className="absolute -top-10 right-0 lg:-right-10 bg-white/10 hover:bg-white/20 p-2 rounded-full text-white transition-colors z-50"
             >
               <X className="w-6 h-6" />
             </button>
@@ -583,7 +736,20 @@ export default function BulkImageEnhancer() {
                     <Settings2 className="w-5 h-5 text-primary" />
                     <h2 className="font-black text-sm uppercase tracking-widest">Global Master Rig</h2>
                   </div>
-                  <button onClick={resetFilters} className="text-[9px] text-white/30 hover:text-white uppercase font-black tracking-widest underline decoration-white/20 underline-offset-4">Reset Engine</button>
+                  <div className="flex items-center gap-2">
+                    <button onClick={undo} disabled={historyIndex <= 0} className="p-1 text-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hidden sm:block transition-colors" title="Undo Step">
+                       <Undo2 className="w-4 h-4"/>
+                    </button>
+                    <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-1 text-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hidden sm:block transition-colors" title="Redo Step">
+                       <Redo2 className="w-4 h-4"/>
+                    </button>
+                    <div className="w-px h-3 bg-white/20 mx-1 hidden sm:block"></div>
+                    <button onClick={() => setShowHistoryModal(true)} className="text-[9px] text-white/50 hover:text-white uppercase font-black tracking-widest flex items-center gap-1 transition-colors">
+                      <History className="w-3 h-3"/> Log
+                    </button>
+                    <div className="w-px h-3 bg-white/20 mx-1"></div>
+                    <button onClick={() => { resetFilters(); commitHistory('Reset All Configurations', { brightness:100, contrast:100, saturation:100, grayscale:0, blur:0, sepia:0, hueRotate:0, watermarkText:'' }); }} className="text-[9px] text-white/30 hover:text-white uppercase font-black tracking-widest underline decoration-white/20 underline-offset-4 transition-colors">Reset</button>
+                  </div>
                 </div>
 
                 {/* Presets Row */}
@@ -623,38 +789,38 @@ export default function BulkImageEnhancer() {
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
                       <span>Exposure Base</span> <span className="text-primary font-mono">{brightness}%</span>
                     </label>
-                    <input type="range" min="0" max="200" value={brightness} onChange={(e) => { setBrightness(parseInt(e.target.value)); setProcessed([]); }} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="200" value={brightness} onChange={(e) => { setBrightness(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Exposure set to ${brightness}%`, { brightness })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
                       <span>Contrast Index</span> <span className="text-primary font-mono">{contrast}%</span>
                     </label>
-                    <input type="range" min="0" max="200" value={contrast} onChange={(e) => { setContrast(parseInt(e.target.value)); setProcessed([]); }} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="200" value={contrast} onChange={(e) => { setContrast(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Contrast set to ${contrast}%`, { contrast })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
                       <span>Color Peak (Sat)</span> <span className="text-primary font-mono">{saturation}%</span>
                     </label>
-                    <input type="range" min="0" max="200" value={saturation} onChange={(e) => { setSaturation(parseInt(e.target.value)); setProcessed([]); }} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="200" value={saturation} onChange={(e) => { setSaturation(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Saturation set to ${saturation}%`, { saturation })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
 
                   <div className="space-y-3">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
                       <span>Skin Softener (Blur)</span> <span className="text-primary font-mono">{blur}px</span>
                     </label>
-                    <input type="range" min="0" max="20" step="0.1" value={blur} onChange={(e) => { setBlur(parseFloat(e.target.value)); setProcessed([]); }} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="20" step="0.1" value={blur} onChange={(e) => { setBlur(parseFloat(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Blur set to ${blur}px`, { blur })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
                      <div className="space-y-3">
                        <label className="text-[9px] font-bold uppercase tracking-widest text-white/50 flex justify-between"><span>Grayscale</span><span className="text-white/30">{grayscale}</span></label>
-                       <input type="range" min="0" max="100" value={grayscale} onChange={(e) => { setGrayscale(parseInt(e.target.value)); setProcessed([]); }} className="w-full accent-white/50 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                       <input type="range" min="0" max="100" value={grayscale} onChange={(e) => { setGrayscale(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Grayscale set to ${grayscale}%`, { grayscale })} className="w-full accent-white/50 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
                      </div>
                      <div className="space-y-3">
                        <label className="text-[9px] font-bold uppercase tracking-widest text-white/50 flex justify-between"><span>Sepia</span><span className="text-white/30">{sepia}</span></label>
-                       <input type="range" min="0" max="100" value={sepia} onChange={(e) => { setSepia(parseInt(e.target.value)); setProcessed([]); }} className="w-full accent-amber-500 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                       <input type="range" min="0" max="100" value={sepia} onChange={(e) => { setSepia(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Sepia set to ${sepia}%`, { sepia })} className="w-full accent-amber-500 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
                      </div>
                   </div>
 
@@ -671,18 +837,66 @@ export default function BulkImageEnhancer() {
                       value={watermarkText} 
                       onChange={(e) => { setWatermarkText(e.target.value); setProcessed([]); }} 
                       className="w-full bg-[#050505] border border-white/10 hover:border-white/20 focus:border-primary rounded-xl p-3 text-sm font-semibold transition-all focus:outline-none"
+                      onBlur={() => watermarkText && commitHistory(`Updated Watermark Text`, { watermarkText })}
                     />
+
+                    <p className="text-[9px] text-amber-500/80 font-bold uppercase tracking-widest leading-relaxed">
+                      * Watermarks are hidden from live preview. They will be applied directly to your full-res files when you click "Execute Batch Render".
+                    </p>
                     
-                    <div className="flex gap-4 items-center">
-                       <div className="flex-1 space-y-2">
-                         <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 block">Color Override</label>
-                         <input type="color" value={watermarkColor} onChange={(e) => { setWatermarkColor(e.target.value); setProcessed([]); }} className="w-full h-8 rounded border-none appearance-none bg-transparent cursor-pointer" />
-                       </div>
-                       <div className="flex-1 space-y-2">
-                         <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 block">Alpha Blend</label>
-                         <input type="range" min="10" max="100" value={watermarkOpacity} onChange={(e) => { setWatermarkOpacity(parseInt(e.target.value)); setProcessed([]); }} className="w-full accent-purple-400 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
-                       </div>
-                    </div>
+                    {watermarkText && (
+                      <div className="space-y-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                        <div className="flex gap-2">
+                           <button onClick={() => { setWatermarkPosition('bottom-right'); setWatermarkSize(25); setWatermarkMode('solid'); setWatermarkOpacity(80); setProcessed([]); commitHistory('Applied Discrete Watermark', { watermarkPosition: 'bottom-right', watermarkSize: 25, watermarkMode: 'solid', watermarkOpacity: 80 }); }} className="flex-1 py-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500/40 rounded text-[9px] font-black uppercase tracking-widest">Discrete preset</button>
+                           <button onClick={() => { setWatermarkPosition('center'); setWatermarkSize(80); setWatermarkMode('outline'); setWatermarkOpacity(30); setProcessed([]); commitHistory('Applied Bold Watermark', { watermarkPosition: 'center', watermarkSize: 80, watermarkMode: 'outline', watermarkOpacity: 30 }); }} className="flex-1 py-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500/40 rounded text-[9px] font-black uppercase tracking-widest">Bold preset</button>
+                        </div>
+                        
+                        <div>
+                          <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 block mb-2">Position</label>
+                          <div className="flex flex-wrap gap-1">
+                            {['top-left', 'top-right', 'center', 'bottom-left', 'bottom-right'].map(pos => (
+                               <button 
+                                 key={pos} 
+                                 onClick={() => { setWatermarkPosition(pos as any); setProcessed([]); commitHistory(`Watermark Position: ${pos}`, { watermarkPosition: pos }); }}
+                                 className={`px-2 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkPosition === pos ? 'bg-purple-500 text-white' : 'bg-black/50 border border-white/10 text-white/50 hover:bg-white/10'}`}
+                               >
+                                 {pos.replace('-', ' ')}
+                               </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={() => { setWatermarkMode('solid'); setProcessed([]); commitHistory('Watermark Style: Solid', { watermarkMode: 'solid' }); }}
+                            className={`flex-1 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkMode === 'solid' ? 'bg-purple-500 text-white' : 'bg-black/50 border border-white/10 text-white/50 hover:bg-white/10'}`}
+                          >
+                            Solid Fill
+                          </button>
+                          <button 
+                            onClick={() => { setWatermarkMode('outline'); setProcessed([]); commitHistory('Watermark Style: Outline', { watermarkMode: 'outline' }); }}
+                            className={`flex-1 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkMode === 'outline' ? 'bg-purple-500 text-white' : 'bg-black/50 border border-white/10 text-white/50 hover:bg-white/10'}`}
+                          >
+                            Outline
+                          </button>
+                        </div>
+
+                        <div className="flex gap-4 items-center">
+                           <div className="w-10 space-y-2">
+                             <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 block">Tint</label>
+                             <input type="color" value={watermarkColor} onChange={(e) => { setWatermarkColor(e.target.value); setProcessed([]); }} onBlur={() => commitHistory('Changed Watermark Tint', { watermarkColor })} className="w-full h-5 rounded border-none appearance-none bg-transparent cursor-pointer" />
+                           </div>
+                           <div className="flex-1 space-y-2">
+                             <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 flex justify-between"><span>Size</span> <span className="text-purple-400">{watermarkSize}%</span></label>
+                             <input type="range" min="10" max="100" value={watermarkSize} onChange={(e) => { setWatermarkSize(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory('Scaled Watermark', { watermarkSize })} className="w-full accent-purple-400 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                           </div>
+                           <div className="flex-1 space-y-2">
+                             <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 flex justify-between"><span>Alpha</span> <span className="text-purple-400">{watermarkOpacity}%</span></label>
+                             <input type="range" min="10" max="100" value={watermarkOpacity} onChange={(e) => { setWatermarkOpacity(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory('Adjusted Watermark Alpha', { watermarkOpacity })} className="w-full accent-purple-400 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                           </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Export Settings */}
