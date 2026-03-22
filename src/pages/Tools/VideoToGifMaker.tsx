@@ -123,7 +123,7 @@ export default function VideoToGifMaker() {
     video.onloadedmetadata = () => {
       setVideoMeta({ file, url, duration: video.duration });
       setStartTime(0);
-      setEndTime(Math.min(10, video.duration)); // default 10s slice
+      setEndTime(video.duration); // Default to full video duration
       
       // Preserve Original Quality (Visiblity) Default
       const w = video.videoWidth || 720;
