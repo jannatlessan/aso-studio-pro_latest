@@ -20,6 +20,7 @@ import ImageCompressor from './pages/Tools/ImageCompressor';
 import AudioMerger from './pages/Tools/AudioMerger';
 import PDFMerger from './pages/Tools/PDFMerger';
 import BulkImageEnhancer from './pages/Tools/BulkImageEnhancer';
+import BackgroundRemover from './pages/Tools/BackgroundRemover';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import AboutUs from './pages/AboutUs';
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/tools/image-compressor" element={<ImageCompressor />} />
         <Route path="/tools/image-resizer" element={<ImageResizer />} />
         <Route path="/tools/bulk-image-enhancer" element={<BulkImageEnhancer />} />
+        <Route path="/tools/background-remover" element={<BackgroundRemover />} />
         <Route path="/tools/audio-merger" element={<AudioMerger />} />
         <Route path="/tools/pdf-merger" element={<PDFMerger />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />

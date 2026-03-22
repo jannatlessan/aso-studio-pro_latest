@@ -25,7 +25,8 @@ import {
   Youtube,
   FileText,
   Search,
-  Wand2
+  Wand2,
+  Layers
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
@@ -183,6 +184,15 @@ const tools = [
     icon: Wand2,
     path: "/tools/bulk-image-enhancer",
     status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "IMG-004",
+    name: "AI Background Remover",
+    description: "Instantly remove backgrounds using powerful on-device AI. Includes Pro studio drop-shadows and social profile picture generation.",
+    icon: Layers,
+    path: "/tools/background-remover",
+    status: "Trending",
     actionLabel: "Open Tool"
   },
   {
