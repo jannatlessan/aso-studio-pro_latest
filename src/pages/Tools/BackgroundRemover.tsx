@@ -301,9 +301,9 @@ export default function BackgroundRemover() {
     setErrorMsg('');
 
     try {
-      // Absolute local path to self-hosted AI assets for 100% reliability
+      // Absolute origin-prefixed path to prevent 'Invalid base URL' errors in specific browser environments
       const config: Config = {
-        publicPath: '/background-removal-data/',
+        publicPath: `${window.location.origin}/background-removal-data/`,
         progress: (key) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
