@@ -35,6 +35,16 @@ import SEO from '../../components/SEO';
 
 const tools = [
   {
+    id: "GIF-001",
+    name: "GIF Online Viewer",
+    description: "Upload any GIF to pause, scrub frame-by-frame, and extract absolute high-definition PNG frame slices locally.",
+    icon: ImageIcon,
+    path: "/tools/gif-viewer",
+    status: "New",
+    color: "sky",
+    actionLabel: "Launch Viewer"
+  },
+  {
     id: "VID-001",
     name: "Video to GIF Maker",
     description: "Convert any video into an exceptionally high-quality animated GIF instantly. 100% offline edge-processing running locally in your browser.",
