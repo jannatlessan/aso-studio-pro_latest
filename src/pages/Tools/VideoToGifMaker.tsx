@@ -5,7 +5,7 @@ import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import { 
   Film, Download, Upload, ChevronLeft, RefreshCcw, 
   ShieldCheck, Loader2, PlaySquare, Settings2, SkipForward, Maximize,
-  SlidersHorizontal, CheckCircle2, Sparkles, Image as ImageIcon, Gauge
+  SlidersHorizontal, CheckCircle2, Sparkles, Image as ImageIcon, Gauge, FileBox
 } from 'lucide-react';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
@@ -40,6 +40,7 @@ export default function VideoToGifMaker() {
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(10);
   const [speed, setSpeed] = useState(1.0);
+  const [exportName, setExportName] = useState('aura-studio-gif');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -127,6 +128,8 @@ export default function VideoToGifMaker() {
       setProcessState('idle');
       setGifUrl(null);
       setErrorMsg('');
+      const baseName = file.name.substring(0, file.name.lastIndexOf('.')) || 'video';
+      setExportName(`${baseName}-aura-cut`);
     };
   };
 
@@ -240,7 +243,7 @@ export default function VideoToGifMaker() {
               <RefreshCcw className="w-3 h-3" /> Reset
             </button>
             {processState === 'done' && gifUrl && (
-              <a href={gifUrl} download={`studio-gif-${Date.now()}.gif`} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(244,63,94,0.3)] uppercase tracking-widest">
+              <a href={gifUrl} download={`${exportName.replace(/[^a-z0-9-_]/gi, '-') || 'aura-gif'}.gif`} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(244,63,94,0.3)] uppercase tracking-widest">
                 <Download className="w-3 h-3" /> Download HD GIF
               </a>
             )}
@@ -411,6 +414,27 @@ export default function VideoToGifMaker() {
                   </div>
                 )}
 
+                {/* Export Details */}
+                {(processState === 'idle' || processState === 'done') && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                       <FileBox className="w-4 h-4 text-sky-400" />
+                       <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Export Naming</h2>
+                    </div>
+                    <div className="space-y-2 p-4 bg-white/5 rounded-xl border border-white/5">
+                       <div className="text-[10px] font-bold uppercase tracking-widest text-white/50 mb-2">Output Filename</div>
+                       <input 
+                         type="text" 
+                         value={exportName} 
+                         onChange={(e) => setExportName(e.target.value.replace(/[^a-z0-9-_]/gi, '-'))} 
+                         className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-sky-500 transition-colors"
+                         placeholder="my-awesome-gif"
+                       />
+                       <p className="text-[10px] text-white/30 text-right font-mono mt-1">.gif</p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Section 3: Raw Spec Engineering */}
                 {processState === 'idle' && (
                   <div className="space-y-4">
@@ -463,29 +487,35 @@ export default function VideoToGifMaker() {
 
       {/* SEO Environment block */}
       <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
-        <div className="max-w-4xl mx-auto space-y-16">
-          <div className="text-center space-y-4">
-             <h2 className="text-3xl md:text-5xl font-black text-white" itemProp="headline">Professional Video to GIF Converter</h2>
-             <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed" itemProp="description">
-               Transcode MP4s, WebMs, and MOVs into flawless, lossless animated GIFs locally in your browser leveraging compiled FFmpeg WASM binaries. Completely free, secure, and infinitely customizable.
+        <div className="max-w-5xl mx-auto space-y-20">
+          <div className="text-center space-y-6">
+             <h2 className="text-4xl md:text-6xl font-black text-white" itemProp="headline">Best Free Video to GIF Converter</h2>
+             <p className="text-white/60 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" itemProp="description">
+               Transform MP4, WebM, and QuickTime videos into extremely high-definition animated GIFs instantly. No file size limits, no server uploads, and absolutely zero subscriptions. AuraCut AI executes elite FFmpeg WebAssembly binaries directly on your local edge node for peerless data privacy and speed.
              </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
-                <ShieldCheck className="w-8 h-8 text-rose-400" />
-                <h3 className="text-white font-bold text-lg">100% Private Encoding</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Most 'free' video to GIF tools upload your enormous video files to a remote server. We stream FFmpeg directly into your browser memory, guaranteeing absolute file privacy and instant results.</p>
+          <div className="grid md:grid-cols-3 gap-8" itemScope itemType="https://schema.org/FAQPage">
+             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4 transition-transform hover:-translate-y-2" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <ShieldCheck className="w-10 h-10 text-rose-400" />
+                <h3 className="text-white font-extrabold text-xl" itemProp="name">Is this tool actually private?</h3>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Yes, 100%. Our architecture is fundamentally different from commercial competitors. Every single megabyte of your video never leaves your device. We boot an isolated instance of the legendary FFmpeg terminal engine locally inside your browser's V8 execution context to compile the GIF entirely offline.</p>
+                </div>
              </div>
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
-                <Sparkles className="w-8 h-8 text-amber-400" />
-                <h3 className="text-white font-bold text-lg">Lanczos & Sierra Dithering</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Unlike basic converters that produce nasty pixelated color bands, our custom Two-Pass FFmpeg script creates a dedicated color palette tailored exclusively to your video slice prior to extreme-quality rendering.</p>
+             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4 transition-transform hover:-translate-y-2" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <Sparkles className="w-10 h-10 text-amber-400" />
+                <h3 className="text-white font-extrabold text-xl" itemProp="name">How do you achieve Cinematic Quality?</h3>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Standard converters generate terrible color banding because they map raw frames directly to standard 256-color bit depths. We utilize a computational Two-Pass logic threshold. Phase One explicitly sweeps your video slice to manufacture an optimal global palette mapping. Phase Two leverages Sierra2-4A temporal dithering applied against that precise histogram.</p>
+                </div>
              </div>
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
-                <SlidersHorizontal className="w-8 h-8 text-orange-400" />
-                <h3 className="text-white font-bold text-lg">Pro Settings Matrix</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Select frame rates anywhere from 5 FPS up to butter-smooth 30 Cinematic FPS. Set boundaries digitally with our time slicer, and define the literal pixel structure density on export.</p>
+             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4 transition-transform hover:-translate-y-2" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <SlidersHorizontal className="w-10 h-10 text-orange-400" />
+                <h3 className="text-white font-extrabold text-xl" itemProp="name">Can I edit frame rates and slow motion?</h3>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p className="text-sm text-white/50 leading-relaxed" itemProp="text">Absolutely. AuraCut GIF Studio exposes a hyper-granular physics interface. You can set geometric resolutions anywhere from 240p to 1080p width limits. We even implemented a dedicated setpts manipulation slider, allowing you to synthesize sub-frame hyper-lapses (3.0x speed) or extreme cinematic slow-mo (0.2x speed) sequences flawlessly.</p>
+                </div>
              </div>
           </div>
         </div>
