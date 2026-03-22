@@ -287,9 +287,15 @@ export default function ToolsList() {
           </Link>
           
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest">
-              <Terminal className="w-4 h-4" />
-              Workspace
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest w-fit">
+                <Terminal className="w-3 h-3" />
+                Workspace
+              </div>
+              <div className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
+                <div className="w-1 h-1 bg-white/20 rounded-full"></div>
+                Last Updated: March 22, 2026 • 01:34 PM
+              </div>
             </div>
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white uppercase tracking-wider relative inline-block">
               All Tools
