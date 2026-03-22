@@ -40,11 +40,6 @@ const FILTER_MAP: Record<FilterPreset, string> = {
   cool: 'hue-rotate(180deg) saturate(1.5) blur(0px)',
   warm: 'sepia(40%) saturate(1.4) hue-rotate(-15deg)',
   dramatic: 'contrast(1.4) brightness(0.9) saturate(1.2)',
-  neon: 'saturate(2.5) contrast(1.3) hue-rotate(45deg)'
-};
-
-let hasLoadedModelThisSession = false;
-
 interface ProcessedImage {
   originalUrl: string;
   cutoutUrl: string; 
@@ -256,20 +251,31 @@ export default function BackgroundRemover() {
     setErrorMsg('');
 
     try {
+      const ENGAGING_MESSAGES = [
+        "Igniting neural core...",
+        "Scanning image geometry...",
+        "Identifying main subject...",
+        "Analyzing complex shadows...",
+        "Isolating foreground boundaries...",
+        "Refining delicate edges..."
+      ];
+
       const config: Config = {
         progress: (key, current, total) => {
+          const percentage = Math.round((current / total) * 100);
+          const msgIndex = Math.min(Math.floor(percentage / 18), ENGAGING_MESSAGES.length - 1);
+          
           if (key === 'compute:inference') {
             setProcessState('processing');
-            setProgressText('Extracting Foreground...');
+            setProgressText("Applying transparent composite...");
           } else {
-            setProgressText(hasLoadedModelThisSession ? 'Waking up Cached AI Engine...' : 'Preparing Offline AI Core Engine...');
+            setProgressText(ENGAGING_MESSAGES[msgIndex]);
           }
-          setProgress(Math.round((current / total) * 100));
+          setProgress(percentage);
         }
       };
 
       const blob = await removeBackground(sourceImage, config);
-      hasLoadedModelThisSession = true;
       
       const originalUrl = URL.createObjectURL(sourceImage);
       const cutoutUrl = URL.createObjectURL(blob);
@@ -396,16 +402,6 @@ export default function BackgroundRemover() {
               <p className="text-xs text-white/40 uppercase tracking-widest font-mono">{progress}% Complete</p>
             </div>
             
-            <p className="text-[10px] text-amber-500/80 uppercase tracking-widest mt-6 font-bold animate-pulse">
-               ⚠️ Please do not close or refresh this tab while processing.
-            </p>
-
-            {processState === 'loading_model' && !hasLoadedModelThisSession && (
-               <p className="text-[10px] text-white/30 uppercase tracking-widest mt-2 animate-in fade-in duration-1000">
-                 <Sparkles className="w-3 h-3 inline mr-1 text-purple-400 mb-0.5" />
-                 First run securely downloads AI rendering assets temporarily to your browser. 
-               </p>
-            )}
           </div>
         )}
 
