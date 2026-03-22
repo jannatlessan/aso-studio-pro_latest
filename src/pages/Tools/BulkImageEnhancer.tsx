@@ -15,7 +15,8 @@ import {
   X,
   Eye,
   Type,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from 'lucide-react';
 import JSZip from 'jszip';
 import Footer from '../../components/Footer';
@@ -317,10 +318,10 @@ export default function BulkImageEnhancer() {
   return (
     <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
       <SEO 
-        title="Pro Bulk Image Enhancer | Free Online Photo Filter Tool" 
-        description="Edit batch photos instantly in your browser. Apply custom presets, correct colors, smooth skin, and add text watermarks. Fast, secure, and 100% free." 
+        title="Free Bulk Image Enhancer | 100% Secure & Private Batch Editor" 
+        description="Edit bulk photos instantly and securely in your browser. No server uploads—100% private. Apply custom presets, correct colors, smooth skin, and add text watermarks." 
         url="https://shaaddev.studio/tools/bulk-image-enhancer" 
-        keywords="bulk image enhancer, free photo editor online, batch watermark, photo presets online" 
+        keywords="bulk image enhancer, private photo editor, secure image batch edit, safe photo presets online, no upload image editor" 
       />
       
       {/* Header */}
@@ -369,8 +370,8 @@ export default function BulkImageEnhancer() {
              <h1 className="text-3xl sm:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary/50 relative inline-block">
                Bulk Image Enhancer Pro
              </h1>
-             <p className="text-white/60 text-sm max-w-2xl">
-               Apply studio-grade portrait presets, professional color correction, and batch watermarking to unlimited images at once—completely free and private in your browser.
+             <p className="text-white/60 text-sm max-w-2xl leading-relaxed">
+               Apply studio-grade portrait presets, professional color correction, and batch watermarking to unlimited images at once. <br/><strong className="text-green-400 font-bold flex items-center justify-center sm:justify-start gap-1.5 mt-2"><ShieldCheck className="w-4 h-4"/> 100% Secure & Private: Files are processed locally and never uploaded to any server.</strong>
              </p>
           </div>
 
@@ -396,6 +397,7 @@ export default function BulkImageEnhancer() {
                   </div>
                   <span className="font-black text-xl uppercase tracking-widest mb-2 text-white">Upload Assets</span>
                   <span className="text-xs font-semibold opacity-70 tracking-wider">Drag & Drop Batch High-Res Images</span>
+                  <div className="mt-6 px-3 py-1.5 bg-green-500/10 text-green-400 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-green-500/20 flex items-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.15)]"><ShieldCheck className="w-3.5 h-3.5" /> 100% Secure Local Processing</div>
                 </div>
               ) : (
                 <div className="glass-panel p-4 rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.03] to-black/40 space-y-4 shadow-2xl relative overflow-hidden">
