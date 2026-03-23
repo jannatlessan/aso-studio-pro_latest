@@ -301,9 +301,12 @@ export default function BackgroundRemover() {
     setErrorMsg('');
 
     try {
-      // Official IMG.LY 1.7.0 CDN path - verified to contain the correct isnet_fp16 models
+      // Use official IMG.LY CDN path and proxyToWorker to bypass SharedArrayBuffer/COEP requirements, ensuring it works on all browsers without crashing.
       const config: Config = {
         publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
+        model: 'isnet_fp16', // Use standard high-quality model (avoids 404s from missing quantized models)
+        device: 'cpu', // Use CPU as a reliable fallback to avoid WebGL backend issues on some browsers/iOS Safari
+        proxyToWorker: true, // Let the library handle worker with ArrayBuffer if Shared fails
         progress: (key) => {
           if (key === 'compute:inference') {
             setProcessState('processing');
