@@ -28,6 +28,10 @@ import TermsOfService from './pages/TermsOfService';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
+import MicroSaaS from './pages/MicroSaaS';
+import Stamppedia from './pages/Apps/Stamppedia';
+import StamppediaPrivacyPolicy from './pages/Apps/StamppediaPrivacy';
+import StamppediaTerms from './pages/Apps/StamppediaTerms';
 
 export default function App() {
   return (
@@ -63,6 +67,14 @@ export default function App() {
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUs />} />
+        
+        {/* MicroSaaS Hub Routes */}
+        <Route path="/microsaas" element={<MicroSaaS />} />
+        
+        {/* Stamppedia App Routes */}
+        <Route path="/apps/stamppedia" element={<Stamppedia />} />
+        <Route path="/apps/stamppedia/privacy" element={<StamppediaPrivacyPolicy />} />
+        <Route path="/apps/stamppedia/terms" element={<StamppediaTerms />} />
       </Routes>
     </Router>
   );
