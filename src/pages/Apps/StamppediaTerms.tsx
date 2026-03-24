@@ -117,7 +117,7 @@ export default function StamppediaTerms() {
                 <li>Provide analytics and insights</li>
               </ul>
               <p className="leading-relaxed mt-4">
-                You can request deletion of any or all your data at any time by contacting privacy@shaaddev.studio.
+                You can request deletion of any or all your data at any time by contacting rizwanrasheed046@gmail.com.
               </p>
             </section>
 
@@ -204,8 +204,8 @@ export default function StamppediaTerms() {
                 If you have questions about these Terms of Service, please contact us:
               </p>
               <div className="bg-white/5 p-4 mt-4 border border-white/10">
-                <p className="text-sm"><strong>Email:</strong> legal@shaaddev.studio</p>
-                <p className="text-sm mt-2"><strong>Support:</strong> support@shaaddev.studio</p>
+                <p className="text-sm"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
+                <p className="text-sm mt-2"><strong>Support:</strong> rizwanrasheed046@gmail.com</p>
               </div>
               <p className="text-white/40 text-sm mt-4">
                 Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })}

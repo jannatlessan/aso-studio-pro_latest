@@ -222,7 +222,7 @@ export default function Stamppedia() {
                   </p>
                 </Link>
                 <a
-                  href="mailto:support@shaaddev.studio"
+                  href="mailto:rizwanrasheed046@gmail.com"
                   className="group p-4 border border-white/10 hover:border-primary/50 transition-all"
                 >
                   <div className="text-[10px] font-black uppercase tracking-widest text-primary mb-2 group-hover:text-primary">

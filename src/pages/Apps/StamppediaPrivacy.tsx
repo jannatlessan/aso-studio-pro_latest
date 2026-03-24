@@ -147,7 +147,7 @@ export default function StamppediaPrivacyPolicy() {
                 The Service Provider will retain User Provided data for as long as you use the Application. Your collection data is stored on your device and can be deleted at any time through the Application settings.
               </p>
               <p className="leading-relaxed mt-4">
-                If you'd like the Service Provider to delete your cloud backup data, please contact us at privacy@shaaddev.studio and we will respond within 30 days.
+                If you'd like the Service Provider to delete your cloud backup data, please contact us at rizwanrasheed046@gmail.com and we will respond within 30 days.
               </p>
             </section>
 
@@ -159,7 +159,7 @@ export default function StamppediaPrivacyPolicy() {
                 The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13. We do not knowingly collect personally identifiable information from children.
               </p>
               <p className="leading-relaxed mt-4">
-                If you have reason to believe that a child has provided information to the Service Provider through the Application, please contact us at privacy@shaaddev.studio.
+                If you have reason to believe that a child has provided information to the Service Provider through the Application, please contact us at rizwanrasheed046@gmail.com.
               </p>
             </section>
 
@@ -192,8 +192,8 @@ export default function StamppediaPrivacyPolicy() {
                 If you have any questions regarding privacy while using the Application, or have questions about our practices, please contact us:
               </p>
               <div className="bg-white/5 p-4 mt-4 border border-white/10">
-                <p className="text-sm"><strong>Email:</strong> privacy@shaaddev.studio</p>
-                <p className="text-sm mt-2"><strong>Support:</strong> support@shaaddev.studio</p>
+                <p className="text-sm"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
+                <p className="text-sm mt-2"><strong>Support:</strong> rizwanrasheed046@gmail.com</p>
               </div>
             </section>
           </div>
