@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Copy, Check, RefreshCw, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
@@ -9,6 +10,23 @@ export default function LoremIpsum() {
   const [paras, setParas] = useState(3);
   const [text, setText] = useState('');
   const [copied, setCopied] = useState(false);
+  const [hasModified, setHasModified] = useState(false);
+
+  // Smart Navigation
+  const isToolUsed = paras !== 3 || hasModified;
+  const resetAll = () => {
+    setParas(3);
+    setText('');
+    setCopied(false);
+    setHasModified(false);
+    generate();
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Lorem Ipsum',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const words = ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua', 'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi', 'aliquip', 'ex', 'ea', 'commodo', 'consequat'];
 
@@ -20,6 +38,7 @@ export default function LoremIpsum() {
         result += p.join(' ') + '.\n\n';
     }
     setText(result.trim());
+    setHasModified(true);
   };
 
   React.useEffect(() => { generate(); }, []);
@@ -37,13 +56,10 @@ export default function LoremIpsum() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link 
-            to="/tools" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
-          >
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
+            {isToolUsed ? 'Lorem Ipsum' : 'Back to Tools'}
+          </button>
           <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL

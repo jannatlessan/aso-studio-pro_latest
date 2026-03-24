@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Play, Pause, RotateCcw, Coffee, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
@@ -9,6 +10,21 @@ export default function PomodoroTimer() {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
   const [mode, setMode] = useState('focus');
+
+  // Smart Navigation
+  const initialTime = mode === 'focus' ? 25 * 60 : 5 * 60;
+  const isToolUsed = isActive || timeLeft !== initialTime;
+  const resetAll = () => {
+    setTimeLeft(25 * 60);
+    setIsActive(false);
+    setMode('focus');
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Pomodoro Timer',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   useEffect(() => {
     let interval = null;
@@ -33,9 +49,9 @@ export default function PomodoroTimer() {
       <SEO title="Pomodoro Timer | ShaadDev Studio" description="Sleek customizable Pomodoro timer for productivity." url="https://shaaddev.studio/tools/pomodoro-timer" keywords="pomodoro timer, 25 5 timer, productivity clock" />
       
 <div className="max-w-4xl mx-auto space-y-8">
-        <Link to="/tools" className="mt-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to Tools
-        </Link>
+        <button onClick={handleBackClick} className="mt-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <ArrowLeft className="w-4 h-4" /> {isToolUsed ? 'Pomodoro Timer' : 'Back to Tools'}
+        </button>
         <div className="text-center mt-12 mb-8">
           <div className="inline-flex bg-white/5 border border-white/10 p-2 rounded-2xl gap-2">
             <button onClick={() => setTimer(25, 'focus')} className={`px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all ${mode === 'focus' ? 'bg-primary text-black shadow-lg scale-105' : 'text-white/50 hover:bg-white/10'}`}>

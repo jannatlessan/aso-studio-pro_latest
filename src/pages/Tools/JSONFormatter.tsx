@@ -11,6 +11,7 @@ import {
   Download,
   Loader2
 } from 'lucide-react';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
@@ -18,8 +19,10 @@ import FormatterWorker from './formatterWorker?worker';
 
 
 
+const DEFAULT_INPUT = '{"name": "ShaadDev Studio", "tools": ["ASO", "Formatter"], "active": true}';
+
 export default function JSONFormatter() {
-  const [input, setInput] = useState('{"name": "ShaadDev Studio", "tools": ["ASO", "Formatter"], "active": true}');
+  const [input, setInput] = useState(DEFAULT_INPUT);
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
@@ -34,6 +37,27 @@ export default function JSONFormatter() {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const workerRef = useRef<Worker | null>(null);
+
+  // Smart Navigation
+  const isToolUsed = uploadedFile !== null || output !== '' || input !== DEFAULT_INPUT;
+  const resetAll = () => {
+    setInput(DEFAULT_INPUT);
+    setOutput('');
+    setError('');
+    setFileName(null);
+    setUploadedFile(null);
+    setIsPreview(false);
+    setCopied(false);
+    if (downloadUrl) URL.revokeObjectURL(downloadUrl);
+    setDownloadUrl(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'JSON Formatter',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   useEffect(() => {
     workerRef.current = new FormatterWorker();
@@ -131,10 +155,10 @@ export default function JSONFormatter() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/tools" className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors">
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
-            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">Back to Tools</span>
-          </Link>
+            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'JSON Formatter' : 'Back to Tools'}</span>
+          </button>
           <div className="flex items-center gap-2 text-primary">
             <FileJson className="w-5 h-5" />
             <span className="font-black tracking-widest text-sm uppercase">JSON Formatter</span>

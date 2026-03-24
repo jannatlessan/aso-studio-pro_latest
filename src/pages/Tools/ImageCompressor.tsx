@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { 
   Minimize, 
   Download, 
@@ -48,6 +49,25 @@ export default function ImageCompressor() {
   const [maxWidth, setMaxWidth] = useState(1920);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Smart Navigation
+  const isToolUsed = images.length > 0 || processed.length > 0;
+  const resetAll = () => {
+    setImages([]);
+    setProcessed([]);
+    setIsProcessing(false);
+    setQuality(0.7);
+    setFormat('image/webp');
+    setResizeMode('none');
+    setMaxWidth(1920);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Image Compressor',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const formatBytes = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
@@ -212,10 +232,10 @@ export default function ImageCompressor() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link to="/tools" className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors">
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
-            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">Back to Tools</span>
-          </Link>
+            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'Image Compressor' : 'Back to Tools'}</span>
+          </button>
           <div className="flex items-center gap-2 text-primary">
             <Minimize className="w-5 h-5" />
             <span className="font-black tracking-widest text-sm uppercase">Smart Image Compressor</span>

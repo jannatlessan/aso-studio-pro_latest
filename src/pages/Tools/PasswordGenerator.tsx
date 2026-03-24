@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { 
   Lock, 
   Copy, 
@@ -12,14 +13,34 @@ import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
 
+const DEFAULT_PASSWORD = 'a$B9#kx2@m!';
+
 export default function PasswordGenerator() {
-  const [password, setPassword] = useState('a$B9#kx2@m!');
+  const [password, setPassword] = useState(DEFAULT_PASSWORD);
   const [length, setLength] = useState(16);
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(true);
   const [copied, setCopied] = useState(false);
+
+  // Smart Navigation
+  const isToolUsed = password !== DEFAULT_PASSWORD && password !== 'Select at least one option!';
+  const resetAll = () => {
+    setPassword(DEFAULT_PASSWORD);
+    setLength(16);
+    setIncludeUppercase(true);
+    setIncludeLowercase(true);
+    setIncludeNumbers(true);
+    setIncludeSymbols(true);
+    setCopied(false);
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Password Generator',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const generatePassword = () => {
     let charset = '';
@@ -58,10 +79,10 @@ export default function PasswordGenerator() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link to="/tools" className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors">
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
-            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">Back to Tools</span>
-          </Link>
+            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'Password Generator' : 'Back to Tools'}</span>
+          </button>
           <div className="flex items-center gap-2 text-primary">
             <Lock className="w-5 h-5" />
             <span className="font-black tracking-widest text-sm uppercase">Password Generator</span>

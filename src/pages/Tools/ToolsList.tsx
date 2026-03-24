@@ -238,13 +238,60 @@ const tools = [
 
 export default function ToolsList() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  // Extract unique categories from tools
+  const categories = useMemo(() => {
+    const cats = new Set<string>();
+    tools.forEach(tool => {
+      if (tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut')) cats.add('Images & Media');
+      else if (tool.name.includes('PDF') || tool.name.includes('Audio')) cats.add('Documents & Audio');
+      else if (tool.name.includes('Color') || tool.name.includes('CSS') || tool.name.includes('Screenshot') || tool.name.includes('Gradient')) cats.add('Design');
+      else if (tool.name.includes('JSON') || tool.name.includes('Code') || tool.name.includes('Markdown')) cats.add('Development');
+      else if (tool.name.includes('Text') || tool.name.includes('Lorem')) cats.add('Text Tools');
+      else if (tool.name.includes('Calculator') || tool.name.includes('Converter') || tool.name.includes('Percentage') || tool.name.includes('Age')) cats.add('Calculators');
+      else if (tool.name.includes('QR') || tool.name.includes('Password') || tool.name.includes('Timer') || tool.name.includes('YouTube') || tool.name.includes('ASO')) cats.add('Utilities');
+    });
+    return Array.from(cats).sort();
+  }, []);
+
+  // Enhanced filtering with category support
   const filteredTools = useMemo(() => {
     return tools.filter((tool) => {
       const q = searchQuery.toLowerCase();
-      return tool.name.toLowerCase().includes(q) || tool.description.toLowerCase().includes(q);
+      const matchesSearch = !q || tool.name.toLowerCase().includes(q) || tool.description.toLowerCase().includes(q) || tool.id.toLowerCase().includes(q);
+      
+      let matchesCategory = true;
+      if (selectedCategory) {
+        if (selectedCategory === 'Images & Media') matchesCategory = tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut');
+        else if (selectedCategory === 'Documents & Audio') matchesCategory = tool.name.includes('PDF') || tool.name.includes('Audio');
+        else if (selectedCategory === 'Design') matchesCategory = tool.name.includes('Color') || tool.name.includes('CSS') || tool.name.includes('Screenshot') || tool.name.includes('Gradient');
+        else if (selectedCategory === 'Development') matchesCategory = tool.name.includes('JSON') || tool.name.includes('Code') || tool.name.includes('Markdown');
+        else if (selectedCategory === 'Text Tools') matchesCategory = tool.name.includes('Text') || tool.name.includes('Lorem');
+        else if (selectedCategory === 'Calculators') matchesCategory = tool.name.includes('Calculator') || tool.name.includes('Converter') || tool.name.includes('Percentage') || tool.name.includes('Age');
+        else if (selectedCategory === 'Utilities') matchesCategory = tool.name.includes('QR') || tool.name.includes('Password') || tool.name.includes('Timer') || tool.name.includes('YouTube') || tool.name.includes('ASO');
+      }
+      
+      return matchesSearch && matchesCategory;
     });
+  }, [searchQuery, selectedCategory]);
+
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && searchQuery) {
+        setSearchQuery('');
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [searchQuery]);
 
   useEffect(() => {
@@ -265,112 +312,184 @@ export default function ToolsList() {
       );
     }, containerRef);
     return () => ctx.revert();
-  }, [searchQuery]);
+  }, [searchQuery, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] p-5 sm:p-8 md:p-12 font-mono selection:bg-primary/30 transform-gpu overflow-x-hidden">
+    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] p-4 sm:p-6 md:p-10 font-mono selection:bg-primary/30 transform-gpu overflow-x-hidden">
       <SEO 
         title="Developer Tools | ShaadDev Studio"
         description="A collection of professional tools for developers, designers, and creators."
         url="https://shaaddev.studio/tools"
       />
       
-      <div className="max-w-6xl mx-auto space-y-24" ref={containerRef}>
+      <div className="max-w-6xl mx-auto space-y-10" ref={containerRef}>
         {/* Header */}
-        <div className="space-y-8 mt-12">
+        <div className="space-y-3 mt-2">
           <Link 
             to="/" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
+            className="inline-flex items-center gap-2 text-xs text-white/50 hover:text-primary transition-colors font-semibold"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3 h-3" />
             Back to Home
           </Link>
           
-          <div className="space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest w-fit">
-                <Terminal className="w-3 h-3" />
+          <div className="space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-widest w-fit">
+                <Terminal className="w-2.5 h-2.5" />
                 Workspace
               </div>
-              <div className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                <div className="w-1 h-1 bg-white/20 rounded-full"></div>
-                Last Updated: March 24, 2026 • 09:25 AM
+              <div className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
+                <div className="w-0.5 h-0.5 bg-white/20 rounded-full"></div>
+                Last Updated: March 24, 2026 • 01:25 PM
               </div>
             </div>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white uppercase tracking-wider relative inline-block">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-wider relative inline-block">
               All Tools
-              <div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+              <div className="absolute -bottom-1 left-0 w-1/3 h-0.5 sm:h-1 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
             </h1>
-            <p className="text-lg sm:text-xl text-white/60 max-w-2xl leading-relaxed mt-6">
+            <p className="text-sm sm:text-base text-white/60 max-w-2xl leading-relaxed mt-2">
               A curated collection of hyper-optimized developer tools designed for speed, privacy, and flawless performance.
             </p>
           </div>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative max-w-2xl">
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Search className="w-5 h-5 text-white/40" />
+        {/* Search Bar with Enhanced UX */}
+        <div className="space-y-3">
+          <div className="relative max-w-2xl">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Search className="w-4 h-4 text-white/40" />
+            </div>
+            <input
+              ref={searchInputRef}
+              type="text"
+              className="w-full bg-white/5 border border-white/10 rounded-lg py-2 pl-11 pr-14 text-sm text-white placeholder-white/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 focus:outline-none transition-all font-mono"
+              placeholder="Search tools... (Cmd+K)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-3 flex items-center text-white/40 hover:text-white/60 transition-colors font-bold text-sm"
+                title="Clear search (ESC)"
+              >
+                ✕
+              </button>
+            )}
           </div>
-          <input
-            type="text"
-            className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white placeholder-white/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 focus:outline-none transition-all font-mono"
-            placeholder="Search tools... (e.g., QR, Image, Keyword)"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          
+          {/* Search Status Badge */}
+          {(searchQuery || selectedCategory) && (
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="text-xs text-white/50 font-mono">
+                Showing <span className="text-primary font-bold">{filteredTools.length}</span> of <span className="font-bold">{tools.length}</span> tools
+              </div>
+              {(searchQuery || selectedCategory) && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory(null);
+                  }}
+                  className="text-xs px-2.5 py-1 rounded-full border border-white/10 hover:border-primary/40 bg-white/5 hover:bg-primary/10 text-white/60 hover:text-primary transition-all font-semibold"
+                >
+                  Clear Filters
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-1.5">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                className={`px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wide transition-all border ${
+                  selectedCategory === category
+                    ? 'border-primary/60 bg-primary/15 text-primary'
+                    : 'border-white/10 bg-white/5 text-white/60 hover:border-primary/30 hover:bg-white/10 hover:text-white/80'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-          {filteredTools.map((tool) => (
-            <Link
-              to={tool.status === "Ready" || tool.status === "Trending" || tool.status === "New" ? tool.path : "#"}
-              key={tool.id}
-              className={`block tool-card group p-6 sm:p-8 border rounded-xl transition-all duration-300 relative overflow-hidden ${tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? 'border-white/10 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.06] cursor-pointer' : 'border-white/10 bg-white/[0.02] cursor-not-allowed'}`}
-            >
-              <div className="absolute top-0 right-0 p-6 text-white/5">
-                <tool.icon className="w-28 h-28 -mr-10 -mt-10" />
-              </div>
+        {/* Tools Grid or No Results State */}
+        {filteredTools.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+            {filteredTools.map((tool) => (
+              <Link
+                to={tool.status === "Ready" || tool.status === "Trending" || tool.status === "New" ? tool.path : "#"}
+                key={tool.id}
+                className={`block tool-card group p-4 sm:p-5 border rounded-lg transition-all duration-300 relative overflow-hidden ${tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? 'border-white/10 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.06] cursor-pointer' : 'border-white/10 bg-white/[0.02] cursor-not-allowed'}`}
+              >
+                <div className="absolute top-0 right-0 p-3 text-white/5">
+                  <tool.icon className="w-16 h-16 -mr-6 -mt-6" />
+                </div>
 
-              <div className="relative z-10 space-y-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="space-y-3">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-white/10 bg-black/30">
-                      <tool.icon className="w-5 h-5 text-primary" />
+                <div className="relative z-10 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-2">
+                      <div className="inline-flex items-center justify-center w-8 h-8 rounded-md border border-white/10 bg-black/30">
+                        <tool.icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <div className="text-[9px] font-bold text-primary/90 tracking-wide">{tool.id}</div>
                     </div>
-                    <div className="text-[11px] font-bold text-primary/90 tracking-wide">{tool.id}</div>
+                    <div className={`px-2 py-1 border rounded-full text-[8px] font-semibold uppercase tracking-widest inline-flex items-center gap-1 ${tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? 'border-primary/40 text-primary bg-primary/10' : 'border-white/20 text-white/60 bg-white/5'}`}>
+                      {tool.status !== 'Ready' && tool.status !== 'Trending' && tool.status !== 'New' && <Clock3 className="w-2 h-2" />}
+                      {tool.status}
+                    </div>
                   </div>
-                  <div className={`px-3 py-1.5 border rounded-full text-[10px] font-semibold uppercase tracking-wide inline-flex items-center gap-1.5 ${tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? 'border-primary/40 text-primary bg-primary/10' : 'border-white/20 text-white/60 bg-white/5'}`}>
-                    {tool.status !== 'Ready' && tool.status !== 'Trending' && tool.status !== 'New' && <Clock3 className="w-3 h-3" />}
-                    {tool.status}
+
+                  <div className="space-y-2">
+                    <h3 className="text-lg sm:text-xl font-black tracking-tight leading-tight group-hover:text-primary transition-colors">{tool.name}</h3>
+                    <p className="text-white/75 text-xs leading-relaxed max-w-md line-clamp-2">
+                      {tool.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-white/10">
+                    {tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? (
+                      <span className="inline-flex items-center gap-1.5 text-primary font-bold text-xs group-hover:gap-2 transition-all">
+                        {tool.actionLabel} <ChevronRight className="w-3 h-3" />
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 text-white/55 font-bold text-xs">
+                        {tool.actionLabel}
+                      </span>
+                    )}
                   </div>
                 </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="py-8 text-center space-y-4">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10">
+              <Search className="w-6 h-6 text-white/30" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-lg font-black text-white">No tools found</h3>
+              <p className="text-white/50 max-w-md mx-auto text-xs">
+                We couldn't find any tools matching "<span className="font-semibold text-white/70">{searchQuery}</span>"{selectedCategory && ` in the ${selectedCategory} category`}. Try adjusting your search or filters.
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory(null);
+              }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-primary/20 hover:bg-primary/30 border border-primary/50 text-primary font-bold text-xs transition-all"
+            >
+              Clear all filters
+            </button>
+          </div>
+        )}
 
-                <div className="space-y-3">
-                  <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight group-hover:text-primary transition-colors">{tool.name}</h3>
-                  <p className="text-white/75 text-sm leading-relaxed max-w-md">
-                    {tool.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-white/10">
-                  {tool.status === 'Ready' || tool.status === 'Trending' || tool.status === 'New' ? (
-                    <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all">
-                      {tool.actionLabel} <ChevronRight className="w-4 h-4" />
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-2 text-white/55 font-semibold text-sm">
-                      {tool.actionLabel}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="p-5 sm:p-6 border border-white/10 rounded-xl bg-white/[0.02] text-sm text-white/70 leading-relaxed">
+        <div className="p-3 sm:p-4 border border-white/10 rounded-lg bg-white/[0.02] text-xs text-white/70 leading-relaxed">
           More tools are being prepared and will appear here as they become available.
         </div>
         <Footer />

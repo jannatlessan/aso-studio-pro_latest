@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Percent, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
@@ -11,6 +12,21 @@ export default function PercentageCalculator() {
 
   const [part, setPart] = useState('');
   const [whole, setWhole] = useState('');
+
+  // Smart Navigation
+  const isToolUsed = valThe !== '' || valOf !== '' || part !== '' || whole !== '';
+  const resetAll = () => {
+    setValThe('');
+    setValOf('');
+    setPart('');
+    setWhole('');
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Percentage Calculator',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const v1 = parseFloat(valThe);
   const v2 = parseFloat(valOf);
@@ -27,13 +43,10 @@ export default function PercentageCalculator() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link 
-            to="/tools" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
-          >
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
+            {isToolUsed ? 'Percentage Calculator' : 'Back to Tools'}
+          </button>
           <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL

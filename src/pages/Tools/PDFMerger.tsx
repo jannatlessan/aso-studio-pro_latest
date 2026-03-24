@@ -10,6 +10,7 @@ import {
   RefreshCcw,
   Check
 } from 'lucide-react';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { PDFDocument } from 'pdf-lib';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
@@ -27,6 +28,21 @@ export default function PDFMerger() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [mergedUrl, setMergedUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Smart Navigation
+  const isToolUsed = files.length > 0;
+  const resetAll = () => {
+    setFiles([]);
+    setMergedUrl(null);
+    setIsProcessing(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'PDF Merger',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFiles = Array.from(e.target.files || []);
@@ -92,10 +108,10 @@ export default function PDFMerger() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link to="/tools" className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors">
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
-            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">Back to Tools</span>
-          </Link>
+            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'PDF Merger' : 'Back to Tools'}</span>
+          </button>
           <div className="flex items-center gap-2 text-primary">
             <FileBox className="w-5 h-5" />
             <span className="font-black tracking-widest text-sm uppercase">PDF Merger</span>

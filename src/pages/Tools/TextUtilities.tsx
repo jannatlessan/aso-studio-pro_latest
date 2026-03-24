@@ -9,13 +9,29 @@ import {
   RefreshCcw,
   ArrowDownUp
 } from 'lucide-react';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
 
+const DEFAULT_TEXT = 'Welcome to Shaad Dev Text Utilities. Paste text here!';
+
 export default function TextUtilities() {
-  const [text, setText] = useState('Welcome to Shaad Dev Text Utilities. Paste text here!');
+  const [text, setText] = useState(DEFAULT_TEXT);
   const [copied, setCopied] = useState(false);
+
+  // Smart Navigation
+  const isToolUsed = text !== DEFAULT_TEXT;
+  const resetAll = () => {
+    setText(DEFAULT_TEXT);
+    setCopied(false);
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Text Utilities',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
   const charCount = text.length;
@@ -56,10 +72,10 @@ export default function TextUtilities() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link to="/tools" className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors">
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
-            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">Back to Tools</span>
-          </Link>
+            <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'Text Utilities' : 'Back to Tools'}</span>
+          </button>
           <div className="flex items-center gap-2 text-primary">
             <Type className="w-5 h-5" />
             <span className="font-black tracking-widest text-sm uppercase">Text Utilities</span>

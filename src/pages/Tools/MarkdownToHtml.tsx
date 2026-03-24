@@ -2,14 +2,31 @@ import React, { useState } from 'react';
 import { ArrowRight, Copy, Check, ChevronLeft, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { marked } from 'marked';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
 
+const DEFAULT_MD = '# Hello World\n\nType your **markdown** here.\n\n- It converts\n- In real time!';
+
 export default function MarkdownToHtml() {
-  const [md, setMd] = useState('# Hello World\n\nType your **markdown** here.\n\n- It converts\n- In real time!');
+  const [md, setMd] = useState(DEFAULT_MD);
   const [copied, setCopied] = useState(false);
   const [viewMode, setViewMode] = useState<'preview' | 'code'>('preview');
+
+  // Smart Navigation
+  const isToolUsed = md !== DEFAULT_MD;
+  const resetAll = () => {
+    setMd(DEFAULT_MD);
+    setCopied(false);
+    setViewMode('preview');
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Markdown to HTML',
+    isToolUsed,
+    onReset: resetAll
+  });
   const html = marked.parse(md) as string;
   
   const fullHtml = `<!DOCTYPE html>
@@ -48,13 +65,10 @@ ${html}</body>
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link 
-            to="/tools" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
-          >
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
+            {isToolUsed ? 'Markdown to HTML' : 'Back to Tools'}
+          </button>
           <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL

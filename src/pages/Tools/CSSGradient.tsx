@@ -1,15 +1,35 @@
 import React, { useState } from 'react';
 import { Copy, Check, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
 
+const DEFAULT_COLOR1 = '#8a2be2';
+const DEFAULT_COLOR2 = '#4a00e0';
+const DEFAULT_ANGLE = 135;
+
 export default function CSSGradient() {
-  const [color1, setColor1] = useState('#8a2be2');
-  const [color2, setColor2] = useState('#4a00e0');
-  const [angle, setAngle] = useState(135);
+  const [color1, setColor1] = useState(DEFAULT_COLOR1);
+  const [color2, setColor2] = useState(DEFAULT_COLOR2);
+  const [angle, setAngle] = useState(DEFAULT_ANGLE);
   const [copied, setCopied] = useState(false);
+
+  // Smart Navigation
+  const isToolUsed = color1 !== DEFAULT_COLOR1 || color2 !== DEFAULT_COLOR2 || angle !== DEFAULT_ANGLE;
+  const resetAll = () => {
+    setColor1(DEFAULT_COLOR1);
+    setColor2(DEFAULT_COLOR2);
+    setAngle(DEFAULT_ANGLE);
+    setCopied(false);
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'CSS Gradient',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const gradient = `linear-gradient(${angle}deg, ${color1} 0%, ${color2} 100%)`;
   const cssCode = `background: ${color1};
@@ -28,13 +48,10 @@ background: ${gradient};`;
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link 
-            to="/tools" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
-          >
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
+            {isToolUsed ? 'CSS Gradient' : 'Back to Tools'}
+          </button>
           <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL

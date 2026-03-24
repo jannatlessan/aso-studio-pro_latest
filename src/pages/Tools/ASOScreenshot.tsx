@@ -33,6 +33,7 @@ import { twMerge } from 'tailwind-merge';
 import JSZip from 'jszip';
 import confetti from 'canvas-confetti';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
@@ -194,6 +195,38 @@ export default function App() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const iconInputRef = useRef<HTMLInputElement>(null);
+
+  // Smart Navigation
+  const isToolUsed = screenshots.length > 0 || appIcon !== null;
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'ASO Screenshot Generator',
+    isToolUsed,
+    onReset: () => {
+      setScreenshots([]);
+      setAppIcon(null);
+      setGlobalShowIcon(true);
+      setSelectedIPhoneSize(IPHONE_SIZES[0]);
+      setSelectedIPadSize(IPAD_SIZES[0]);
+      setGlobalFont(FONTS[0].family);
+      setGlobalTemplateId('classic');
+      setIphoneCustomWidth('1242');
+      setIphoneCustomHeight('2688');
+      setIpadCustomWidth('2048');
+      setIpadCustomHeight('2732');
+      setCustomUnit('px');
+      setIsProcessing(false);
+      setPreviewMode('iphone');
+      setBulkText('');
+      setShowPrompt(false);
+      setGlobalFitMode('contain');
+      setGlobalDevicePadding(0);
+      setGlobalHeadlineSize(1);
+      setGlobalSubheadlineSize(1);
+      setGlobalSidePadding(0);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      if (iconInputRef.current) iconInputRef.current.value = '';
+    }
+  });
 
   const getEffectiveSize = (size: ScreenSize, type: 'iphone' | 'ipad'): ScreenSize => {
     if (size.id.includes('custom')) {
@@ -671,9 +704,9 @@ export default function App() {
         />
         <div className="max-w-[1600px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link to="/tools" className="p-2 hover:bg-white/5 rounded-full transition-colors group">
+            <button onClick={handleBackClick} className="p-2 hover:bg-white/5 rounded-full transition-colors group" title={isToolUsed ? "(Click to reset)" : undefined}>
               <ChevronLeft className="w-5 h-5 text-white/40 group-hover:text-primary" />
-            </Link>
+            </button>
             <div className="w-10 h-10 bg-black border border-primary/40 flex items-center justify-center shadow-lg shadow-primary/10">
               <Layers className="text-primary w-6 h-6" />
             </div>

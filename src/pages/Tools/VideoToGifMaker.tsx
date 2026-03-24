@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile, toBlobURL } from '@ffmpeg/util';
-import { 
-  Film, Download, Upload, ChevronLeft, RefreshCcw, 
+import { Film, Download, Upload, ChevronLeft, RefreshCcw, 
   ShieldCheck, Loader2, PlaySquare, Settings2, SkipForward, Maximize,
   SlidersHorizontal, CheckCircle2, Sparkles, Image as ImageIcon, Gauge, FileBox
 } from 'lucide-react';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
+import { FFmpeg } from '@ffmpeg/ffmpeg';
+import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import AdBlockDetector from '../../components/AdBlockDetector';
@@ -44,6 +43,9 @@ export default function VideoToGifMaker() {
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Smart Navigation - will be initialized after resetAll is defined
+  const isToolUsed = videoMeta !== null;
 
   // Smooth Loading Effect simulator
   useEffect(() => {
@@ -214,10 +216,25 @@ export default function VideoToGifMaker() {
     if (fileInputRef.current) fileInputRef.current.value = '';
     setVideoMeta(null);
     setGifUrl(null);
+    setGifSize(0);
     setProcessState('idle');
     setPreset('social');
     setSpeed(1.0);
+    setErrorMsg('');
+    setProgressText('');
+    setSimulatedProgress(0);
+    setFps(15);
+    setWidth(480);
+    setStartTime(0);
+    setEndTime(10);
+    setExportName('aura-studio-gif');
   };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Video to GIF Maker',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   return (
     <>
@@ -233,15 +250,17 @@ export default function VideoToGifMaker() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/tools" className="p-2 hover:bg-white/5 rounded-full transition-colors group">
+            <button onClick={handleBackClick} className="p-2 hover:bg-white/5 rounded-full transition-colors group" title={isToolUsed ? "(Click to reset)" : undefined}>
               <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-white" />
-            </Link>
+            </button>
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-orange-600 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(244,63,94,0.3)]">
                 <Film className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">VideoToGIF Pro</h1>
+                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                  {isToolUsed ? 'Video to GIF' : 'Back to Tools'}
+                </h1>
                 <p className="text-[10px] text-rose-400 font-bold tracking-widest uppercase">100% Secure Local Engine</p>
               </div>
             </div>

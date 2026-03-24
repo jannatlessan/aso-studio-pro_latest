@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, RefreshCw, Copy, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
@@ -9,10 +10,25 @@ export default function ColorPalette() {
   const generateHex = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
   const [colors, setColors] = useState([]);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [hasGenerated, setHasGenerated] = useState(false);
 
   useEffect(() => {
      setColors(Array(5).fill(0).map(generateHex));
+     setHasGenerated(true);
   }, []);
+
+  // Smart Navigation
+  const isToolUsed = hasGenerated && colors.length > 0;
+  const resetAll = () => {
+    setColors(Array(5).fill(0).map(generateHex));
+    setCopiedIndex(null);
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Color Palette',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const refresh = () => setColors(Array(5).fill(0).map(generateHex));
   
@@ -27,9 +43,9 @@ export default function ColorPalette() {
       <SEO title="Color Palette | ShaadDev Studio" description="Beautiful color scheme generator." url="https://shaaddev.studio/tools/color-palette" keywords="color palette generator, random hex codes, ui themes" />
       
 <div className="max-w-6xl mx-auto space-y-8">
-        <Link to="/tools" className="mt-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to Tools
-        </Link>
+        <button onClick={handleBackClick} className="mt-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <ArrowLeft className="w-4 h-4" /> {isToolUsed ? 'Color Palette' : 'Back to Tools'}
+        </button>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8">
             <h1 className="font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
   Color Palette<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>

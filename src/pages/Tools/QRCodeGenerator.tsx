@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
-import { Download, ChevronLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Download } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import { ToolHeader } from '../../components/ToolHeader';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
+
+const DEFAULT_QR_TEXT = 'https://shaaddev.studio';
 
 export default function QRCodeGenerator() {
-  const [text, setText] = useState('https://shaaddev.studio');
+  const [text, setText] = useState(DEFAULT_QR_TEXT);
+  
+  // Track if tool has been used (text changed from default)
+  const isToolUsed = text !== DEFAULT_QR_TEXT;
+
+  // Use smart navigation hook
+  const { handleBackClick, shouldShowToolName } = useToolNavigation({
+    toolName: 'QR Generator',
+    isToolUsed,
+    onReset: () => setText(DEFAULT_QR_TEXT),
+  });
 
   const downloadQR = () => {
     const svg = document.getElementById('qr-code');
@@ -35,21 +48,17 @@ export default function QRCodeGenerator() {
       <SEO title="QR Code Generator | ShaadDev Studio" description="Generate high-res QR codes instantly." url="https://shaaddev.studio/tools/qr-code-generator" keywords="qr code generator, url to qr graphic, trackable codes" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link 
-            to="/tools" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
+      <ToolHeader 
+        toolName="QR Generator"
+        isToolUsed={isToolUsed}
+        onBackClick={handleBackClick}
+        statusBadge={
           <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL
           </div>
-        </div>
-      </nav>
+        }
+      />
 
       {/* Main Content */}
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-12 lg:py-20 w-full space-y-16">

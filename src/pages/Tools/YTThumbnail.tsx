@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ExternalLink, Search, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
@@ -9,6 +10,20 @@ export default function YTThumbnail() {
   const [url, setUrl] = useState('');
   const [videoID, setVideoID] = useState(null);
   const [error, setError] = useState('');
+
+  // Smart Navigation
+  const isToolUsed = videoID !== null;
+  const resetAll = () => {
+    setUrl('');
+    setVideoID(null);
+    setError('');
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'YT Thumbnail Saver',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const extractId = (url) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#\&\?]*).*/;
@@ -55,9 +70,9 @@ export default function YTThumbnail() {
       <SEO title="YT Thumbnail Saver | ShaadDev Studio" description="Fetch maximum resolution thumbnails from YouTube." url="https://shaaddev.studio/tools/yt-thumbnail" keywords="yt thumbnail, youtube grabber, extract hq cover" />
       
 <div className="max-w-4xl mx-auto space-y-8">
-        <Link to="/tools" className="mt-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors">
-          <ChevronLeft className="w-4 h-4" /> Back to Tools
-        </Link>
+        <button onClick={handleBackClick} className="mt-8 inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <ChevronLeft className="w-4 h-4" /> {isToolUsed ? 'YT Thumbnail Saver' : 'Back to Tools'}
+        </button>
         <div className="mb-10">
            <h1 className="sm: font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
   YouTube Thumbnail<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { removeBackground, Config } from '@imgly/background-removal';
 import { 
   Wand2, 
@@ -24,6 +24,7 @@ import {
   Briefcase,
   Youtube as YoutubeIcon
 } from 'lucide-react';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import AdBlockDetector from '../../components/AdBlockDetector';
@@ -32,6 +33,20 @@ import AdBlockDetector from '../../components/AdBlockDetector';
 type ProcessState = 'idle' | 'loading_model' | 'processing' | 'done' | 'error';
 type BackgroundMode = 'transparent' | 'solid' | 'gradient' | 'product_studio' | 'whatsapp_dp' | 'facebook_dp' | 'linkedin_dp' | 'instagram_dp' | 'youtube_thumb';
 type FilterPreset = 'none' | 'grayscale' | 'vintage' | 'cool' | 'warm' | 'dramatic' | 'neon';
+
+// Model cache for faster subsequent requests
+const modelCache = new Map<string, any>();
+
+// Retry configuration
+const RETRY_CONFIG = {
+  maxAttempts: 3,
+  baseDelayMs: 1000,
+  maxDelayMs: 5000,
+  backoffMultiplier: 2
+};
+
+// Processing timeout (60 seconds)
+const PROCESSING_TIMEOUT_MS = 60000;
 
 const FILTER_MAP: Record<FilterPreset, string> = {
   none: 'none',
@@ -53,6 +68,7 @@ interface ProcessedImage {
 }
 
 export default function BackgroundRemover() {
+  const navigate = useNavigate();
   const [sourceImage, setSourceImage] = useState<File | null>(null);
   const [processed, setProcessed] = useState<ProcessedImage | null>(null);
   const [processState, setProcessState] = useState<ProcessState>('idle');
@@ -60,10 +76,45 @@ export default function BackgroundRemover() {
   const [simulatedProgress, setSimulatedProgress] = useState(0);
   const [progressText, setProgressText] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
+  const [processingTimeMs, setProcessingTimeMs] = useState(0);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-  // Smooth Loading Effect
+  // Track if tool has been used
+  const isToolUsed = sourceImage !== null;
+
+  // Reset handler for navigation
+  const handleResetTool = () => {
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    abortControllerRef.current?.abort();
+    setSourceImage(null);
+    setProcessed(null);
+    setProcessState('idle');
+    setProgress(0);
+    setProgressText('');
+    setErrorMsg('');
+    setRetryCount(0);
+  };
+
+  // Smart navigation hook
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'AuraCut AI',
+    isToolUsed,
+    onReset: handleResetTool,
+  });
+
+  // Cleanup on component unmount
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
+
+  // Smooth Loading Effect with Timeout Detection
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    
     if (processState === 'loading_model' || processState === 'processing') {
        interval = setInterval(() => {
           setSimulatedProgress(prev => {
@@ -75,12 +126,24 @@ export default function BackgroundRemover() {
              return prev + increment;
           });
        }, 100);
+       
+       // Set timeout to detect stuck processing
+       timeoutId = setTimeout(() => {
+         if (processState === 'loading_model' || processState === 'processing') {
+           setProcessState('error');
+           setErrorMsg('Processing timeout - the AI engine took too long to respond. Click "Restart AI Core" to try again.');
+           abortControllerRef.current?.abort();
+         }
+       }, PROCESSING_TIMEOUT_MS);
     } else if (processState === 'done') {
        setSimulatedProgress(100);
     } else {
        setSimulatedProgress(0);
     }
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeoutId);
+    };
   }, [processState]);
 
   // Engaging Messages Rotator Effect
@@ -157,12 +220,14 @@ export default function BackgroundRemover() {
 
     // Reset everything
     if (fileInputRef.current) fileInputRef.current.value = '';
+    abortControllerRef.current?.abort();
     setSourceImage(file);
     setProcessed(null);
     setProcessState('idle');
     setProgress(0);
     setProgressText('');
     setErrorMsg('');
+    setRetryCount(0);
   };
 
   const handleExport = async () => {
@@ -284,37 +349,115 @@ export default function BackgroundRemover() {
     const file = e.dataTransfer.files?.[0];
     if (!file || !file.type.startsWith('image/')) return;
     
+    abortControllerRef.current?.abort();
     setSourceImage(file);
     setProcessed(null);
     setProcessState('idle');
     setProgress(0);
     setProgressText('');
     setErrorMsg('');
+    setRetryCount(0);
   };
 
-  // Run the AI Model
+  // Run the AI Model with Retry Logic and Better Error Handling
   const executeRemoval = async () => {
     if (!sourceImage) return;
+    
+    // Clear previous errors and update retry counter
+    const currentAttempt = retryCount + 1;
+    setRetryCount(currentAttempt);
+    setErrorMsg('');
     setProcessState('loading_model');
     setProgress(0);
-    setProgressText('Waking up AI Engine...');
-    setErrorMsg('');
+    setProgressText('Initializing AI engine...');
+    setProcessingTimeMs(0);
+    
+    const startTime = Date.now();
+    
+    // Create new abort controller for this attempt
+    abortControllerRef.current = new AbortController();
+    const signal = abortControllerRef.current.signal;
+    
+    const attemptRemoval = async (attempt: number): Promise<Blob> => {
+      try {
+        // Prepare config with enhanced error handling
+        const config: Config = {
+          publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
+          model: 'isnet_fp16',
+          device: 'cpu',
+          proxyToWorker: true,
+          progress: (key) => {
+            if (key === 'compute:inference') {
+              setProcessState('processing');
+              setProgressText('Analyzing image structure...');
+            }
+          }
+        };
+
+        // Race between removeBackground and timeout
+        const removalPromise = removeBackground(sourceImage, config);
+        
+        const timeoutPromise = new Promise<never>((_, reject) => {
+          const timeoutId = setTimeout(() => {
+            reject(new Error('Processing exceeded maximum time limit'));
+          }, PROCESSING_TIMEOUT_MS);
+          
+          signal.addEventListener('abort', () => {
+            clearTimeout(timeoutId);
+            reject(new Error('Processing was cancelled'));
+          });
+        });
+
+        const blob = await Promise.race([removalPromise, timeoutPromise]);
+        
+        const elapsedMs = Date.now() - startTime;
+        setProcessingTimeMs(elapsedMs);
+        
+        return blob;
+        
+      } catch (err: any) {
+        const elapsedMs = Date.now() - startTime;
+        setProcessingTimeMs(elapsedMs);
+        
+        const errorMsg = err.message || 'Unknown error';
+        const isNetworkError = errorMsg.includes('404') || errorMsg.includes('Failed to fetch') || errorMsg.includes('network');
+        const isTimeoutError = errorMsg.includes('timeout') || errorMsg.includes('exceeded');
+        const isCancelledError = errorMsg.includes('cancelled') || err.name === 'AbortError';
+        
+        console.error(`Attempt ${attempt} failed:`, { errorMsg, isNetworkError, isTimeoutError, isCancelledError });
+        
+        // Determine if we should retry
+        if (!isCancelledError && attempt < RETRY_CONFIG.maxAttempts) {
+          const delayMs = Math.min(
+            RETRY_CONFIG.baseDelayMs * Math.pow(RETRY_CONFIG.backoffMultiplier, attempt - 1),
+            RETRY_CONFIG.maxDelayMs
+          );
+          
+          // Update UI with retry message
+          setProgressText(`Attempt ${attempt} failed. Retrying in ${Math.ceil(delayMs / 1000)}s...`);
+          setSimulatedProgress(30);
+          
+          // Wait before retry
+          await new Promise(resolve => setTimeout(resolve, delayMs));
+          
+          // Reset for retry
+          setSimulatedProgress(0);
+          setProgressText('Initializing AI engine...');
+          
+          // Recursive retry
+          return attemptRemoval(attempt + 1);
+        }
+        
+        // No more retries - throw the error
+        throw new Error(
+          `${isTimeoutError ? 'Processing timeout' : isNetworkError ? 'Network error loading AI model' : 'AI processing failed'} ` +
+          `(Attempt ${attempt}/${RETRY_CONFIG.maxAttempts}). ${isCancelledError ? 'Cancelled by user.' : errorMsg}`
+        );
+      }
+    };
 
     try {
-      // Use official IMG.LY CDN path and proxyToWorker to bypass SharedArrayBuffer/COEP requirements, ensuring it works on all browsers without crashing.
-      const config: Config = {
-        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
-        model: 'isnet_fp16', // Use standard high-quality model (avoids 404s from missing quantized models)
-        device: 'cpu', // Use CPU as a reliable fallback to avoid WebGL backend issues on some browsers/iOS Safari
-        proxyToWorker: true, // Let the library handle worker with ArrayBuffer if Shared fails
-        progress: (key) => {
-          if (key === 'compute:inference') {
-            setProcessState('processing');
-          }
-        }
-      };
-
-      const blob = await removeBackground(sourceImage, config);
+      const blob = await attemptRemoval(1);
       
       const originalUrl = URL.createObjectURL(sourceImage);
       const cutoutUrl = URL.createObjectURL(blob);
@@ -334,13 +477,14 @@ export default function BackgroundRemover() {
       setProcessState('done');
       setProgress(100);
       setProgressText('Analysis Complete!');
+      setSimulatedProgress(100);
+      setRetryCount(0); // Reset retry count on success
       
     } catch (err: any) {
-      console.error('AuraCut AI Error:', err);
-      // Detailed error reporting to help identify first-visit environment issues
-      const detailedMsg = err.message || 'The AI engine encountered an environmental error.';
+      console.error('Final Error:', err);
       setProcessState('error');
-      setErrorMsg(`${detailedMsg} (Code: ERR_AI_INIT_FAIL)`);
+      setErrorMsg(err.message || 'The AI engine encountered an error. Please try again.');
+      setSimulatedProgress(0);
     }
   };
 
@@ -358,21 +502,27 @@ export default function BackgroundRemover() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/tools" className="p-2 hover:bg-white/5 rounded-full transition-colors group">
-              <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-white" />
-            </Link>
+            <button 
+              onClick={handleBackClick}
+              className="p-2 hover:bg-white/5 rounded-full transition-colors group"
+              title={isToolUsed ? `Reset tool and stay on page` : 'Back to Tools'}
+            >
+              <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-white group-hover:-translate-x-1 transition-transform" />
+            </button>
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
                 <Wand2 className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">AuraCut AI</h1>
+                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                  {isToolUsed ? `${sourceImage ? 'Processing...' : 'AuraCut AI'} (Click back to reset)` : 'AuraCut AI'}
+                </h1>
                 <p className="text-[10px] text-indigo-400 font-bold tracking-widest uppercase">100% Secure Local Processing</p>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessed(null); setProcessState('idle'); }} className="h-8 px-4 text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
+            <button onClick={handleResetTool} className="h-8 px-4 text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
               <RefreshCcw className="w-3 h-3" /> Reset Tool
             </button>
             <button onClick={handleExport} disabled={processState !== 'done'} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed">
@@ -452,7 +602,7 @@ export default function BackgroundRemover() {
              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black/50 border border-white/5">
                 <img src={URL.createObjectURL(sourceImage)} alt="Source Upload" className="w-full h-full object-contain" />
                 <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-center">
-                   <button onClick={executeRemoval} className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all transform hover:scale-105">
+                   <button onClick={() => { setRetryCount(0); executeRemoval(); }} className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all transform hover:scale-105">
                      <Wand2 className="w-5 h-5"/> Start AI Background Extraction
                    </button>
                 </div>
@@ -468,14 +618,17 @@ export default function BackgroundRemover() {
               </div>
               <div className="space-y-2">
                  <h3 className="text-xl font-bold text-white">AI Engine Stalled</h3>
-                 <p className="text-sm text-white/40 leading-relaxed">{errorMsg}</p>
+                 <p className="text-sm text-white/40 leading-relaxed font-mono break-words">{errorMsg}</p>
+                 {retryCount > 0 && (
+                   <p className="text-xs text-white/30 pt-2">Attempt {retryCount} of {RETRY_CONFIG.maxAttempts}</p>
+                 )}
               </div>
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                 <button onClick={executeRemoval} className="flex-1 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95">
-                   Restart AI Core
+                 <button onClick={executeRemoval} disabled={retryCount >= RETRY_CONFIG.maxAttempts} className="flex-1 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                   {retryCount >= RETRY_CONFIG.maxAttempts ? 'Max Attempts Reached' : 'Restart AI Core'}
                  </button>
-                 <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessState('idle'); }} className="flex-1 px-8 py-3 bg-white/5 hover:bg-white/10 text-white/50 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors border border-white/5">
-                   Abort & Change Image
+                 <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessState('idle'); setRetryCount(0); setErrorMsg(''); }} className="flex-1 px-8 py-3 bg-white/5 hover:bg-white/10 text-white/50 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors border border-white/5">
+                   Try Different Image
                  </button>
               </div>
            </div>

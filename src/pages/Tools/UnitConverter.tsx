@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRightLeft, ChevronLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
@@ -16,6 +17,21 @@ export default function UnitConverter() {
   const [val1, setVal1] = useState<string | number>(1);
   const [unit1, setUnit1] = useState('meters');
   const [unit2, setUnit2] = useState('feet');
+
+  // Smart Navigation
+  const isToolUsed = val1 !== 1 || unit1 !== 'meters' || unit2 !== 'feet' || category !== 'length';
+  const resetAll = () => {
+    setCategory('length');
+    setVal1(1);
+    setUnit1('meters');
+    setUnit2('feet');
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'Unit Converter',
+    isToolUsed,
+    onReset: resetAll
+  });
 
   const categories = Object.keys(units);
   const availableUnits = Object.keys(units[category] || {});
@@ -48,13 +64,10 @@ export default function UnitConverter() {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link 
-            to="/tools" 
-            className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors"
-          >
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
+            {isToolUsed ? 'Unit Converter' : 'Back to Tools'}
+          </button>
           <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL
