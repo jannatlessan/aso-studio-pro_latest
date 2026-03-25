@@ -437,6 +437,7 @@ export default function Home() {
             <a href="#modules" className="text-white/85 hover:text-primary transition-all">Projects</a>
             <a href="#reviews" className="text-white/85 hover:text-primary transition-all">Client Reviews</a>
             <Link to="/tools" className="text-white/85 hover:text-primary transition-all">Tools</Link>
+            <Link to="/microsaas" className="text-white/85 hover:text-primary transition-all">MicroSaaS</Link>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -481,6 +482,9 @@ export default function Home() {
                 </a>
                 <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
                   Tools
+                </Link>
+                <Link to="/microsaas" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                  MicroSaaS
                 </Link>
               </div>
             </motion.div>

@@ -12,7 +12,7 @@ export default function MicroSaaS() {
       name: 'Stamppedia',
       subtitle: 'Scan & Identifier',
       description: 'Identify and catalog stamps with advanced image recognition technology.',
-      icon: '📮',
+      iconUrl: 'https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/app_icon.png',
       route: '/apps/stamppedia',
       platforms: ['iOS', 'Android'],
     },
@@ -74,7 +74,13 @@ export default function MicroSaaS() {
                     {/* App Icon and Title */}
                     <div className="flex items-start justify-between">
                       <div>
-                        <div className="text-5xl mb-4">{app.icon}</div>
+                        {app.iconUrl ? (
+                          <div className="mb-4 w-16 h-16 rounded-xl overflow-hidden shadow-lg border border-white/10">
+                            <img src={app.iconUrl} alt={`${app.name} icon`} className="w-full h-full object-cover" />
+                          </div>
+                        ) : (
+                          <div className="text-5xl mb-4">{(app as any).icon}</div>
+                        )}
                         <h3 className="text-2xl font-black text-white uppercase tracking-tight">
                           {app.name}
                         </h3>

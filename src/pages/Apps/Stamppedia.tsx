@@ -23,7 +23,7 @@ export default function Stamppedia() {
           <span className="font-black tracking-[0.2em] text-sm uppercase">Back to Apps</span>
         </Link>
         <div className="flex items-center gap-4 text-[10px] font-black text-white/20 uppercase tracking-widest">
-          <span className="text-2xl">📮</span>
+          <img src="https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/app_icon.png" alt="Stamppedia Icon" className="w-8 h-8 rounded-lg" />
           <span>Stamppedia</span>
         </div>
       </nav>
@@ -72,10 +72,23 @@ export default function Stamppedia() {
               transition={{ duration: 4, repeat: Infinity }}
               className="flex justify-center"
             >
-              <div className="w-48 h-48 md:w-64 md:h-64 bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl flex items-center justify-center border border-primary/20">
-                <span className="text-9xl">📮</span>
+              <div className="w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border border-primary/20">
+                <img 
+                  src="https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/app_icon.png" 
+                  alt="Stamppedia - AI Stamp Identifier App Icon"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
+          </div>
+
+          {/* Main App Graphic */}
+          <div className="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl my-16">
+            <img 
+              src="https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/stamp_pedia_graphic_main.png" 
+              alt="Stamppedia - The Ultimate AI Stamp Identifier and Digital Collection App Interface"
+              className="w-full h-auto object-cover"
+            />
           </div>
 
           {/* Download Section */}
@@ -93,56 +106,68 @@ export default function Stamppedia() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Google Play Store */}
                 <motion.a
-                  href="https://play.google.com/store/apps/details?id=com.your-package-name"
+                  href="https://play.google.com/store/apps/details?id=studio.shaaddev.stamppedia"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
-                  className="glass-panel p-8 space-y-6 group hover:border-primary/50 transition-all"
+                  className="glass-panel p-8 space-y-6 group hover:border-primary/50 transition-all flex flex-col h-full"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="space-y-2">
-                      <div className="text-4xl">🤖</div>
-                      <h3 className="text-xl font-black uppercase tracking-tight text-white">
-                        Google Play
-                      </h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-primary">
-                        Android
-                      </p>
+                    <div className="space-y-4">
+                      <img 
+                        src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                        alt="Get it on Google Play" 
+                        className="h-12 w-auto"
+                      />
+                      <div>
+                        <h3 className="text-xl font-black uppercase tracking-tight text-white mb-1">
+                          Google Play
+                        </h3>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">
+                          Android
+                        </p>
+                      </div>
                     </div>
                     <Download className="w-6 h-6 text-white/20 group-hover:text-primary transition-colors" />
                   </div>
-                  <p className="text-white/60 text-sm">
+                  <p className="text-white/60 text-sm flex-grow">
                     Download Stamppedia from Google Play Store and start cataloging your stamp collection today.
                   </p>
-                  <button className="text-[10px] font-black uppercase tracking-widest px-4 py-3 border border-primary bg-transparent hover:bg-primary hover:text-black transition-all w-full">
+                  <button className="text-[10px] font-black uppercase tracking-widest px-4 py-3 border border-primary bg-transparent hover:bg-primary hover:text-black transition-all w-full mt-auto">
                     Open on Play Store
                   </button>
                 </motion.a>
 
                 {/* Apple App Store */}
                 <motion.a
-                  href="https://apps.apple.com/app/stamppedia/id123456789"
+                  href="https://apps.apple.com/app/id6761055547"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
-                  className="glass-panel p-8 space-y-6 group hover:border-primary/50 transition-all"
+                  className="glass-panel p-8 space-y-6 group hover:border-primary/50 transition-all flex flex-col h-full"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="space-y-2">
-                      <div className="text-4xl">🍎</div>
-                      <h3 className="text-xl font-black uppercase tracking-tight text-white">
-                        App Store
-                      </h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-primary">
-                        iOS
-                      </p>
+                    <div className="space-y-4">
+                      <img 
+                        src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
+                        alt="Download on the App Store" 
+                        className="h-12 w-auto"
+                      />
+                      <div>
+                        <h3 className="text-xl font-black uppercase tracking-tight text-white mb-1">
+                          App Store
+                        </h3>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-primary">
+                          iOS
+                        </p>
+                      </div>
                     </div>
                     <Download className="w-6 h-6 text-white/20 group-hover:text-primary transition-colors" />
                   </div>
-                  <p className="text-white/60 text-sm">
+                  <p className="text-white/60 text-sm flex-grow">
                     Download Stamppedia from the Apple App Store for iPhone and iPad.
                   </p>
-                  <button className="text-[10px] font-black uppercase tracking-widest px-4 py-3 border border-primary bg-transparent hover:bg-primary hover:text-black transition-all w-full">
+                  <button className="text-[10px] font-black uppercase tracking-widest px-4 py-3 border border-primary bg-transparent hover:bg-primary hover:text-black transition-all w-full mt-auto">
                     Open on App Store
                   </button>
                 </motion.a>
@@ -189,6 +214,59 @@ export default function Stamppedia() {
                   <p className="text-xs text-white/40">{feature.description}</p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* SEO Content Section */}
+          <div className="border-t border-white/5 pt-16">
+            <div className="space-y-8">
+              <h2 className="text-3xl font-black uppercase tracking-tight text-white mb-8">
+                Unlock the Secrets of Your Stamp Collection with Stamp Pedia
+              </h2>
+              
+              <div className="prose prose-invert max-w-none text-white/60 space-y-6">
+                <p>
+                  Are you a passionate philatelist or a collector who just stumbled upon an old album? Identifying rare and valuable stamps can be a daunting, time-consuming task. From deciphering tiny perforations to identifying obscure watermarks, the world of stamp collecting (philately) is as intricate as it is fascinating.
+                </p>
+                <p>
+                  Enter <strong className="text-white">Stamp Pedia</strong>—the most advanced, high-tech AI stamp identification app designed to bring your collection into the digital age.
+                </p>
+
+                <h3 className="text-xl font-black text-white mt-8 mb-4 flex items-center gap-2">📸 Snap, Identify, and Value: All in Seconds</h3>
+                <p>Stamp Pedia isn’t just another database; it’s your personal philatelist in your pocket. Using cutting-edge image recognition technology, the app allows you to simply point your camera and discover:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li><strong className="text-white">Instant Recognition:</strong> Identify stamps from virtually any country and era in seconds.</li>
+                  <li><strong className="text-white">Detailed Philatelic Data:</strong> Get the technical specs you need—issue year, printing method, perforation type, and more.</li>
+                  <li><strong className="text-white">Rarity Status:</strong> Is your find "common" or "one-of-a-kind"? Stamp Pedia tells you the truth about your discovery.</li>
+                  <li><strong className="text-white">Market Insights:</strong> Access historical market data and current valuation ranges from global platforms like eBay to see what your collection is actually worth.</li>
+                </ul>
+
+                <h3 className="text-xl font-black text-white mt-8 mb-4 flex items-center gap-2">🗃️ Create Your Digital Stamp Album</h3>
+                <p>Gone are the days of manually cataloging your stamps in paper ledgers. With Stamp Pedia, you can build a premium, high-resolution digital collection:</p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li><strong className="text-white">Save to Collection:</strong> Every identify scan can be saved to your permanent digital archive.</li>
+                  <li><strong className="text-white">Pinch-to-Zoom Detail:</strong> Use the digital loupe to inspect every tiny detail of your stamp without needing a physical magnifying glass.</li>
+                  <li><strong className="text-white">Track Your Worth:</strong> Monitor the total value of your collection as it grows.</li>
+                </ul>
+
+                <h3 className="text-xl font-black text-white mt-8 mb-4 flex items-center gap-2">🌟 Why Collectors Love Stamp Pedia</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li><strong className="text-white">High Accuracy:</strong> Powered by specialized philatelic AI models.</li>
+                  <li><strong className="text-white">Global Coverage:</strong> From classic Victora-era stamps to modern commemorative releases.</li>
+                  <li><strong className="text-white">Seamless UX:</strong> Designed for collectors, by collectors. No ad-clutter—just your stamps.</li>
+                  <li><strong className="text-white">Secure Archive:</strong> Your collection is saved locally and synced with your account for peace of mind.</li>
+                </ul>
+
+                <h3 className="text-xl font-black text-white mt-8 mb-4 flex items-center gap-2">🚀 Ready to Discover Your Rare Finds?</h3>
+                <p>
+                  Stop guessing and start identifying. Whether you're valuing a single stamp or an entire heritage collection, Stamp Pedia is the only tool you need.
+                </p>
+
+                <div className="mt-8 p-6 bg-white/5 border border-white/10 rounded-xl text-sm leading-relaxed">
+                  <strong className="text-primary font-black uppercase tracking-widest text-[10px] block mb-2">Philatelic Keywords for Search Engines:</strong>
+                  Stamp identifier app, how to value stamps, identify rare stamps, digital stamp collection, philately AI, stamp price guide, collector's archive, rare finds identification.
+                </div>
+              </div>
             </div>
           </div>
 

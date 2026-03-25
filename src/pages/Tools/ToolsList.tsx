@@ -341,7 +341,7 @@ export default function ToolsList() {
               </div>
               <div className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
                 <div className="w-0.5 h-0.5 bg-white/20 rounded-full"></div>
-                Last Updated: March 24, 2026 • 01:25 PM
+                Last Updated: March 25, 2026 • 12:55 PM
               </div>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-wider relative inline-block">
