@@ -155,11 +155,11 @@ export default function Stamppedia() {
                     <div className="space-y-4">
                       <div className="h-14 flex items-center justify-start">
                         <img 
-                          src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1276560000&h=7e7b68fad19738b5649a1bfb78ff46e9" 
+                          src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
                           alt="Download on the App Store" 
                           className="h-full w-auto object-contain"
                           onError={(e) => {
-                            e.currentTarget.src = "https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png";
+                            e.currentTarget.src = "https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg";
                           }}
                         />
                       </div>
