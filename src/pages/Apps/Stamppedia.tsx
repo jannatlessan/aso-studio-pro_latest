@@ -114,11 +114,16 @@ export default function Stamppedia() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="space-y-4">
-                      <img 
-                        src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
-                        alt="Get it on Google Play" 
-                        className="h-12 w-auto"
-                      />
+                      <div className="h-14 flex items-center justify-start">
+                        <img 
+                          src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                          alt="Get it on Google Play" 
+                          className="h-full w-auto object-contain"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png";
+                          }}
+                        />
+                      </div>
                       <div>
                         <h3 className="text-xl font-black uppercase tracking-tight text-white mb-1">
                           Google Play
@@ -148,11 +153,16 @@ export default function Stamppedia() {
                 >
                   <div className="flex items-start justify-between">
                     <div className="space-y-4">
-                      <img 
-                        src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
-                        alt="Download on the App Store" 
-                        className="h-12 w-auto"
-                      />
+                      <div className="h-14 flex items-center justify-start">
+                        <img 
+                          src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1276560000&h=7e7b68fad19738b5649a1bfb78ff46e9" 
+                          alt="Download on the App Store" 
+                          className="h-full w-auto object-contain"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred.png";
+                          }}
+                        />
+                      </div>
                       <div>
                         <h3 className="text-xl font-black uppercase tracking-tight text-white mb-1">
                           App Store
