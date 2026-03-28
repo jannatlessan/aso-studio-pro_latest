@@ -35,6 +35,10 @@
   <url><loc>https://shaaddev.studio/tools/video-to-gif</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/tools/gif-viewer</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/tools/background-remover</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/microsaas</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/apps/stamppedia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/apps/stamppedia/privacy</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shaaddev.studio/apps/stamppedia/terms</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <!-- Legal & Info -->
   <url><loc>https://shaaddev.studio/privacy</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>

@@ -32,6 +32,7 @@ import MicroSaaS from './pages/MicroSaaS';
 import Stamppedia from './pages/Apps/Stamppedia';
 import StamppediaPrivacyPolicy from './pages/Apps/StamppediaPrivacy';
 import StamppediaTerms from './pages/Apps/StamppediaTerms';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -75,6 +76,9 @@ export default function App() {
         <Route path="/apps/stamppedia" element={<Stamppedia />} />
         <Route path="/apps/stamppedia/privacy" element={<StamppediaPrivacyPolicy />} />
         <Route path="/apps/stamppedia/terms" element={<StamppediaTerms />} />
+
+        {/* 404 Page Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
