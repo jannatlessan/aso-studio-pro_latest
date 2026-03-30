@@ -24,21 +24,22 @@
 }
 
 :root {
-  /* Global App Theme */
-  --bg: #020202;
-  --surface: #0a0a0a;
-  --surface-variant: #111111;
-  --text: #e0e0e0;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-tertiary: rgba(255, 255, 255, 0.5);
-  --border: rgba(255, 255, 255, 0.1);
-  --accent: #00F0FF;
-  --line: rgba(255, 255, 255, 0.1);
-  --panel-bg: rgba(10, 10, 10, 0.5);
+  /* Global App Theme - Eye Friendly Soft Dark */
+  --bg: #0F1115;
+  --surface: #17191E;
+  --surface-variant: #1E2127;
+  --text: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+  --border: rgba(255, 255, 255, 0.06);
+  --accent: #06B6D4;
+  --line: rgba(255, 255, 255, 0.08);
+  --panel-bg: rgba(23, 25, 30, 0.6);
 }
 
 body {
   background-color: var(--bg);
+  background-image: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.05), transparent 40%);
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -46,9 +47,10 @@ body {
 
 .glass-panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--line);
-  border-radius: 1rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
 }
 
 .control-label {

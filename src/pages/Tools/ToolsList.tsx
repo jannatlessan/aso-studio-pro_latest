@@ -54,6 +54,7 @@ const tools = [
     color: "rose",
     actionLabel: "Open Tool"
   },
+
   {
     id: "QR-001",
     name: "QR Code Generator",

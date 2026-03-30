@@ -22,6 +22,7 @@ import PDFMerger from './pages/Tools/PDFMerger';
 import BulkImageEnhancer from './pages/Tools/BulkImageEnhancer';
 import BackgroundRemover from './pages/Tools/BackgroundRemover';
 import VideoToGifMaker from './pages/Tools/VideoToGifMaker';
+
 import GifViewer from './pages/Tools/GifViewer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';

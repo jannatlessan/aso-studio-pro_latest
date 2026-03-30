@@ -25,9 +25,14 @@ import {
   Sparkles,
   Sun,
   Moon,
-  Layout
+  Layout,
+  Grid3X3,
+  Edit3,
+  PlusSquare,
+  RefreshCw,
+  Edit
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, Reorder } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import JSZip from 'jszip';
@@ -49,7 +54,7 @@ interface ScreenSize {
   name: string;
   width: number;
   height: number;
-  type: 'iphone' | 'ipad' | 'custom';
+  type: 'iphone' | 'ipad' | 'android' | 'custom';
   label: string;
 }
 
@@ -65,12 +70,12 @@ interface ASOTemplate {
 
 interface ScreenshotItem {
   id: string;
-  file: File;
+  file?: File; // Optional for persistence (we store URLs or blobs)
   previewUrl: string;
   headline: string;
   subheadline: string;
   backgroundColor: string;
-  secondaryColor: string; // For gradients
+  secondaryColor: string;
   textColor: string;
   frameColor: string;
   templateId: TemplateId;
@@ -80,6 +85,22 @@ interface ScreenshotItem {
   headlineSize: number;
   subheadlineSize: number;
   sidePadding: number;
+  customBackgroundUrl?: string;
+  backgroundBlur?: number;
+  textShadow?: boolean;
+}
+
+interface ProjectState {
+  screenshots: ScreenshotItem[];
+  globalFont: string;
+  globalTemplateId: TemplateId;
+  globalFitMode: 'contain' | 'cover' | 'stretch';
+  backgroundMode: 'individual' | 'panoramic';
+  panoramicImage?: string;
+  globalHeadlineSize: number;
+  globalSubheadlineSize: number;
+  globalSidePadding: number;
+  globalDevicePadding: number;
 }
 
 const IPHONE_SIZES: ScreenSize[] = [
@@ -94,6 +115,13 @@ const IPAD_SIZES: ScreenSize[] = [
   { id: 'ipad-custom', name: 'Custom iPad', label: 'Custom', width: 0, height: 0, type: 'ipad' },
 ];
 
+const ANDROID_SIZES: ScreenSize[] = [
+  { id: 'android-phone', name: 'Phone (6.7")', label: '1080x2400', width: 1080, height: 2400, type: 'android' },
+  { id: 'android-7-tablet', name: '7" Tablet', label: '1200x1920', width: 1200, height: 1920, type: 'android' },
+  { id: 'android-10-tablet', name: '10" Tablet', label: '1600x2560', width: 1600, height: 2560, type: 'android' },
+  { id: 'android-custom', name: 'Custom Android', label: 'Custom', width: 0, height: 0, type: 'android' },
+];
+
 const TEMPLATES: ASOTemplate[] = [
   { id: 'classic', name: 'Classic Pro', description: 'Headline at top, device at bottom', layout: 'top-text', backgroundType: 'solid' },
   { id: 'modern', name: 'Modern Gradient', description: 'Headline at bottom, device at top', layout: 'bottom-text', backgroundType: 'gradient' },
@@ -104,9 +132,12 @@ const TEMPLATES: ASOTemplate[] = [
 ];
 
 const FONTS = [
-  { name: 'JetBrains', family: '"JetBrains Mono", monospace' },
-  { name: 'Inter', family: 'Inter, sans-serif' },
-  { name: 'Space', family: '"Space Grotesk", sans-serif' },
+  { name: 'Inter', family: 'Inter, sans-serif', url: 'Inter:wght@400;700;900' },
+  { name: 'Outfit', family: 'Outfit, sans-serif', url: 'Outfit:wght@400;700;900' },
+  { name: 'Roboto', family: 'Roboto, sans-serif', url: 'Roboto:wght@400;700;900' },
+  { name: 'Montserrat', family: 'Montserrat, sans-serif', url: 'Montserrat:wght@400;700;900' },
+  { name: 'Bebas Neue', family: '"Bebas Neue", sans-serif', url: 'Bebas+Neue' },
+  { name: 'Playfair', family: '"Playfair Display", serif', url: 'Playfair+Display:wght@700' },
 ];
 
 const BG_COLORS = [
@@ -133,28 +164,42 @@ interface ScreenshotPreviewProps {
   size: ScreenSize;
   appIcon: { url: string } | null;
   globalShowIcon: boolean;
-  drawOnCanvas: (canvas: HTMLCanvasElement, item: ScreenshotItem, img: HTMLImageElement, size: ScreenSize, iconImg: HTMLImageElement | null) => void;
+  backgroundMode: 'individual' | 'panoramic';
+  panoramicImage?: string | null;
+  index: number;
+  totalScreenshots: number;
+  onDraw: (canvas: HTMLCanvasElement, item: ScreenshotItem, img: HTMLImageElement, size: ScreenSize, iconImg: HTMLImageElement | null, shotIndex?: number, totalShots?: number, panoImg?: HTMLImageElement | null, individualBgImg?: HTMLImageElement | null) => void;
 }
 
-const ScreenshotPreview = ({ item, size, appIcon, globalShowIcon, drawOnCanvas }: ScreenshotPreviewProps) => {
+const ScreenshotPreview = ({ item, size, appIcon, globalShowIcon, backgroundMode, panoramicImage, index, totalScreenshots, onDraw }: ScreenshotPreviewProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const img = new Image();
-    img.src = item.previewUrl;
-    img.onload = () => {
-      if (appIcon) {
-        const iconImg = new Image();
-        iconImg.src = appIcon.url;
-        iconImg.onload = () => drawOnCanvas(canvas, item, img, size, iconImg);
-      } else {
-        drawOnCanvas(canvas, item, img, size, null);
+    const runDraw = async () => {
+      const loadImage = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+        const i = new Image();
+        i.onload = () => resolve(i);
+        i.onerror = reject;
+        i.src = url;
+      });
+
+      try {
+        const img = await loadImage(item.previewUrl);
+        const iconImg = appIcon ? await loadImage(appIcon.url).catch(() => null) : null;
+        const panoImg = panoramicImage ? await loadImage(panoramicImage).catch(() => null) : null;
+        const indBgImg = item.customBackgroundUrl ? await loadImage(item.customBackgroundUrl).catch(() => null) : null;
+        
+        onDraw(canvas, item, img, size, iconImg, index, totalScreenshots, panoImg, indBgImg);
+      } catch (e) {
+        console.error("Failed to load images for preview", e);
       }
     };
-  }, [item, size, appIcon, globalShowIcon, drawOnCanvas]);
+
+    runDraw();
+  }, [item, size, appIcon, globalShowIcon, backgroundMode, panoramicImage, index, totalScreenshots, onDraw]);
 
   return (
     <canvas
@@ -171,6 +216,7 @@ export default function App() {
 
   const [selectedIPhoneSize, setSelectedIPhoneSize] = useState<ScreenSize>(IPHONE_SIZES[0]);
   const [selectedIPadSize, setSelectedIPadSize] = useState<ScreenSize>(IPAD_SIZES[0]);
+  const [selectedAndroidSize, setSelectedAndroidSize] = useState<ScreenSize>(ANDROID_SIZES[0]);
 
   const [globalFont, setGlobalFont] = useState(FONTS[0].family);
   const [globalTemplateId, setGlobalTemplateId] = useState<TemplateId>('classic');
@@ -179,12 +225,19 @@ export default function App() {
   const [iphoneCustomHeight, setIphoneCustomHeight] = useState('2688');
   const [ipadCustomWidth, setIpadCustomWidth] = useState('2048');
   const [ipadCustomHeight, setIpadCustomHeight] = useState('2732');
+  const [androidCustomWidth, setAndroidCustomWidth] = useState('1080');
+  const [androidCustomHeight, setAndroidCustomHeight] = useState('2400');
   const [customUnit, setCustomUnit] = useState<'px' | 'inch'>('px');
 
   const [isProcessing, setIsProcessing] = useState(false);
-  const [previewMode, setPreviewMode] = useState<'iphone' | 'ipad'>('iphone');
+  const [previewMode, setPreviewMode] = useState<'iphone' | 'ipad' | 'android'>('iphone');
+  const [backgroundMode, setBackgroundMode] = useState<'individual' | 'panoramic'>('individual');
+  const [panoramicImage, setPanoramicImage] = useState<string | null>(null);
   const [bulkText, setBulkText] = useState('');
   const [showPrompt, setShowPrompt] = useState(false);
+  const [showStoreOverlay, setShowStoreOverlay] = useState(false);
+  const [storeOverlayType, setStoreOverlayType] = useState<'ios' | 'android'>('ios');
+  const [activeCategory, setActiveCategory] = useState<'template' | 'canvas' | 'branding' | 'assets'>('template');
 
   // Global Layout Options
   const [globalFitMode, setGlobalFitMode] = useState<'contain' | 'cover' | 'stretch'>('contain');
@@ -192,30 +245,91 @@ export default function App() {
   const [globalHeadlineSize, setGlobalHeadlineSize] = useState(1);
   const [globalSubheadlineSize, setGlobalSubheadlineSize] = useState(1);
   const [globalSidePadding, setGlobalSidePadding] = useState(0);
+  const [globalShowBadge, setGlobalShowBadge] = useState(false);
+  const [badgeType, setBadgeType] = useState<'stars' | 'award'>('stars');
+  const [exportIPhone, setExportIPhone] = useState(true);
+  const [exportIPad, setExportIPad] = useState(true);
+  const [exportAndroid, setExportAndroid] = useState(true);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const iconInputRef = useRef<HTMLInputElement>(null);
 
   // Smart Navigation
   const isToolUsed = screenshots.length > 0 || appIcon !== null;
+  // --- Font Loader ---
+  React.useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    const fontNames = FONTS.map(f => f.url).join('&family=');
+    link.href = `https://fonts.googleapis.com/css2?family=${fontNames}&display=swap`;
+    document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
+
+  // --- Project Persistence ---
+  React.useEffect(() => {
+    const saved = localStorage.getItem('aso-studio-pro-project');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.screenshots) setScreenshots(parsed.screenshots.map((s: any) => ({ ...s, file: undefined }))); // Files cannot be serialized
+        if (parsed.globalFont) setGlobalFont(parsed.globalFont);
+        if (parsed.globalTemplateId) setGlobalTemplateId(parsed.globalTemplateId);
+        if (parsed.globalFitMode) setGlobalFitMode(parsed.globalFitMode);
+        if (parsed.backgroundMode) setBackgroundMode(parsed.backgroundMode);
+        if (parsed.panoramicImage) setPanoramicImage(parsed.panoramicImage);
+        if (parsed.globalHeadlineSize) setGlobalHeadlineSize(parsed.globalHeadlineSize);
+        if (parsed.globalSubheadlineSize) setGlobalSubheadlineSize(parsed.globalSubheadlineSize);
+        if (parsed.globalSidePadding) setGlobalSidePadding(parsed.globalSidePadding);
+        if (parsed.globalDevicePadding) setGlobalDevicePadding(parsed.globalDevicePadding);
+      } catch (e) {
+        console.error("Failed to load project", e);
+      }
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const project = {
+      screenshots: screenshots.map(s => ({ ...s, file: undefined })),
+      globalFont,
+      globalTemplateId,
+      globalFitMode,
+      backgroundMode,
+      panoramicImage,
+      globalHeadlineSize,
+      globalSubheadlineSize,
+      globalSidePadding,
+      globalDevicePadding
+    };
+    localStorage.setItem('aso-studio-pro-project', JSON.stringify(project));
+  }, [screenshots, globalFont, globalTemplateId, globalFitMode, backgroundMode, panoramicImage, globalHeadlineSize, globalSubheadlineSize, globalSidePadding, globalDevicePadding]);
+
   const { handleBackClick } = useToolNavigation({
     toolName: 'ASO Screenshot Generator',
     isToolUsed,
     onReset: () => {
+      localStorage.removeItem('aso-studio-pro-project');
       setScreenshots([]);
       setAppIcon(null);
       setGlobalShowIcon(true);
       setSelectedIPhoneSize(IPHONE_SIZES[0]);
       setSelectedIPadSize(IPAD_SIZES[0]);
+      setSelectedAndroidSize(ANDROID_SIZES[0]);
       setGlobalFont(FONTS[0].family);
       setGlobalTemplateId('classic');
       setIphoneCustomWidth('1242');
       setIphoneCustomHeight('2688');
       setIpadCustomWidth('2048');
       setIpadCustomHeight('2732');
+      setAndroidCustomWidth('1080');
+      setAndroidCustomHeight('2400');
       setCustomUnit('px');
       setIsProcessing(false);
       setPreviewMode('iphone');
+      setBackgroundMode('individual');
+      setPanoramicImage(null);
       setBulkText('');
       setShowPrompt(false);
       setGlobalFitMode('contain');
@@ -228,10 +342,13 @@ export default function App() {
     }
   });
 
-  const getEffectiveSize = (size: ScreenSize, type: 'iphone' | 'ipad'): ScreenSize => {
+  const getEffectiveSize = (size: ScreenSize, type: 'iphone' | 'ipad' | 'android'): ScreenSize => {
     if (size.id.includes('custom')) {
-      const w = parseFloat(type === 'iphone' ? iphoneCustomWidth : ipadCustomWidth) || 0;
-      const h = parseFloat(type === 'iphone' ? iphoneCustomHeight : ipadCustomHeight) || 0;
+      let w = 0, h = 0;
+      if (type === 'iphone') { w = parseFloat(iphoneCustomWidth); h = parseFloat(iphoneCustomHeight); }
+      else if (type === 'ipad') { w = parseFloat(ipadCustomWidth); h = parseFloat(ipadCustomHeight); }
+      else { w = parseFloat(androidCustomWidth); h = parseFloat(androidCustomHeight); }
+      
       const factor = customUnit === 'inch' ? 300 : 1;
       return { ...size, width: Math.round(w * factor), height: Math.round(h * factor), label: `${Math.round(w * factor)}x${Math.round(h * factor)}` };
     }
@@ -273,23 +390,9 @@ export default function App() {
     setAppIcon({ file, url: URL.createObjectURL(file) });
   };
 
+
   const removeScreenshot = (id: string) => {
     setScreenshots(prev => prev.filter(s => s.id !== id));
-  };
-
-  const moveScreenshot = (id: string, direction: 'left' | 'right') => {
-    setScreenshots(prev => {
-      const index = prev.findIndex(s => s.id === id);
-      if (index === -1) return prev;
-      const newIndex = direction === 'left' ? index - 1 : index + 1;
-      if (newIndex < 0 || newIndex >= prev.length) return prev;
-
-      const newScreenshots = [...prev];
-      const temp = newScreenshots[index];
-      newScreenshots[index] = newScreenshots[newIndex];
-      newScreenshots[newIndex] = temp;
-      return newScreenshots;
-    });
   };
 
   const updateScreenshot = (id: string, updates: Partial<ScreenshotItem>) => {
@@ -304,23 +407,31 @@ export default function App() {
     height: number,
     frameColor: string,
     img: HTMLImageElement,
-    type: 'iphone' | 'ipad',
+    type: 'iphone' | 'ipad' | 'android',
     fitMode: 'contain' | 'cover' | 'stretch' = 'stretch',
     devicePadding: number = 0
   ) => {
-    const bezel = (type === 'ipad' ? width * 0.05 : width * 0.04) + devicePadding;
-    const radius = type === 'ipad' ? width * 0.06 : width * 0.12;
+    const isTablet = type === 'ipad' || type === 'android' && width > height;
+    const bezel = (isTablet ? width * 0.04 : width * 0.05) + devicePadding;
+    const radius = isTablet ? width * 0.05 : width * 0.12;
     const screenRadius = radius * 0.8;
 
-    // Draw Device Body
+    // High-Fidelity Shadow
     ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = width * 0.1;
+    ctx.shadowOffsetY = width * 0.05;
+    
+    // Draw Device Body (Clay Style)
     ctx.beginPath();
     ctx.roundRect(x, y, width, height, radius);
     ctx.fillStyle = frameColor;
-    ctx.shadowColor = 'rgba(0,0,0,0.4)';
-    ctx.shadowBlur = 50;
-    ctx.shadowOffsetY = 20;
     ctx.fill();
+    
+    // Subtle Inner Glow for Clay look
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
     ctx.restore();
 
     // Draw Screen
@@ -352,8 +463,6 @@ export default function App() {
         }
         drawX = screenX + (screenW - drawW) / 2;
         drawY = screenY + (screenH - drawH) / 2;
-
-        // Fill background for contain mode
         ctx.fillStyle = '#000';
         ctx.fillRect(screenX, screenY, screenW, screenH);
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
@@ -370,15 +479,30 @@ export default function App() {
         ctx.drawImage(img, drawX, drawY, drawW, drawH);
       }
     }
+    
+    // Screen Reflection Overlay
+    const grad = ctx.createLinearGradient(screenX, screenY, screenX + screenW, screenY + screenH);
+    grad.addColorStop(0, 'rgba(255,255,255,0.1)');
+    grad.addColorStop(0.5, 'transparent');
+    grad.addColorStop(1, 'rgba(0,0,0,0.05)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(screenX, screenY, screenW, screenH);
+    
     ctx.restore();
 
-    // Draw Notch/Pill for iPhone
-    if (type === 'iphone') {
-      const pillWidth = width * 0.25;
-      const pillHeight = height * 0.025;
-      ctx.fillStyle = '#111';
+    // Hardware Details
+    if (type === 'iphone' || type === 'android') {
+      const pillWidth = width * 0.2;
+      const pillHeight = height * 0.02;
+      ctx.fillStyle = 'rgba(0,0,0,0.8)';
       ctx.beginPath();
-      ctx.roundRect(x + (width - pillWidth) / 2, y + bezel + height * 0.01, pillWidth, pillHeight, pillHeight / 2);
+      // Dynamic Hardware: Pill for Pro models, tiny circle for standard Android
+      if (type === 'iphone') {
+        ctx.roundRect(x + (width - pillWidth) / 2, y + bezel * 0.5, pillWidth, pillHeight, pillHeight / 2);
+      } else {
+        const dotSize = width * 0.02;
+        ctx.arc(x + width / 2, y + bezel * 0.6, dotSize, 0, Math.PI * 2);
+      }
       ctx.fill();
     }
   };
@@ -390,33 +514,56 @@ export default function App() {
     const zip = new JSZip();
     const iphoneFolder = zip.folder("iPhone");
     const ipadFolder = zip.folder("iPad");
+    const androidFolder = zip.folder("PlayConsole_Android");
 
     const iphoneSize = getEffectiveSize(selectedIPhoneSize, 'iphone');
     const ipadSize = getEffectiveSize(selectedIPadSize, 'ipad');
+    const androidSize = getEffectiveSize(selectedAndroidSize, 'android');
 
     try {
-      const iconImg = appIcon ? await loadImage(appIcon.url) : null;
+      const iconImg = appIcon ? await loadImage(appIcon.url).catch(() => null) : null;
+      const panoImg = panoramicImage ? await loadImage(panoramicImage).catch(() => null) : null;
 
       for (let i = 0; i < screenshots.length; i++) {
         const item = screenshots[i];
-        const img = await loadImage(item.previewUrl);
-
-        // Generate for iPhone
-        const iphoneCanvas = document.createElement('canvas');
-        drawOnCanvas(iphoneCanvas, item, img, iphoneSize, iconImg);
-        const iphoneBlob = await canvasToBlob(iphoneCanvas);
-        if (iphoneBlob && iphoneFolder) {
-          const name = `IPhone_${iphoneSize.label}_${i + 1}.png`;
-          iphoneFolder.file(name, iphoneBlob);
-        }
-
-        // Generate for iPad
-        const ipadCanvas = document.createElement('canvas');
-        drawOnCanvas(ipadCanvas, item, img, ipadSize, iconImg);
-        const ipadBlob = await canvasToBlob(ipadCanvas);
-        if (ipadBlob && ipadFolder) {
-          const name = `IPad_${ipadSize.label}_${i + 1}.png`;
-          ipadFolder.file(name, ipadBlob);
+        try {
+          const img = await loadImage(item.previewUrl);
+          const individualBgImg = item.customBackgroundUrl ? await loadImage(item.customBackgroundUrl).catch(() => null) : null;
+  
+          // Generate for iPhone
+          if (exportIPhone) {
+            const iphoneCanvas = document.createElement('canvas');
+            drawOnCanvas(iphoneCanvas, item, img, iphoneSize, iconImg, i, screenshots.length, panoImg, individualBgImg);
+            const iphoneBlob = await canvasToBlob(iphoneCanvas);
+            if (iphoneBlob && iphoneFolder) {
+              iphoneFolder.file(`IPhone_${iphoneSize.label}_${i + 1}.png`, iphoneBlob);
+            }
+          }
+  
+          // Generate for iPad
+          if (exportIPad) {
+            const ipadCanvas = document.createElement('canvas');
+            drawOnCanvas(ipadCanvas, item, img, ipadSize, iconImg, i, screenshots.length, panoImg, individualBgImg);
+            const ipadBlob = await canvasToBlob(ipadCanvas);
+            if (ipadBlob && ipadFolder) {
+              ipadFolder.file(`IPad_${ipadSize.label}_${i + 1}.png`, ipadBlob);
+            }
+          }
+  
+          // Generate for Android (Play Console)
+          if (exportAndroid) {
+            const androidCanvas = document.createElement('canvas');
+            drawOnCanvas(androidCanvas, item, img, androidSize, iconImg, i, screenshots.length, panoImg, individualBgImg);
+            const androidBlob = await canvasToBlob(androidCanvas);
+            if (androidBlob && androidFolder) {
+              androidFolder.file(`Android_${androidSize.label}_${i + 1}.png`, androidBlob);
+            }
+          }
+        } catch (itemErr) {
+          console.error(`Skipping item ${i+1} due to load error:`, itemErr);
+          alert(`⚠️ Error: The image for Screenshot ${i+1} is missing or expired.\n\nIf you refreshed the page, your previously uploaded images cannot be recovered automatically. Please re-upload your screenshots and try exporting again.`);
+          setIsProcessing(false);
+          return;
         }
       }
 
@@ -490,12 +637,67 @@ export default function App() {
     return lines * lineHeight;
   };
 
+  const drawBadge = (
+    ctx: CanvasRenderingContext2D,
+    type: 'stars' | 'award',
+    x: number,
+    y: number,
+    size: number
+  ) => {
+    ctx.save();
+    if (type === 'stars') {
+      const starSize = size / 5;
+      ctx.fillStyle = '#FFD700'; // Gold
+      for (let i = 0; i < 5; i++) {
+        const starX = x + i * starSize * 1.2;
+        ctx.beginPath();
+        for (let j = 0; j < 5; j++) {
+           ctx.lineTo(
+            starX + starSize/2 * Math.cos((18 + j * 72) * Math.PI / 180),
+            y + starSize/2 * Math.sin((18 + j * 72) * Math.PI / 180)
+          );
+          ctx.lineTo(
+            starX + starSize/4 * Math.cos((54 + j * 72) * Math.PI / 180),
+            y + starSize/4 * Math.sin((54 + j * 72) * Math.PI / 180)
+          );
+        }
+        ctx.closePath();
+        ctx.fill();
+      }
+    } else {
+      // Award Badge
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.arc(x + size/2, y + size/2, size/2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.font = `black ${size/4}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('#1', x + size/2, y + size/1.8);
+      
+      // Laurel Wreath
+      ctx.strokeStyle = '#FFD700';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(x + size/2, y + size/2, size * 0.6, 0.2 * Math.PI, 0.8 * Math.PI);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x + size/2, y + size/2, size * 0.6, 1.2 * Math.PI, 1.8 * Math.PI);
+      ctx.stroke();
+    }
+    ctx.restore();
+  };
+
   const drawOnCanvas = (
     canvas: HTMLCanvasElement,
     item: ScreenshotItem,
     img: HTMLImageElement,
     size: ScreenSize,
-    iconImg: HTMLImageElement | null
+    iconImg: HTMLImageElement | null,
+    shotIndex: number = 0,
+    totalShots: number = 1,
+    panoImg: HTMLImageElement | null = null,
+    individualBgImg: HTMLImageElement | null = null
   ) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -505,39 +707,49 @@ export default function App() {
 
     const template = TEMPLATES.find(t => t.id === item.templateId) || TEMPLATES[0];
 
-    // Background
-    if (template.backgroundType === 'gradient') {
-      const grad = ctx.createLinearGradient(0, 0, size.width, size.height);
-      grad.addColorStop(0, item.backgroundColor);
-      grad.addColorStop(1, item.secondaryColor);
-      ctx.fillStyle = grad;
-    } else if (template.backgroundType === 'mesh') {
-      ctx.fillStyle = item.backgroundColor;
-      ctx.fillRect(0, 0, size.width, size.height);
-
-      // Sophisticated mesh effect
-      ctx.globalAlpha = 0.4;
-      const grad1 = ctx.createRadialGradient(size.width * 0.2, size.height * 0.2, 0, size.width * 0.2, size.height * 0.2, size.width * 0.8);
-      grad1.addColorStop(0, item.secondaryColor);
-      grad1.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad1;
-      ctx.fillRect(0, 0, size.width, size.height);
-
-      const grad2 = ctx.createRadialGradient(size.width * 0.8, size.height * 0.8, 0, size.width * 0.8, size.height * 0.8, size.width * 0.8);
-      grad2.addColorStop(0, item.secondaryColor);
-      grad2.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad2;
-      ctx.fillRect(0, 0, size.width, size.height);
-
-      ctx.globalAlpha = 1.0;
+    // --- Background Layer ---
+    if (individualBgImg) {
+      // Individual Custom Background (Priority 1)
+      if (item.backgroundBlur) {
+        ctx.save();
+        ctx.filter = `blur(${item.backgroundBlur}px)`;
+      }
+      ctx.drawImage(individualBgImg, 0, 0, size.width, size.height);
+      if (item.backgroundBlur) ctx.restore();
+    } else if (backgroundMode === 'panoramic' && panoImg) {
+      // Panoramic Logic (Priority 2)
+      const sliceWidth = panoImg.width / totalShots;
+      ctx.drawImage(
+        panoImg, 
+        shotIndex * sliceWidth, 0, sliceWidth, panoImg.height, 
+        0, 0, size.width, size.height
+      );
     } else {
-      ctx.fillStyle = item.backgroundColor;
+      // Solid/Gradient (Priority 3)
+      if (template.backgroundType === 'gradient') {
+        const grad = ctx.createLinearGradient(0, 0, size.width, size.height);
+        grad.addColorStop(0, item.backgroundColor);
+        grad.addColorStop(1, item.secondaryColor);
+        ctx.fillStyle = grad;
+      } else if (template.backgroundType === 'mesh') {
+        ctx.fillStyle = item.backgroundColor;
+        ctx.fillRect(0, 0, size.width, size.height);
+        ctx.globalAlpha = 0.4;
+        const grad1 = ctx.createRadialGradient(size.width * 0.2, size.height * 0.2, 0, size.width * 0.2, size.height * 0.2, size.width * 0.8);
+        grad1.addColorStop(0, item.secondaryColor);
+        grad1.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad1;
+        ctx.fillRect(0, 0, size.width, size.height);
+        ctx.globalAlpha = 1.0;
+      } else {
+        ctx.fillStyle = item.backgroundColor;
+      }
+      ctx.fillRect(0, 0, size.width, size.height);
     }
-    ctx.fillRect(0, 0, size.width, size.height);
 
     // Subtle Noise Overlay
-    ctx.globalAlpha = 0.03;
-    for (let i = 0; i < 100; i++) {
+    ctx.globalAlpha = 0.02;
+    for (let i = 0; i < 50; i++) {
       ctx.fillStyle = Math.random() > 0.5 ? '#fff' : '#000';
       ctx.fillRect(Math.random() * size.width, Math.random() * size.height, 2, 2);
     }
@@ -547,14 +759,13 @@ export default function App() {
     const basePadding = size.width * 0.08;
     const effectiveSidePadding = basePadding + (item.sidePadding + globalSidePadding) * (size.width / 1000);
     const textSectionHeight = size.height * 0.28;
-    const maxTextWidth = (template.layout === 'split-left' || template.layout === 'split-right') ? size.width * 0.35 : size.width - (effectiveSidePadding * 2);
+    const maxTextWidth = (template.layout === 'split-left' || template.layout === 'split-right') ? size.width * 0.4 : size.width - (effectiveSidePadding * 2);
 
     // Draw Text
     ctx.fillStyle = item.textColor;
     ctx.textAlign = template.layout.includes('split') ? 'left' : 'center';
     ctx.textBaseline = 'top';
 
-    // Calculate heights for positioning
     const headlineFontSize = size.width * 0.07 * item.headlineSize * globalHeadlineSize;
     const subheadlineFontSize = size.width * 0.04 * item.subheadlineSize * globalSubheadlineSize;
 
@@ -565,14 +776,21 @@ export default function App() {
     const subheadlineHeight = measureWrappedTextHeight(ctx, item.subheadline, maxTextWidth, subheadlineFontSize * 1.3);
 
     const totalTextHeight = headlineHeight + subheadlineHeight + (size.width * 0.02);
+    
+    // --- Readability shadow ---
+    ctx.save();
+    if (item.customBackgroundUrl || globalShowBadge) {
+      ctx.shadowColor = 'rgba(0,0,0,0.6)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 4;
+    }
 
     let headlineY: number;
     if (template.layout === 'bottom-text') {
       headlineY = size.height - totalTextHeight - basePadding;
     } else if (template.layout === 'center-text') {
       headlineY = (size.height - totalTextHeight) / 2;
-    } else if (template.layout === 'split-right') {
-      headlineY = basePadding + size.width * 0.05;
     } else {
       headlineY = basePadding + size.width * 0.05;
     }
@@ -581,14 +799,17 @@ export default function App() {
       template.layout === 'split-right' ? size.width - maxTextWidth - effectiveSidePadding :
         size.width / 2;
 
-    // Draw Headline
     ctx.font = `bold ${headlineFontSize}px ${item.headlineFont}`;
     const nextY = drawWrappedText(ctx, item.headline, headlineX, headlineY, maxTextWidth, headlineFontSize * 1.2);
 
-    // Draw Subheadline
     ctx.font = `${subheadlineFontSize}px ${item.subheadlineFont}`;
     const subheadlineY = nextY + size.width * 0.01;
     const finalY = drawWrappedText(ctx, item.subheadline, headlineX, subheadlineY, maxTextWidth, subheadlineFontSize * 1.3);
+    
+    ctx.restore(); // Reset shadow/context
+
+    let contentTopY = headlineY;
+    let contentBottomY = finalY;
 
     // Draw Icon if enabled
     if (iconImg && item.showIcon && globalShowIcon) {
@@ -596,12 +817,14 @@ export default function App() {
       const iconX = template.layout === 'split-left' ? effectiveSidePadding :
         template.layout === 'split-right' ? size.width - maxTextWidth - effectiveSidePadding :
           size.width / 2 - iconSize / 2;
-      let iconY: number;
 
+      let iconY = 0;
       if (template.layout === 'bottom-text') {
-        iconY = headlineY - iconSize - 20;
+        iconY = contentTopY - iconSize - 20;
+        contentTopY = iconY;
       } else {
-        iconY = finalY + 20;
+        iconY = contentBottomY + 20;
+        contentBottomY = iconY + iconSize;
       }
 
       ctx.save();
@@ -614,11 +837,11 @@ export default function App() {
 
     // Draw Device Frame
     const imgAspect = img.width / img.height;
-    let frameWidth = size.width * 0.85;
+    let frameWidth = size.width * 0.82;
     let frameHeight = frameWidth / imgAspect;
 
-    if (frameHeight > size.height * 0.75) {
-      frameHeight = size.height * 0.75;
+    if (frameHeight > size.height * 0.7) {
+      frameHeight = size.height * 0.7;
       frameWidth = frameHeight * imgAspect;
     }
 
@@ -627,41 +850,37 @@ export default function App() {
 
     if (template.layout === 'bottom-text') {
       frameY = basePadding;
-      const textTop = (iconImg && item.showIcon && globalShowIcon) ? headlineY - (size.width * 0.12) - 40 : headlineY - 20;
-      if (frameY + frameHeight > textTop) {
-        frameHeight = textTop - frameY;
-        frameWidth = frameHeight * imgAspect;
-        frameX = (size.width - frameWidth) / 2;
-      }
     } else if (template.layout === 'center-text') {
-      frameWidth = size.width * 0.95;
-      frameHeight = frameWidth / imgAspect;
-      if (frameHeight > size.height * 0.85) {
-        frameHeight = size.height * 0.85;
-        frameWidth = frameHeight * imgAspect;
-      }
-      frameX = (size.width - frameWidth) / 2;
       frameY = (size.height - frameHeight) / 2;
-      ctx.fillStyle = 'rgba(0,0,0,0.2)';
-      ctx.fillRect(0, 0, size.width, size.height);
-    } else if (template.layout === 'split-left' || template.layout === 'split-right') {
-      frameWidth = size.width * 0.8;
-      frameHeight = frameWidth / imgAspect;
-      frameX = template.layout === 'split-left' ? size.width * 0.45 : -size.width * 0.25;
+    } else if (template.layout.includes('split')) {
+      frameX = template.layout === 'split-left' ? size.width * 0.5 : -size.width * 0.3;
       frameY = (size.height - frameHeight) / 2;
     } else {
-      const iconSize = size.width * 0.12;
-      const textBottom = (iconImg && item.showIcon && globalShowIcon) ? finalY + iconSize + 60 : finalY + 40;
-      frameY = Math.max(textBottom, textSectionHeight);
-
-      if (frameY + frameHeight > size.height - basePadding) {
-        frameHeight = size.height - frameY - basePadding;
-        frameWidth = frameHeight * imgAspect;
-        frameX = (size.width - frameWidth) / 2;
-      }
+      frameY = size.height - frameHeight - basePadding * 0.5;
     }
 
-    drawDeviceFrame(ctx, frameX, frameY, frameWidth, frameHeight, item.frameColor, img, size.type as 'iphone' | 'ipad', globalFitMode, globalDevicePadding);
+    // Draw Badges
+    // Position dynamically related to the text & icon block to prevent overlaps
+    if (globalShowBadge) {
+      const badgeSize = size.width * 0.15;
+      const actualBadgeWidth = badgeSize * 1.2 * (badgeType === 'stars' ? 1.5 : 1);
+      const badgeX = template.layout === 'split-left' ? effectiveSidePadding :
+        template.layout === 'split-right' ? size.width - maxTextWidth - effectiveSidePadding :
+          (size.width - actualBadgeWidth) / 2;
+          
+      let badgeY = 0;
+      if (template.layout === 'bottom-text') {
+          badgeY = contentTopY - badgeSize - 20;
+          contentTopY = badgeY;
+      } else {
+          badgeY = contentBottomY + 20;
+          contentBottomY = badgeY + badgeSize;
+      }
+      
+      drawBadge(ctx, badgeType, badgeX, badgeY, badgeSize);
+    }
+
+    drawDeviceFrame(ctx, frameX, frameY, frameWidth, frameHeight, item.frameColor, img, size.type as any, globalFitMode, globalDevicePadding);
   };
 
   const loadImage = (url: string): Promise<HTMLImageElement> => {
@@ -693,7 +912,7 @@ export default function App() {
         description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
         url="https://shaaddev.studio/tools/aso-screenshot" keywords="aso screenshot, app store asset grab, play store shots" />
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <header className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-3">
         <input
           type="file"
           ref={fileInputRef}
@@ -702,36 +921,79 @@ export default function App() {
           accept="image/*"
           className="hidden"
         />
+        <input
+          type="file"
+          ref={iconInputRef}
+          onChange={handleIconUpload}
+          accept="image/*"
+          className="hidden"
+        />
         <div className="max-w-[1600px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <button onClick={handleBackClick} className="p-2 hover:bg-white/5 rounded-full transition-colors group" title={isToolUsed ? "(Click to reset)" : undefined}>
-              <ChevronLeft className="w-5 h-5 text-white/40 group-hover:text-primary" />
+              <ChevronLeft className="w-5 h-5 text-white/40 group-hover:text-accent" />
             </button>
-            <div className="w-10 h-10 bg-black border border-primary/40 flex items-center justify-center shadow-lg shadow-primary/10">
-              <Layers className="text-primary w-6 h-6" />
+            <div 
+              className="w-10 h-10 bg-slate-800 border border-white/10 flex items-center justify-center rounded-xl shadow-lg shadow-black/20 group relative overflow-hidden cursor-pointer shrink-0" 
+              onClick={() => iconInputRef.current?.click()}
+            >
+              {appIcon ? (
+                <img src={appIcon.url} className="w-full h-full object-cover p-1.5" />
+              ) : (
+                <Plus className="text-accent w-4 h-4 group-hover:scale-125 transition-transform" />
+              )}
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-[7px] font-black uppercase text-center leading-none px-1">
+                {appIcon ? 'Change Icon' : 'Add App Icon'}
+              </div>
             </div>
             <div>
-              <h1 className="text-sm font-black text-white tracking-widest uppercase">ASO STUDIO<span className="text-primary text-[10px] ml-2 italic">PRO V3.0</span></h1>
+              <h1 className="text-sm font-black text-white tracking-widest uppercase flex items-center">
+                ASO STUDIO
+                <span className="text-accent text-[8px] ml-2 font-medium bg-accent/10 px-2 py-0.5 rounded-full border border-accent/20">PRO V3.8</span>
+              </h1>
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <p className="text-[10px] text-white/30 uppercase font-black tracking-tighter">Secure Asset Synthesis Active</p>
+                <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
+                <p className="text-[9px] text-text-tertiary uppercase font-black tracking-tighter leading-none">Studio Synthesis Active</p>
               </div>
             </div>
           </div>
-
+ 
           <div className="flex items-center gap-3">
+            {screenshots.length > 0 && (
+              <div className="flex items-center gap-1 bg-[#0a0a10] border border-white/10 p-1.5 rounded-xl shadow-inner">
+                {[
+                  { id: 'iphone', label: 'iOS Phone', active: exportIPhone, toggle: () => setExportIPhone(!exportIPhone) },
+                  { id: 'ipad', label: 'iOS Tablet', active: exportIPad, toggle: () => setExportIPad(!exportIPad) },
+                  { id: 'android', label: 'Android', active: exportAndroid, toggle: () => setExportAndroid(!exportAndroid) },
+                ].map((p) => (
+                  <button
+                    key={p.id}
+                    onClick={p.toggle}
+                    className={cn(
+                      "px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border shrink-0",
+                      p.active 
+                        ? "bg-[#06B6D4] text-[#0F1115] border-[#06B6D4] shadow-[0_0_15px_rgba(6,182,212,0.4)]" 
+                        : "bg-[#1e293b] text-white/50 border-white/10 hover:text-white hover:bg-slate-700"
+                    )}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            )}
+            
             {screenshots.length > 0 && (
               <button
                 onClick={generateAndDownload}
-                disabled={isProcessing}
-                className="btn-primary py-2 px-4 text-xs"
+                disabled={isProcessing || (!exportIPhone && !exportIPad && !exportAndroid)}
+                className="btn-primary py-2 px-6 !text-slate-950"
               >
                 {isProcessing ? (
-                  <span className="animate-pulse">Processing...</span>
+                  <span className="animate-pulse">Synthesizing...</span>
                 ) : (
                   <>
                     <Download className="w-4 h-4" />
-                    Export Assets ({screenshots.length * 2})
+                    <span>Export {screenshots.length * ([exportIPhone, exportIPad, exportAndroid].filter(Boolean).length)} Assets</span>
                   </>
                 )}
               </button>
@@ -744,312 +1006,87 @@ export default function App() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
           {/* Sidebar Controls */}
-          <aside className="lg:col-span-3 space-y-4">
-            {/* App Icon Section */}
-            <section className="bg-white/[0.03] border border-white/5 p-4 space-y-4 backdrop-blur-md">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4 text-primary" />
-                  <h2 className="font-black text-[10px] uppercase tracking-widest text-white/50">App Icon</h2>
-                </div>
-                <div className="flex items-center gap-2">
-                  {appIcon && (
-                    <button
-                      onClick={() => setAppIcon(null)}
-                      className="text-[9px] font-black text-red-400/60 hover:text-red-400 transition-all uppercase tracking-widest"
-                    >
-                      REMOVE
-                    </button>
-                  )}
-                  <button
-                    onClick={() => setGlobalShowIcon(!globalShowIcon)}
-                    className={cn(
-                      "px-2 py-0.5 border text-[8px] font-black transition-all uppercase tracking-widest",
-                      globalShowIcon ? "border-primary text-primary" : "border-white/10 text-white/20"
-                    )}
-                  >
-                    {globalShowIcon ? 'VISIBLE' : 'HIDDEN'}
-                  </button>
-                </div>
-              </div>
 
-              <div
-                onClick={() => iconInputRef.current?.click()}
-                className="w-16 h-16 mx-auto bg-white/[0.02] border-2 border-dashed border-white/10 flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 hover:bg-white/[0.05] transition-all group overflow-hidden relative"
-              >
-                {appIcon ? (
-                  <>
-                    <img src={appIcon.url} alt="App Icon" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
-                      <Plus className="w-4 h-4 text-white" />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Plus className="w-4 h-4 text-white/20 group-hover:text-primary transition-all" />
-                  </>
-                )}
-                <input
-                  type="file"
-                  ref={iconInputRef}
-                  onChange={handleIconUpload}
-                  accept="image/*"
-                  className="hidden"
-                />
-              </div>
-            </section>
-
-            {/* AI Copywriter Prompt */}
-            <section className="bg-white/[0.03] border border-white/5 p-4 space-y-3 backdrop-blur-md">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  <h2 className="font-black text-[10px] uppercase tracking-widest text-white/50">AI Copywriter</h2>
-                </div>
+          {/* Sidebar Controls - Categorized for Pro Workflow */}
+          <aside className="lg:col-span-3 space-y-6 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto pr-2 custom-scrollbar">
+            <div className="grid grid-cols-4 gap-2 bg-surface/50 p-1 rounded-2xl border border-white/5 mb-6">
+              {[
+                { id: 'template', label: 'Layout', icon: Layout },
+                { id: 'canvas', label: 'Canvas', icon: Monitor },
+                { id: 'branding', label: 'Brand', icon: Sparkles },
+                { id: 'assets', label: 'Production', icon: Layers },
+              ].map((cat) => (
                 <button
-                  onClick={() => setShowPrompt(!showPrompt)}
-                  className="text-[9px] font-black text-primary hover:text-white transition-all bg-primary/10 px-1.5 py-0.5 border border-primary/20 uppercase tracking-widest"
-                >
-                  {showPrompt ? 'HIDE' : 'GET'}
-                </button>
-              </div>
-
-              {showPrompt && (
-                <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="space-y-3">
-                    <p className="text-[10px] text-white/40 leading-relaxed font-bold uppercase tracking-tighter">
-                      Gemini/ChatGPT PROMPT:
-                    </p>
-                    <div className="p-3 bg-black/40 border border-white/5 relative group">
-                      <p className="text-[10px] text-white/60 leading-relaxed pr-8 italic select-all font-mono">
-                        "based on metadata, first capture image will be first image, for all {screenshots.length} images in sequence give me engaging headline and subheadline format will be: headline $- subheadline"
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => {
-                        const prompt = `based on metadata, first capture image will be first image, for all ${screenshots.length} images in sequence give me engaging headline and subheadline format will be: headline $- subheadline`;
-                        navigator.clipboard.writeText(prompt);
-                        confetti({ particleCount: 60, spread: 70, origin: { y: 0.8 }, colors: ['#00F0FF', '#ffffff'] });
-                      }}
-                      className="w-full flex items-center justify-center gap-2 py-2 bg-primary text-black text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all shadow-lg shadow-primary/20"
-                    >
-                      <Copy className="w-3.5 h-3.5" />
-                      COPY MASTER PROMPT
-                    </button>
-                  </div>
-
-                  <div className="flex items-start gap-3 p-3 bg-white/5 border border-white/10">
-                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-[10px] font-black text-black">!</div>
-                    <p className="text-[9px] text-white/40 leading-relaxed uppercase font-black tracking-tighter">
-                      Paste generated output into the <b>Bulk Import</b> area.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </section>
-
-            {/* Bulk Text Import */}
-            <section className="bg-white/[0.03] border border-white/5 p-4 space-y-3 backdrop-blur-md">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Clipboard className="w-4 h-4 text-primary" />
-                  <h2 className="font-black text-[10px] uppercase tracking-widest text-white/50">Bulk Import</h2>
-                </div>
-                {bulkText && (
-                  <button
-                    onClick={() => {
-                      setBulkText('');
-                      setScreenshots(prev => prev.map(s => ({ ...s, headline: 'Amazing Feature', subheadline: 'Describe how it works here' })));
-                    }}
-                    className="text-[9px] font-black text-white/20 hover:text-red-400 transition-all uppercase tracking-widest"
-                  >
-                    CLEAR
-                  </button>
-                )}
-              </div>
-
-              <div className="relative group">
-                <textarea
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id as any)}
                   className={cn(
-                    "w-full bg-black/40 border-2 border-dashed text-[11px] py-4 px-4 resize-none transition-all font-mono text-white/80 focus:border-primary/50 outline-none",
-                    bulkText ? "border-primary/30" : "border-white/10"
+                    "flex flex-col items-center gap-1.5 py-3 rounded-xl transition-all relative group",
+                    activeCategory === cat.id ? "bg-surface-variant text-accent shadow-lg border border-white/5" : "text-text-tertiary hover:text-text-secondary hover:bg-white/5"
                   )}
-                  placeholder="PASTE AI OUTPUT HERE...&#10;&#10;Format: Headline $- Subheadline"
-                  value={bulkText}
-                  onPaste={(e) => {
-                    const pastedText = e.clipboardData.getData('text');
-                    setBulkText(pastedText);
-                    const lines = pastedText.split('\n').filter(l => l.trim());
-                    setScreenshots(prev => prev.map((s, i) => {
-                      if (lines[i]) {
-                        let h = '', sh = '';
-                        if (lines[i].includes('$-')) {
-                          [h, sh] = lines[i].split('$-').map(t => t.trim());
-                        } else if (lines[i].includes(' &- ')) {
-                          [h, sh] = lines[i].split(' &- ').map(t => t.trim());
-                        } else if (lines[i].includes(':')) {
-                          [h, sh] = lines[i].split(':').map(t => t.trim());
-                        } else if (lines[i].includes(' - ')) {
-                          [h, sh] = lines[i].split(' - ').map(t => t.trim());
-                        } else {
-                          h = lines[i].trim();
-                        }
-                        return { ...s, headline: h || s.headline, subheadline: sh || s.subheadline };
-                      }
-                      return s;
-                    }));
-                    confetti({ particleCount: 30, spread: 50, origin: { y: 0.9 }, colors: ['#00F0FF'] });
-                  }}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    setBulkText(val);
-                    const lines = val.split('\n').filter(l => l.trim());
-                    setScreenshots(prev => prev.map((s, i) => {
-                      if (lines[i]) {
-                        let h = '', sh = '';
-                        if (lines[i].includes('$-')) {
-                          [h, sh] = lines[i].split('$-').map(t => t.trim());
-                        } else if (lines[i].includes(' &- ')) {
-                          [h, sh] = lines[i].split(' &- ').map(t => t.trim());
-                        } else if (lines[i].includes(':')) {
-                          [h, sh] = lines[i].split(':').map(t => t.trim());
-                        } else if (lines[i].includes(' - ')) {
-                          [h, sh] = lines[i].split(' - ').map(t => t.trim());
-                        } else {
-                          h = lines[i].trim();
-                        }
-                        return { ...s, headline: h || s.headline, subheadline: sh || s.subheadline };
-                      }
-                      return s;
-                    }));
-                  }}
-                />
-              </div>
-            </section>
+                >
+                  <cat.icon className={cn("w-4 h-4", activeCategory === cat.id ? "text-accent" : "text-text-tertiary group-hover:text-text-secondary")} />
+                  <span className="text-[8px] font-black uppercase tracking-widest">{cat.label}</span>
+                  {activeCategory === cat.id && (
+                    <motion.div layoutId="activeCat" className="absolute -bottom-1 w-1 h-1 rounded-full bg-accent" />
+                  )}
+                </button>
+              ))}
+            </div>
 
-            {/* Global Layout Section */}
-            <section className="glass-panel p-4 space-y-4">
-              <div className="flex items-center gap-2">
-                <Layout className="w-4 h-4 text-primary" />
-                <h2 className="font-bold text-[10px] uppercase tracking-wider">Global Layout</h2>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="control-label">Screenshot Fit</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {(['contain', 'cover', 'stretch'] as const).map(mode => (
+            {/* Category: Template */}
+            {activeCategory === 'template' && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
+                <section className="glass-panel p-5 space-y-4">
+                  <div className="flex items-center gap-2 brightness-110">
+                    <ImageIcon className="w-3.5 h-3.5 text-accent" />
+                     <h2 className="section-title">Gallery Flow Strategy</h2>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {['individual', 'panoramic'].map((mode) => (
                       <button
                         key={mode}
-                        onClick={() => setGlobalFitMode(mode)}
+                        onClick={() => setBackgroundMode(mode as any)}
                         className={cn(
-                          "px-2 py-2 rounded-lg border text-[8px] font-bold transition-all uppercase",
-                          globalFitMode === mode ? "bg-primary/20 border-primary/50 text-primary-light" : "bg-surface-variant border-border text-text-secondary hover:bg-surface"
+                          "py-2 rounded-lg border text-[10px] font-black uppercase transition-all",
+                          backgroundMode === mode ? "bg-accent/20 border-accent/50 text-white" : "border-white/5 text-text-tertiary hover:bg-white/5 hover:text-white"
                         )}
                       >
                         {mode}
                       </button>
                     ))}
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label className="control-label">Inner Padding</label>
-                    <span className="text-[10px] font-bold text-primary">{globalDevicePadding}px</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="60"
-                    value={globalDevicePadding}
-                    onChange={(e) => setGlobalDevicePadding(parseInt(e.target.value))}
-                    className="w-full accent-primary h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label className="control-label">Global Side Padding</label>
-                    <span className="text-[10px] font-bold text-primary">{globalSidePadding}px</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="-100"
-                    max="200"
-                    value={globalSidePadding}
-                    onChange={(e) => setGlobalSidePadding(parseInt(e.target.value))}
-                    className="w-full accent-primary h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label className="control-label">Global Headline Size</label>
-                    <span className="text-[10px] font-bold text-primary">{globalHeadlineSize.toFixed(1)}x</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0.5"
-                    max="2.5"
-                    step="0.1"
-                    value={globalHeadlineSize}
-                    onChange={(e) => setGlobalHeadlineSize(parseFloat(e.target.value))}
-                    className="w-full accent-primary h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label className="control-label">Global Subheadline Size</label>
-                    <span className="text-[10px] font-bold text-primary">{globalSubheadlineSize.toFixed(1)}x</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0.5"
-                    max="2.5"
-                    step="0.1"
-                    value={globalSubheadlineSize}
-                    onChange={(e) => setGlobalSubheadlineSize(parseFloat(e.target.value))}
-                    className="w-full accent-primary h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer"
-                  />
-                </div>
-              </div>
-            </section>
-
-            {/* Global Styles Section */}
-            <section className="glass-panel p-4 space-y-4">
-              <div className="flex items-center gap-2">
-                <Settings2 className="w-4 h-4 text-primary" />
-                <h2 className="font-bold text-[10px] uppercase tracking-wider">Global Styles</h2>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="control-label">Typography</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {FONTS.map(font => (
-                      <button
-                        key={font.name}
+                  {backgroundMode === 'panoramic' && (
+                    <div className="space-y-3 pt-2">
+                       <p className="text-[9px] text-white/40 uppercase font-black tracking-tighter italic">Recommended: 3000x2000px+</p>
+                       <button
                         onClick={() => {
-                          setGlobalFont(font.family);
-                          setScreenshots(prev => prev.map(s => ({ ...s, headlineFont: font.family, subheadlineFont: font.family })));
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'image/*';
+                          input.onchange = (e: any) => {
+                            const file = e.target.files?.[0];
+                            if (file) setPanoramicImage(URL.createObjectURL(file));
+                          };
+                          input.click();
                         }}
-                        className={cn(
-                          "px-3 py-2 rounded-lg border text-[10px] font-bold transition-all",
-                          globalFont === font.family ? "bg-primary/20 border-primary/50 text-primary-light" : "bg-surface-variant border-border text-text-secondary hover:bg-surface"
-                        )}
-                        style={{ fontFamily: font.family }}
+                        className="w-full py-3 bg-white/5 border border-dashed border-white/10 rounded-xl flex items-center justify-center gap-2 hover:border-primary/50 transition-all text-[10px] font-black uppercase text-white/60"
                       >
-                        {font.name}
+                        {panoramicImage ? <Check className="w-3 h-3 text-primary" /> : <Plus className="w-3 h-3" />}
+                        {panoramicImage ? 'Change Pano Background' : 'Upload Pano Background'}
                       </button>
-                    ))}
-                  </div>
-                </div>
+                    </div>
+                  )}
+                </section>
 
-                <div className="space-y-2">
-                  <label className="control-label">Global Template</label>
-                  <div className="space-y-2">
+                <section className="glass-panel p-5 space-y-4 shadow-sm border-white/[0.03]">
+                  <div className="flex items-center justify-between brightness-110">
+                    <div className="flex items-center gap-2">
+                       <Grid3X3 className="w-3.5 h-3.5 text-accent" />
+                       <h2 className="section-title">Global Layout Template</h2>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
                     {TEMPLATES.map(template => (
                       <button
                         key={template.id}
@@ -1058,90 +1095,238 @@ export default function App() {
                           setScreenshots(prev => prev.map(s => ({ ...s, templateId: template.id })));
                         }}
                         className={cn(
-                          "w-full text-left px-4 py-2 rounded-xl border text-xs font-medium transition-all flex items-center justify-between group",
-                          globalTemplateId === template.id ? "bg-primary/20 border-primary/50 text-primary-light" : "bg-surface-variant border-border text-text-secondary hover:bg-primary/10 hover:border-primary/30"
+                          "w-full text-left px-4 py-3 rounded-xl border text-[11px] font-black transition-all flex items-center justify-between group",
+                          globalTemplateId === template.id ? "bg-accent/20 border-accent text-white" : "bg-white/5 border-white/5 text-text-tertiary hover:bg-white/10 hover:text-white"
                         )}
                       >
                         <span>{template.name}</span>
-                        <ChevronRight className={cn("w-3 h-3 transition-all", globalTemplateId === template.id ? "opacity-100" : "opacity-0 group-hover:opacity-100")} />
+                        <ChevronRight className="w-3 h-3 opacity-40 group-hover:translate-x-1 transition-transform" />
                       </button>
                     ))}
                   </div>
-                </div>
+                </section>
               </div>
-            </section>
+            )}
 
-            {/* Target Sizes */}
-            <section className="glass-panel p-6 space-y-6">
-              <div className="flex items-center gap-2">
-                <Monitor className="w-5 h-5 text-primary" />
-                <h2 className="font-bold text-sm uppercase tracking-wider">Target Sizes</h2>
+            {/* Category: Canvas */}
+            {activeCategory === 'canvas' && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
+                <section className="glass-panel p-5 space-y-5">
+                  <div className="flex items-center gap-2 brightness-110">
+                    <Monitor className="w-3.5 h-3.5 text-accent" />
+                    <h2 className="section-title">Target Ecosystems</h2>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <label className="text-[9px] font-black text-text-tertiary uppercase tracking-widest">Apple App Store</label>
+                        <Smartphone className="w-3 h-3 text-text-tertiary/40" />
+                      </div>
+                      <div className="grid grid-cols-1 gap-2">
+                        {IPHONE_SIZES.concat(IPAD_SIZES).filter(s => !s.id.includes('custom')).map(size => (
+                          <button
+                            key={size.id}
+                            onClick={() => size.type === 'iphone' ? setSelectedIPhoneSize(size) : setSelectedIPadSize(size)}
+                            className={cn(
+                              "w-full text-left px-4 py-2 rounded-lg border text-[10px] uppercase font-black transition-all flex items-center justify-between",
+                              (selectedIPhoneSize.id === size.id || selectedIPadSize.id === size.id) ? "bg-accent/20 border-accent/40 text-accent" : "bg-white/5 border-white/5 text-text-tertiary hover:bg-white/10"
+                            )}
+                          >
+                            <span>{size.name}</span>
+                            <span className="opacity-40">{size.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-2 pt-2 border-t border-white/5">
+                      <label className="text-[9px] font-black text-white/30 uppercase tracking-widest">Google Play Store</label>
+                      <div className="grid grid-cols-1 gap-2">
+                        {ANDROID_SIZES.filter(s => !s.id.includes('custom')).map(size => (
+                          <button
+                            key={size.id}
+                            onClick={() => setSelectedAndroidSize(size)}
+                            className={cn(
+                              "w-full text-left px-4 py-2 rounded-lg border text-[10px] uppercase font-black transition-all flex items-center justify-between",
+                              selectedAndroidSize.id === size.id ? "bg-[#3DDC84] text-black border-[#3DDC84]" : "bg-white/5 border-white/5 text-white/40"
+                            )}
+                          >
+                            <span>{size.name}</span>
+                            <span className="opacity-40">{size.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="glass-panel p-5 space-y-4">
+                  <h2 className="section-title">Global Adjustments</h2>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="control-label uppercase">Screenshot Fit</label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {['contain', 'cover', 'stretch'].map(mode => (
+                          <button
+                            key={mode}
+                            onClick={() => setGlobalFitMode(mode as any)}
+                            className={cn(
+                              "py-2 rounded-lg border text-[8px] font-black uppercase transition-all",
+                              globalFitMode === mode ? "bg-primary/20 border-primary/50 text-white" : "border-white/5 text-white/20"
+                            )}
+                          >
+                            {mode}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <label className="control-label uppercase">Inner Padding</label>
+                        <span className="text-[10px] font-black text-primary">{globalDevicePadding}px</span>
+                      </div>
+                      <input type="range" min="0" max="100" value={globalDevicePadding} onChange={e => setGlobalDevicePadding(parseInt(e.target.value))} className="w-full accent-primary h-1 bg-white/5 rounded-lg appearance-none cursor-pointer" />
+                    </div>
+                  </div>
+                </section>
               </div>
+            )}
 
-              <div className="space-y-6">
-                <div className="space-y-3">
-                  <label className="control-label flex items-center gap-2">
-                    <Smartphone className="w-3 h-3" />
-                    iPhone
-                  </label>
-                  <div className="space-y-2">
-                    {IPHONE_SIZES.map((size) => (
+            {/* Category: Branding */}
+            {activeCategory === 'branding' && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
+                <section className="glass-panel p-5 space-y-4">
+                  <div className="flex items-center justify-between brightness-110">
+                    <div className="flex items-center gap-2">
+                       <Type className="w-3.5 h-3.5 text-accent" />
+                       <h2 className="section-title">Global Typography</h2>
+                    </div>
+                    <button 
+                      onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, headlineFont: globalFont, subheadlineFont: globalFont })))}
+                      className="text-[8px] font-black text-accent uppercase hover:text-white transition-all bg-accent/5 px-2 py-1 rounded border border-accent/20"
+                    >
+                      Apply to All
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {FONTS.map(font => (
                       <button
-                        key={size.id}
-                        onClick={() => setSelectedIPhoneSize(size)}
+                        key={font.name}
+                        onClick={() => {
+                          setGlobalFont(font.family);
+                          setScreenshots(prev => prev.map(s => ({ ...s, headlineFont: font.family, subheadlineFont: font.family })));
+                        }}
                         className={cn(
-                          "w-full text-left px-4 py-3 rounded-xl text-xs transition-all flex items-center justify-between",
-                          selectedIPhoneSize.id === size.id ? "bg-primary text-white font-bold" : "bg-surface-variant border border-border text-text-secondary hover:bg-surface"
+                          "px-4 py-3 rounded-xl border text-[11px] font-black transition-all text-left",
+                          globalFont === font.family ? "bg-accent/20 border-accent/40 text-white" : "bg-white/3 border-white/5 text-text-tertiary hover:bg-white/5"
                         )}
+                        style={{ fontFamily: font.family }}
                       >
-                        <span>{size.name}</span>
-                        <span className="text-[10px] opacity-60">{size.label}</span>
+                        {font.name} Typeface
                       </button>
                     ))}
                   </div>
-                </div>
+                </section>
 
-                <div className="space-y-3">
-                  <label className="control-label flex items-center gap-2">
-                    <Tablet className="w-3 h-3" />
-                    iPad
-                  </label>
-                  <div className="space-y-2">
-                    {IPAD_SIZES.map((size) => (
-                      <button
-                        key={size.id}
-                        onClick={() => setSelectedIPadSize(size)}
-                        className={cn(
-                          "w-full text-left px-4 py-3 rounded-xl text-xs transition-all flex items-center justify-between",
-                          selectedIPadSize.id === size.id ? "bg-primary text-white font-bold" : "bg-surface-variant border border-border text-text-secondary hover:bg-surface"
-                        )}
-                      >
-                        <span>{size.name}</span>
-                        <span className="text-[10px] opacity-60">{size.label}</span>
-                      </button>
-                    ))}
+                <section className="glass-panel p-5 space-y-4">
+                  <div className="flex items-center gap-2 brightness-110">
+                    <Sparkles className="w-3.5 h-3.5 text-accent" />
+                    <h2 className="section-title">Visual Branding Assets</h2>
                   </div>
-                </div>
-              </div>
-            </section>
+                  <div className="space-y-6">
+                    {/* App Icon Upload */}
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                         <label className="control-label uppercase">App Icon</label>
+                         <button onClick={() => setGlobalShowIcon(!globalShowIcon)} className={cn("text-[9px] font-black uppercase tracking-widest", globalShowIcon ? "text-primary" : "text-white/20")}>
+                           {globalShowIcon ? 'Visible' : 'Hidden'}
+                         </button>
+                      </div>
+                      <div onClick={() => iconInputRef.current?.click()} className="w-full h-24 bg-white/5 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 transition-all relative overflow-hidden group">
+                        {appIcon ? (
+                          <>
+                            <img src={appIcon.url} className="w-full h-full object-contain p-4" />
+                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-[10px] font-black text-white uppercase">Change Icon</div>
+                          </>
+                        ) : (
+                          <Plus className="w-6 h-6 text-white/10 group-hover:text-primary transition-all" />
+                        )}
+                      </div>
+                    </div>
 
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="w-full py-4 glass-panel hover:bg-primary/10 hover:border-primary/30 text-primary-light rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 group"
-            >
-              <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
-              Add Screenshots
-            </button>
-            {/* Footer / Copyright */}
-            <footer className="pt-8 pb-4 border-t border-border">
-              <div className="flex flex-col items-center gap-2">
-                <p className="text-[10px] text-text-tertiary font-medium">© 2026 ShaadDev Studio</p>
-                <div className="flex gap-4">
-                  <span className="text-[9px] text-text-tertiary uppercase tracking-widest">Enterprise Edition</span>
-                  <span className="text-[9px] text-text-tertiary uppercase tracking-widest">v2.4.0</span>
-                </div>
+                    {/* Social Proof Badges */}
+                    <div className="space-y-3 pt-4 border-t border-white/5">
+                      <div className="flex justify-between items-center">
+                         <label className="control-label uppercase">Social Proof</label>
+                         <button onClick={() => setGlobalShowBadge(!globalShowBadge)} className={cn("text-[9px] font-black uppercase tracking-widest", globalShowBadge ? "text-primary" : "text-white/20")}>
+                           {globalShowBadge ? 'Enabled' : 'Disabled'}
+                         </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {['stars', 'award'].map(type => (
+                          <button
+                            key={type}
+                            onClick={() => setBadgeType(type as any)}
+                            className={cn(
+                              "py-2 rounded-lg border text-[9px] font-black uppercase transition-all",
+                              badgeType === type ? "bg-primary/20 border-primary text-white" : "border-white/5 text-white/20"
+                            )}
+                          >
+                            {type} Badge
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
-            </footer>
+            )}
+
+            {activeCategory === 'assets' && (
+              <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
+                <section className="glass-panel p-5 space-y-4">
+                  <div className="flex items-center gap-2 brightness-110">
+                    <Edit3 className="w-3.5 h-3.5 text-accent" />
+                    <h2 className="section-title">Bulk Logic Editor</h2>
+                  </div>
+                  <p className="text-[9px] text-text-tertiary uppercase font-black tracking-tighter leading-relaxed">
+                    Format: Headline $- Subheadline (One per line)
+                  </p>
+                  <textarea
+                    value={bulkText}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setBulkText(val);
+                      const lines = val.split('\n').filter(l => l.trim());
+                      setScreenshots(prev => prev.map((s, i) => {
+                        if (lines[i]) {
+                          let [h, sh] = lines[i].split('$-').map(t => t.trim());
+                          return { ...s, headline: h || s.headline, subheadline: sh || s.subheadline };
+                        }
+                        return s;
+                      }));
+                    }}
+                    className="w-full h-48 bg-bg/40 border-2 border-dashed border-white/10 rounded-xl p-4 text-[11px] font-mono text-text focus:border-accent/40 outline-none resize-none transition-all"
+                    placeholder="E.g. High Performance $- Fast & Stable"
+                  />
+                </section>
+ 
+                <section className="glass-panel p-5 space-y-4">
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="w-full py-4 bg-accent text-bg font-black uppercase text-[11px] tracking-widest rounded-xl hover:bg-white transition-all shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                  >
+                    <PlusSquare className="w-4 h-4" /> Import New Assets
+                  </button>
+                  <button
+                    onClick={() => setScreenshots([])}
+                    className="w-full py-3 bg-red-500/5 border border-red-500/10 text-red-500/60 font-black uppercase text-[10px] tracking-widest rounded-xl hover:bg-red-500/10 hover:text-red-500 transition-all flex items-center justify-center gap-2"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" /> Purge Project
+                  </button>
+                </section>
+              </div>
+            )}
+
           </aside>
 
           {/* Main Content Area */}
@@ -1164,59 +1349,57 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex gap-4 overflow-x-auto pb-2 custom-scrollbar">
-                  <AnimatePresence mode="popLayout">
-                    {screenshots.map((item, index) => (
-                      <motion.div
-                        key={item.id}
-                        layout
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        className="flex-shrink-0 w-24 space-y-2 group"
-                      >
-                        <div className="relative aspect-[9/16] rounded-lg overflow-hidden border border-border bg-surface-variant">
-                          <img
-                            src={item.previewUrl}
-                            alt={`Screen ${index + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-1">
-                            <button
-                              onClick={() => moveScreenshot(item.id, 'left')}
-                              disabled={index === 0}
-                              className="p-1.5 bg-white/10 hover:bg-white/20 rounded-md disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
-                              title="Move Left"
-                            >
-                              <ChevronLeft className="w-3.5 h-3.5 text-white" />
-                            </button>
-                            <button
-                              onClick={() => moveScreenshot(item.id, 'right')}
-                              disabled={index === screenshots.length - 1}
-                              className="p-1.5 bg-white/10 hover:bg-white/20 rounded-md disabled:opacity-20 disabled:cursor-not-allowed transition-colors"
-                              title="Move Right"
-                            >
-                              <ChevronRight className="w-3.5 h-3.5 text-white" />
-                            </button>
-                            <button
-                              onClick={() => removeScreenshot(item.id)}
-                              className="p-1.5 bg-red-500/20 hover:bg-red-500/40 rounded-md transition-colors"
-                              title="Remove"
-                            >
-                              <Trash2 className="w-3.5 h-3.5 text-red-400" />
-                            </button>
-                          </div>
-                          <div className="absolute top-1 left-1 w-5 h-5 rounded bg-primary text-[10px] font-bold flex items-center justify-center text-white shadow-lg">
-                            {index + 1}
-                          </div>
+                <Reorder.Group 
+                  axis="x" 
+                  values={screenshots} 
+                  onReorder={setScreenshots}
+                  className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar"
+                >
+                  {screenshots.map((item, index) => (
+                    <Reorder.Item
+                      key={item.id}
+                      value={item}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="flex-shrink-0 w-24 space-y-2 group cursor-grab active:cursor-grabbing"
+                    >
+                      <div className="relative aspect-[9/16] rounded-lg overflow-hidden border border-border bg-surface-variant transition-transform group-hover:scale-105">
+                        <img
+                          src={item.previewUrl}
+                          alt={`Screen ${index + 1}`}
+                          className="w-full h-full object-cover pointer-events-none"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
+                          <button
+                            onClick={() => removeScreenshot(item.id)}
+                            className="p-2 bg-red-500/20 hover:bg-red-500/40 rounded-full transition-colors"
+                            title="Remove"
+                          >
+                            <Trash2 className="w-4 h-4 text-red-400" />
+                          </button>
                         </div>
-                        <p className="text-[8px] text-text-secondary truncate text-center font-medium px-1">
-                          {item.file.name}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
+                        <div className="absolute top-1 left-1 w-5 h-5 rounded bg-primary text-[10px] font-black flex items-center justify-center text-black shadow-lg">
+                          {index + 1}
+                        </div>
+                      </div>
+                      <p className="text-[8px] text-white/40 truncate text-center font-black uppercase tracking-tighter px-1">
+                        Screen {index + 1}
+                      </p>
+                    </Reorder.Item>
+                  ))}
+                  
+                  {/* Add More Button in Reorder Group */}
+                  <div 
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex-shrink-0 w-24 aspect-[9/16] rounded-lg border-2 border-dashed border-white/10 hover:border-accent/40 bg-surface/30 hover:bg-surface-variant/40 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all group/add"
+                  >
+                    <div className="p-2 rounded-full bg-accent/10 text-accent group-hover/add:scale-110 transition-transform">
+                      <Plus className="w-5 h-5" />
+                    </div>
+                    <span className="text-[8px] font-black uppercase tracking-widest text-text-tertiary">Add More</span>
+                  </div>
+                </Reorder.Group>
               </section>
             )}
 
@@ -1269,43 +1452,181 @@ export default function App() {
                       </div>
 
                       <div className="p-6 grid grid-cols-1 xl:grid-cols-2 gap-8">
+                        {/* Editor Column (Individual Control) */}
+                        <div className="space-y-8 order-2 xl:order-1">
+                          {/* Fine-Tune Individual Asset */}
+                          <section className="space-y-4">
+                            <div className="flex items-center gap-2 brightness-110 border-b border-white/5 pb-2">
+                               <Settings2 className="w-3.5 h-3.5 text-accent" />
+                               <h3 className="text-[10px] uppercase font-black tracking-widest text-text">Fine-Tune Slide {index + 1}</h3>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 gap-4">
+                               {/* Background Image Upload */}
+                               <div className="space-y-3">
+                                  <div className="flex justify-between items-center">
+                                     <label className="text-[9px] font-black uppercase text-text-tertiary">Custom Background</label>
+                                     {item.customBackgroundUrl && (
+                                        <button 
+                                           onClick={() => updateScreenshot(item.id, { customBackgroundUrl: undefined })}
+                                           className="text-[8px] font-black text-red-500 uppercase hover:text-red-400"
+                                         >Reset</button>
+                                     )}
+                                  </div>
+                                  <div 
+                                     onClick={() => {
+                                       const input = document.createElement('input');
+                                       input.type = 'file';
+                                       input.accept = 'image/*';
+                                       input.onchange = (e: any) => {
+                                         const file = e.target.files?.[0];
+                                         if (file) updateScreenshot(item.id, { customBackgroundUrl: URL.createObjectURL(file) });
+                                       };
+                                       input.click();
+                                     }}
+                                     className="w-full h-24 bg-white/[0.02] border border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-accent/40 transition-all group/bg relative overflow-hidden"
+                                  >
+                                     {item.customBackgroundUrl ? (
+                                       <>
+                                         <img src={item.customBackgroundUrl} className="w-full h-full object-cover opacity-40 shadow-inner" />
+                                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/bg:opacity-100 bg-black/40 transition-opacity">
+                                            <span className="text-[8px] font-black uppercase text-white">Change</span>
+                                         </div>
+                                       </>
+                                     ) : (
+                                       <>
+                                         <ImageIcon className="w-4 h-4 text-text-tertiary mb-1" />
+                                         <span className="text-[8px] font-black uppercase text-text-tertiary">Upload Image</span>
+                                       </>
+                                     )}
+                                  </div>
+                               </div>
+ 
+                               {/* Blur Slide */}
+                               {item.customBackgroundUrl && (
+                                  <div className="space-y-3">
+                                     <div className="flex justify-between">
+                                       <label className="text-[9px] font-black uppercase text-text-tertiary">Focus Blur</label>
+                                       <span className="text-[10px] font-black text-accent">{item.backgroundBlur || 0}px</span>
+                                     </div>
+                                     <input type="range" min="0" max="40" value={item.backgroundBlur || 0} onChange={e => updateScreenshot(item.id, { backgroundBlur: parseInt(e.target.value) })} className="w-full accent-accent h-1 bg-white/5 rounded-lg appearance-none" />
+                                  </div>
+                               )}
+                            </div>
+                          </section>
+ 
+                          {/* Text Editor */}
+                          <div className="space-y-6 pt-4 border-t border-white/5">
+                            <div className="space-y-3 group">
+                              <div className="flex justify-between items-center">
+                                 <label className="control-label uppercase tracking-widest text-[9px]">Slide Headline</label>
+                                 <button onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, headline: item.headline })))} className="text-[8px] font-black text-accent uppercase opacity-0 group-hover:opacity-100 hover:text-white transition-all">Apply All</button>
+                              </div>
+                              <textarea
+                                value={item.headline}
+                                onChange={(e) => updateScreenshot(item.id, { headline: e.target.value })}
+                                className="control-input py-3 min-h-[80px] bg-white/[0.02] border-white/10 hover:border-accent/40 focus:border-accent transition-all resize-none text-sm font-medium"
+                                placeholder="..."
+                              />
+                            </div>
+                            <div className="space-y-3 group">
+                              <div className="flex justify-between items-center">
+                                 <label className="control-label uppercase tracking-widest text-[9px]">Slide Subheadline</label>
+                                 <button onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, subheadline: item.subheadline })))} className="text-[8px] font-black text-accent uppercase opacity-0 group-hover:opacity-100 hover:text-white transition-all">Apply All</button>
+                              </div>
+                              <textarea
+                                value={item.subheadline}
+                                onChange={(e) => updateScreenshot(item.id, { subheadline: e.target.value })}
+                                className="control-input py-3 min-h-[80px] bg-white/[0.02] border-white/10 hover:border-accent/40 focus:border-accent transition-all resize-none text-sm font-medium"
+                                placeholder="..."
+                              />
+                            </div>
+                          </div>
+                        </div>
+ 
                         {/* Preview Section */}
-                        <div className="space-y-4">
+                        <div className="space-y-4 order-1 xl:order-2">
                           <div className="flex items-center justify-between">
                             <label className="text-[9px] uppercase font-bold text-text-secondary tracking-widest">Live Preview</label>
                             <div className="flex gap-1.5">
-                              <button
-                                onClick={() => setPreviewMode('iphone')}
-                                className={cn(
-                                  "px-2 py-0.5 rounded text-[9px] font-bold border transition-all",
-                                  previewMode === 'iphone' ? "bg-primary text-white border-primary" : "bg-surface-variant text-text-secondary border-border"
-                                )}
-                              >
-                                IPHONE
-                              </button>
-                              <button
-                                onClick={() => setPreviewMode('ipad')}
-                                className={cn(
-                                  "px-2 py-0.5 rounded text-[9px] font-bold border transition-all",
-                                  previewMode === 'ipad' ? "bg-primary text-white border-primary" : "bg-surface-variant text-text-secondary border-border"
-                                )}
-                              >
-                                IPAD
-                              </button>
+                              {/* Ecosystem Toggle */}
+                              {[
+                                { id: 'iphone', label: 'iOS Phone', color: 'primary' },
+                                { id: 'ipad', label: 'iOS Tablet', color: 'primary' },
+                                { id: 'android', label: 'Android', color: '[#3DDC84]' },
+                              ].map((btn) => (
+                                <button
+                                  key={btn.id}
+                                  onClick={() => setPreviewMode(btn.id as any)}
+                                  className={cn(
+                                    "px-3 py-1 rounded-lg text-[9px] font-black border transition-all uppercase tracking-widest",
+                                    previewMode === btn.id 
+                                      ? `bg-${btn.color} text-black border-${btn.color}` 
+                                      : "bg-white/5 text-white/40 border-white/5 hover:bg-white/10"
+                                  )}
+                                >
+                                  {btn.label}
+                                </button>
+                              ))}
                             </div>
                           </div>
-                          <div className={cn(
-                            "relative rounded-2xl overflow-hidden bg-surface-variant mx-auto border border-border transition-all duration-500 shadow-inner",
-                            previewMode === 'iphone' ? "aspect-[9/16] max-w-[260px]" : "aspect-[3/4] max-w-[340px]"
-                          )}>
+                        <div 
+                          onClick={() => setActiveCategory('branding')}
+                          className={cn(
+                          "relative rounded-[2rem] overflow-hidden bg-[#0a0a0a] mx-auto border border-white/5 transition-all duration-500 shadow-2xl p-2 cursor-pointer group/preview",
+                          previewMode === 'iphone' ? "aspect-[9/16.5] max-w-[280px]" : 
+                          previewMode === 'android' ? "aspect-[9/20] max-w-[260px]" :
+                          "aspect-[3/4.2] max-w-[380px]"
+                        )}>
+                            <div className="absolute inset-x-0 top-0 h-24 bg-accent/0 group-hover/preview:bg-accent/5 transition-all z-10 flex items-center justify-center">
+                               <div className="opacity-0 group-hover/preview:opacity-100 transition-opacity bg-accent text-bg text-[8px] font-black px-2 py-1 rounded-full uppercase">Edit Styles</div>
+                            </div>
                             <ScreenshotPreview
                               item={item}
-                              size={previewMode === 'iphone' ? selectedIPhoneSize : selectedIPadSize}
+                              size={previewMode === 'iphone' ? selectedIPhoneSize : previewMode === 'ipad' ? selectedIPadSize : selectedAndroidSize}
                               appIcon={appIcon}
                               globalShowIcon={globalShowIcon}
-                              drawOnCanvas={drawOnCanvas}
+                              backgroundMode={backgroundMode}
+                              panoramicImage={panoramicImage}
+                              index={index}
+                              totalScreenshots={screenshots.length}
+                              onDraw={(canvas, itm, img, sz, iconImg, idx, total, panoImg, indBgImg) => {
+                                drawOnCanvas(canvas, itm, img, sz, iconImg, idx, total, panoImg, indBgImg);
+                              }}
                             />
+
+                            {/* Store UI Overlay Preview */}
+                            {showStoreOverlay && (
+                               <div className="absolute inset-0 pointer-events-none animate-in fade-in duration-500">
+                                  {previewMode === 'android' ? (
+                                     <div className="w-full h-full bg-black/20">
+                                         <div className="absolute top-0 w-full h-12 bg-gradient-to-b from-black/60 to-transparent flex items-center px-6 justify-between">
+                                            <div className="w-20 h-2 bg-white/20 rounded-full" />
+                                            <div className="flex gap-2">
+                                              <div className="w-4 h-4 rounded-full bg-white/20" />
+                                              <div className="w-4 h-4 rounded-full bg-white/20" />
+                                            </div>
+                                         </div>
+                                         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[80%] h-12 bg-[#3DDC84] rounded-xl flex items-center justify-center font-black text-black text-[10px] uppercase">Install App</div>
+                                     </div>
+                                  ) : (
+                                    <div className="w-full h-full bg-black/20">
+                                         <div className="absolute top-4 left-6">
+                                            <div className="w-10 h-10 bg-white/10 rounded-xl" />
+                                         </div>
+                                         <div className="absolute top-4 right-6 w-16 h-7 bg-primary rounded-full flex items-center justify-center text-black font-black text-[10px] uppercase">GET</div>
+                                    </div>
+                                  )}
+                               </div>
+                            )}
                           </div>
+                          
+                          <button 
+                            onClick={() => setShowStoreOverlay(!showStoreOverlay)}
+                            className="w-full py-2 bg-white/5 border border-white/10 rounded-lg text-[9px] font-black uppercase text-white/40 hover:text-white transition-all"
+                          >
+                            {showStoreOverlay ? 'Hide Store Mockup' : 'Show Store Mockup Overlay'}
+                          </button>
                         </div>
 
                         {/* Editor Section */}
