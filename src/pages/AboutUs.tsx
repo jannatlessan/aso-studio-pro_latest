@@ -6,9 +6,10 @@ import Footer from '../components/Footer';
 export default function AboutUs() {
   return (
     <div className="min-h-screen bg-black text-white selection:bg-primary/30">
-      <SEO 
+      <SEO
         title="About Us | ShaadDev Studio"
         description="Learn more about ShaadDev Studio, our mission, and our dedication to providing high-quality developer tools for creators worldwide."
+        url="https://shaaddev.studio/about"
       />
 
       {/* Header */}

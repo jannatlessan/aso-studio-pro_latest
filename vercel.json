@@ -7,7 +7,7 @@
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/tools/(gif-viewer|background-remover|video-to-gif)",
       "headers": [
         {
           "key": "Cross-Origin-Opener-Policy",

@@ -1,10 +1,16 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Home, ArrowLeft } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function NotFound() {
   return (
     <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] font-mono flex items-center justify-center p-5 overflow-hidden">
+      <SEO
+        title="Page Not Found | ShaadDev Studio"
+        description="The page you're looking for doesn't exist."
+        noindex
+      />
       {/* Decorative Background Elements */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />

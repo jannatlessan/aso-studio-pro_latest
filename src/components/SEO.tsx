@@ -8,18 +8,25 @@ interface SEOProps {
   url?: string;
   image?: string;
   keywords?: string;
+  noindex?: boolean;
 }
 
-export default function SEO({ 
-  title, 
-  description, 
-  type = 'website', 
-  name = 'ShaadDev Studio', 
-  url = 'https://shaaddev.studio', 
+export default function SEO({
+  title,
+  description,
+  type = 'website',
+  name = 'ShaadDev Studio',
+  url,
   image = 'https://shaaddev.studio/og-image.jpg',
-  keywords = 'developer tools, web apps, productivity'
+  keywords = 'developer tools, web apps, productivity',
+  noindex = false
 }: SEOProps) {
-  const isTool = url.includes('/tools/');
+  // Fall back to the page's actual current URL rather than the homepage,
+  // so a page that forgets to pass `url` never emits a wrong canonical.
+  const resolvedUrl = url || (typeof window !== 'undefined'
+    ? `https://shaaddev.studio${window.location.pathname}`
+    : 'https://shaaddev.studio');
+  const isTool = resolvedUrl.includes('/tools/');
 
   const defaultSchema = {
     "@context": "https://schema.org",
@@ -33,7 +40,7 @@ export default function SEO({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": title,
-    "url": url,
+    "url": resolvedUrl,
     "description": description,
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "All",
@@ -58,7 +65,7 @@ export default function SEO({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={name} />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={resolvedUrl} />
       <meta property="og:image" content={image} />
       
       {/* Twitter tags */}
@@ -69,10 +76,10 @@ export default function SEO({
       <meta name="twitter:image" content={image} />
       
       {/* Additional SEO settings */}
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <meta charSet="utf-8" />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={resolvedUrl} />
 
       {/* JSON-LD Structured Data Schema */}
       <script type="application/ld+json">

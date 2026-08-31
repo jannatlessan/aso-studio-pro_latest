@@ -20,9 +20,10 @@ export default function ContactUs() {
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-primary/30">
-      <SEO 
+      <SEO
         title="Contact Us | ShaadDev Studio"
         description="Get in touch with the ShaadDev Studio team. Whether you have a question, a feature request, or just want to say hello, we are here to help."
+        url="https://shaaddev.studio/contact"
       />
 
       {/* Header */}

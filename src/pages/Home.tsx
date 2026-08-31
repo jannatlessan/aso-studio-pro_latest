@@ -1,111 +1,49 @@
 /// <reference types="vite/client" />
 
-import { useState, useRef, useEffect, Suspense, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { 
-  Float, 
-  PerspectiveCamera, 
-  Points, 
-  PointMaterial, 
-} from '@react-three/drei';
-import * as THREE from 'three';
+import { useState, useEffect, type CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { 
-  Github, 
-  Mail, 
-  ChevronRight, 
-  Smartphone, 
-  Zap, 
-  Code, 
-  Target, 
-  ExternalLink,
+import {
+  Github,
+  Mail,
+  ArrowRight,
+  ArrowUpRight,
+  Smartphone,
+  Zap,
+  Star,
   Cpu,
   Globe,
-  Monitor,
-  Hexagon,
-  Play,
-  Star,
   Activity as ActivityIcon,
-  ShieldCheck,
-  AppWindow,
-  LayoutGrid,
-  Cloud,
-  Box,
-  Database,
-  Terminal,
   Linkedin,
   MessageCircle,
   GraduationCap,
   Briefcase,
   Menu,
-  ChevronLeft,
   X,
-  Download,
-  Layers,
-  Sparkles,
-  Copy,
-  Clipboard,
-  Check,
   Layout,
-  Settings2,
-  Tablet,
-  Plus,
-  Trash2,
-  Image as ImageIcon
+  Terminal,
+  Layers,
+  Database,
+  Settings2
 } from 'lucide-react';
-import gsap from 'gsap';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 
-// Particle System for the 10/10 Experience
-function ParticleField() {
-  const ref = useRef<THREE.Points>(null!);
-  const [sphere] = useState(() => {
-    const arr = new Float32Array(5000 * 3);
-    for (let i = 0; i < 5000; i++) {
-      const theta = 2 * Math.PI * Math.random();
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = 5 + Math.random() * 20;
-      arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      arr[i * 3 + 2] = r * Math.cos(phi);
-    }
-    return arr;
-  });
-
-  useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 10;
-    ref.current.rotation.y -= delta / 15;
-  });
-
-  return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-        <PointMaterial
-          transparent
-          color="#00F0FF"
-          size={0.05}
-          sizeAttenuation={true}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </Points>
-    </group>
-  );
-}
+const BRAND: CSSProperties = {
+  ['--color-primary' as string]: '#4F6EF7',
+  ['--color-primary-light' as string]: '#7C93FF',
+  ['--color-primary-dark' as string]: '#3A54D9'
+};
 
 const profileData = {
   name: "Rizwan Rasheed",
-  id: "STUDIO-PRO-01",
   role: "Software Engineer",
   summary: "I build clear, reliable mobile and web products with strong performance, maintainable code, and practical business outcomes.",
-  status: "Available for Projects",
-  expertise: ["Distributed Systems", "Mobile Engineering", "Computational Performance"],
+  status: "Available for new projects",
   telemetry: [
-    { label: "Years Experience", value: "5+", icon: ActivityIcon },
-    { label: "Systems Scaled", value: "120+", icon: Cpu },
-    { label: "Satisfied Clients", value: "45+", icon: Globe }
+    { label: "Years experience", value: "5+", icon: ActivityIcon },
+    { label: "Systems shipped", value: "120+", icon: Cpu },
+    { label: "Clients served", value: "45+", icon: Globe }
   ],
   techCategories: [
     {
@@ -124,7 +62,7 @@ const profileData = {
       stacks: ["Node.js", "Go", "Laravel", "REST APIs", "Authentication", "Payment Integrations"]
     },
     {
-      name: "Software Full Stack Engineer",
+      name: "Full-Stack Architecture",
       icon: Layers,
       stacks: ["End-to-End Architecture", "CI/CD", "Performance Tuning", "Scalable Deployments", "Monitoring", "Production Debugging"]
     },
@@ -134,7 +72,7 @@ const profileData = {
       stacks: ["AWS", "Docker", "PostgreSQL", "MongoDB", "Redis", "Storage & Caching"]
     },
     {
-      name: "AI & Other Tools",
+      name: "AI & Tooling",
       icon: Settings2,
       stacks: ["OpenAI / LLMs", "LangChain", "FFmpeg", "GitHub Actions", "Postman", "Figma"]
     }
@@ -143,14 +81,14 @@ const profileData = {
     {
       company: "Kairos Business Solutions Singapore",
       role: "Mobile Application Developer",
-      period: "Jul 2023 - Present",
+      period: "Jul 2023 – Present",
       desc: "Building production mobile apps using Flutter and React Native, including payment integrations and CI/CD pipelines for stable releases.",
       stack: ["Flutter", "React Native", "Laravel", "CI/CD", "AWS"]
     },
     {
       company: "Mercury Sols",
       role: "Mobile App Developer",
-      period: "Apr 2020 - Aug 2023",
+      period: "Apr 2020 – Aug 2023",
       desc: "Developed cross-platform applications focused on clear UX, reliable architecture, and shipping features aligned with client goals.",
       stack: ["Flutter", "Dart", "UI/UX"]
     }
@@ -159,49 +97,28 @@ const profileData = {
     {
       school: "Khawaja Fareed University of Engineering & Technology (KFUEIT)",
       degree: "BS Computer Science",
-      period: "2017 - 2021",
-      city: "Rahim Yar Khan"
+      period: "2017 – 2021",
+      city: "Rahim Yar Khan, Pakistan"
     }
   ],
   testimonials: [
     {
       client: "Alex Rivera",
-      id: "LOG-A24",
       service: "App Store Optimization",
       text: "Rizwan improved our app listing assets and copy. Our store visibility and conversion rate both improved within the first release cycle.",
       location: "San Francisco, USA"
     },
     {
       client: "Sarah Chen",
-      id: "LOG-S09",
       service: "Scalable Architecture",
       text: "The architecture is stable and easier for our team to maintain. We saw fewer production issues and faster delivery.",
       location: "London, UK"
     },
     {
       client: "Markus Thulin",
-      id: "LOG-M12",
       service: "Mobile Infrastructure",
       text: "Great communication and clean implementation. He helped us improve app performance and delivery quality significantly.",
-      location: "Stockholm, SE"
-    }
-  ],
-  projects: [
-    { 
-      title: "ASO Studio v2", 
-      id: "MODULE-ASO",
-      desc: "A practical tool for generating store-ready screenshot layouts and metadata previews.", 
-      path: "/tools/aso-screenshot",
-      icon: Smartphone,
-      color: "#00F0FF"
-    },
-    { 
-      title: "Core Pipeline", 
-      id: "MODULE-VID",
-      desc: "Automation pipeline for media processing and export workflows.", 
-      path: "#",
-      icon: Zap,
-      color: "#FF0055"
+      location: "Stockholm, Sweden"
     }
   ]
 };
@@ -250,6 +167,12 @@ const TECH_ICON_MAP: Record<string, string> = {
   "Figma": "https://cdn.simpleicons.org/figma"
 };
 
+const NAV_LINKS = [
+  { label: 'Work', href: '#work' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Reviews', href: '#reviews' }
+];
+
 const getProjectInitials = (name?: string) => {
   if (!name) return 'NA';
   const words = name
@@ -267,46 +190,13 @@ const resolveMediaUrl = (value?: string) => {
   return `${import.meta.env.BASE_URL}${value.replace(/^\/+/, '')}`;
 };
 
-const CustomCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      if (cursorRef.current && followerRef.current) {
-        gsap.to(cursorRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.1,
-        });
-        gsap.to(followerRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.3,
-        });
-      }
-    };
-    window.addEventListener('mousemove', moveCursor);
-    return () => window.removeEventListener('mousemove', moveCursor);
-  }, []);
-
-  return (
-    <>
-      <div ref={cursorRef} className="fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2" />
-      <div ref={followerRef} className="fixed top-0 left-0 w-10 h-10 border border-primary/30 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-        <div className="w-1 h-1 bg-primary/50 rounded-full animate-ping" />
-      </div>
-    </>
-  );
-};
-
 export default function Home() {
   const [apps, setApps] = useState<any[]>([]);
   const [failedIcons, setFailedIcons] = useState<Record<string, boolean>>({});
   const [failedScreenshots, setFailedScreenshots] = useState<Record<string, boolean>>({});
   const [failedTechIcons, setFailedTechIcons] = useState<Record<string, boolean>>({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}projects.json`)
       .then(res => res.json())
@@ -335,48 +225,31 @@ export default function Home() {
     setFailedTechIcons((prev) => (prev[name] ? prev : { ...prev, [name]: true }));
   };
 
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  const renderProjectIcon = (app: any, sizeClass = 'w-14 h-14') => {
+  const renderProjectIcon = (app: any, sizeClass = 'w-12 h-12') => {
     if (app.icon && !failedIcons[app.id]) {
       return (
         <img
           src={app.icon}
           alt={`${app.name} icon`}
-          className={`${sizeClass} rounded-2xl border border-white/10 object-cover grayscale group-hover:grayscale-0 transition-all`}
+          className={`${sizeClass} rounded-xl border border-white/10 object-cover`}
           onError={() => markIconFailed(app.id)}
         />
       );
     }
 
     return (
-      <div className={`${sizeClass} rounded-2xl border border-primary/30 bg-[radial-gradient(circle_at_20%_20%,rgba(0,240,255,0.45),rgba(0,0,0,0.95))] flex items-center justify-center font-black text-lg tracking-wider text-white shadow-lg shadow-primary/20`}>
+      <div className={`${sizeClass} rounded-xl border border-primary/20 bg-primary/10 flex items-center justify-center font-semibold text-sm tracking-wide text-primary`}>
         {getProjectInitials(app.name)}
       </div>
     );
   };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".module-card", {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.05,
-        ease: "power4.out"
-      });
-    });
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
     if (!mobileMenuOpen) return;
-
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
     return () => {
       document.body.style.overflow = previousOverflow;
     };
@@ -384,71 +257,63 @@ export default function Home() {
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setMobileMenuOpen(false);
-      }
+      if (event.key === 'Escape') setMobileMenuOpen(false);
     };
-
     window.addEventListener('keydown', handleEscape);
-
-    return () => {
-      window.removeEventListener('keydown', handleEscape);
-    };
+    return () => window.removeEventListener('keydown', handleEscape);
   }, [mobileMenuOpen]);
 
   return (
-    <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/40 font-mono overflow-x-hidden">
-      <SEO 
-        title={`${profileData.name} - ${profileData.role}`} 
-        description={profileData.summary} 
-        url="https://shaaddev.studio" 
+    <div className="relative min-h-screen bg-[#0A0A0C] text-[#EDEDEF] selection:bg-primary/20 antialiased" style={BRAND}>
+      <SEO
+        title={`${profileData.name} — ${profileData.role}`}
+        description={profileData.summary}
+        url="https://shaaddev.studio"
       />
 
-      {/* Background World */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <Canvas>
-          <Suspense fallback={null}>
-            <ParticleField />
-            <PerspectiveCamera makeDefault position={[0, 0, 15]} />
-          </Suspense>
-        </Canvas>
-      </div>
+      {/* Subtle ambient background — no particle canvas, no cursor gimmicks */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-70"
+        style={{ background: 'radial-gradient(60% 45% at 50% 0%, rgba(79,110,247,0.10), transparent 70%)' }}
+      />
 
-      {/* Decorative Grid */}
-      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '50px 50px' }} />
+      {/* Nav */}
+      <nav className="fixed top-0 inset-x-0 z-50 border-b border-white/[0.06] bg-[#0A0A0C]/80 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5 shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/25 flex items-center justify-center">
+              <span className="text-primary font-bold text-sm leading-none">R</span>
+            </div>
+            <span className="font-semibold text-[15px] tracking-tight">ShaadDev Studio</span>
+          </Link>
 
-      {/* Header */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 py-4 sm:py-8 bg-[#020202]/60 backdrop-blur-xl border-b border-white/5 sm:border-none">
-        <div className="flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-white/55">
+            {NAV_LINKS.map((link) => (
+              <a key={link.label} href={link.href} className="hover:text-white transition-colors">
+                {link.label}
+              </a>
+            ))}
+            <Link to="/tools" className="hover:text-white transition-colors">Tools</Link>
+            <Link to="/microsaas" className="hover:text-white transition-colors">MicroSaaS</Link>
+          </div>
+
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 border-2 border-primary rotate-45 flex items-center justify-center bg-black">
-              <span className="font-black text-primary text-xl -rotate-45 leading-none">R</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-black tracking-[0.08em] text-lg uppercase leading-none">ShaadDev Studio</span>
-              <span className="text-[10px] text-primary/90 tracking-[0.12em] font-semibold">Mobile and Web Solutions</span>
-            </div>
+            <a
+              href="mailto:rizwanrasheed046@gmail.com"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-white text-sm font-semibold hover:bg-[var(--color-primary-dark)] transition-colors"
+            >
+              Get in touch
+            </a>
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="lg:hidden p-2 rounded-lg border border-white/10 bg-white/[0.03] active:scale-95 transition-all"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
-          <div className="hidden lg:flex items-center gap-8 border-l border-white/20 pl-8 font-black uppercase text-[10px] tracking-[0.3em]">
-            <a href="#expertise" className="text-white/85 hover:text-primary transition-all">Skills</a>
-            <a href="#modules" className="text-white/85 hover:text-primary transition-all">Projects</a>
-            <a href="#reviews" className="text-white/85 hover:text-primary transition-all">Client Reviews</a>
-            <Link to="/tools" className="text-white/85 hover:text-primary transition-all">Tools</Link>
-            <Link to="/microsaas" className="text-white/85 hover:text-primary transition-all">MicroSaaS</Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="lg:hidden p-2 border border-white/10 bg-white/5 rounded-lg active:scale-95 transition-all"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5 text-primary" /> : <Menu className="w-5 h-5 text-primary" />}
-          </button>
         </div>
       </nav>
 
@@ -462,7 +327,7 @@ export default function Home() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeMobileMenu}
-              className="fixed inset-0 z-30 bg-black/50 backdrop-blur-[2px] lg:hidden"
+              className="fixed inset-0 z-30 bg-black/60 backdrop-blur-[2px] lg:hidden"
             />
             <motion.div
               initial={{ opacity: 0, y: -12 }}
@@ -470,208 +335,197 @@ export default function Home() {
               exit={{ opacity: 0, y: -12 }}
               className="fixed top-[72px] left-0 right-0 z-40 px-4 lg:hidden"
             >
-              <div className="rounded-2xl border border-white/20 bg-black/95 backdrop-blur-xl p-4 space-y-3 shadow-2xl shadow-black/60">
-                <a href="#expertise" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                  Skills
-                </a>
-                <a href="#modules" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                  Projects
-                </a>
-                <a href="#reviews" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
-                  Client Reviews
-                </a>
-                <Link to="/tools" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+              <div className="rounded-2xl border border-white/10 bg-[#0F0F12] p-3 space-y-1 shadow-2xl shadow-black/60">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={closeMobileMenu}
+                    className="block py-2.5 px-3 text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <Link to="/tools" onClick={closeMobileMenu} className="block py-2.5 px-3 text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-all">
                   Tools
                 </Link>
-                <Link to="/microsaas" onClick={closeMobileMenu} className="block py-2 px-3 text-[11px] font-black uppercase tracking-[0.2em] text-white hover:text-primary hover:bg-white/5 rounded-lg transition-all">
+                <Link to="/microsaas" onClick={closeMobileMenu} className="block py-2.5 px-3 text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-all">
                   MicroSaaS
                 </Link>
+                <a href="mailto:rizwanrasheed046@gmail.com" onClick={closeMobileMenu} className="block py-2.5 px-3 text-sm font-semibold text-primary hover:bg-white/5 rounded-lg transition-all">
+                  Get in touch
+                </a>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
 
-      {/* Hero */}
-      <main className="relative z-10 pt-20 sm:pt-0">
-        <section className="min-h-screen flex items-center justify-center pt-8 sm:pt-20">
-          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            
-            <div className="space-y-12">
-              <div className="space-y-6">
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="inline-flex items-center gap-3 px-4 py-2 bg-primary/10 border border-primary/30 text-primary text-[10px] font-black tracking-wide uppercase rounded-sm"
+      <main className="relative z-10">
+        {/* Hero */}
+        <section className="pt-32 pb-20 sm:pt-44 sm:pb-28">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-16 items-center">
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                {profileData.status}
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                className="text-[2.5rem] sm:text-6xl lg:text-[4rem] font-semibold tracking-tight leading-[1.08]"
+              >
+                Software engineering,{' '}
+                <br className="hidden sm:block" />
+                built to <span className="text-primary">last.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="max-w-xl text-lg text-white/55 leading-relaxed"
+              >
+                {profileData.summary}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="flex flex-wrap items-center gap-4"
+              >
+                <a
+                  href="#work"
+                  className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-white text-sm font-semibold hover:bg-[var(--color-primary-dark)] transition-colors"
                 >
-                  <Cpu className="w-3.5 h-3.5" /> {profileData.role}
-                </motion.div>
-                
-                <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.95] uppercase">
-                  Rizwan Rasheed<br />
-                  <span className="block mt-2 text-2xl sm:text-4xl md:text-5xl text-primary">Builds Software That Solves Real Problems</span>
-                </h1>
-                <p className="max-w-xl text-white/85 text-lg sm:text-xl leading-relaxed">
-                  {profileData.summary}
-                </p>
-
-                {/* System Telemetry Bar */}
-                <div className="flex flex-wrap gap-8 pt-6">
-                  {profileData.telemetry.map(t => (
-                    <div key={t.label} className="flex flex-col gap-1 border-l-2 border-primary/20 pl-4">
-                      <div className="flex items-center gap-2 text-white/75 text-[10px] font-black tracking-wide uppercase">
-                        <t.icon className="w-3 h-3" /> {t.label}
-                      </div>
-                      <div className="text-2xl font-black text-white">{t.value}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-                <div className="flex flex-wrap items-center gap-10">
-                  <a href="#modules" className="group flex items-center gap-4 text-xs font-black tracking-[0.2em] uppercase text-primary">
-                    View Projects <div className="w-12 h-px bg-primary group-hover:w-20 transition-all" />
+                  See my work
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+                <div className="flex items-center gap-5 pl-2">
+                  <a href="https://github.com/Rizwan884" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white transition-colors" aria-label="GitHub">
+                    <Github className="w-5 h-5" />
                   </a>
-                  <div className="flex items-center gap-6">
-                    <a href="https://github.com/Rizwan884" target="_blank" className="text-white/70 hover:text-primary transition-all">
-                      <Github className="w-5 h-5" />
-                    </a>
-                    <a href="https://www.linkedin.com/in/rashidrizwan-connect/" target="_blank" className="text-white/70 hover:text-primary transition-all">
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                    <a href="https://wa.me/923126733459" target="_blank" className="text-white/70 hover:text-primary transition-all">
-                      <MessageCircle className="w-5 h-5" />
-                    </a>
-                    <a href="mailto:rizwanrasheed046@gmail.com" className="text-white/70 hover:text-primary transition-all">
-                      <Mail className="w-5 h-5" />
-                    </a>
-                  </div>
+                  <a href="https://www.linkedin.com/in/rashidrizwan-connect/" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white transition-colors" aria-label="LinkedIn">
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                  <a href="https://wa.me/923126733459" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white transition-colors" aria-label="WhatsApp">
+                    <MessageCircle className="w-5 h-5" />
+                  </a>
+                  <a href="mailto:rizwanrasheed046@gmail.com" className="text-white/45 hover:text-white transition-colors" aria-label="Email">
+                    <Mail className="w-5 h-5" />
+                  </a>
                 </div>
+              </motion.div>
+
+              <div className="flex flex-wrap gap-10 pt-6 border-t border-white/[0.07]">
+                {profileData.telemetry.map((t) => (
+                  <div key={t.label} className="space-y-1">
+                    <div className="text-2xl font-semibold text-white">{t.value}</div>
+                    <div className="flex items-center gap-1.5 text-xs text-white/45">
+                      <t.icon className="w-3.5 h-3.5" /> {t.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
-              className="relative"
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="relative mx-auto w-full max-w-[420px]"
             >
-              <div className="relative w-full aspect-[4/5] max-w-[600px] mx-auto">
-                <div className="absolute inset-0 border-[20px] border-primary/5 -translate-x-6 -translate-y-6" />
-                <div className="absolute inset-0 border border-primary/20" />
-                <div className="relative z-10 w-full h-full overflow-hidden bg-[#050505]">
-                  <img 
-                    src={RIZWAN_ULTRA_IMAGE_URL}
-                    alt="Rizwan Ultra Persona" 
-                    className="w-full h-full object-cover mix-blend-screen brightness-125 hover:scale-105 transition-transform duration-1000"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="inline-flex flex-wrap items-center gap-2 rounded-xl border border-white/15 bg-black/60 backdrop-blur px-3 py-2">
-                      <span className="text-[10px] font-black uppercase tracking-wide text-primary">{profileData.role}</span>
-                      <span className="text-white/50">|</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wide text-white/90">{profileData.status}</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-[#0F0F12]">
+                <img
+                  src={RIZWAN_ULTRA_IMAGE_URL}
+                  alt={`${profileData.name} portrait`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              </div>
+              <div className="absolute -bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-[#0F0F12]/95 backdrop-blur-xl px-5 py-4 shadow-xl shadow-black/40">
+                <div className="text-sm font-semibold text-white">{profileData.name}</div>
+                <div className="text-xs text-white/50 mt-0.5">{profileData.role}</div>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Modules Section */}
-        <section id="modules" className="py-20 sm:py-28 bg-black/50 scroll-mt-28 sm:scroll-mt-32">
-          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 sm:mb-24">
-              <div className="space-y-4">
-                <div className="text-primary font-black text-[11px] tracking-[0.2em] uppercase">Portfolio Projects</div>
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none">
-                  Featured<br />Projects.
-                </h2>
+        {/* Featured Work */}
+        <section id="work" className="py-24 sm:py-28 border-t border-white/[0.06] scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-14 sm:mb-16">
+              <div className="space-y-3">
+                <div className="text-primary text-xs font-semibold tracking-wide uppercase">Portfolio</div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">Selected work.</h2>
               </div>
-              <p className="max-w-md text-white/75 text-base sm:text-lg font-medium leading-relaxed border-l border-white/10 pl-6">
-                Selected tools and client apps with direct store links and short, practical summaries.
+              <p className="max-w-md text-white/50 text-base leading-relaxed">
+                Shipped apps and client products, with direct links to their live App Store and Play Store listings.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Scraped Portfolio Apps */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {apps.map((app) => (
-                <div key={app.id} className="module-card group relative">
-                  <div className="h-full p-10 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.02] hover:border-primary/20 transition-all duration-500 overflow-hidden relative">
-                    <div className="relative z-10 space-y-6">
-                      <div className="flex items-center justify-between">
-                        <div className="text-[10px] font-black text-white/75 tracking-[0.2em] uppercase">
-                          {app.category}
-                        </div>
-                        <div className="flex gap-3">
-                          {app.playStore && (
-                            <a href={app.playStore} target="_blank" rel="noopener noreferrer" title="Play Store">
-                              <img src={PLAY_STORE_ICON_URL} alt="Play Store" className="w-4 h-4 object-contain" loading="lazy" />
-                            </a>
-                          )}
-                          {app.appStore && (
-                            <a href={app.appStore} target="_blank" rel="noopener noreferrer" title="App Store">
-                              <img src={APP_STORE_ICON_URL} alt="App Store" className="w-4 h-4 object-contain rounded" loading="lazy" />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <h3 className="text-3xl font-black uppercase tracking-tighter group-hover:text-primary transition-colors">{app.name}</h3>
-                        <p className="text-white/80 text-sm leading-relaxed">{app.description}</p>
-                      </div>
-                      
-                      {/* Store Screenshot Preview */}
-                      {app.screenshot && !failedScreenshots[app.id] && (
-                        <div className="relative mt-4 h-32 overflow-hidden rounded-lg border border-white/5 opacity-50 group-hover:opacity-100 group-hover:h-48 transition-all duration-700">
-                          <img 
-                            src={app.screenshot} 
-                            alt={`${app.name} preview`} 
-                            className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-1000"
-                            onError={() => markScreenshotFailed(app.id)}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                        </div>
+                <div
+                  key={app.id}
+                  className="group rounded-2xl border border-white/10 bg-white/[0.02] p-7 hover:border-primary/30 hover:bg-white/[0.03] transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="text-[11px] font-medium text-white/45 tracking-wide">{app.category}</div>
+                    <div className="flex gap-2.5">
+                      {app.playStore && (
+                        <a href={app.playStore} target="_blank" rel="noopener noreferrer" title="Play Store">
+                          <img src={PLAY_STORE_ICON_URL} alt="Play Store" className="w-3.5 h-3.5 object-contain opacity-60 hover:opacity-100 transition-opacity" loading="lazy" />
+                        </a>
                       )}
-                      {(!app.screenshot || failedScreenshots[app.id]) && (
-                        <div className="relative mt-4 h-32 overflow-hidden rounded-lg border border-primary/20 bg-[linear-gradient(145deg,rgba(0,240,255,0.2),rgba(0,0,0,0.9))] opacity-70 group-hover:opacity-100 group-hover:h-48 transition-all duration-700 flex items-center justify-center">
-                          <div className="text-center px-4">
-                            <div className="text-3xl font-black tracking-widest text-white">{getProjectInitials(app.name)}</div>
-                            <div className="text-[9px] uppercase tracking-[0.35em] text-primary/80 mt-2">Preview</div>
-                          </div>
-                        </div>
+                      {app.appStore && (
+                        <a href={app.appStore} target="_blank" rel="noopener noreferrer" title="App Store">
+                          <img src={APP_STORE_ICON_URL} alt="App Store" className="w-3.5 h-3.5 object-contain rounded opacity-60 hover:opacity-100 transition-opacity" loading="lazy" />
+                        </a>
                       )}
-                      <div className="pt-6 border-t border-white/5 flex items-center justify-between gap-4">
-                        <div className="shrink-0">
-                          {renderProjectIcon(app)}
-                        </div>
-                        <div className="flex flex-wrap justify-end gap-3">
-                          {app.playStore ? (
-                            <a href={app.playStore} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all inline-flex items-center gap-2">
-                              <img src={PLAY_STORE_ICON_URL} alt="Play Store" className="w-3.5 h-3.5 object-contain" loading="lazy" />
-                              Play Store
-                            </a>
-                          ) : (
-                            <span className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest text-white/30 inline-flex items-center gap-2 cursor-not-allowed">
-                              <img src={PLAY_STORE_ICON_URL} alt="Play Store" className="w-3.5 h-3.5 object-contain opacity-50" loading="lazy" />
-                              Play Store
-                            </span>
-                          )}
-                          {app.appStore ? (
-                            <a href={app.appStore} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest hover:bg-primary hover:text-black transition-all inline-flex items-center gap-2">
-                              <img src={APP_STORE_ICON_URL} alt="App Store" className="w-3.5 h-3.5 object-contain rounded" loading="lazy" />
-                              App Store
-                            </a>
-                          ) : (
-                            <span className="px-4 py-2 bg-white/5 border border-white/10 text-[8px] font-black uppercase tracking-widest text-white/30 inline-flex items-center gap-2 cursor-not-allowed">
-                              <img src={APP_STORE_ICON_URL} alt="App Store" className="w-3.5 h-3.5 object-contain rounded opacity-50" loading="lazy" />
-                              App Store
-                            </span>
-                          )}
-                        </div>
-                      </div>
                     </div>
+                  </div>
+
+                  <div className="flex items-center gap-4 mb-4">
+                    {renderProjectIcon(app)}
+                    <h3 className="text-lg font-semibold tracking-tight group-hover:text-primary transition-colors">{app.name}</h3>
+                  </div>
+                  <p className="text-white/55 text-sm leading-relaxed mb-5">{app.description}</p>
+
+                  {app.screenshot && !failedScreenshots[app.id] ? (
+                    <div className="relative h-32 overflow-hidden rounded-xl border border-white/5">
+                      <img
+                        src={app.screenshot}
+                        alt={`${app.name} preview`}
+                        className="w-full h-full object-cover object-top"
+                        onError={() => markScreenshotFailed(app.id)}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    </div>
+                  ) : (
+                    <div className="h-32 rounded-xl border border-white/5 bg-white/[0.02] flex items-center justify-center">
+                      <span className="text-xs text-white/30">No preview available</span>
+                    </div>
+                  )}
+
+                  <div className="pt-5 mt-5 border-t border-white/[0.06] flex flex-wrap gap-2">
+                    {app.playStore ? (
+                      <a href={app.playStore} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/70 hover:border-primary/40 hover:text-white transition-all">
+                        Play Store <ArrowUpRight className="w-3 h-3" />
+                      </a>
+                    ) : null}
+                    {app.appStore ? (
+                      <a href={app.appStore} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/70 hover:border-primary/40 hover:text-white transition-all">
+                        App Store <ArrowUpRight className="w-3 h-3" />
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               ))}
@@ -679,29 +533,27 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Career & Education Archives */}
-        <section id="archives" className="py-20 sm:py-28 border-t border-white/5 bg-black/30 scroll-mt-28 sm:scroll-mt-32">
-          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-              
-              {/* Employment */}
-              <div className="space-y-12">
-                <div className="flex items-center gap-4">
-                  <Briefcase className="w-6 h-6 text-primary" />
-                  <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Professional<br />Experience.</h3>
+        {/* Experience & Education */}
+        <section className="py-24 sm:py-28 border-t border-white/[0.06]">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+              <div className="space-y-10">
+                <div className="flex items-center gap-3">
+                  <Briefcase className="w-5 h-5 text-primary" />
+                  <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight">Experience</h3>
                 </div>
-                <div className="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-white/10 ml-3 pl-12">
+                <div className="space-y-10 relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-white/10 pl-8">
                   {profileData.employment.map((job, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[53px] top-2 w-2.5 h-2.5 bg-primary border-4 border-black" />
+                      <div className="absolute -left-[35px] top-1.5 w-2 h-2 rounded-full bg-primary" />
                       <div className="space-y-2">
-                        <div className="text-primary font-black text-[10px] tracking-widest uppercase">{job.period}</div>
-                        <h4 className="text-2xl font-black uppercase">{job.role}</h4>
-                        <div className="text-white/75 text-[10px] font-bold uppercase tracking-wide">{job.company}</div>
-                        <p className="text-white/80 text-sm leading-relaxed max-w-md">{job.desc}</p>
+                        <div className="text-primary text-xs font-medium tracking-wide">{job.period}</div>
+                        <h4 className="text-lg font-semibold">{job.role}</h4>
+                        <div className="text-white/50 text-sm font-medium">{job.company}</div>
+                        <p className="text-white/55 text-sm leading-relaxed max-w-md">{job.desc}</p>
                         <div className="flex flex-wrap gap-2 pt-2">
                           {job.stack.map(s => (
-                            <span key={s} className="px-2 py-1 bg-white/10 border border-white/20 text-[8px] font-black uppercase tracking-widest text-white/90 select-none rounded-sm">
+                            <span key={s} className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-medium text-white/60">
                               {s}
                             </span>
                           ))}
@@ -712,64 +564,58 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Education */}
-              <div className="space-y-12">
-                <div className="flex items-center gap-4">
-                  <GraduationCap className="w-6 h-6 text-primary" />
-                  <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Education.</h3>
+              <div className="space-y-10">
+                <div className="flex items-center gap-3">
+                  <GraduationCap className="w-5 h-5 text-primary" />
+                  <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight">Education</h3>
                 </div>
-                <div className="space-y-12 relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-white/10 ml-3 pl-12">
+                <div className="space-y-10 relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-white/10 pl-8">
                   {profileData.education.map((edu, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[53px] top-2 w-2.5 h-2.5 bg-primary border-4 border-black" />
+                      <div className="absolute -left-[35px] top-1.5 w-2 h-2 rounded-full bg-primary" />
                       <div className="space-y-2">
-                        <div className="text-primary font-black text-[10px] tracking-widest uppercase">{edu.period}</div>
-                        <h4 className="text-2xl font-black uppercase">{edu.degree}</h4>
-                        <div className="text-white/75 text-[10px] font-bold uppercase tracking-wide">{edu.school}</div>
-                        <div className="text-white/60 text-[10px] uppercase tracking-wide">{edu.city}</div>
+                        <div className="text-primary text-xs font-medium tracking-wide">{edu.period}</div>
+                        <h4 className="text-lg font-semibold">{edu.degree}</h4>
+                        <div className="text-white/50 text-sm font-medium">{edu.school}</div>
+                        <div className="text-white/40 text-sm">{edu.city}</div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
         </section>
 
-        {/* Archives / Expertise */}
-        <section id="expertise" className="py-20 sm:py-28 border-t border-white/5 scroll-mt-28 sm:scroll-mt-32">
-          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
-              <div className="lg:col-span-1 space-y-8">
-                <div className="w-12 h-12 border-2 border-primary flex items-center justify-center rotate-45">
-                  <Monitor className="w-6 h-6 text-primary -rotate-45" />
-                </div>
-                <h3 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Technical<br />Skills.</h3>
-                <div className="h-px w-20 bg-primary" />
-                <p className="text-white/80 text-sm leading-relaxed">
+        {/* Skills */}
+        <section id="skills" className="py-24 sm:py-28 border-t border-white/[0.06] scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-12">
+              <div className="lg:col-span-1 space-y-5">
+                <div className="text-primary text-xs font-semibold tracking-wide uppercase">Capabilities</div>
+                <h3 className="text-3xl sm:text-4xl font-semibold tracking-tight">Technical skills.</h3>
+                <p className="text-white/50 text-sm leading-relaxed max-w-sm">
                   Technologies I use across mobile, frontend, backend, cloud, and AI-assisted tooling.
                 </p>
               </div>
-              
-              <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+              <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {profileData.techCategories.map((category) => (
-                  <div key={category.name} className="group p-8 border border-white/5 bg-white/[0.01] hover:bg-primary/[0.05] hover:border-primary/40 transition-all space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-11 h-11 border border-primary/30 bg-primary/10 rounded-xl flex items-center justify-center">
-                        <category.icon className="w-5 h-5 text-primary" />
+                  <div key={category.name} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-5 hover:border-primary/25 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <category.icon className="w-4 h-4 text-primary" />
                       </div>
-                      <div className="text-sm font-black uppercase tracking-[0.2em] text-white/90">{category.name}</div>
+                      <div className="text-sm font-semibold text-white/90">{category.name}</div>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2.5">
                       {category.stacks.map((stack) => {
                         const iconUrl = TECH_ICON_MAP[stack];
                         const isFailed = failedTechIcons[stack];
-
                         return (
-                          <div key={`${category.name}-${stack}`} className="px-3 py-3 border border-white/10 bg-black/30 text-white/90 group-hover:border-primary/30 transition-colors rounded-lg flex flex-col items-center justify-center text-center gap-2 min-h-[102px]">
+                          <div key={`${category.name}-${stack}`} className="px-2 py-3 rounded-lg border border-white/[0.06] bg-black/20 flex flex-col items-center justify-center text-center gap-1.5 min-h-[86px]">
                             {iconUrl && !isFailed ? (
-                              <div className="w-10 h-10 rounded-lg border border-white/25 bg-white/90 p-1.5 flex items-center justify-center shadow-inner shadow-black/15">
+                              <div className="w-8 h-8 rounded-md bg-white/90 p-1.5 flex items-center justify-center">
                                 <img
                                   src={iconUrl}
                                   alt={`${stack} icon`}
@@ -779,21 +625,14 @@ export default function Home() {
                                 />
                               </div>
                             ) : (
-                              <div className="w-10 h-10 rounded-lg border border-primary/40 bg-primary/15 flex items-center justify-center text-[10px] font-black tracking-wider text-primary">
+                              <div className="w-8 h-8 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-[10px] font-semibold text-primary">
                                 {getProjectInitials(stack).slice(0, 2)}
                               </div>
                             )}
-                            <div className="text-[9px] font-black uppercase tracking-[0.12em] leading-tight">{stack}</div>
+                            <div className="text-[10px] font-medium text-white/55 leading-tight">{stack}</div>
                           </div>
                         );
                       })}
-                    </div>
-                    <div className="h-1 w-full bg-white/5 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "100%" }}
-                        className="h-full bg-primary/40"
-                      />
                     </div>
                   </div>
                 ))}
@@ -802,40 +641,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Validated Mission Reports (Testimonials) */}
-        <section id="reviews" className="py-20 sm:py-28 bg-black/40 overflow-hidden border-y border-white/5 scroll-mt-28 sm:scroll-mt-32">
-          <div className="max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12 mb-12 sm:mb-16">
-            <div className="text-primary font-black text-[11px] tracking-[0.2em] uppercase mb-3">Client Feedback</div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none">
-              Reviews.
-            </h2>
-          </div>
+        {/* Reviews */}
+        <section id="reviews" className="py-24 sm:py-28 border-t border-white/[0.06] scroll-mt-24">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
+            <div className="space-y-3 mb-14">
+              <div className="text-primary text-xs font-semibold tracking-wide uppercase">Client feedback</div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">What clients say.</h2>
+            </div>
 
-          <div className="px-5 sm:px-8 lg:px-12 pb-2 overflow-visible md:overflow-x-auto md:snap-x md:snap-mandatory md:[scrollbar-width:none] md:[-ms-overflow-style:none]">
-            <div className="flex flex-col md:flex-row gap-6 w-full md:w-max">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {profileData.testimonials.map((t, i) => (
-                <div key={i} className="w-full md:snap-start md:min-w-[420px] md:max-w-[520px] p-8 bg-white/[0.03] border border-white/10 space-y-6 relative group rounded-xl">
-                  <div className="absolute top-0 right-0 p-6">
-                    <Hexagon className="w-8 h-8 text-white/5 group-hover:text-primary/20 transition-all" />
+                <div key={i} className="rounded-2xl border border-white/10 bg-white/[0.02] p-7 space-y-6 flex flex-col">
+                  <div className="flex items-center gap-1 text-primary">
+                    {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-3.5 h-3.5 fill-current" />)}
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <div className="text-[10px] font-black text-primary tracking-widest">{t.id}</div>
-                      <div className="text-[10px] text-white/70 uppercase tracking-wide">{t.location}</div>
-                    </div>
-                    <div className="flex gap-1 text-primary">
-                      {[1, 2, 3, 4, 5].map(s => <Zap key={s} className="w-3 h-3 fill-current" />)}
-                    </div>
-                  </div>
-                  <p className="text-base leading-relaxed text-white/85 font-medium">
-                    {t.text}
-                  </p>
-                  <div className="pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
-                    <div>
-                      <div className="text-lg sm:text-xl font-black uppercase tracking-tighter">{t.client}</div>
-                      <div className="text-[9px] font-black text-primary uppercase tracking-widest">{t.service}</div>
-                    </div>
-                    <div className="px-3 py-1 bg-primary text-black text-[9px] font-black uppercase tracking-widest">Verified</div>
+                  <p className="text-white/70 text-sm leading-relaxed flex-1">"{t.text}"</p>
+                  <div className="pt-5 border-t border-white/[0.06]">
+                    <div className="text-sm font-semibold text-white">{t.client}</div>
+                    <div className="text-xs text-white/45 mt-0.5">{t.service} · {t.location}</div>
                   </div>
                 </div>
               ))}
@@ -843,51 +666,34 @@ export default function Home() {
           </div>
         </section>
 
+        {/* CTA */}
+        <section className="py-24 sm:py-28 border-t border-white/[0.06]">
+          <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center space-y-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
+              Have a project in mind?
+            </h2>
+            <p className="text-white/55 text-lg max-w-xl mx-auto">
+              I'm currently taking on new mobile and web engineering work. Let's talk about what you're building.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+              <a
+                href="mailto:rizwanrasheed046@gmail.com"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-[var(--color-primary-dark)] transition-colors"
+              >
+                <Mail className="w-4 h-4" /> Start a conversation
+              </a>
+              <Link
+                to="/tools"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-sm font-semibold text-white/80 hover:border-white/30 hover:text-white transition-all"
+              >
+                Explore free tools
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <Footer />
       </main>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
-        
-        body {
-          font-family: 'JetBrains Mono', monospace;
-        }
-
-        .animate-spin-slow {
-          animation: spin 8s linear infinite;
-        }
-
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        .animate-scroll {
-          animation: scroll 40s linear infinite;
-        }
-
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-100%); }
-        }
-
-        .shadow-3xl {
-          box-shadow: 0 40px 100px -20px rgba(0, 240, 255, 0.4);
-        }
-
-        ::-webkit-scrollbar {
-          width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-          background: #020202;
-        }
-        ::-webkit-scrollbar-thumb {
-          background: #1a1a1a;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: #00F0FF;
-        }
-      `}</style>
     </div>
   );
 }

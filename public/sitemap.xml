@@ -3,46 +3,48 @@
   <!-- Main Pages -->
   <url>
     <loc>https://shaaddev.studio/</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://shaaddev.studio/tools</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  
+
   <!-- Tools -->
-  <url><loc>https://shaaddev.studio/tools/aso-screenshot</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/qr-code-generator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/age-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/pomodoro-timer</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/unit-converter</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/color-palette</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/css-gradient</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/lorem-ipsum</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/markdown-to-html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/percentage-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/yt-thumbnail</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/password-generator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/json-formatter</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/text-utilities</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/image-resizer</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/image-compressor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/audio-merger</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/pdf-merger</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/bulk-image-enhancer</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/video-to-gif</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/gif-viewer</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/tools/background-remover</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/microsaas</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/apps/stamppedia</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/apps/stamppedia/privacy</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://shaaddev.studio/apps/stamppedia/terms</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shaaddev.studio/tools/aso-screenshot</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/qr-code-generator</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/age-calculator</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/pomodoro-timer</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/unit-converter</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/color-palette</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/css-gradient</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/lorem-ipsum</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/markdown-to-html</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/percentage-calculator</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/yt-thumbnail</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/password-generator</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/json-formatter</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/text-utilities</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/image-resizer</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/image-compressor</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/audio-merger</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/pdf-merger</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/bulk-image-enhancer</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/video-to-gif</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/gif-viewer</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/tools/background-remover</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/microsaas</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/apps/stamppedia</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shaaddev.studio/apps/stamppedia/privacy</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shaaddev.studio/apps/stamppedia/terms</loc><lastmod>2026-08-31</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <!-- Legal & Info -->
-  <url><loc>https://shaaddev.studio/privacy</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://shaaddev.studio/terms</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://shaaddev.studio/about</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://shaaddev.studio/contact</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shaaddev.studio/privacy</loc><lastmod>2026-08-31</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/terms</loc><lastmod>2026-08-31</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/about</loc><lastmod>2026-08-31</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://shaaddev.studio/contact</loc><lastmod>2026-08-31</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
 </urlset>
