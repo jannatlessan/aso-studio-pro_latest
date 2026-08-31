@@ -15,9 +15,6 @@ export default function StamppediaPrivacyPolicy() {
         url="https://shaaddev.studio/apps/stamppedia/privacy"
       />
 
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.12] blur-[120px]" style={{ background: GRADIENT }} />
-      </div>
 
       <Nav />
 
@@ -36,7 +33,7 @@ export default function StamppediaPrivacyPolicy() {
               Legal · Stamppedia
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
-              Privacy <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>Policy.</span>
+              Privacy <span className="text-primary">Policy.</span>
             </h1>
             <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
               Your stamp collection data is your property. Stamppedia is designed to protect and secure your information with industry-leading encryption.

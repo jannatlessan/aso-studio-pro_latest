@@ -13,9 +13,6 @@ export default function AboutUs() {
         url="https://shaaddev.studio/about"
       />
 
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.14] blur-[120px]" style={{ background: GRADIENT }} />
-      </div>
 
       <Nav />
 
@@ -26,7 +23,7 @@ export default function AboutUs() {
             About us
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-            About <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>ShaadDev Studio</span>
+            About <span className="text-primary">ShaadDev Studio</span>
           </h1>
           <p className="text-xl text-white/55 leading-relaxed max-w-2xl mx-auto">
             Empowering developers, designers, and digital creators with modern, fast, and secure tools.

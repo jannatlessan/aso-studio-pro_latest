@@ -321,9 +321,6 @@ export default function ToolsList() {
         url="https://shaaddev.studio/tools"
       />
 
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.12] blur-[120px]" style={{ background: GRADIENT }} />
-      </div>
 
       <Nav />
 
@@ -335,7 +332,7 @@ export default function ToolsList() {
             {tools.length} free tools
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-            All <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>tools.</span>
+            All <span className="text-primary">tools.</span>
           </h1>
           <p className="text-sm sm:text-base text-white/55 max-w-2xl leading-relaxed">
             A curated collection of fast, private, browser-based tools for developers, designers, and creators.

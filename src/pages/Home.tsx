@@ -30,7 +30,7 @@ import {
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 
-const GRADIENT = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
+const GRADIENT = 'var(--color-primary)';
 
 function Reveal({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   return (
@@ -60,37 +60,37 @@ const profileData = {
     {
       name: "Mobile App Development",
       icon: Smartphone,
-      tint: 'rgba(79,110,247,0.16)',
+      tint: 'rgba(47,163,122,0.14)',
       stacks: ["Flutter", "React Native", "SwiftUI", "KMP (Kotlin)", "Dart", "App Store Connect", "Google Play Console"]
     },
     {
       name: "Frontend Engineering",
       icon: Layout,
-      tint: 'rgba(139,92,246,0.16)',
+      tint: 'rgba(47,163,122,0.14)',
       stacks: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Responsive UI", "Motion / Animation"]
     },
     {
       name: "Backend Engineering",
       icon: Terminal,
-      tint: 'rgba(34,211,238,0.14)',
+      tint: 'rgba(47,163,122,0.14)',
       stacks: ["Node.js", "Go", "Laravel", "REST APIs", "Authentication", "Payment Integrations"]
     },
     {
       name: "Full-Stack Architecture",
       icon: Layers,
-      tint: 'rgba(79,110,247,0.16)',
+      tint: 'rgba(47,163,122,0.14)',
       stacks: ["End-to-End Architecture", "CI/CD", "Performance Tuning", "Scalable Deployments", "Monitoring", "Production Debugging"]
     },
     {
       name: "Cloud & Databases",
       icon: Database,
-      tint: 'rgba(139,92,246,0.16)',
+      tint: 'rgba(47,163,122,0.14)',
       stacks: ["AWS", "Docker", "PostgreSQL", "MongoDB", "Redis", "Storage & Caching"]
     },
     {
       name: "AI & Tooling",
       icon: Settings2,
-      tint: 'rgba(34,211,238,0.14)',
+      tint: 'rgba(47,163,122,0.14)',
       stacks: ["OpenAI / LLMs", "LangChain", "FFmpeg", "GitHub Actions", "Postman", "Figma"]
     }
   ],
@@ -140,7 +140,7 @@ const profileData = {
   ]
 };
 
-const RIZWAN_ULTRA_IMAGE_URL = 'https://raw.githubusercontent.com/jannatlessan/pp270504/refs/heads/main/rizwan_ultra.png';
+const RIZWAN_ULTRA_IMAGE_URL = '/assets/profile/rizwan-portrait.png';
 const PLAY_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg';
 const APP_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg';
 
@@ -294,11 +294,8 @@ export default function Home() {
         url="https://shaaddev.studio"
       />
 
-      {/* Layered ambient gradient mesh — depth without gimmicks */}
+      {/* Faint structural grid — texture without the gradient-blob cliché */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full opacity-[0.16] blur-[120px]" style={{ background: GRADIENT }} />
-        <div className="absolute top-[60vh] -left-40 w-[600px] h-[600px] rounded-full opacity-[0.10] blur-[130px]" style={{ background: 'radial-gradient(circle, #22D3EE, transparent 70%)' }} />
-        <div className="absolute top-[130vh] -right-40 w-[700px] h-[600px] rounded-full opacity-[0.12] blur-[140px]" style={{ background: 'radial-gradient(circle, var(--color-secondary), transparent 70%)' }} />
         <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
       </div>
 
@@ -413,7 +410,7 @@ export default function Home() {
                 engineering,{' '}
                 <br className="hidden sm:block" />
                 built to{' '}
-                <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>
+                <span className="text-primary">
                   last.
                 </span>
               </motion.h1>
@@ -475,7 +472,6 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="relative mx-auto w-full max-w-[420px]"
             >
-              <div className="absolute -inset-6 rounded-[2.5rem] opacity-40 blur-2xl" style={{ background: GRADIENT }} />
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-[#0F0F12]">
                 <img
                   src={RIZWAN_ULTRA_IMAGE_URL}
@@ -629,7 +625,7 @@ export default function Home() {
                   <div className="absolute left-[7px] top-2 bottom-2 w-px" style={{ background: 'linear-gradient(to bottom, var(--color-primary), transparent)' }} />
                   {profileData.employment.map((job, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[33px] top-1 w-3.5 h-3.5 rounded-full border-2 border-[#08080A] shadow-[0_0_12px_rgba(79,110,247,0.6)]" style={{ background: GRADIENT }} />
+                      <div className="absolute -left-[33px] top-1 w-3.5 h-3.5 rounded-full border-2 border-[#08080A] shadow-[0_0_12px_rgba(47,163,122,0.6)]" style={{ background: GRADIENT }} />
                       <div className="space-y-2">
                         <div className="text-primary text-xs font-medium tracking-wide">{job.period}</div>
                         <h4 className="text-lg font-semibold">{job.role}</h4>
@@ -659,7 +655,7 @@ export default function Home() {
                   <div className="absolute left-[7px] top-2 bottom-2 w-px" style={{ background: 'linear-gradient(to bottom, var(--color-primary), transparent)' }} />
                   {profileData.education.map((edu, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[33px] top-1 w-3.5 h-3.5 rounded-full border-2 border-[#08080A] shadow-[0_0_12px_rgba(79,110,247,0.6)]" style={{ background: GRADIENT }} />
+                      <div className="absolute -left-[33px] top-1 w-3.5 h-3.5 rounded-full border-2 border-[#08080A] shadow-[0_0_12px_rgba(47,163,122,0.6)]" style={{ background: GRADIENT }} />
                       <div className="space-y-2">
                         <div className="text-primary text-xs font-medium tracking-wide">{edu.period}</div>
                         <h4 className="text-lg font-semibold">{edu.degree}</h4>
@@ -770,9 +766,7 @@ export default function Home() {
         <section className="py-24 sm:py-32 border-t border-white/[0.06]">
           <div className="max-w-5xl mx-auto px-5 sm:px-8">
             <Reveal>
-              <div className="relative rounded-[2rem] p-[1px] overflow-hidden" style={{ background: GRADIENT }}>
-                <div className="relative rounded-[2rem] bg-[#0B0B0E] px-8 py-16 sm:px-16 sm:py-20 text-center overflow-hidden">
-                  <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full opacity-20 blur-[100px]" style={{ background: GRADIENT }} />
+              <div className="relative rounded-[2rem] border border-white/10 bg-[#0B0B0E] px-8 py-16 sm:px-16 sm:py-20 text-center overflow-hidden">
                   <div className="relative space-y-6">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
                       Have a project in mind?
@@ -796,7 +790,6 @@ export default function Home() {
                       </Link>
                     </div>
                   </div>
-                </div>
               </div>
             </Reveal>
           </div>

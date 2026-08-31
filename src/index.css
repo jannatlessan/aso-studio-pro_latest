@@ -7,13 +7,13 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-primary: #4F6EF7;
-  --color-primary-light: #7C93FF;
-  --color-primary-dark: #3A54D9;
-  --color-secondary: #8B5CF6;
+  --color-primary: #2FA37A;
+  --color-primary-light: #4FC79A;
+  --color-primary-dark: #1F7A5C;
+  --color-secondary: #2FA37A;
 
-  --color-accent-teal: #22D3EE;
-  --color-accent-blue: #4F6EF7;
+  --color-accent-teal: #2FA37A;
+  --color-accent-blue: #2FA37A;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -33,7 +33,7 @@
   --text-secondary: #94A3B8;
   --text-tertiary: #64748B;
   --border: rgba(255, 255, 255, 0.06);
-  --accent: #4F6EF7;
+  --accent: #2FA37A;
   --line: rgba(255, 255, 255, 0.08);
   --panel-bg: rgba(23, 25, 30, 0.6);
 }

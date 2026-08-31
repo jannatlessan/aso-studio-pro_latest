@@ -15,9 +15,6 @@ export default function Stamppedia() {
         url="https://shaaddev.studio/apps/stamppedia"
       />
 
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.12] blur-[120px]" style={{ background: GRADIENT }} />
-      </div>
 
       <Nav />
 
@@ -39,7 +36,7 @@ export default function Stamppedia() {
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
                   Stamppedia<br />
-                  <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>Scan & identify</span>
+                  <span className="text-primary">Scan & identify</span>
                 </h1>
                 <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
                   Your personal stamp collection intelligence system. Identify, catalog, and learn about stamps using advanced AI recognition technology.

@@ -14,9 +14,6 @@ export default function PrivacyPolicy() {
         url="https://shaaddev.studio/privacy"
       />
 
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.12] blur-[120px]" style={{ background: GRADIENT }} />
-      </div>
 
       <Nav />
 
@@ -32,7 +29,7 @@ export default function PrivacyPolicy() {
               Legal · Last updated 2026
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
-              Privacy <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>Policy.</span>
+              Privacy <span className="text-primary">Policy.</span>
             </h1>
             <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
               Your data is your property. ShaadDev Studio is built to respect and protect it, with clear limits on what we collect and how it's used.

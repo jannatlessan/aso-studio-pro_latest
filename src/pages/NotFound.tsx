@@ -68,7 +68,7 @@ export default function NotFound() {
             <Link
               to="/"
               className="group flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all"
-              style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))' }}
+              style={{ background: 'var(--color-primary)' }}
             >
               <Home className="w-4 h-4" />
               Return home

@@ -27,9 +27,6 @@ export default function ContactUs() {
         url="https://shaaddev.studio/contact"
       />
 
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.14] blur-[120px]" style={{ background: GRADIENT }} />
-      </div>
 
       <Nav />
 
@@ -40,7 +37,7 @@ export default function ContactUs() {
             Contact
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-            Get in <span className="bg-clip-text text-transparent" style={{ backgroundImage: GRADIENT }}>touch</span>
+            Get in <span className="text-primary">touch</span>
           </h1>
           <p className="text-xl text-white/55 leading-relaxed max-w-2xl mx-auto">
             Have a question, feedback, or a partnership inquiry? We would love to hear from you. Drop us a message below and our team will get back to you promptly.

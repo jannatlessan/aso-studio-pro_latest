@@ -3,7 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 
-export const GRADIENT = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
+// A flat, single accent color — deliberately not a gradient. Kept as `GRADIENT`
+// to avoid touching every import site; the value itself is what matters.
+export const GRADIENT = 'var(--color-primary)';
 
 const LINKS = [
   { label: 'Tools', path: '/tools' },
