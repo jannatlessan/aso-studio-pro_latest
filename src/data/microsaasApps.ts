@@ -26,7 +26,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Under the hood, Shad Audio is powered by Fish Audio's speech technology, tuned for clarity and natural intonation across long-form scripts as well as short clips."
     ],
     iconUrl: '/assets/microsaas/shad-audio/icon.png',
-    featureUrl: '/assets/microsaas/shad-audio/feature.webp',
+    featureUrl: '/assets/microsaas/shad-audio/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=com.fishaudio.studio',
     appStore: 'https://apps.apple.com/pk/app/fish-audio-ai-voice-clone-tts/id6775396336',
     platforms: ['iOS', 'Android'],
@@ -49,7 +49,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Your full collection lives in one place, searchable and organized, with running totals so you can track the value of your holdings over time."
     ],
     iconUrl: '/assets/microsaas/cardvault/icon.png',
-    featureUrl: '/assets/microsaas/cardvault/feature.webp',
+    featureUrl: '/assets/microsaas/cardvault/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=studio.shaaddev.sport_card_scanner',
     appStore: 'https://apps.apple.com/pk/app/cardvault-sports-card-scanner/id6762130458',
     platforms: ['iOS', 'Android'],
@@ -72,7 +72,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Whether you're building your first budget or refining years of financial habits, IncomeMap keeps your data private and gives you a clear, honest picture of your finances."
     ],
     iconUrl: '/assets/microsaas/incomemap/icon.jpg',
-    featureUrl: '/assets/microsaas/incomemap/feature.webp',
+    featureUrl: '/assets/microsaas/incomemap/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=com.incomemap.budgettracker',
     appStore: 'https://apps.apple.com/pk/app/incomemap-income-expenses/id6763291145',
     platforms: ['iOS', 'Android'],
@@ -95,7 +95,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Whether you're a professional refining a workflow, a student learning prompt engineering, or a hobbyist experimenting with AI art and text, PromptGenius shortens the distance between an idea and a great result."
     ],
     iconUrl: '/assets/microsaas/promptgenius/icon.png',
-    featureUrl: '/assets/microsaas/promptgenius/feature.webp',
+    featureUrl: '/assets/microsaas/promptgenius/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=com.sds.promptgenius',
     appStore: 'https://apps.apple.com/pk/app/promptgenius-ai-prompts/id6760140851',
     platforms: ['iOS', 'Android'],
@@ -118,7 +118,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Whether it's family, close friends, or coworkers, BDVibes keeps every important date organized in one place."
     ],
     iconUrl: '/assets/microsaas/bdvibes/icon.png',
-    featureUrl: '/assets/microsaas/bdvibes/feature.webp',
+    featureUrl: '/assets/microsaas/bdvibes/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=com.bdayvibes.app',
     appStore: 'https://apps.apple.com/pk/app/bdvibes-birthday-reminders/id6760343022',
     platforms: ['iOS', 'Android'],
@@ -141,7 +141,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Note: this app is listed as Persona Voices on Google Play and VoiceTwin AI on the App Store — same app, published under different names on each store."
     ],
     iconUrl: '/assets/microsaas/voice-cloning/icon.png',
-    featureUrl: '/assets/microsaas/voice-cloning/feature.webp',
+    featureUrl: '/assets/microsaas/voice-cloning/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=com.fishaudio.ai.tts.clone',
     playStoreLabel: 'Persona Voices',
     appStore: 'https://apps.apple.com/pk/app/voicetwin-ai-voice-cloning/id6766869439',
@@ -166,7 +166,7 @@ export const microsaasApps: MicroSaasApp[] = [
       "Note: this app is listed as Volume locker on Google Play and Volume Lock: Parental Control on the App Store — same app, published under different names on each store."
     ],
     iconUrl: '/assets/microsaas/volume-lock/icon.jpg',
-    featureUrl: '/assets/microsaas/volume-lock/feature.webp',
+    featureUrl: '/assets/microsaas/volume-lock/feature.png',
     playStore: 'https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock',
     playStoreLabel: 'Volume locker',
     appStore: 'https://apps.apple.com/pk/app/volume-lock-parental-control/id6760347207',
