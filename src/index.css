@@ -7,12 +7,13 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-primary: #00F0FF;
-  --color-primary-light: #66FFFF;
-  --color-primary-dark: #00B3CC;
-  
-  --color-accent-teal: #00F0FF;
-  --color-accent-blue: #3b82f6;
+  --color-primary: #4F6EF7;
+  --color-primary-light: #7C93FF;
+  --color-primary-dark: #3A54D9;
+  --color-secondary: #8B5CF6;
+
+  --color-accent-teal: #22D3EE;
+  --color-accent-blue: #4F6EF7;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -25,14 +26,14 @@
 
 :root {
   /* Global App Theme - Eye Friendly Soft Dark */
-  --bg: #0F1115;
+  --bg: #08080A;
   --surface: #17191E;
   --surface-variant: #1E2127;
-  --text: #F8FAFC;
+  --text: #EDEDEF;
   --text-secondary: #94A3B8;
   --text-tertiary: #64748B;
   --border: rgba(255, 255, 255, 0.06);
-  --accent: #06B6D4;
+  --accent: #4F6EF7;
   --line: rgba(255, 255, 255, 0.08);
   --panel-bg: rgba(23, 25, 30, 0.6);
 }
@@ -117,4 +118,13 @@ body {
   background: var(--surface);
   border-color: var(--accent);
   color: var(--text);
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-scroll 28s linear infinite;
 }

@@ -99,14 +99,14 @@ export default function PDFMerger() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Online PDF Merger | ShaadDev Studio" 
         description="Merge multiple PDF files into one document securely in your browser. 100% free and local processing without server uploads." 
         url="https://shaaddev.studio/tools/pdf-merger" keywords="pdf merger, join pdf documents, stitch pages" />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -178,7 +178,7 @@ export default function PDFMerger() {
                   <button 
                     onClick={mergePDFs}
                     disabled={isProcessing || files.length < 2}
-                    className="px-6 py-3 bg-primary text-black hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center gap-2"
+                    className="px-6 py-3 bg-primary text-white hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center gap-2"
                   >
                     {isProcessing ? (
                       <span className="animate-pulse flex items-center gap-2"><RefreshCcw className="w-4 h-4 animate-spin"/> Processing...</span>
@@ -198,7 +198,7 @@ export default function PDFMerger() {
                  <a 
                    href={mergedUrl} 
                    download="merged_document_shaad-dev.pdf"
-                   className="inline-flex w-full sm:w-auto mt-2 px-6 py-3 bg-primary text-black hover:bg-white rounded-lg font-bold uppercase tracking-widest text-xs transition-all justify-center items-center gap-2"
+                   className="inline-flex w-full sm:w-auto mt-2 px-6 py-3 bg-primary text-white hover:bg-white hover:text-black rounded-lg font-bold uppercase tracking-widest text-xs transition-all justify-center items-center gap-2"
                  >
                    Download Merged PDF
                  </a>
@@ -209,7 +209,7 @@ export default function PDFMerger() {
 
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Secure Client-Side PDF Document Merger</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">Secure Client-Side PDF Document Merger</h2>
             <p>
               Managing a multitude of separate PDF files—whether they are scanned invoices, scattered legal contracts, lengthy academic research papers, or various chapters of a comprehensive digital report—can result in an incredibly disorganized and confusing digital workspace. Our <strong>Professional PDF Merger</strong> provides a robust, zero-friction solution that allows you to effortlessly combine multiple fragmented PDF documents into a single, flawlessly organized master file.
             </p>
@@ -217,7 +217,7 @@ export default function PDFMerger() {
               Unlike traditional PDF tools that force you into subscribing to expensive monthly proprietary software plans or shady online services that demand you upload your highly confidential business documents to their remote servers, our solution is engineered entirely differently. By processing the intricate structure of the PDF file format directly within your browser window, we offer an immensely powerful workflow utility that guarantees lightning-fast execution while maintaining absolute zero-trust privacy for your sensitive enterprise or personal data.
             </p>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Add Your PDF Files:</strong> Drag and drop all the individual PDF files you wish to merge into the primary upload zone.</li>
               <li><strong>Organize Document Order:</strong> Utilize the intuitive interface to reorder the documents. The first file on the list will become the initial pages of your new master document, followed sequentially by the rest.</li>
@@ -225,7 +225,7 @@ export default function PDFMerger() {
               <li><strong>Combine & Download:</strong> Once your sequence is perfectly arranged, click the merge button. The tool will rapidly compile the pages and immediately prompt you to download your new, unified PDF artifact.</li>
             </ol>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
                 <strong className="text-white block">1. Are my sensitive legal or financial PDFs secure?</strong>

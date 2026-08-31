@@ -66,7 +66,7 @@ export default function YTThumbnail() {
   const hqThumbUrl = videoID ? `https://img.youtube.com/vi/${videoID}/hqdefault.jpg` : null;
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] p-5 sm:p-8 md:p-12 font-mono selection:bg-primary/30 transform-gpu">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] p-5 sm:p-8 md:p-12 selection:bg-primary/20 transform-gpu">
       <SEO title="YT Thumbnail Saver | ShaadDev Studio" description="Fetch maximum resolution thumbnails from YouTube." url="https://shaaddev.studio/tools/yt-thumbnail" keywords="yt thumbnail, youtube grabber, extract hq cover" />
       
 <div className="max-w-4xl mx-auto space-y-8">
@@ -74,8 +74,8 @@ export default function YTThumbnail() {
           <ChevronLeft className="w-4 h-4" /> {isToolUsed ? 'YT Thumbnail Saver' : 'Back to Tools'}
         </button>
         <div className="mb-10">
-           <h1 className="sm: font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
-  YouTube Thumbnail<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+  YouTube Thumbnail
 </h1>
            <p className="text-white/50 mt-4 text-lg">Download max-resolution cover imagery directly.</p>
         </div>
@@ -90,7 +90,7 @@ export default function YTThumbnail() {
                 placeholder="https://www.youtube.com/watch?v=..." 
                 className="flex-1 bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-primary text-lg" 
               />
-              <button onClick={handleFetch} className="bg-primary text-black px-8 py-4 sm:py-0 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-white transition-colors text-lg">
+              <button onClick={handleFetch} className="bg-primary text-white px-8 py-4 sm:py-0 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-white hover:text-black transition-colors text-lg">
                  <Search size={20} /> Fetch
               </button>
            </div>
@@ -108,7 +108,7 @@ export default function YTThumbnail() {
                 </div>
                 
                 <div className="flex flex-wrap justify-center gap-4 w-full">
-                  <a href={thumbUrl} target="_blank" rel="noreferrer" className="flex-1 max-w-[300px] flex justify-center bg-primary text-black px-6 py-4 rounded-xl font-black text-lg gap-3 hover:bg-white transition-all hover:scale-105">
+                  <a href={thumbUrl} target="_blank" rel="noreferrer" className="flex-1 max-w-[300px] flex justify-center bg-primary text-white px-6 py-4 rounded-xl font-black text-lg gap-3 hover:bg-white hover:text-black transition-all hover:scale-105">
                      <ExternalLink size={24} /> Open Max-Res
                   </a>
                   <a href={hqThumbUrl} target="_blank" rel="noreferrer" className="flex-1 max-w-[300px] flex justify-center bg-white/10 text-white border border-white/10 px-6 py-4 rounded-xl font-bold text-lg gap-3 hover:bg-white/20 transition-all">
@@ -122,18 +122,18 @@ export default function YTThumbnail() {
       
           <div className="max-w-4xl mx-auto mt-16 mb-8 px-4">
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 space-y-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider font-mono">YouTube Thumbnail Downloader</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">YouTube Thumbnail Downloader</h2>
               <p>Content creators, reviewers, and marketers frequently need to fetch the original cover imagery of YouTube content for archival, referencing, or blog integration. However, YouTube does not provide a native 'save image' button for thumbnails via its interface.</p>
               <p>By extracting the unique video ID from the provided URL, our tool securely queries Google's public image hosting servers (i.ytimg.com) and fetches the absolute highest resolution (MaxResDefault) thumbnail associated with the video frame.</p>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
               <ol className="list-decimal pl-5 space-y-3">
                 <li><strong>Copy Link:</strong> Obtain a standard YouTube video link (e.g., `https://www.youtube.com/watch?v=...`) or a shortened `youtu.be` link.</li>
                 <li><strong>Paste and Fetch:</strong> Insert the URL into the search field and submit.</li>
                 <li><strong>Save Image:</strong> The max-resolution thumbnail will appear. Simply right-click on desktop or long-press on mobile and select 'Save Image As...' to store it locally.</li>
               </ol>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
               <div className="space-y-4">
                 
                 <div>

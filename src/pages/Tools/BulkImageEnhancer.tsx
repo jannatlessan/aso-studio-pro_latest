@@ -461,7 +461,7 @@ export default function BulkImageEnhancer() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Bulk Image Enhancer | 100% Secure & Private Batch Editor" 
         description="Edit bulk photos instantly and securely in your browser. No server uploads—100% private. Apply custom presets, correct colors, smooth skin, and add text watermarks." 
@@ -470,7 +470,7 @@ export default function BulkImageEnhancer() {
       />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -707,7 +707,7 @@ export default function BulkImageEnhancer() {
                              )}
                            </div>
                            {proc && (
-                             <div className="absolute top-2 left-10 bg-primary text-black text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest flex items-center gap-1 shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]">
+                             <div className="absolute top-2 left-10 bg-primary text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest flex items-center gap-1 shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]">
                                <Check className="w-3 h-3"/> Processed
                              </div>
                            )}
@@ -727,7 +727,7 @@ export default function BulkImageEnhancer() {
                        <button 
                          onClick={downloadAll}
                          disabled={processed.filter(p => selectedIds.has(p.id)).length === 0}
-                         className="px-8 py-4 bg-primary text-black hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] shadow-primary/20"
+                         className="px-8 py-4 bg-primary text-white hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] shadow-primary/20"
                        >
                          <Download className="w-4 h-4" /> 
                          {processed.filter(p => selectedIds.has(p.id)).length > 1 ? 'Download Batch ZIP' : 'Download High-Res'}

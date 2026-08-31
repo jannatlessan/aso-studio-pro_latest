@@ -70,14 +70,14 @@ export default function PasswordGenerator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Online Password Generator | ShaadDev Studio" 
         description="Generate strong, secure, and random passwords instantly for your daily data protection needs." 
         url="https://shaaddev.studio/tools/password-generator" keywords="password generator, strong safe keys, uncrackable pword" />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -121,7 +121,7 @@ export default function PasswordGenerator() {
                   </button>
                   <button 
                     onClick={generatePassword}
-                    className="p-3 bg-primary text-black hover:bg-primary-light rounded-lg transition-all active:scale-95"
+                    className="p-3 bg-primary text-white hover:bg-primary-light rounded-lg transition-all active:scale-95"
                     title="Regenerate"
                   >
                     <RefreshCw className="w-5 h-5" />
@@ -199,7 +199,7 @@ export default function PasswordGenerator() {
 
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Secure & Random Password Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">Secure & Random Password Generator</h2>
             <p>
               In today's ever-evolving digital landscape, relying on weak, predictable, or recycled passwords is one of the most critical cybersecurity vulnerabilities. A robust, highly secure password is your first line of defense against malicious actors, unauthorized access, and data breaches. Our <strong>Secure Password Generator</strong> helps you instantly construct mathematically random, highly complex passwords that are practically impossible for brute-force algorithms, dictionary attacks, or automated credential stuffers to crack.
             </p>
@@ -207,7 +207,7 @@ export default function PasswordGenerator() {
               Whether you are an IT professional securing a sensitive database, a developer managing environment variables, or an everyday user signing up for a new online banking service, generating cryptographically secure passwords is a non-negotiable best practice. By combining various character sets and maximizing password length, you drastically increase your password's entropy, ensuring your digital identity remains impenetrable.
             </p>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Set the Password Length:</strong> Use the intuitive slider to select your desired character length. We heavily recommend a minimum of 16 characters for critical accounts.</li>
               <li><strong>Toggle Character Types:</strong> Check or uncheck the boxes to include uppercase letters, lowercase letters, numbers (0-9), and special symbols (@#$%). For maximum security, enable all options.</li>
@@ -215,7 +215,7 @@ export default function PasswordGenerator() {
               <li><strong>Copy and Store:</strong> Click the copy icon to copy the generated password directly to your clipboard. We strongly advise pasting it immediately into a reputable, encrypted password manager for safe keeping.</li>
             </ol>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
                 <strong className="text-white block">1. Are the passwords generated on a server?</strong>

@@ -180,14 +180,14 @@ export default function GifViewer() {
   return (
     <>
       <AdBlockDetector />
-      <div className="min-h-screen bg-[#020202] text-white selection:bg-sky-500/30 font-sans">
+      <div className="min-h-screen bg-[#08080A] text-white selection:bg-primary/20 font-sans">
       <SEO 
         title="AuraCut Studio | GIF to Video Converter & Viewer"
         description="Upload any GIF to perfectly pause, rewind, scrub frame-by-frame, and convert to high-definition MP4 video. Extract ultra high-definition PNG frame slices. 100% free and fully private offline processing."
         url="https://shaaddev.studio/tools/gif-viewer"
       />
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button onClick={handleBackClick} className="p-2 hover:bg-white/5 rounded-full transition-colors group" title={isToolUsed ? "(Click to reset)" : undefined}>

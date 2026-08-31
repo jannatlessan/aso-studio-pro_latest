@@ -223,14 +223,14 @@ export default function ImageCompressor() {
   const totalSavings = totalOriginal > 0 && processed.length > 0 ? ((totalOriginal - totalProcessed) / totalOriginal) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Online Image Compressor | ShaadDev Studio" 
         description="Compress bulk or individual image files without losing quality. Export to WEBP and JPEG optimized entirely within your browser locally." 
         url="https://shaaddev.studio/tools/image-compressor" keywords="image compressor, jpeg minimizer, webp optimize" />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -343,7 +343,7 @@ export default function ImageCompressor() {
                             <span className="text-green-400 font-bold font-mono">-{totalSavings.toFixed(1)}%</span>
                           </div>
                        </div>
-                       <button onClick={downloadAll} className="w-full sm:w-auto px-6 py-3 bg-primary text-black hover:bg-white rounded-lg font-bold uppercase tracking-widest text-xs transition-all flex justify-center items-center gap-2 whitespace-nowrap">
+                       <button onClick={downloadAll} className="w-full sm:w-auto px-6 py-3 bg-primary text-white hover:bg-white hover:text-black rounded-lg font-bold uppercase tracking-widest text-xs transition-all flex justify-center items-center gap-2 whitespace-nowrap">
                          <Download className="w-4 h-4" /> Download All
                        </button>
                      </div>
@@ -419,7 +419,7 @@ export default function ImageCompressor() {
                   <button 
                     onClick={compressImages}
                     disabled={!images.length || isProcessing}
-                    className="w-full py-3.5 bg-primary text-black hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2 mt-4 shadow-lg shadow-primary/20"
+                    className="w-full py-3.5 bg-primary text-white hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2 mt-4 shadow-lg shadow-primary/20"
                   >
                     {isProcessing ? (
                       <span className="flex items-center gap-2"><RefreshCcw className="w-5 h-5 animate-spin" /> Compressing...</span>
@@ -434,7 +434,7 @@ export default function ImageCompressor() {
           
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">High-Efficiency Image Compressor & Optimizer</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">High-Efficiency Image Compressor & Optimizer</h2>
             <p>
               Large, unoptimized images are notoriously the primary culprits behind sluggish website performance, inflated bounce rates, and poor Core Web Vitals scores. For developers obsessed with performance and SEO experts aiming for top-tier Google rankings, deploying aggressively optimized visual assets is an absolute necessity. Our <strong>High-Efficiency Image Compressor</strong> provides a powerful, automated solution to drastically reduce the file sizes of your JPEG, PNG, and WebP images while meticulously preserving their apparent visual quality.
             </p>
@@ -442,7 +442,7 @@ export default function ImageCompressor() {
               By intelligently discarding unnecessary metadata, optimizing color profiles, and applying advanced lossy or lossless compression algorithms directly within your web browser, this tool helps you strip away unnecessary bytes. Whether you are prepping a massive gallery for a portfolio site, streamlining huge assets for a mobile application, or trying to reduce your monthly CDN and bandwidth hosting costs, our Image Compressor ensures that your graphics load instantly on any network condition around the globe.
             </p>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Select Your Files:</strong> Drag and drop your heavy, unoptimized images directly into the designated upload area. Batch uploading represents the fastest workflow.</li>
               <li><strong>Adjust Compression Level:</strong> Utilize the compression slider to find the perfect balance between file size savings and visual fidelity. A lower percentage yields a much smaller file at the cost of slight artifacting, while a higher percentage prioritizes flawless visual quality.</li>
@@ -450,7 +450,7 @@ export default function ImageCompressor() {
               <li><strong>Download Optimized Files:</strong> Once compression is complete, effortlessly download your newly lightweight images, ready to be immediately deployed to your production environment.</li>
             </ol>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
                 <strong className="text-white block">1. Does image compression permanently ruin image quality?</strong>

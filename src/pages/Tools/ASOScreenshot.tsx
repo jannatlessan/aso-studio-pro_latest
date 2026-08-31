@@ -906,7 +906,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-bg text-text transition-colors duration-300 selection:bg-primary/30">
+    <div className="min-h-screen bg-bg text-text transition-colors duration-300 selection:bg-primary/20">
       <SEO 
         title="Free Online ASO Screenshot Generator | ShaadDev Studio" 
         description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
@@ -1874,7 +1874,7 @@ export default function App() {
             
             {/* SEO Optimized Content Section */}
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">App Store Optimization (ASO) & Mockup Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">App Store Optimization (ASO) & Mockup Generator</h2>
             <p>
               First impressions matter immensely in the highly competitive digital marketplace. When potential users discover your application on the Apple App Store or Google Play Store, the aesthetic quality of your store listing directly impacts your conversion rate. Our <strong>App Store Screenshots Generator</strong> helps developers, indie creators, and marketers design polished, professional-grade mockups without relying on complex, expensive, and heavy design software like Adobe Photoshop, Figma, or Sketch.
             </p>
@@ -1882,7 +1882,7 @@ export default function App() {
               By leveraging our intuitive tool, you can rapidly generate stunning, high-resolution application screenshots that effectively communicate your app's core value proposition. Whether you are launching a brand-new application, pushing an important update, or conducting A/B testing on different store listings, having high-quality, perfectly sized mockups is a critical factor for achieving App Store Optimization (ASO) success and maximizing your downloads.
             </p>
             
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Upload Your Screenshots:</strong> Start by uploading the raw screenshots you took directly from your device simulator or physical hardware.</li>
               <li><strong>Select Your Target Device & Template:</strong> Choose from a variety of predefined device frames (such as iPhone 6.5", iPad Pro) and select a layout template (Classic, Modern Gradient, Split, etc.) that best suits your app's style.</li>
@@ -1890,7 +1890,7 @@ export default function App() {
               <li><strong>Export Your Creations:</strong> Once you are satisfied with the preview, hit the download button to export all your perfectly sized, high-resolution mockups in a convenient ZIP file, ready for immediate upload to the App Store Connect or Google Play Console.</li>
             </ol>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
                 <strong className="text-white block">1. What dimensions does the App Store require for screenshots?</strong>

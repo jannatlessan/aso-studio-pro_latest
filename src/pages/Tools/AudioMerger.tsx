@@ -166,14 +166,14 @@ let blob: Blob;
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Online Audio Merger | ShaadDev Studio" 
         description="Merge multiple MP3, WAV, or OGG audio files into a single track directly in your browser. Fast, local processing with no file uploads required." 
         url="https://shaaddev.studio/tools/audio-merger" keywords="audio merger, merge mp3 online, stitch audio files" />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -255,7 +255,7 @@ let blob: Blob;
                   <button 
                     onClick={mergeAudioFiles}
                     disabled={isProcessing || files.length < 2}
-                    className="w-full sm:w-auto px-6 py-3 bg-primary text-black hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-6 py-3 bg-primary text-white hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2"
                   >
                     {isProcessing ? (
                       <span className="animate-pulse flex items-center gap-2"><RefreshCcw className="w-4 h-4 animate-spin"/> Processing...</span>
@@ -280,7 +280,7 @@ let blob: Blob;
                  <a 
                    href={mergedUrl} 
                    download={`merged_audio_shaad-dev.${outputFormat}`}
-                   className="inline-flex w-full sm:w-auto mt-2 px-6 py-3 bg-primary text-black hover:bg-white rounded-lg font-bold uppercase tracking-widest text-xs transition-all justify-center items-center gap-2"
+                   className="inline-flex w-full sm:w-auto mt-2 px-6 py-3 bg-primary text-white hover:bg-white hover:text-black rounded-lg font-bold uppercase tracking-widest text-xs transition-all justify-center items-center gap-2"
                  >
                    Download Merged {outputFormat.toUpperCase()}
                  </a>
@@ -291,7 +291,7 @@ let blob: Blob;
 
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Seamless Audio File Merger & Joiner</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">Seamless Audio File Merger & Joiner</h2>
             <p>
               Combining multiple audio tracks into a single, cohesive file can often require the frustrating installation of complex, expensive Digital Audio Workstations (DAWs) or clunky desktop software. Our <strong>Browser-Based Audio Merger</strong> eliminates all of that friction, empowering podcasters, video editors, music producers, and casual creators to instantly stitch together disjointed audio clips, voiceovers, background tracks, and sound effects directly from their web browser.
             </p>
@@ -299,7 +299,7 @@ let blob: Blob;
               This utility is specifically designed for speed and simplicity. Whether you are compiling a continuous mixtape, appending an outro to your weekly podcast episode, or simply joining split voice memos from your smartphone, the tool handles the intricate process of audio decoding, buffering, and sequencing seamlessly under the hood. By utilizing robust Web Audio APIs, we ensure that the native quality of your audio streams is preserved, delivering a high-fidelity output master file in seconds.
             </p>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Upload Audio Segments:</strong> Drag and drop the individual audio files (MP3, WAV, WebM, etc.) you wish to combine into the interactive list.</li>
               <li><strong>Arrange the Sequence:</strong> Utilize the intuitive drag-and-drop interface to reorder your tracks. The tracks will be merged sequentially from top to bottom exactly as they are displayed.</li>
@@ -307,7 +307,7 @@ let blob: Blob;
               <li><strong>Merge and Export:</strong> Click the merge execution button. The tool will rapidly compile the tracks together, generating a brand new consolidated audio file ready for instant download and distribution.</li>
             </ol>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
                 <strong className="text-white block">1. What audio formats do you support for merging?</strong>

@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-screen bg-[#020202] text-[#E0E0E0] font-mono flex items-center justify-center p-5 overflow-hidden">
+    <div className="relative min-h-screen bg-[#08080A] text-[#EDEDEF] flex items-center justify-center p-5 overflow-hidden">
       <SEO
         title="Page Not Found | ShaadDev Studio"
         description="The page you're looking for doesn't exist."
@@ -48,11 +48,11 @@ export default function NotFound() {
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="space-y-4"
               >
-                <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight">
-                  Lost in <span className="text-primary">Space.</span>
+                <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">
+                  Page not <span className="text-primary">found.</span>
                 </h2>
-                <p className="text-white/60 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-                  The coordinates you're looking for don't exist in this sector of the studio.
+                <p className="text-white/55 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                  The page you're looking for doesn't exist or may have moved.
                 </p>
               </motion.div>
             </div>
@@ -65,19 +65,20 @@ export default function NotFound() {
             transition={{ delay: 0.8, duration: 0.5 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
           >
-            <Link 
-              to="/" 
-              className="group flex items-center gap-3 px-8 py-4 bg-primary text-black font-black uppercase tracking-widest text-xs rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+            <Link
+              to="/"
+              className="group flex items-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all"
+              style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))' }}
             >
               <Home className="w-4 h-4" />
-              Return Home
+              Return home
             </Link>
-            <button 
+            <button
               onClick={() => window.history.back()}
-              className="flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-xs rounded-lg hover:bg-white/10 transition-all hover:border-primary/50"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-sm font-semibold text-white/80 hover:border-white/30 hover:text-white transition-all"
             >
-              <ArrowLeft className="w-4 h-4 text-primary" />
-              Go Back
+              <ArrowLeft className="w-4 h-4" />
+              Go back
             </button>
           </motion.div>
 
@@ -89,7 +90,7 @@ export default function NotFound() {
             className="pt-12 flex items-center justify-center gap-6"
           >
             <div className="h-px w-12 bg-white/20" />
-            <div className="text-[10px] uppercase tracking-[0.3em] font-bold">Error: Page_Not_Found</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] font-medium text-white/40">404 error</div>
             <div className="h-px w-12 bg-white/20" />
           </motion.div>
         </motion.div>

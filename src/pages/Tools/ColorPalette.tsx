@@ -39,7 +39,7 @@ export default function ColorPalette() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] p-5 sm:p-8 md:p-12 font-mono selection:bg-primary/30 transform-gpu">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] p-5 sm:p-8 md:p-12 selection:bg-primary/20 transform-gpu">
       <SEO title="Color Palette | ShaadDev Studio" description="Beautiful color scheme generator." url="https://shaaddev.studio/tools/color-palette" keywords="color palette generator, random hex codes, ui themes" />
       
 <div className="max-w-6xl mx-auto space-y-8">
@@ -47,10 +47,10 @@ export default function ColorPalette() {
           <ArrowLeft className="w-4 h-4" /> {isToolUsed ? 'Color Palette' : 'Back to Tools'}
         </button>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8">
-            <h1 className="font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
-  Color Palette<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+  Color Palette
 </h1>
-            <button onClick={refresh} className="bg-primary text-black px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-white transition-colors">
+            <button onClick={refresh} className="bg-primary text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-white hover:text-black transition-colors">
               <RefreshCw size={18}/> Generate New
             </button>
         </div>
@@ -75,11 +75,11 @@ export default function ColorPalette() {
       
           <div className="max-w-4xl mx-auto mt-16 mb-8 px-4">
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 space-y-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider font-mono">UI/UX Color Palette Generator</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">UI/UX Color Palette Generator</h2>
               <p>Establishing a coherent color scheme is one of the most critical steps in user interface design. A well-constructed color palette dictates emotional resonance, brand identity, and visual hierarchy. Our Color Palette Generator instantly provides harmonious chromatic sets tailored for modern web design.</p>
               <p>By generating interlocking base, primary, accent, and background tones, designers and developers can immediately visualize how different hex scales synergize together without manually color-picking for hours.</p>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
               <ol className="list-decimal pl-5 space-y-3">
                 <li><strong>Generate Colors:</strong> Click the 'Generate Palette' button to create a new, mathematically harmonious color scheme.</li>
                 <li><strong>Review Hues:</strong> Observe how the five selected colors relate to each other visually in the grid.</li>
@@ -87,7 +87,7 @@ export default function ColorPalette() {
                 <li><strong>Implement:</strong> Paste these hex strings directly into your CSS, Tailwind config, or Figma files.</li>
               </ol>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
               <div className="space-y-4">
                 
                 <div>

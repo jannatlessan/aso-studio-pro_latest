@@ -37,11 +37,11 @@ export default function PercentageCalculator() {
   const ans2 = (!isNaN(p) && !isNaN(w) && w !== 0) ? (p / w) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO title="Percentage Calculator | ShaadDev Studio" description="Instantly calculate percentages and ratios." url="https://shaaddev.studio/tools/percentage-calculator" keywords="percentage calculator, calculate margins, math tool" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
@@ -58,8 +58,8 @@ export default function PercentageCalculator() {
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-12 lg:py-20 w-full space-y-16">
         {/* Title Section */}
         <div className="space-y-4 max-w-3xl">
-          <h1 className="font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
-  Percentage Calc<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+  Percentage Calc
 </h1>
         </div>
         
@@ -81,7 +81,7 @@ export default function PercentageCalculator() {
               <span className="font-bold text-white/50">is what % of</span>
               <input type="number" value={whole} onChange={e=>setWhole(e.target.value)} className="bg-white/5 border border-white/10 rounded-xl p-4 w-40 text-center text-white focus:border-primary outline-none font-black" placeholder="100" />
               <span className="font-bold text-white/50">?</span>
-              <div className="ml-auto flex items-center bg-[#00f0ff]/10 text-[#00f0ff] px-8 py-4 rounded-2xl font-black border border-[#00f0ff]/30 min-w-[120px] justify-center gap-2">
+              <div className="ml-auto flex items-center bg-primary/10 text-primary px-8 py-4 rounded-2xl font-black border border-primary/30 min-w-[120px] justify-center gap-2">
                 {ans2.toFixed(3).replace(/.?0+$/, '')} <Percent size={20}/>
               </div>
             </div>
@@ -89,18 +89,18 @@ export default function PercentageCalculator() {
       
         <div className="max-w-4xl mx-auto mt-16 mb-8 px-4">
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 space-y-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider font-mono">Advanced Percentage Calculator</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">Advanced Percentage Calculator</h2>
               <p>Calculating raw percentages, testing margin thresholds, or analyzing data variations commonly trips up workflows with misplaced decimal mathematics. Our Percentage Calculator abstracts these operations into a sleek, visual utility.</p>
               <p>Perfect for fast financial math, analyzing server uptime dips, calculating layout viewport rules, or simple discount configurations. The interface prevents floating-point errors and gives exact, instantaneous readouts.</p>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
               <ol className="list-decimal pl-5 space-y-3">
                 <li><strong>Calculation 1 (Value Of):</strong> Want to know what 'X% of Y' is? Enter the percentage rate and the total number to view the extracted slice.</li>
                 <li><strong>Calculation 2 (Part To Whole):</strong> Want to know what percentage 'X is out of Y'? Enter your partial value and the total value to discover its exact percentage weight.</li>
                 <li><strong>Real-Time Logic:</strong> The answer updates automatically as you adjust numbers. No 'calculate' buttons required.</li>
               </ol>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
               <div className="space-y-4">
                 
                 <div>

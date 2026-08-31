@@ -58,11 +58,11 @@ export default function UnitConverter() {
   const formatAns = typeof ans === 'number' ? parseFloat(ans.toFixed(5)) : ans;
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO title="Unit Converter | ShaadDev Studio" description="Convert length, weight, temperature." url="https://shaaddev.studio/tools/unit-converter" keywords="unit converter, imperial to metric, length mass" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
@@ -79,8 +79,8 @@ export default function UnitConverter() {
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-12 lg:py-20 w-full space-y-16">
         {/* Title Section */}
         <div className="space-y-4 max-w-3xl">
-          <h1 className="font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
-  Unit Converter<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+  Unit Converter
 </h1>
         </div>
         
@@ -124,11 +124,11 @@ export default function UnitConverter() {
       
         <div className="max-w-4xl mx-auto mt-16 mb-8 px-4">
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 space-y-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider font-mono">Universal Unit Converter</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">Universal Unit Converter</h2>
               <p>Developers, engineers, and scientists constantly find themselves needing to translate imperial to metric, Celsius to Fahrenheit, or Megabytes to Gigabytes. Our universal Unit Converter consolidates these crucial mathematical pipelines into a single, intuitive interface.</p>
               <p>Powered by precise multiplier ratios, this tool eliminates the need for manual calculations or searching engines for conversion formulas, providing immediate results for Length, Weight, Temperature, and Data metrics.</p>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
               <ol className="list-decimal pl-5 space-y-3">
                 <li><strong>Select Category:</strong> First, choose the type of measurement you need to convert (e.g., Length, Weight, Temperature, Data).</li>
                 <li><strong>Input Value:</strong> Enter the numerical value you possess into the first numeric field.</li>
@@ -136,7 +136,7 @@ export default function UnitConverter() {
                 <li><strong>Read Result:</strong> The corresponding output instantly generates in real-time.</li>
               </ol>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
               <div className="space-y-4">
                 
                 <div>

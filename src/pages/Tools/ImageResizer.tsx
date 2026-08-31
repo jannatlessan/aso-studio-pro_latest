@@ -230,14 +230,14 @@ export default function ImageResizer() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Online Bulk Image Resizer | ShaadDev Studio" 
         description="Fast, local, high-quality bulk image resizing and format conversion tool. Resize single or multiple images instantly entirely in your browser." 
         url="https://shaaddev.studio/tools/image-resizer" keywords="image resizer, crop images online, pixel width scaler" />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -334,7 +334,7 @@ export default function ImageResizer() {
                              )}
                            </div>
                            {proc && (
-                             <div className="absolute top-2 left-2 bg-primary text-black text-[9px] font-bold px-2 py-0.5 rounded uppercase flex items-center gap-1 shadow-lg">
+                             <div className="absolute top-2 left-2 bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase flex items-center gap-1 shadow-lg">
                                <Check className="w-3 h-3"/> Done
                              </div>
                            )}
@@ -353,7 +353,7 @@ export default function ImageResizer() {
                        </div>
                        <button 
                          onClick={downloadAll}
-                         className="px-6 py-3 bg-primary text-black hover:bg-white rounded-lg font-bold uppercase tracking-widest text-xs transition-all flex items-center gap-2"
+                         className="px-6 py-3 bg-primary text-white hover:bg-white hover:text-black rounded-lg font-bold uppercase tracking-widest text-xs transition-all flex items-center gap-2"
                        >
                          <Download className="w-4 h-4" /> 
                          {processed.length > 1 ? 'Download ZIP' : 'Download Image'}
@@ -479,7 +479,7 @@ export default function ImageResizer() {
                   <button 
                     onClick={processImages}
                     disabled={!images.length || isProcessing}
-                    className="w-full py-3.5 bg-primary text-black hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2 mt-4 shadow-lg shadow-primary/20"
+                    className="w-full py-3.5 bg-primary text-white hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2 mt-4 shadow-lg shadow-primary/20"
                   >
                     {isProcessing ? (
                       <span className="flex items-center gap-2"><RefreshCcw className="w-5 h-5 animate-spin" /> Processing...</span>
@@ -494,7 +494,7 @@ export default function ImageResizer() {
           
           {/* SEO Optimized Content Section */}
           <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl font-black text-white uppercase tracking-wider font-mono">Professional Bulk Image Resizer</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">Professional Bulk Image Resizer</h2>
             <p>
               In modern web development and digital content creation, optimizing image assets is absolutely essential for maintaining fast page load speeds, reducing bandwidth consumption, and ensuring a seamless user experience across a diverse range of devices. Our <strong>Professional Batch Image Resizer</strong> empowers developers, marketing teams, and designers to quickly scale, crop, and adjust the dimensions of multiple images simultaneously without compromising visual fidelity.
             </p>
@@ -502,7 +502,7 @@ export default function ImageResizer() {
               Whether you are preparing a massive batch of product thumbnails for an e-commerce platform, adjusting hero images to perfectly fit a new responsive layout, or simply reducing dimensions to bypass strict file upload limits on social media networks, this robust utility handles it all. By eliminating the necessity of firing up heavy graphic editing suites for repetitive resizing tasks, our tool significantly streamlines your content pipeline, ensuring your website remains highly performant and SEO-friendly.
             </p>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Upload Images:</strong> Click the dropzone area or drag-and-drop the images you wish to alter. You can upload multiple files at once for batch processing.</li>
               <li><strong>Configure Dimensions:</strong> Enter your exact target width and height in pixels. Alternatively, use percentage-based scaling if you just need proportioned reduction.</li>
@@ -510,7 +510,7 @@ export default function ImageResizer() {
               <li><strong>Process & Download:</strong> Click the resize button. In moments, your scaled assets will be ready to download individually or packaged within a single, convenient ZIP archive.</li>
             </ol>
 
-            <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
                 <strong className="text-white block">1. Is my original image quality degraded during resizing?</strong>

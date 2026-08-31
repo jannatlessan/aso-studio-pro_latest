@@ -491,7 +491,7 @@ export default function BackgroundRemover() {
   return (
     <>
       <AdBlockDetector />
-      <div className="min-h-screen bg-[#020202] text-white selection:bg-purple-500/30 font-sans">
+      <div className="min-h-screen bg-[#08080A] text-white selection:bg-primary/20 font-sans">
       <SEO 
         title="Free AI Background Remover | 100% Private Pro Cutout Tool"
         description="Instantly remove backgrounds from images online using powerful on-device Web AI. Completely free, private, and features pro studio composites like shadows and gradients."
@@ -499,7 +499,7 @@ export default function BackgroundRemover() {
       />
 
       {/* Modern Header */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button 

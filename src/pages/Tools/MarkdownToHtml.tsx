@@ -59,11 +59,11 @@ ${html}</body>
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO title="Markdown to HTML | ShaadDev Studio" description="Convert MD strings to clean HTML code instantly." url="https://shaaddev.studio/tools/markdown-to-html" keywords="markdown to html, markdown compile, clean html preview" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
@@ -80,8 +80,8 @@ ${html}</body>
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-12 lg:py-20 w-full space-y-16">
         {/* Title Section */}
         <div className="space-y-4 max-w-3xl">
-          <h1 className="font-black text-white uppercase tracking-wider relative inline-block text-4xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-wider relative inline-block">
-  Markdown to HTML<div className="absolute -bottom-2 left-0 w-1/3 h-1 sm:h-2 bg-primary rounded-full shadow-[0_0_15px_rgba(255,255,255,0.5)]"></div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+  Markdown to HTML
 </h1>
         </div>
         
@@ -105,13 +105,13 @@ ${html}</body>
                 <div className="flex gap-2">
                   <button 
                     onClick={() => setViewMode('preview')} 
-                    className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg transition-colors ${viewMode === 'preview' ? 'bg-primary text-black' : 'text-white/50 hover:bg-white/10'}`}
+                    className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg transition-colors ${viewMode === 'preview' ? 'bg-primary text-white' : 'text-white/50 hover:bg-white/10'}`}
                   >
                     Preview
                   </button>
                   <button 
                     onClick={() => setViewMode('code')} 
-                    className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg transition-colors ${viewMode === 'code' ? 'bg-primary text-black' : 'text-white/50 hover:bg-white/10'}`}
+                    className={`text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg transition-colors ${viewMode === 'code' ? 'bg-primary text-white' : 'text-white/50 hover:bg-white/10'}`}
                   >
                     HTML
                   </button>
@@ -143,18 +143,18 @@ ${html}</body>
       
           <div className="max-w-4xl mx-auto mt-16 mb-8 px-4">
             <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 space-y-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wider font-mono">Live Markdown to HTML Parser</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">Live Markdown to HTML Parser</h2>
               <p>Markdown has fundamentally streamlined how developers structure documentation, write ReadMe files, and draft blog posts. However, converting that Markdown back into raw, semantic HTML structured for the web requires a compiler.</p>
               <p>This client-side tool acts as an instant compilation bridge. By parsing your Markdown string and rendering it through the standardized 'marked' library, it outputs both a live visual preview and the raw, un-minified HTML markup you can inject into any standard web page.</p>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">How to Use</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
               <ol className="list-decimal pl-5 space-y-3">
                 <li><strong>Input Markdown:</strong> Paste or type your Markdown syntax (e.g., `# Heading`, `**bold**`, `- list`) into the primary text area.</li>
                 <li><strong>Live Formatting:</strong> Watch the tool instantly convert your syntax into a fully rendered HTML visual preview below.</li>
                 <li><strong>Extract HTML:</strong> Once satisfied, grab the raw `&lt;h1&gt;`, `&lt;strong&gt;`, and `&lt;ul&gt;` HTML nodes generated from the system to drop into your templates.</li>
               </ol>
 
-              <h3 className="text-lg font-bold text-white mt-8 mb-4 font-mono">Frequently Asked Questions (FAQ)</h3>
+              <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
               <div className="space-y-4">
                 
                 <div>

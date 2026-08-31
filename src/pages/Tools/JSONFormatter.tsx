@@ -146,14 +146,14 @@ export default function JSONFormatter() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#E0E0E0] selection:bg-primary/30 font-mono flex flex-col">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
       <SEO 
         title="Free Online JSON Formatter | ShaadDev Studio" 
         description="Format, prettify, and validate JSON data quickly directly from your browser." 
         url="https://shaaddev.studio/tools/json-formatter" keywords="json formatter, format json online, pretify syntax" />
       
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#020202]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
@@ -178,13 +178,13 @@ export default function JSONFormatter() {
              <div className="flex items-center gap-2 bg-white/5 p-1 rounded-lg border border-white/10">
                 <button 
                   onClick={() => handleIndentChange(2)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${indentSize === 2 ? 'bg-primary text-black' : 'text-white/60 hover:text-white'}`}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${indentSize === 2 ? 'bg-primary text-white' : 'text-white/60 hover:text-white'}`}
                 >
                   2 Spaces
                 </button>
                 <button 
                   onClick={() => handleIndentChange(4)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${indentSize === 4 ? 'bg-primary text-black' : 'text-white/60 hover:text-white'}`}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${indentSize === 4 ? 'bg-primary text-white' : 'text-white/60 hover:text-white'}`}
                 >
                   4 Spaces
                 </button>
@@ -227,7 +227,7 @@ export default function JSONFormatter() {
                 <button 
                   onClick={formatJSON}
                   disabled={isProcessing || !!fileName}
-                  className="w-full py-3 bg-primary text-black hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex justify-center items-center gap-2"
+                  className="w-full py-3 bg-primary text-white hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex justify-center items-center gap-2"
                 >
                    {isProcessing && !fileName ? <Loader2 className="w-5 h-5 animate-spin" /> : <FileJson className="w-5 h-5" />} 
                    {isProcessing && !fileName ? 'Processing...' : 'Format Text'}
