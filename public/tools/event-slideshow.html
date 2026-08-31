@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Slideshow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0a08;
+    --panel:#15130f;
+    --panel-2:#1c1913;
+    --ivory:#f3ede1;
+    --muted:#a39a86;
+    --gold:#c9a24a;
+    --gold-soft:#8a733f;
+    --line:#2a2620;
+    --danger:#b0553f;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;background:var(--void);color:var(--ivory);
+    font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;}
+  h1,h2,.serif{font-family:'Cormorant Garamond',serif;}
+
+  /* ---------- Setup screen ---------- */
+  #setup{
+    height:100%;display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(201,162,74,0.10), transparent 55%),
+      var(--void);
+    overflow-y:auto;
+  }
+  .card{
+    width:min(640px,92vw);
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:44px 44px 36px;
+    margin:32px 0;
+    position:relative;
+  }
+  .eyebrow{
+    letter-spacing:.24em;text-transform:uppercase;font-size:11px;color:var(--gold-soft);
+    margin:0 0 6px;font-weight:600;
+  }
+  h1.title{font-size:40px;font-weight:600;margin:0 0 4px;color:var(--ivory);letter-spacing:.01em;}
+  .subtitle{color:var(--muted);font-size:14px;margin:0 0 28px;line-height:1.5;}
+  .divider{width:56px;height:1px;background:var(--gold-soft);margin:22px 0;border:none;opacity:.6;}
+  h2.section-title{font-size:15px;color:var(--gold);margin:0 0 14px;font-weight:600;letter-spacing:.02em;}
+
+  .row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+  .btn{
+    appearance:none;border:1px solid var(--gold-soft);background:transparent;color:var(--gold);
+    padding:11px 20px;border-radius:2px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+    letter-spacing:.03em;cursor:pointer;transition:.15s ease;
+  }
+  .btn:hover{background:rgba(201,162,74,0.10);}
+  .btn.primary{background:var(--gold);color:#161208;border-color:var(--gold);}
+  .btn.primary:hover{background:#d9b25f;}
+  .btn.primary:disabled{background:#3a3527;color:#7a7364;border-color:#3a3527;cursor:not-allowed;}
+  .btn.ghost{border-color:var(--line);color:var(--muted);}
+  .btn.ghost:hover{border-color:var(--muted);color:var(--ivory);background:transparent;}
+  .btn.small{padding:6px 12px;font-size:12px;}
+
+  .batches{margin:6px 0 18px;max-height:180px;overflow-y:auto;}
+  .batch{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;border:1px solid var(--line);border-radius:2px;margin-bottom:8px;
+    background:var(--panel-2);font-size:13px;
+  }
+  .batch .meta{color:var(--muted);font-size:12px;}
+  .batch .name{color:var(--ivory);font-weight:500;}
+  .remove{color:var(--danger);cursor:pointer;background:none;border:none;font-size:16px;line-height:1;padding:0 4px;}
+  .empty-hint{color:var(--muted);font-size:13px;padding:14px 0;border:1px dashed var(--line);text-align:center;border-radius:2px;margin-bottom:18px;}
+
+  .totals{display:flex;gap:24px;margin-bottom:8px;font-size:13px;color:var(--muted);}
+  .totals b{color:var(--ivory);font-weight:600;}
+
+  .settings{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0 6px;}
+  .field label{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .field input[type=number], .field input[type=text], .field select{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--ivory);
+    padding:9px 10px;border-radius:2px;font-family:'Inter',sans-serif;font-size:14px;
+  }
+  .field input[type=number]:focus, .field input[type=text]:focus, .field select:focus{outline:none;border-color:var(--gold-soft);}
+  .field input[type=range]{width:100%;accent-color:var(--gold);margin-top:8px;}
+  .checkfield{display:flex;align-items:center;gap:8px;margin-top:4px;}
+  .checkfield input{accent-color:var(--gold);}
+  .checkfield label{font-size:13px;color:var(--muted);margin:0;text-transform:none;letter-spacing:0;}
+
+  .section{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);}
+
+  .shortcuts .kgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-size:12.5px;color:var(--muted);}
+  .kgrid kbd{
+    background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:1px 6px;
+    color:var(--ivory);font-family:inherit;font-size:11.5px;
+  }
+  .start-row{margin-top:26px;display:flex;align-items:center;gap:14px;}
+  .start-hint{font-size:12px;color:var(--muted);}
+
+  /* ---------- Player ---------- */
+  #player{
+    position:fixed;inset:0;background:#000;display:none;
+    align-items:center;justify-content:center;overflow:hidden;
+  }
+  #stage{width:100%;height:100%;position:relative;background:#000;overflow:hidden;z-index:1;}
+
+  .stage-item{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    opacity:0;transition:opacity .7s ease;overflow:hidden;
+  }
+  .stage-item.active{opacity:1;}
+  .stage-item img, .stage-item video{
+    max-width:100vw;max-height:100vh;width:auto;height:auto;
+    object-fit:contain;user-select:none;
+  }
+  .stage-item img.kb-anim{will-change:transform;animation-timing-function:linear;animation-fill-mode:forwards;}
+  @keyframes kb1{ from{transform:scale(1) translate(0,0);} to{transform:scale(1.12) translate(-2.5%,-1.5%);} }
+  @keyframes kb2{ from{transform:scale(1) translate(0,0);} to{transform:scale(1.12) translate(2.5%,1.5%);} }
+  .kb1{animation-name:kb1;}
+  .kb2{animation-name:kb2;}
+
+  .titlecard{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:40px;width:100%;height:100%;
+    background:radial-gradient(ellipse at 50% 40%, rgba(201,162,74,0.10), transparent 60%), #000;
+  }
+  .titlecard .tc-eyebrow{letter-spacing:.3em;text-transform:uppercase;font-size:12px;color:var(--gold-soft);margin-bottom:20px;font-weight:600;}
+  .titlecard h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,6vw,60px);color:var(--ivory);margin:0;max-width:82vw;line-height:1.15;}
+  .titlecard .tc-divider{width:70px;height:1px;background:var(--gold);margin:24px 0;opacity:.7;border:none;}
+  .titlecard .tc-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(15px,2.2vw,21px);color:var(--muted);max-width:70vw;}
+
+  .overlay{
+    position:absolute;left:0;right:0;padding:14px 22px;
+    background:linear-gradient(180deg, rgba(0,0,0,.55), transparent);
+    display:flex;justify-content:space-between;align-items:center;
+    transition:opacity .35s ease; font-size:13px; color:#e9e2d3; z-index:2;
+  }
+  .overlay.top{top:0;}
+  .overlay.bottom{bottom:0;background:linear-gradient(0deg, rgba(0,0,0,.65), transparent);
+    flex-direction:column;align-items:stretch;gap:10px;padding-top:26px;}
+  .hidden-ui .overlay{opacity:0;pointer-events:none;}
+
+  .fname{font-family:'Cormorant Garamond',serif;font-size:18px;color:#f3ede1;
+    max-width:70vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .counter{color:var(--muted);font-size:12.5px;letter-spacing:.04em;}
+
+  .track-wrap{position:relative;height:4px;background:rgba(255,255,255,.14);border-radius:2px;cursor:pointer;}
+  .track-fill{position:absolute;left:0;top:0;bottom:0;background:var(--gold);border-radius:2px;width:0%;}
+
+  .shortcut-strip{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;
+    font-size:11px;color:rgba(233,226,211,.55);letter-spacing:.01em;
+  }
+  .shortcut-strip kbd{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:3px;
+    padding:1px 5px;color:rgba(233,226,211,.85);font-family:inherit;font-size:10.5px;
+  }
+
+  .controls-row{display:flex;align-items:center;justify-content:center;gap:18px;}
+  .ctl-btn{
+    background:none;border:1px solid rgba(255,255,255,.25);color:#f3ede1;
+    width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:15px;
+    display:flex;align-items:center;justify-content:center;transition:.15s;
+  }
+  .ctl-btn:hover{background:rgba(255,255,255,.12);border-color:var(--gold);}
+  .ctl-btn.play{width:46px;height:46px;font-size:17px;border-color:var(--gold);color:var(--gold);}
+
+  .jumpbox{display:flex;align-items:center;gap:6px;}
+  .jumpbox input{
+    width:64px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);
+    color:#f3ede1;padding:5px 8px;border-radius:3px;font-size:12px;
+  }
+  .jumpbox button{font-size:12px;}
+  .right-controls{display:flex;align-items:center;gap:14px;position:absolute;right:22px;}
+
+  #help-overlay{
+    position:absolute;inset:0;background:rgba(0,0,0,.72);display:none;
+    align-items:center;justify-content:center;z-index:5;
+  }
+  #help-overlay .box{
+    background:var(--panel);border:1px solid var(--line);padding:30px 36px;border-radius:2px;max-width:420px;
+  }
+  #help-overlay h2{color:var(--gold);margin-top:0;}
+
+  #toast{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:rgba(0,0,0,.6);color:#f3ede1;padding:10px 22px;border-radius:30px;
+    font-size:14px;letter-spacing:.03em;opacity:0;pointer-events:none;transition:opacity .2s;
+    border:1px solid rgba(255,255,255,.15);max-width:80vw;text-align:center;z-index:6;
+  }
+  #toast.show{opacity:1;}
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+</style>
+</head>
+<body>
+
+<!-- ============ SETUP ============ -->
+<div id="setup">
+  <div class="card">
+    <p class="eyebrow">Slideshow Studio</p>
+    <h1 class="title">Event Slideshow</h1>
+    <p class="subtitle">Add every folder from your event — ceremony, reception, speeches, whatever you shot
+      separately. Folders play in the order you add them, and photos/videos within each folder are sorted by
+      filename — so an earlier folder always finishes before the next one starts, even if filenames overlap.
+      Works beautifully for weddings, birthdays, anniversaries, graduations, corporate events, or any occasion.
+      Stays smooth even at 40–50&nbsp;GB.</p>
+
+    <div class="row">
+      <button class="btn primary" id="addFolderBtn">+ Add Folder</button>
+      <button class="btn" id="addFilesBtn">+ Add Files</button>
+      <button class="btn ghost" id="clearAllBtn">Clear all</button>
+    </div>
+    <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
+    <input type="file" id="filesInput" multiple accept="image/*,video/*" hidden>
+
+    <div id="batches" class="batches"></div>
+    <div id="emptyHint" class="empty-hint">No media added yet — start with “Add Folder”.</div>
+
+    <div class="totals" id="totals" style="display:none;">
+      <div><b id="totalPhotos">0</b> photos</div>
+      <div><b id="totalVideos">0</b> videos</div>
+      <div><b id="totalSize">0 GB</b> total</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="settings">
+      <div class="field">
+        <label for="durationInput">Seconds per photo</label>
+        <input type="number" id="durationInput" min="1" max="60" value="4" step="0.5">
+      </div>
+      <div class="field">
+        <label for="videoModeSelect">Video playback</label>
+        <select id="videoModeSelect">
+          <option value="full">Play full video, then advance</option>
+          <option value="limit">Limit to photo duration above</option>
+        </select>
+      </div>
+    </div>
+    <div class="checkfield">
+      <input type="checkbox" id="loopCheck" checked>
+      <label for="loopCheck">Loop back to the start when it reaches the end</label>
+    </div>
+    <div class="checkfield">
+      <input type="checkbox" id="muteCheck">
+      <label for="muteCheck">Start videos muted</label>
+    </div>
+    <div class="checkfield">
+      <input type="checkbox" id="kenBurnsCheck" checked>
+      <label for="kenBurnsCheck">Slow zoom/pan on photos (Ken Burns effect)</label>
+    </div>
+
+    <!-- ---------- Personalize ---------- -->
+    <div class="section">
+      <h2 class="section-title">Personalize (optional)</h2>
+      <div class="settings">
+        <div class="field">
+          <label for="eventTitleInput">Event title</label>
+          <input type="text" id="eventTitleInput" placeholder="e.g. Sarah &amp; Ahmed, or Ali's 30th Birthday" maxlength="70">
+        </div>
+        <div class="field">
+          <label for="eventSubtitleInput">Subtitle / date</label>
+          <input type="text" id="eventSubtitleInput" placeholder="e.g. 12th October 2026" maxlength="70">
+        </div>
+      </div>
+      <p class="start-hint" style="margin:0;">If set, opens with a title card and closes with a thank-you card.</p>
+    </div>
+
+    <!-- ---------- Background music ---------- -->
+    <div class="section">
+      <h2 class="section-title">Background music (optional)</h2>
+      <div class="row">
+        <button class="btn ghost small" id="addMusicBtn">+ Add Music</button>
+        <button class="btn ghost small" id="removeMusicBtn" style="display:none;">Remove</button>
+        <span class="start-hint" id="musicFileLabel">No track selected</span>
+      </div>
+      <input type="file" id="musicInput" accept="audio/*" hidden>
+      <div class="settings" id="musicSettings" style="display:none;">
+        <div class="field">
+          <label for="musicVolumeInput">Music volume</label>
+          <input type="range" id="musicVolumeInput" min="0" max="100" value="60">
+        </div>
+        <div class="field">
+          <label for="audioModeSelect">Audio mix</label>
+          <select id="audioModeSelect">
+            <option value="music">Background music only</option>
+            <option value="both">Mix music + clip sound</option>
+            <option value="clips">Use original clip sound only</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section shortcuts">
+      <h2 class="section-title">Keyboard shortcuts (during playback)</h2>
+      <div class="kgrid">
+        <div><kbd>Space</kbd> play / pause</div>
+        <div><kbd>→</kbd> / <kbd>D</kbd> next</div>
+        <div><kbd>←</kbd> / <kbd>A</kbd> previous</div>
+        <div><kbd>Home</kbd> / <kbd>End</kbd> first / last</div>
+        <div><kbd>↑</kbd> / <kbd>↓</kbd> volume (video)</div>
+        <div><kbd>M</kbd> mute / unmute</div>
+        <div><kbd>G</kbd> jump to a specific #</div>
+        <div><kbd>F</kbd> toggle fullscreen</div>
+        <div><kbd>Esc</kbd> stop &amp; exit</div>
+        <div><kbd>?</kbd> show this help</div>
+      </div>
+    </div>
+
+    <div class="start-row">
+      <button class="btn primary" id="startBtn" disabled style="font-size:15px;padding:13px 30px;">▶ Start Slideshow</button>
+      <span class="start-hint" id="startHint">Add media to begin</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PLAYER ============ -->
+<div id="player">
+  <div id="stage"></div>
+
+  <div class="overlay top" id="overlayTop">
+    <div class="fname" id="fname"></div>
+    <div class="counter" id="counter"></div>
+  </div>
+
+  <div class="overlay bottom" id="overlayBottom">
+    <div class="track-wrap" id="trackWrap"><div class="track-fill" id="trackFill"></div></div>
+    <div class="shortcut-strip">
+      <span><kbd>Space</kbd> play/pause</span>
+      <span><kbd>←</kbd>/<kbd>→</kbd> prev/next</span>
+      <span><kbd>↑</kbd>/<kbd>↓</kbd> volume</span>
+      <span><kbd>M</kbd> mute</span>
+      <span><kbd>G</kbd> jump to #</span>
+      <span><kbd>Home</kbd>/<kbd>End</kbd> first/last</span>
+      <span><kbd>F</kbd> fullscreen</span>
+      <span><kbd>Esc</kbd> stop</span>
+    </div>
+    <div class="controls-row">
+      <button class="ctl-btn" id="prevBtn" title="Previous (←)">⏮</button>
+      <button class="ctl-btn play" id="playBtn" title="Play/Pause (Space)">⏸</button>
+      <button class="ctl-btn" id="nextBtn" title="Next (→)">⏭</button>
+      <div class="right-controls">
+        <div class="jumpbox">
+          <input type="number" id="jumpInput" min="1" placeholder="#">
+          <button class="btn small ghost" id="jumpBtn">Go</button>
+        </div>
+        <button class="ctl-btn" id="muteBtn" title="Mute/Unmute (M)">🔊</button>
+        <button class="ctl-btn" id="fsBtn" title="Fullscreen (F)">⛶</button>
+        <button class="ctl-btn" id="stopBtn" title="Stop (Esc)">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="help-overlay">
+    <div class="box">
+      <h2>Shortcuts</h2>
+      <div class="kgrid">
+        <div><kbd>Space</kbd> play / pause</div>
+        <div><kbd>→</kbd> next</div>
+        <div><kbd>←</kbd> previous</div>
+        <div><kbd>Home</kbd> first</div>
+        <div><kbd>End</kbd> last</div>
+        <div><kbd>↑ / ↓</kbd> volume</div>
+        <div><kbd>M</kbd> mute / unmute</div>
+        <div><kbd>G</kbd> jump to #</div>
+        <div><kbd>F</kbd> fullscreen</div>
+        <div><kbd>Esc</kbd> stop</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------------- State ----------------
+  let batches = [];        // [{id,name,files:[File,...],photoCount,videoCount,size}]
+  let items = [];          // flat sorted [{file,type,name}]
+  let currentIndex = 0;
+  let isPlaying = false;
+  let videoMode = 'full';
+  let durationMs = 4000;
+  let loop = true;
+  let startMuted = false;
+  let kenBurns = true;
+
+  let eventTitle = '', eventSubtitle = '';
+  let phase = 'show'; // 'intro' | 'show' | 'outro'
+
+  let musicFile = null;
+  let audioModeTouched = false;
+  let audioMode = 'clips';
+  let bgMusicEl = null, bgMusicUrl = null;
+
+  const urlCache = new Map(); // index -> objectURL
+  const CACHE_WINDOW = 2;
+
+  let timerRaf = null, timerStart = 0, timerElapsed = 0, timerDuration = 0, timerRunning = false;
+  let timerOnComplete = null; // always passed explicitly to timerStartFresh(durMs, onComplete)
+
+  let currentStageEl = null; // the currently visible .stage-item wrapper
+
+  // ---------------- DOM refs ----------------
+  const $ = id => document.getElementById(id);
+  const folderInput = $('folderInput'), filesInput = $('filesInput');
+  const batchesEl = $('batches'), emptyHint = $('emptyHint'), totalsEl = $('totals');
+  const totalPhotos = $('totalPhotos'), totalVideos = $('totalVideos'), totalSize = $('totalSize');
+  const startBtn = $('startBtn'), startHint = $('startHint');
+  const durationInput = $('durationInput'), videoModeSelect = $('videoModeSelect');
+  const loopCheck = $('loopCheck'), muteCheck = $('muteCheck'), kenBurnsCheck = $('kenBurnsCheck');
+  const eventTitleInput = $('eventTitleInput'), eventSubtitleInput = $('eventSubtitleInput');
+  const addMusicBtn = $('addMusicBtn'), removeMusicBtn = $('removeMusicBtn'), musicInput = $('musicInput');
+  const musicFileLabel = $('musicFileLabel'), musicSettings = $('musicSettings');
+  const musicVolumeInput = $('musicVolumeInput'), audioModeSelect = $('audioModeSelect');
+
+  const setupEl = $('setup'), playerEl = $('player'), stageEl = $('stage');
+  const fnameEl = $('fname'), counterEl = $('counter');
+  const trackFill = $('trackFill'), trackWrap = $('trackWrap');
+  const playBtn = $('playBtn'), prevBtn = $('prevBtn'), nextBtn = $('nextBtn'), stopBtn = $('stopBtn'), muteBtn = $('muteBtn'), fsBtn = $('fsBtn');
+  const jumpInput = $('jumpInput'), jumpBtn = $('jumpBtn');
+  const helpOverlay = $('help-overlay');
+  const toastEl = $('toast');
+  let uiHideTimer = null;
+
+  // ---------------- Natural sort ----------------
+  const collator = new Intl.Collator(undefined, {numeric:true, sensitivity:'base'});
+  function naturalSort(a,b){ return collator.compare(a.name,b.name); }
+
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // ---------------- Batch handling ----------------
+  let batchSeq = 0;
+  function addBatch(fileList, label){
+    const files = Array.from(fileList).filter(f => f.type.startsWith('image/') || f.type.startsWith('video/'));
+    if(files.length === 0) return;
+    let photoCount=0, videoCount=0, size=0;
+    files.forEach(f=>{
+      if(f.type.startsWith('image/')) photoCount++; else videoCount++;
+      size += f.size;
+    });
+    batches.push({id: ++batchSeq, name: label, files, photoCount, videoCount, size});
+    renderBatches();
+    rebuildItems();
+  }
+
+  function removeBatch(id){
+    batches = batches.filter(b=>b.id !== id);
+    renderBatches();
+    rebuildItems();
+  }
+
+  function fmtSize(bytes){
+    if(bytes < 1024**2) return (bytes/1024).toFixed(0)+' KB';
+    if(bytes < 1024**3) return (bytes/1024**2).toFixed(1)+' MB';
+    return (bytes/1024**3).toFixed(2)+' GB';
+  }
+
+  function renderBatches(){
+    batchesEl.innerHTML = '';
+    batches.forEach(b=>{
+      const row = document.createElement('div');
+      row.className = 'batch';
+      row.innerHTML = `<div><div class="name">${escapeHtml(b.name)}</div>
+        <div class="meta">${b.photoCount} photos · ${b.videoCount} videos · ${fmtSize(b.size)}</div></div>
+        <button class="remove" data-id="${b.id}" title="Remove">✕</button>`;
+      row.querySelector('.remove').addEventListener('click', ()=>removeBatch(b.id));
+      batchesEl.appendChild(row);
+    });
+    emptyHint.style.display = batches.length ? 'none' : 'block';
+  }
+
+  function rebuildItems(){
+    const all = [];
+    batches.forEach(b=>{
+      const batchItems = b.files.map(f=>({file:f, type: f.type.startsWith('video/')?'video':'image', name:f.name}));
+      batchItems.sort(naturalSort);   // sort WITHIN this folder/batch only
+      all.push(...batchItems);        // batches stay in the order they were added
+    });
+    items = all;
+
+    let p=0,v=0,size=0;
+    items.forEach(it=>{ if(it.type==='image') p++; else v++; size+=it.file.size; });
+    if(items.length){
+      totalsEl.style.display='flex';
+      totalPhotos.textContent = p;
+      totalVideos.textContent = v;
+      totalSize.textContent = fmtSize(size);
+      startBtn.disabled = false;
+      startHint.textContent = items.length + ' items ready — folder order preserved, sorted by name within each';
+    } else {
+      totalsEl.style.display='none';
+      startBtn.disabled = true;
+      startHint.textContent = 'Add media to begin';
+    }
+  }
+
+  $('addFolderBtn').addEventListener('click', ()=>folderInput.click());
+  $('addFilesBtn').addEventListener('click', ()=>filesInput.click());
+  $('clearAllBtn').addEventListener('click', ()=>{ batches=[]; renderBatches(); rebuildItems(); });
+
+  folderInput.addEventListener('change', e=>{
+    if(!e.target.files.length) return;
+    const first = e.target.files[0];
+    const label = first.webkitRelativePath ? first.webkitRelativePath.split('/')[0] : 'Folder';
+    addBatch(e.target.files, label);
+    folderInput.value = '';
+  });
+  filesInput.addEventListener('change', e=>{
+    if(!e.target.files.length) return;
+    addBatch(e.target.files, e.target.files.length + ' file(s)');
+    filesInput.value = '';
+  });
+
+  // ---------------- Background music (setup) ----------------
+  addMusicBtn.addEventListener('click', ()=>musicInput.click());
+  musicInput.addEventListener('change', e=>{
+    musicFile = e.target.files[0] || null;
+    if(musicFile){
+      musicFileLabel.textContent = musicFile.name;
+      musicSettings.style.display = 'grid';
+      removeMusicBtn.style.display = 'inline-flex';
+      if(!audioModeTouched) audioModeSelect.value = 'music';
+    }
+  });
+  removeMusicBtn.addEventListener('click', ()=>{
+    musicFile = null;
+    musicInput.value = '';
+    musicFileLabel.textContent = 'No track selected';
+    musicSettings.style.display = 'none';
+    removeMusicBtn.style.display = 'none';
+    audioModeTouched = false;
+    audioModeSelect.value = 'clips';
+  });
+  audioModeSelect.addEventListener('change', ()=>{ audioModeTouched = true; });
+
+  function setupBgMusic(){
+    teardownBgMusic();
+    if(!musicFile || audioMode === 'clips') return;
+    bgMusicUrl = URL.createObjectURL(musicFile);
+    bgMusicEl = new Audio(bgMusicUrl);
+    bgMusicEl.loop = true;
+    bgMusicEl.volume = Math.min(1, Math.max(0, (parseInt(musicVolumeInput.value,10) || 60) / 100));
+  }
+  function teardownBgMusic(){
+    if(bgMusicEl){
+      bgMusicEl.pause();
+      bgMusicEl.src = '';
+    }
+    if(bgMusicUrl){ URL.revokeObjectURL(bgMusicUrl); }
+    bgMusicEl = null;
+    bgMusicUrl = null;
+  }
+
+  // ---------------- Start ----------------
+  startBtn.addEventListener('click', ()=>{
+    durationMs = Math.max(1, parseFloat(durationInput.value)||4) * 1000;
+    videoMode = videoModeSelect.value;
+    loop = loopCheck.checked;
+    startMuted = muteCheck.checked;
+    kenBurns = kenBurnsCheck.checked;
+    eventTitle = eventTitleInput.value.trim();
+    eventSubtitle = eventSubtitleInput.value.trim();
+    audioMode = audioModeSelect.value;
+
+    setupBgMusic();
+
+    currentIndex = 0;
+    setupEl.style.display = 'none';
+    playerEl.style.display = 'flex';
+    const el = document.documentElement;
+    (el.requestFullscreen && el.requestFullscreen().catch(()=>{}));
+    isPlaying = true;
+    if(bgMusicEl) bgMusicEl.play().catch(()=>{});
+
+    if(eventTitle){
+      phase = 'intro';
+      showTitleCard(eventTitle, eventSubtitle, 4000, ()=>{ phase='show'; showItem(0); });
+    } else {
+      phase = 'show';
+      showItem(0);
+    }
+    scheduleUiHide();
+  });
+
+  // ---------------- Object URL cache ----------------
+  function getUrl(index){
+    if(index<0 || index>=items.length) return null;
+    if(urlCache.has(index)) return urlCache.get(index);
+    const url = URL.createObjectURL(items[index].file);
+    urlCache.set(index, url);
+    return url;
+  }
+  function cleanupCache(centerIndex){
+    for(const [idx,url] of urlCache){
+      if(Math.abs(idx-centerIndex) > CACHE_WINDOW){
+        URL.revokeObjectURL(url);
+        urlCache.delete(idx);
+      }
+    }
+  }
+
+  // ---------------- Timer (drives image/title duration & optional video cap) ----------------
+  function timerTick(ts){
+    if(!timerRunning) return;
+    const elapsed = timerElapsed + (ts - timerStart);
+    const pct = Math.min(1, elapsed/timerDuration);
+    trackFill.style.width = (pct*100)+'%';
+    if(pct >= 1){
+      timerRunning = false;
+      const cb = timerOnComplete;
+      timerOnComplete = null;
+      if(cb) cb();
+      return;
+    }
+    timerRaf = requestAnimationFrame(timerTick);
+  }
+  // onComplete is required (defaults to goNext) — always set explicitly here
+  // rather than relying on whatever the previous timer happened to leave behind.
+  function timerStartFresh(durMs, onComplete){
+    cancelAnimationFrame(timerRaf);
+    timerDuration = durMs; timerElapsed = 0; timerStart = performance.now();
+    timerRunning = true;
+    timerOnComplete = onComplete || goNext;
+    timerRaf = requestAnimationFrame(timerTick);
+  }
+  function timerPause(){
+    if(!timerRunning) return;
+    timerElapsed += performance.now() - timerStart;
+    timerRunning = false;
+    cancelAnimationFrame(timerRaf);
+  }
+  function timerResume(){
+    if(timerRunning || timerDuration===0) return;
+    timerStart = performance.now();
+    timerRunning = true;
+    timerRaf = requestAnimationFrame(timerTick);
+  }
+  function timerStop(){
+    cancelAnimationFrame(timerRaf);
+    timerRunning = false; timerElapsed = 0; timerDuration = 0;
+    trackFill.style.width = '0%';
+  }
+
+  // ---------------- Stage / crossfade ----------------
+  function pushStageElement(innerEl){
+    const wrap = document.createElement('div');
+    wrap.className = 'stage-item';
+    wrap.appendChild(innerEl);
+    stageEl.appendChild(wrap);
+    const prev = currentStageEl;
+    void wrap.offsetWidth; // force reflow so the opacity transition runs
+    requestAnimationFrame(()=>{
+      wrap.classList.add('active');
+      if(prev) prev.classList.remove('active');
+    });
+    currentStageEl = wrap;
+    if(prev){
+      setTimeout(()=>clearStageEl(prev), 750);
+    }
+    return wrap;
+  }
+  function clearStageEl(el){
+    if(!el) return;
+    const vid = el.querySelector && el.querySelector('video');
+    if(vid){ try{ vid.pause(); vid.src=''; vid.load(); }catch(e){} }
+    if(el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  // ---------------- Title / closing cards ----------------
+  function showTitleCard(headline, sub, durMs, onDone){
+    timerStop();
+    const el = document.createElement('div');
+    el.className = 'titlecard';
+    el.innerHTML = '<div class="tc-eyebrow">✦</div><h2 class="serif">'+escapeHtml(headline)+'</h2>' +
+      (sub ? '<hr class="tc-divider"><div class="tc-sub">'+escapeHtml(sub)+'</div>' : '');
+    pushStageElement(el);
+    fnameEl.textContent = headline;
+    counterEl.textContent = '';
+    updatePlayBtn();
+    updateMuteBtn();
+    if(isPlaying){
+      timerStartFresh(durMs, onDone);
+    }
+  }
+
+  function enterOutro(){
+    phase = 'outro';
+    const headline = eventTitle ? 'Thank You' : 'Thank You For Watching';
+    const sub = eventTitle ? (eventTitle + (eventSubtitle ? ' · ' + eventSubtitle : '')) : '';
+    showTitleCard(headline, sub, 5000, ()=>{ timerStop(); pause(); });
+  }
+
+  // ---------------- Show item ----------------
+  function showItem(index){
+    if(items.length === 0) return;
+    if(index < 0) index = loop ? items.length-1 : 0;
+    if(index >= items.length){
+      if(loop){ index = 0; } else { enterOutro(); return; }
+    }
+    phase = 'show';
+    currentIndex = index;
+    timerStop();
+    const item = items[index];
+    const url = getUrl(index);
+
+    if(item.type === 'image'){
+      const img = document.createElement('img');
+      img.src = url;
+      if(kenBurns){
+        img.className = 'kb-anim ' + (Math.random() < 0.5 ? 'kb1' : 'kb2');
+        img.style.animationDuration = Math.max(durationMs, 1000) + 'ms';
+      }
+      pushStageElement(img);
+      if(isPlaying) timerStartFresh(durationMs);
+    } else {
+      const vid = document.createElement('video');
+      vid.src = url;
+      vid.muted = (audioMode === 'music') ? true : startMuted;
+      vid.playsInline = true;
+      vid.addEventListener('timeupdate', ()=>{
+        if(vid.duration) trackFill.style.width = ((vid.currentTime/vid.duration)*100)+'%';
+      });
+      vid.addEventListener('ended', ()=>{ if(isPlaying) goNext(); });
+      vid.addEventListener('error', ()=>{
+        showUnplayableNotice(item.name);
+        if(isPlaying) setTimeout(()=>{ if(currentIndex===index) goNext(); }, 1800);
+      });
+      pushStageElement(vid);
+      if(isPlaying) vid.play().catch(()=>{
+        showUnplayableNotice(item.name);
+        if(isPlaying) setTimeout(()=>{ if(currentIndex===index) goNext(); }, 1800);
+      });
+      if(videoMode === 'limit') timerStartFresh(durationMs);
+    }
+
+    fnameEl.textContent = item.name;
+    counterEl.textContent = (index+1) + ' / ' + items.length + '  ·  ' + item.type;
+    updatePlayBtn();
+    updateMuteBtn();
+    preloadNeighbors(index);
+    cleanupCache(index);
+  }
+
+  function preloadNeighbors(index){
+    getUrl(index+1);
+    getUrl(index-1);
+  }
+
+  function currentVideoEl(){
+    return currentStageEl ? currentStageEl.querySelector('video') : null;
+  }
+
+  // ---------------- Transport ----------------
+  function goNext(){
+    if(phase === 'intro'){ timerStop(); phase='show'; showItem(0); return; }
+    if(phase === 'outro'){ return; }
+    showItem(currentIndex+1);
+  }
+  function goPrev(){
+    if(phase !== 'show') return;
+    showItem(currentIndex-1);
+  }
+
+  function play(){
+    isPlaying = true;
+    const v = currentVideoEl();
+    if(v){ v.play().catch(()=>{}); if(videoMode==='limit') timerResume(); }
+    else timerResume();
+    if(bgMusicEl) bgMusicEl.play().catch(()=>{});
+    updatePlayBtn();
+  }
+  function pause(){
+    isPlaying = false;
+    const v = currentVideoEl();
+    if(v) v.pause();
+    timerPause();
+    if(bgMusicEl) bgMusicEl.pause();
+    updatePlayBtn();
+  }
+  function togglePlay(){ isPlaying ? pause() : play(); }
+  function updatePlayBtn(){ playBtn.textContent = isPlaying ? '⏸' : '▶'; }
+
+  function toggleMute(){
+    const v = currentVideoEl();
+    startMuted = v ? !v.muted : !startMuted; // remember choice for the next videos too
+    if(v){ v.muted = startMuted; if(!startMuted && v.volume===0) v.volume = 1; }
+    updateMuteBtn();
+    showToast(startMuted ? 'Muted' : 'Unmuted');
+  }
+  function updateMuteBtn(){
+    const v = currentVideoEl();
+    const muted = v ? v.muted : startMuted;
+    muteBtn.textContent = muted ? '🔇' : '🔊';
+    muteBtn.style.display = v ? 'flex' : 'none';
+  }
+
+  function toggleFullscreen(){
+    if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+    else document.documentElement.requestFullscreen().catch(()=>{
+      showToast("Fullscreen isn't available here");
+    });
+  }
+  function updateFsBtn(){
+    const isFs = !!document.fullscreenElement;
+    fsBtn.textContent = isFs ? '⤦' : '⛶';
+    fsBtn.title = isFs ? 'Exit fullscreen (F)' : 'Fullscreen (F)';
+  }
+
+  function stopSlideshow(){
+    pause();
+    urlCache.forEach(u=>URL.revokeObjectURL(u));
+    urlCache.clear();
+    if(currentStageEl){ clearStageEl(currentStageEl); currentStageEl = null; }
+    stageEl.innerHTML = '';
+    teardownBgMusic();
+    phase = 'show';
+    playerEl.style.display = 'none';
+    setupEl.style.display = 'flex';
+    if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  }
+
+  function jumpTo(oneBasedIndex){
+    if(phase !== 'show'){ phase = 'show'; }
+    const idx = Math.min(Math.max(1, oneBasedIndex), items.length) - 1;
+    showItem(idx);
+    showToast('Jumped to #' + (idx+1));
+  }
+
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>toastEl.classList.remove('show'), 900);
+  }
+
+  function showUnplayableNotice(name){
+    toastEl.textContent = "Can't play " + name + " — unsupported codec (likely HEVC/H.265). Skipping…";
+    toastEl.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>toastEl.classList.remove('show'), 1700);
+  }
+
+  // ---------------- Controls wiring ----------------
+  playBtn.addEventListener('click', togglePlay);
+  nextBtn.addEventListener('click', goNext);
+  prevBtn.addEventListener('click', goPrev);
+  stopBtn.addEventListener('click', stopSlideshow);
+  muteBtn.addEventListener('click', toggleMute);
+  fsBtn.addEventListener('click', toggleFullscreen);
+  jumpBtn.addEventListener('click', ()=>{
+    const n = parseInt(jumpInput.value,10);
+    if(!isNaN(n)) jumpTo(n);
+  });
+  jumpInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ jumpBtn.click(); } e.stopPropagation(); });
+
+  trackWrap.addEventListener('click', e=>{
+    if(phase !== 'show') return;
+    const rect = trackWrap.getBoundingClientRect();
+    const pct = (e.clientX - rect.left)/rect.width;
+    const idx = Math.min(items.length-1, Math.max(0, Math.floor(pct*items.length)));
+    showItem(idx);
+  });
+
+  // ---------------- Auto-hide overlay ----------------
+  function scheduleUiHide(){
+    playerEl.classList.remove('hidden-ui');
+    clearTimeout(uiHideTimer);
+    uiHideTimer = setTimeout(()=>playerEl.classList.add('hidden-ui'), 3000);
+  }
+  playerEl.addEventListener('mousemove', scheduleUiHide);
+  playerEl.addEventListener('click', scheduleUiHide);
+
+  // ---------------- Keyboard shortcuts ----------------
+  document.addEventListener('keydown', e=>{
+    if(playerEl.style.display !== 'flex') return;
+    if(document.activeElement === jumpInput) return;
+    scheduleUiHide();
+    switch(e.key){
+      case ' ':
+        e.preventDefault(); togglePlay(); break;
+      case 'ArrowRight': case 'd': case 'D':
+        goNext(); break;
+      case 'ArrowLeft': case 'a': case 'A':
+        goPrev(); break;
+      case 'Home':
+        if(phase === 'show') showItem(0); break;
+      case 'End':
+        if(phase === 'show') showItem(items.length-1); break;
+      case 'ArrowUp': {
+        const v = currentVideoEl(); if(v){ v.muted=false; v.volume = Math.min(1, v.volume+0.1); startMuted=false; updateMuteBtn(); showToast('Volume '+Math.round(v.volume*100)+'%'); }
+        break; }
+      case 'ArrowDown': {
+        const v = currentVideoEl(); if(v){ v.volume = Math.max(0, v.volume-0.1); if(v.volume===0){ v.muted=true; startMuted=true; } updateMuteBtn(); showToast('Volume '+Math.round(v.volume*100)+'%'); }
+        break; }
+      case 'g': case 'G':
+        if(phase === 'show'){ jumpInput.focus(); jumpInput.select(); } break;
+      case 'm': case 'M':
+        toggleMute(); break;
+      case 'f': case 'F':
+        toggleFullscreen();
+        break;
+      case '?':
+        helpOverlay.style.display = helpOverlay.style.display==='flex' ? 'none':'flex'; break;
+      case 'Escape':
+        helpOverlay.style.display = 'none';
+        stopSlideshow(); break;
+    }
+  });
+
+  document.addEventListener('fullscreenchange', ()=>{
+    updateFsBtn();
+    if(!document.fullscreenElement && playerEl.style.display==='flex'){
+      // Browser exited fullscreen (e.g. Esc swallowed before our keydown handler
+      // ran) without stopping the slideshow — keep playing windowed, and let the
+      // visible fullscreen button (or F) bring it back.
+      showToast('Fullscreen exited — press ⛶ or F to re-enter');
+    }
+  });
+
+  window.addEventListener('beforeunload', ()=>{
+    urlCache.forEach(u=>URL.revokeObjectURL(u));
+    teardownBgMusic();
+  });
+
+  updateFsBtn();
+
+})();
+</script>
+</body>
+</html>

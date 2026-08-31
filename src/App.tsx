@@ -24,6 +24,7 @@ import BackgroundRemover from './pages/Tools/BackgroundRemover';
 import VideoToGifMaker from './pages/Tools/VideoToGifMaker';
 
 import GifViewer from './pages/Tools/GifViewer';
+import EventSlideshow from './pages/Tools/EventSlideshow';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import AboutUs from './pages/AboutUs';
@@ -67,6 +68,7 @@ export default function App() {
         <Route path="/tools/background-remover" element={<BackgroundRemover />} />
         <Route path="/tools/audio-merger" element={<AudioMerger />} />
         <Route path="/tools/pdf-merger" element={<PDFMerger />} />
+        <Route path="/tools/event-slideshow" element={<EventSlideshow />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/about" element={<AboutUs />} />

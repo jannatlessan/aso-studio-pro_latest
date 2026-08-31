@@ -24,7 +24,8 @@ import {
   Youtube,
   Search,
   Wand2,
-  Layers
+  Layers,
+  Heart
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
@@ -232,6 +233,15 @@ const tools = [
     path: "/tools/pdf-merger",
     status: "Ready",
     actionLabel: "Open Tool"
+  },
+  {
+    id: "EVT-001",
+    name: "Event Slideshow",
+    description: "Turn your event folders into a full-screen slideshow with crossfade transitions, slow zoom/pan on photos, background music, and title cards. Works for weddings, birthdays, or any occasion.",
+    icon: Heart,
+    path: "/tools/event-slideshow",
+    status: "New",
+    actionLabel: "Open Tool"
   }
 ];
 
@@ -245,7 +255,7 @@ export default function ToolsList() {
   const categories = useMemo(() => {
     const cats = new Set<string>();
     tools.forEach(tool => {
-      if (tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut')) cats.add('Images & Media');
+      if (tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut') || tool.name.includes('Slideshow')) cats.add('Images & Media');
       else if (tool.name.includes('PDF') || tool.name.includes('Audio')) cats.add('Documents & Audio');
       else if (tool.name.includes('Color') || tool.name.includes('CSS') || tool.name.includes('Screenshot') || tool.name.includes('Gradient')) cats.add('Design');
       else if (tool.name.includes('JSON') || tool.name.includes('Code') || tool.name.includes('Markdown')) cats.add('Development');
@@ -264,7 +274,7 @@ export default function ToolsList() {
       
       let matchesCategory = true;
       if (selectedCategory) {
-        if (selectedCategory === 'Images & Media') matchesCategory = tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut');
+        if (selectedCategory === 'Images & Media') matchesCategory = tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut') || tool.name.includes('Slideshow');
         else if (selectedCategory === 'Documents & Audio') matchesCategory = tool.name.includes('PDF') || tool.name.includes('Audio');
         else if (selectedCategory === 'Design') matchesCategory = tool.name.includes('Color') || tool.name.includes('CSS') || tool.name.includes('Screenshot') || tool.name.includes('Gradient');
         else if (selectedCategory === 'Development') matchesCategory = tool.name.includes('JSON') || tool.name.includes('Code') || tool.name.includes('Markdown');
