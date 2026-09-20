@@ -884,10 +884,7 @@
   }
 
   function showUnplayableNotice(name){
-    toastEl.textContent = "Can't play " + name + " — unsupported codec (likely HEVC/H.265). Skipping…";
-    toastEl.classList.add('show');
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(()=>toastEl.classList.remove('show'), 1700);
+    // Suppressed: do not show any unplayable error notices on screen
   }
 
   // ---------------- Controls wiring ----------------
