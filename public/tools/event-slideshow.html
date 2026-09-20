@@ -186,10 +186,11 @@
   #help-overlay h2{color:var(--gold);margin-top:0;}
 
   #toast{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    background:rgba(0,0,0,.6);color:#f3ede1;padding:10px 22px;border-radius:30px;
-    font-size:14px;letter-spacing:.03em;opacity:0;pointer-events:none;transition:opacity .2s;
-    border:1px solid rgba(255,255,255,.15);max-width:80vw;text-align:center;z-index:6;
+    position:absolute;top:70px;left:50%;transform:translateX(-50%);
+    background:rgba(15,13,10,.85);backdrop-filter:blur(10px);color:#f3ede1;padding:8px 20px;border-radius:30px;
+    font-size:13px;letter-spacing:.03em;opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
+    border:1px solid rgba(255,255,255,.18);max-width:80vw;text-align:center;z-index:6;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
   }
   #toast.show{opacity:1;}
 
@@ -707,6 +708,7 @@
     if(index >= items.length){
       if(loop){ index = 0; } else { enterOutro(); return; }
     }
+    hideToast();
     phase = 'show';
     currentIndex = index;
     timerStop();
@@ -731,15 +733,36 @@
         if(vid.duration) trackFill.style.width = ((vid.currentTime/vid.duration)*100)+'%';
       });
       vid.addEventListener('ended', ()=>{ if(isPlaying) goNext(); });
-      vid.addEventListener('error', ()=>{
+
+      let hasError = false;
+      const handleVidError = () => {
+        if(hasError) return;
+        hasError = true;
         showUnplayableNotice(item.name);
         if(isPlaying) setTimeout(()=>{ if(currentIndex===index) goNext(); }, 1800);
-      });
+      };
+
+      vid.addEventListener('error', handleVidError);
       pushStageElement(vid);
-      if(isPlaying) vid.play().catch(()=>{
-        showUnplayableNotice(item.name);
-        if(isPlaying) setTimeout(()=>{ if(currentIndex===index) goNext(); }, 1800);
-      });
+      if(isPlaying) {
+        const p = vid.play();
+        if(p && p.catch){
+          p.catch(err => {
+            if(err && err.name === 'NotAllowedError'){
+              // Autoplay with audio was blocked by browser. Mute video & retry silently.
+              vid.muted = true;
+              updateMuteBtn();
+              vid.play().catch(()=>{
+                if(vid.error) handleVidError();
+              });
+            } else if(err && err.name === 'AbortError'){
+              // Playback request interrupted by transition or pause; ignore.
+            } else if(vid.error){
+              handleVidError();
+            }
+          });
+        }
+      }
       if(videoMode === 'limit') timerStartFresh(durationMs);
     }
 
@@ -774,7 +797,19 @@
   function play(){
     isPlaying = true;
     const v = currentVideoEl();
-    if(v){ v.play().catch(()=>{}); if(videoMode==='limit') timerResume(); }
+    if(v){
+      const p = v.play();
+      if(p && p.catch){
+        p.catch(err => {
+          if(err && err.name === 'NotAllowedError'){
+            v.muted = true;
+            updateMuteBtn();
+            v.play().catch(()=>{});
+          }
+        });
+      }
+      if(videoMode==='limit') timerResume();
+    }
     else timerResume();
     if(bgMusicEl) bgMusicEl.play().catch(()=>{});
     updatePlayBtn();
@@ -834,6 +869,11 @@
     const idx = Math.min(Math.max(1, oneBasedIndex), items.length) - 1;
     showItem(idx);
     showToast('Jumped to #' + (idx+1));
+  }
+
+  function hideToast(){
+    clearTimeout(showToast._t);
+    toastEl.classList.remove('show');
   }
 
   function showToast(msg){
