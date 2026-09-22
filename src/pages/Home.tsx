@@ -401,6 +401,33 @@ export default function Home() {
                 </div>
                 <div className="text-[11px] font-semibold text-white/80">45+ happy clients</div>
               </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, rotate: 6 }}
+                animate={{ opacity: 1, scale: 1, rotate: 4 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="absolute -top-6 -left-6 rounded-2xl border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-4 py-3 shadow-xl shadow-black/40"
+              >
+                <div className="text-lg font-bold text-primary-light leading-none">120+</div>
+                <div className="text-[11px] font-semibold text-white/70 mt-1 whitespace-nowrap">Systems shipped</div>
+              </motion.div>
+
+              <div className="absolute top-[32%] -right-7 space-y-2.5 hidden md:block">
+                {['Mobile Apps', 'Web Platforms', 'AI Tooling'].map((label, i) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, x: 14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.75 + i * 0.1, duration: 0.5 }}
+                    className="rounded-full border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-3.5 py-1.5 shadow-lg shadow-black/40 flex items-center gap-1.5"
+                    style={{ marginLeft: `${i * 12}px` }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0" />
+                    <span className="text-[11px] font-semibold text-white/75 whitespace-nowrap">{label}</span>
+                  </motion.div>
+                ))}
+              </div>
+
               <div className="absolute -bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-5 py-4 shadow-xl shadow-black/40">
                 <div className="text-sm font-semibold text-white">{profileData.name}</div>
                 <div className="text-xs text-white/50 mt-0.5">{profileData.role}</div>

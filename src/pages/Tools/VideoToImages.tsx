@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
 import JSZip from 'jszip';
 import {
-  Images, Download, Upload, ChevronLeft, RefreshCcw,
+  Images, Download, Upload, ChevronLeft, ChevronRight, RefreshCcw,
   ShieldCheck, Loader2, Settings2, SkipForward, Maximize,
   SlidersHorizontal, CheckCircle2, Sparkles, Gauge, FileBox,
-  Archive, Grid3x3, XCircle, Camera, Package
+  Archive, Grid3x3, XCircle, Camera, Package, X, Expand
 } from 'lucide-react';
 import { useToolNavigation } from '../../hooks/useToolNavigation';
 import Footer from '../../components/Footer';
@@ -44,6 +44,7 @@ export default function VideoToImages() {
   const [extractProgress, setExtractProgress] = useState({ current: 0, total: 0 });
   const [zipping, setZipping] = useState(false);
   const [zipProgress, setZipProgress] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Settings
   const [ratePreset, setRatePreset] = useState<RatePreset>('standard');
@@ -75,6 +76,23 @@ export default function VideoToImages() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Keyboard controls for the fullscreen lightbox
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxIndex(null);
+      else if (e.key === 'ArrowRight') setLightboxIndex((i) => (i === null ? i : Math.min(i + 1, frames.length - 1)));
+      else if (e.key === 'ArrowLeft') setLightboxIndex((i) => (i === null ? i : Math.max(i - 1, 0)));
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [lightboxIndex, frames.length]);
 
   const estimatedFrames = videoMeta ? Math.max(0, Math.floor((endTime - startTime) * fps)) : 0;
   const exceedsCap = estimatedFrames > MAX_FRAMES;
@@ -155,6 +173,7 @@ export default function VideoToImages() {
     cancelRef.current = false;
     setErrorMsg('');
     setProcessState('processing');
+    setLightboxIndex(null);
 
     framesRef.current.forEach(f => URL.revokeObjectURL(f.url));
     setFrames([]);
@@ -245,6 +264,7 @@ export default function VideoToImages() {
     setFrames([]);
     setProcessState('idle');
     setErrorMsg('');
+    setLightboxIndex(null);
     setExtractProgress({ current: 0, total: 0 });
     setRatePreset('standard');
     setFps(5);
@@ -423,20 +443,34 @@ export default function VideoToImages() {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                       {frames.map((frame) => (
-                        <div key={frame.index} className="relative group rounded-xl overflow-hidden border border-black/10 bg-black aspect-video">
+                        <button
+                          key={frame.index}
+                          type="button"
+                          onClick={() => setLightboxIndex(frame.index)}
+                          className="relative group rounded-xl overflow-hidden border border-black/10 bg-black aspect-video text-left cursor-zoom-in"
+                        >
                           <img src={frame.url} alt={`Frame ${frame.index + 1}`} className="w-full h-full object-cover" loading="lazy" />
                           <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
                             <span className="text-[10px] font-mono text-white/70">{frame.time.toFixed(2)}s</span>
-                            <a
-                              href={frame.url}
-                              download={`${sanitizeName(exportName)}-${padIndex(frame.index + 1)}.${ext}`}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-dark hover:bg-[#048532] text-white rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors"
-                            >
-                              <Download className="w-3 h-3" /> Save
-                            </a>
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                onClick={(e) => { e.stopPropagation(); setLightboxIndex(frame.index); }}
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors"
+                              >
+                                <Expand className="w-3 h-3" /> View
+                              </span>
+                              <a
+                                href={frame.url}
+                                download={`${sanitizeName(exportName)}-${padIndex(frame.index + 1)}.${ext}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-primary-dark hover:bg-[#048532] text-white rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors"
+                              >
+                                <Download className="w-3 h-3" /> Save
+                              </a>
+                            </div>
                           </div>
                           <span className="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-black/70 text-[9px] font-mono text-white/60">#{frame.index + 1}</span>
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -616,6 +650,66 @@ export default function VideoToImages() {
             </div>
           )}
         </main>
+
+        {/* Fullscreen single-frame lightbox */}
+        {lightboxIndex !== null && frames[lightboxIndex] && (
+          <div
+            className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-sm flex flex-col animate-in fade-in duration-200"
+            onClick={() => setLightboxIndex(null)}
+          >
+            <div className="flex items-center justify-between px-4 sm:px-8 py-4 text-white shrink-0" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center gap-3">
+                <span className="px-2.5 py-1 rounded-full bg-white/10 text-xs font-mono font-bold">
+                  {lightboxIndex + 1} / {frames.length}
+                </span>
+                <span className="text-xs font-mono text-white/50">{frames[lightboxIndex].time.toFixed(2)}s</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href={frames[lightboxIndex].url}
+                  download={`${sanitizeName(exportName)}-${padIndex(frames[lightboxIndex].index + 1)}.${ext}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary-dark hover:bg-[#048532] text-white rounded-full text-xs font-bold uppercase tracking-widest transition-colors"
+                >
+                  <Download className="w-3.5 h-3.5" /> Save Image
+                </a>
+                <button
+                  onClick={() => setLightboxIndex(null)}
+                  aria-label="Close fullscreen preview"
+                  className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="relative flex-1 flex items-center justify-center px-4 sm:px-16 pb-6 min-h-0" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={frames[lightboxIndex].url}
+                alt={`Frame ${frames[lightboxIndex].index + 1} full preview`}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              />
+
+              {lightboxIndex > 0 && (
+                <button
+                  onClick={() => setLightboxIndex((i) => (i !== null ? i - 1 : i))}
+                  aria-label="Previous frame"
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+              )}
+              {lightboxIndex < frames.length - 1 && (
+                <button
+                  onClick={() => setLightboxIndex((i) => (i !== null ? i + 1 : i))}
+                  aria-label="Next frame"
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
 
         <canvas ref={canvasRef} className="hidden"></canvas>
         <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="video/mp4,video/webm,video/quicktime,video/x-m4v" className="hidden" />
