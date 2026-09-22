@@ -31,7 +31,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="fixed top-0 inset-x-0 z-50 border-b border-black/[0.06] bg-white/85 backdrop-blur-xl">
+      <nav className="fixed top-0 inset-x-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)]">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 shrink-0">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20" style={{ background: GRADIENT }}>

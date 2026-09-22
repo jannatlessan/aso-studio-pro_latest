@@ -380,57 +380,68 @@ export default function Home() {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative mx-auto w-full max-w-[420px]"
+              className="relative mx-auto w-full max-w-[480px]"
             >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50 bg-[#0F1210]">
-                <img
-                  src={RIZWAN_ULTRA_IMAGE_URL}
-                  alt={`${profileData.name} portrait`}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              </div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotate: -6 }}
-                animate={{ opacity: 1, scale: 1, rotate: -4 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="absolute -top-5 -right-5 rounded-2xl border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-4 py-3 shadow-xl shadow-black/40"
-              >
-                <div className="flex items-center gap-1 text-amber-400 mb-0.5">
-                  {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-2.5 h-2.5 fill-current" />)}
-                </div>
-                <div className="text-[11px] font-semibold text-white/80">45+ happy clients</div>
-              </motion.div>
+              {/* Stage panel — everything lives inside one contained card, like a product mockup frame */}
+              <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.03] p-4 sm:p-5 shadow-2xl shadow-black/50 overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.06] pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotate: 6 }}
-                animate={{ opacity: 1, scale: 1, rotate: 4 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
-                className="absolute -top-6 -left-6 rounded-2xl border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-4 py-3 shadow-xl shadow-black/40"
-              >
-                <div className="text-lg font-bold text-primary-light leading-none">120+</div>
-                <div className="text-[11px] font-semibold text-white/70 mt-1 whitespace-nowrap">Systems shipped</div>
-              </motion.div>
-
-              <div className="absolute top-[32%] -right-7 space-y-2.5 hidden md:block">
-                {['Mobile Apps', 'Web Platforms', 'AI Tooling'].map((label, i) => (
+                <div className="relative flex items-start justify-between gap-3 mb-3">
                   <motion.div
-                    key={label}
-                    initial={{ opacity: 0, x: 14 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.75 + i * 0.1, duration: 0.5 }}
-                    className="rounded-full border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-3.5 py-1.5 shadow-lg shadow-black/40 flex items-center gap-1.5"
-                    style={{ marginLeft: `${i * 12}px` }}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.5 }}
+                    className="rounded-2xl border border-white/10 bg-[#141814] px-4 py-3 shadow-lg shadow-black/30"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0" />
-                    <span className="text-[11px] font-semibold text-white/75 whitespace-nowrap">{label}</span>
+                    <div className="text-lg font-bold text-primary-light leading-none">120+</div>
+                    <div className="text-[11px] font-semibold text-white/70 mt-1 whitespace-nowrap">Systems shipped</div>
                   </motion.div>
-                ))}
-              </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                    className="rounded-2xl border border-white/10 bg-[#141814] px-4 py-3 shadow-lg shadow-black/30"
+                  >
+                    <div className="flex items-center gap-1 text-amber-400 mb-0.5">
+                      {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-2.5 h-2.5 fill-current" />)}
+                    </div>
+                    <div className="text-[11px] font-semibold text-white/80 whitespace-nowrap">45+ happy clients</div>
+                  </motion.div>
+                </div>
 
-              <div className="absolute -bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-[#0F1210]/95 backdrop-blur-xl px-5 py-4 shadow-xl shadow-black/40">
-                <div className="text-sm font-semibold text-white">{profileData.name}</div>
-                <div className="text-xs text-white/50 mt-0.5">{profileData.role}</div>
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-[#0F1210]">
+                  <img
+                    src={RIZWAN_ULTRA_IMAGE_URL}
+                    alt={`${profileData.name} portrait`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+                  <div className="absolute top-4 right-4 space-y-2 hidden sm:block">
+                    {['Mobile Apps', 'Web Platforms', 'AI Tooling'].map((label, i) => (
+                      <motion.div
+                        key={label}
+                        initial={{ opacity: 0, x: 14 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.75 + i * 0.1, duration: 0.5 }}
+                        className="rounded-full border border-white/10 bg-[#141814]/95 backdrop-blur-sm px-3.5 py-1.5 shadow-lg shadow-black/30 flex items-center gap-1.5"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary-light shrink-0" />
+                        <span className="text-[11px] font-semibold text-white/80 whitespace-nowrap">{label}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.85, duration: 0.5 }}
+                    className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-[#141814]/95 backdrop-blur-sm px-5 py-4 shadow-lg shadow-black/30"
+                  >
+                    <div className="text-sm font-semibold text-white">{profileData.name}</div>
+                    <div className="text-xs text-white/50 mt-0.5">{profileData.role}</div>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           </div>

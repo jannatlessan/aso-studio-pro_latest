@@ -15,7 +15,7 @@ interface ToolHeaderProps {
  */
 export const ToolHeader = ({ toolName, isToolUsed, onBackClick, statusBadge }: ToolHeaderProps) => {
   return (
-    <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
+    <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <button
           onClick={onBackClick}
