@@ -63,7 +63,7 @@ ${html}</body>
       <SEO title="Markdown to HTML | ShaadDev Studio" description="Convert MD strings to clean HTML code instantly." url="https://shaaddev.studio/tools/markdown-to-html" keywords="markdown to html, markdown compile, clean html preview" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />

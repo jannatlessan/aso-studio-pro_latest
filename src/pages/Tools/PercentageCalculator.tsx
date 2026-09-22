@@ -41,7 +41,7 @@ export default function PercentageCalculator() {
       <SEO title="Percentage Calculator | ShaadDev Studio" description="Instantly calculate percentages and ratios." url="https://shaaddev.studio/tools/percentage-calculator" keywords="percentage calculator, calculate margins, math tool" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
