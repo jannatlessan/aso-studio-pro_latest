@@ -25,7 +25,8 @@ import {
   Search,
   Wand2,
   Layers,
-  Heart
+  Heart,
+  Images
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
@@ -51,6 +52,16 @@ const tools = [
     path: "/tools/video-to-gif",
     status: "Trending",
     color: "rose",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "VID-002",
+    name: "Video to Images",
+    description: "Convert any video into a full sequence of high-quality images. Set a custom frame rate, preview every frame, and download one image or the entire batch as a ZIP.",
+    icon: Images,
+    path: "/tools/video-to-images",
+    status: "New",
+    color: "teal",
     actionLabel: "Open Tool"
   },
 

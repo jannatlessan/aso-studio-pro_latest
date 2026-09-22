@@ -22,6 +22,7 @@ import PDFMerger from './pages/Tools/PDFMerger';
 import BulkImageEnhancer from './pages/Tools/BulkImageEnhancer';
 import BackgroundRemover from './pages/Tools/BackgroundRemover';
 import VideoToGifMaker from './pages/Tools/VideoToGifMaker';
+import VideoToImages from './pages/Tools/VideoToImages';
 
 import GifViewer from './pages/Tools/GifViewer';
 import EventSlideshow from './pages/Tools/EventSlideshow';
@@ -56,6 +57,7 @@ export default function App() {
         <Route path="/tools/percentage-calculator" element={<PercentageCalculator />} />
         <Route path="/tools/yt-thumbnail" element={<YTThumbnail />} />
         <Route path="/tools/video-to-gif" element={<VideoToGifMaker />} />
+        <Route path="/tools/video-to-images" element={<VideoToImages />} />
         <Route path="/tools/gif-viewer" element={<GifViewer />} />
 
         <Route path="/tools/aso-screenshot" element={<ASOScreenshot />} />
