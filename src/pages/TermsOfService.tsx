@@ -7,7 +7,7 @@ import Nav, { GRADIENT } from '../components/Nav';
 
 export default function TermsOfService() {
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
       <SEO
         title="Terms of Service | ShaadDev Studio"
         description="Terms of service and user agreements for ShaadDev Studio tools and platforms."
@@ -25,39 +25,39 @@ export default function TermsOfService() {
         >
           {/* Hero Section */}
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
               Legal · Last updated 2026
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
               Terms of <span className="text-primary">Service.</span>
             </h1>
-            <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
+            <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
               By using ShaadDev Studio, you agree to the terms below. We've kept them short and in plain language.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-black/[0.06]">
             {[
               { icon: Scale, label: "Fair use", desc: "Free for personal and commercial work" },
               { icon: ShieldAlert, label: "Safety", desc: "No malicious code or hidden behavior" },
               { icon: Zap, label: "Reliability", desc: "Built and maintained for consistent uptime" }
             ].map((item, idx) => (
-              <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4 hover:border-primary/25 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <div key={idx} className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-4 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
+                <div className="w-10 h-10 rounded-lg bg-mint border border-primary/20 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-white mb-1">{item.label}</div>
-                  <div className="text-xs text-white/50">{item.desc}</div>
+                  <div className="text-sm font-semibold text-ink mb-1">{item.label}</div>
+                  <div className="text-xs text-[#55605B]">{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Legal Content */}
-          <div className="prose prose-invert max-w-none space-y-10 text-white/60">
+          <div className="prose max-w-none space-y-10 text-[#55605B]">
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 1. Use of our tools
               </h2>
               <p className="leading-relaxed">
@@ -66,7 +66,7 @@ export default function TermsOfService() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 2. Intellectual property
               </h2>
               <p className="leading-relaxed">
@@ -75,7 +75,7 @@ export default function TermsOfService() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 3. Liability
               </h2>
               <p className="leading-relaxed">
@@ -83,18 +83,18 @@ export default function TermsOfService() {
               </p>
             </section>
 
-            <section className="space-y-3 flex items-start gap-4 p-6 bg-red-500/5 border border-red-500/15 rounded-xl">
-              <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+            <section className="space-y-3 flex items-start gap-4 p-6 bg-red-50 border border-red-200 rounded-xl">
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               <div className="space-y-1.5">
-                <h3 className="text-sm font-semibold text-red-400">Termination</h3>
-                <p className="text-xs leading-relaxed text-white/60">
+                <h3 className="text-sm font-semibold text-red-600">Termination</h3>
+                <p className="text-xs leading-relaxed text-[#55605B]">
                   Abuse of our tools or violation of these terms may result in restricted access to the site.
                 </p>
               </div>
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 4. Contact
               </h2>
               <p className="leading-relaxed">

@@ -461,18 +461,18 @@ export default function BulkImageEnhancer() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
-      <SEO 
-        title="Free Bulk Image Enhancer | 100% Secure & Private Batch Editor" 
-        description="Edit bulk photos instantly and securely in your browser. No server uploads—100% private. Apply custom presets, correct colors, smooth skin, and add text watermarks." 
-        url="https://shaaddev.studio/tools/bulk-image-enhancer" 
-        keywords="bulk image enhancer, private photo editor, secure image batch edit, safe photo presets online, no upload image editor" 
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
+      <SEO
+        title="Free Bulk Image Enhancer | 100% Secure & Private Batch Editor"
+        description="Edit bulk photos instantly and securely in your browser. No server uploads—100% private. Apply custom presets, correct colors, smooth skin, and add text watermarks."
+        url="https://shaaddev.studio/tools/bulk-image-enhancer"
+        keywords="bulk image enhancer, private photo editor, secure image batch edit, safe photo presets online, no upload image editor"
       />
-      
+
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
             <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'Image Enhancer' : 'Back to Tools'}</span>
           </button>
@@ -485,11 +485,11 @@ export default function BulkImageEnhancer() {
 
       {/* Edit History Modal */}
       {showHistoryModal && (
-        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm" onClick={() => setShowHistoryModal(false)}>
-          <div className="bg-[#111] border border-white/10 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" onClick={() => setShowHistoryModal(false)}>
+          <div className="bg-white border border-black/10 rounded-2xl w-full max-w-md p-6 shadow-xl shadow-black/10 space-y-4" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-white font-black uppercase tracking-widest flex items-center gap-2"><History className="w-5 h-5 text-primary"/> Edit History</h3>
-              <button onClick={() => setShowHistoryModal(false)} className="text-white/50 hover:text-white"><X className="w-5 h-5"/></button>
+              <h3 className="text-ink font-black uppercase tracking-widest flex items-center gap-2"><History className="w-5 h-5 text-primary"/> Edit History</h3>
+              <button onClick={() => setShowHistoryModal(false)} className="text-[#55605B] hover:text-ink"><X className="w-5 h-5"/></button>
             </div>
             <div className="max-h-[60vh] overflow-y-auto space-y-2 pr-2 custom-scrollbar">
               {[...history].reverse().map((h, reversedIndex) => {
@@ -498,7 +498,7 @@ export default function BulkImageEnhancer() {
                   <button
                     key={i}
                     onClick={() => applyHistoryState(i)}
-                    className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between ${i === historyIndex ? 'bg-primary/20 border-primary text-white shadow-[0_0_15px_rgba(var(--primary-rgb),0.2)]' : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10'}`}
+                    className={`w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between ${i === historyIndex ? 'bg-mint border-primary text-primary' : 'bg-[#F6F8F7] border-black/[0.06] text-[#55605B] hover:bg-black/[0.03]'}`}
                   >
                     <div className="space-y-1">
                       <span className="text-xs font-bold block">{h.description}</span>
@@ -508,7 +508,7 @@ export default function BulkImageEnhancer() {
                   </button>
                 )
               })}
-              {history.length === 0 && <div className="text-center p-8 text-white/30 text-xs font-bold uppercase tracking-widest">No history recorded yet.</div>}
+              {history.length === 0 && <div className="text-center p-8 text-[#8B958F] text-xs font-bold uppercase tracking-widest">No history recorded yet.</div>}
             </div>
           </div>
         </div>
@@ -543,11 +543,11 @@ export default function BulkImageEnhancer() {
              <div className="inline-flex items-center px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-2">
                100% Free Unlimited Tool
              </div>
-             <h1 className="text-3xl sm:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary/50 relative inline-block">
-               Bulk Image Enhancer Pro
+             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-ink relative block">
+               Bulk Image Enhancer <span className="text-primary">Pro</span>
              </h1>
-             <p className="text-white/60 text-sm max-w-2xl leading-relaxed">
-               Apply studio-grade portrait presets, professional color correction, and batch watermarking to unlimited images at once. <br/><strong className="text-green-400 font-bold flex items-center justify-center sm:justify-start gap-1.5 mt-2"><ShieldCheck className="w-4 h-4"/> 100% Secure & Private: Files are processed locally and never uploaded to any server.</strong>
+             <p className="text-[#55605B] text-sm max-w-2xl leading-relaxed">
+               Apply studio-grade portrait presets, professional color correction, and batch watermarking to unlimited images at once. <br/><strong className="text-primary font-bold flex items-center justify-center sm:justify-start gap-1.5 mt-2"><ShieldCheck className="w-4 h-4"/> 100% Secure & Private: Files are processed locally and never uploaded to any server.</strong>
              </p>
           </div>
 
@@ -556,39 +556,39 @@ export default function BulkImageEnhancer() {
             {/* Left: Input List */}
             <div className="lg:col-span-8 space-y-6">
               {!images.length ? (
-                <div 
+                <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="glass-panel border-2 border-dashed border-white/10 hover:border-primary/50 text-white/30 hover:text-primary rounded-3xl flex flex-col items-center justify-center p-16 cursor-pointer transition-all bg-gradient-to-b from-white/[0.02] to-black/40 min-h-[400px] shadow-2xl"
+                  className="border-2 border-dashed border-black/10 hover:border-primary/50 text-[#8B958F] hover:text-primary rounded-3xl flex flex-col items-center justify-center p-16 cursor-pointer transition-all bg-[#F6F8F7] min-h-[400px] shadow-sm shadow-black/[0.02]"
                 >
-                  <input 
-                    type="file" 
-                    accept="image/*" 
+                  <input
+                    type="file"
+                    accept="image/*"
                     multiple
-                    className="hidden" 
+                    className="hidden"
                     ref={fileInputRef}
                     onChange={handleFileUpload}
                   />
                   <div className="p-4 bg-primary/10 rounded-full mb-6">
                     <Upload className="w-10 h-10 text-primary" />
                   </div>
-                  <span className="font-black text-xl uppercase tracking-widest mb-2 text-white">Upload Assets</span>
+                  <span className="font-black text-xl uppercase tracking-widest mb-2 text-ink">Upload Assets</span>
                   <span className="text-xs font-semibold opacity-70 tracking-wider">Drag & Drop Batch High-Res Images</span>
-                  <div className="mt-6 px-3 py-1.5 bg-green-500/10 text-green-400 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-green-500/20 flex items-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.15)]"><ShieldCheck className="w-3.5 h-3.5" /> 100% Secure Local Processing</div>
+                  <div className="mt-6 px-3 py-1.5 bg-mint text-primary rounded-lg text-[10px] font-bold uppercase tracking-widest border border-primary/20 flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5" /> 100% Secure Local Processing</div>
                 </div>
               ) : (
-                <div className="glass-panel p-4 rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.03] to-black/40 space-y-4 shadow-2xl relative overflow-hidden">
-                   
+                <div className="p-4 rounded-3xl border border-black/10 bg-white space-y-4 shadow-lg shadow-black/5 relative overflow-hidden">
+
                    {/* Top Bar inside file list */}
                    <div className="flex justify-between items-center px-4 pt-2">
-                     <span className="text-xs font-black uppercase tracking-widest text-white flex items-center gap-2">
+                     <span className="text-xs font-black uppercase tracking-widest text-ink flex items-center gap-2">
                         <ListPlus className="w-4 h-4 text-primary"/> Source Assets ({images.length})
                      </span>
                      <div className="flex flex-wrap gap-2 justify-end items-center">
-                       <button onClick={selectAll} className="text-[10px] text-white/50 hover:text-white uppercase tracking-widest font-bold border border-white/10 hover:bg-white/5 px-2 py-1 rounded">Select All</button>
-                       <button onClick={deselectAll} className="text-[10px] text-white/50 hover:text-white uppercase tracking-widest font-bold border border-white/10 hover:bg-white/5 px-2 py-1 rounded">Deselect All</button>
-                       <div className="w-px h-4 bg-white/10 mx-1 hidden sm:block"></div>
+                       <button onClick={selectAll} className="text-[10px] text-[#55605B] hover:text-ink uppercase tracking-widest font-bold border border-black/10 hover:bg-black/[0.03] px-2 py-1 rounded">Select All</button>
+                       <button onClick={deselectAll} className="text-[10px] text-[#55605B] hover:text-ink uppercase tracking-widest font-bold border border-black/10 hover:bg-black/[0.03] px-2 py-1 rounded">Deselect All</button>
+                       <div className="w-px h-4 bg-black/10 mx-1 hidden sm:block"></div>
                        <button onClick={() => fileInputRef.current?.click()} className="text-[10px] text-primary hover:text-primary-light uppercase tracking-widest font-bold px-2 py-1 bg-primary/10 rounded">Add More</button>
-                       <button onClick={clearAll} className="text-[10px] text-red-400 hover:text-red-300 uppercase tracking-widest font-bold px-2 py-1 bg-red-400/10 rounded">Clear Workspace</button>
+                       <button onClick={clearAll} className="text-[10px] text-red-500 hover:text-red-600 uppercase tracking-widest font-bold px-2 py-1 bg-red-50 rounded">Clear Workspace</button>
                      </div>
                      <input 
                        type="file" 
@@ -604,7 +604,7 @@ export default function BulkImageEnhancer() {
                    {images.length > 0 && (() => {
                      const activeImg = images.find(img => img.id === activePreviewId) || images[0];
                      return (
-                       <div className="mx-2 mb-4 mt-2 rounded-2xl overflow-hidden bg-black border border-white/10 relative aspect-[16/9] shadow-2xl flex items-center justify-center group select-none ring-1 ring-white/5">
+                       <div className="mx-2 mb-4 mt-2 rounded-2xl overflow-hidden bg-black border border-black/10 relative aspect-[16/9] shadow-lg shadow-black/10 flex items-center justify-center group select-none ring-1 ring-black/5">
                          <img 
                            src={isComparing ? activeImg.previewUrl : (processed.length ? (processed.find(p => p.id === activeImg.id)?.blobUrl || activeImg.previewUrl) : activeImg.previewUrl)} 
                            style={isComparing ? {} : (processed.length ? {} : previewFilterStyle)}
@@ -642,7 +642,7 @@ export default function BulkImageEnhancer() {
                    })()}
 
                    <div className="px-5 pb-2">
-                      <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold">Batch Filmstrip</p>
+                      <p className="text-[10px] text-[#8B958F] uppercase tracking-widest font-bold">Batch Filmstrip</p>
                    </div>
 
                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 max-h-[400px] overflow-y-auto px-4 pb-4 custom-scrollbar">
@@ -654,7 +654,7 @@ export default function BulkImageEnhancer() {
                          <div 
                            key={img.id} 
                            onClick={() => setActivePreviewId(img.id)}
-                           className={`relative group bg-black border rounded-2xl overflow-hidden ring-1 cursor-pointer transition-colors ${isActive ? 'border-primary ring-primary/50 shadow-[0_0_15px_rgba(var(--primary-rgb),0.2)]' : 'border-white/5 ring-white/5 hover:border-white/20'}`}
+                           className={`relative group bg-black border rounded-2xl overflow-hidden ring-1 cursor-pointer transition-colors ${isActive ? 'border-primary ring-primary/40 shadow-md shadow-primary/20' : 'border-black/10 ring-black/5 hover:border-black/20'}`}
                          >
                            <div className="absolute top-2 left-2 z-20" onClick={(e) => e.stopPropagation()}>
                              <input 
@@ -707,7 +707,7 @@ export default function BulkImageEnhancer() {
                              )}
                            </div>
                            {proc && (
-                             <div className="absolute top-2 left-10 bg-primary text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest flex items-center gap-1 shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]">
+                             <div className="absolute top-2 left-10 bg-primary text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-widest flex items-center gap-1 shadow-sm">
                                <Check className="w-3 h-3"/> Processed
                              </div>
                            )}
@@ -722,12 +722,12 @@ export default function BulkImageEnhancer() {
                           <span className="text-primary font-black uppercase tracking-widest text-sm flex items-center gap-2 justify-center sm:justify-start">
                             <Check className="w-5 h-5"/> Rendering Complete
                           </span>
-                          <span className="text-white/60 text-[10px] font-bold tracking-widest uppercase">{processed.filter(p => selectedIds.has(p.id)).length} Selected of {processed.length} Processed Assets</span>
+                          <span className="text-[#55605B] text-[10px] font-bold tracking-widest uppercase">{processed.filter(p => selectedIds.has(p.id)).length} Selected of {processed.length} Processed Assets</span>
                        </div>
-                       <button 
+                       <button
                          onClick={downloadAll}
                          disabled={processed.filter(p => selectedIds.has(p.id)).length === 0}
-                         className="px-8 py-4 bg-primary text-white hover:bg-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] shadow-primary/20"
+                         className="px-8 py-4 bg-primary-dark hover:bg-[#048532] text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center gap-2 shadow-lg shadow-primary/25"
                        >
                          <Download className="w-4 h-4" /> 
                          {processed.filter(p => selectedIds.has(p.id)).length > 1 ? 'Download Batch ZIP' : 'Download High-Res'}
@@ -740,44 +740,44 @@ export default function BulkImageEnhancer() {
 
             {/* Right: Settings */}
             <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
-              <div className="glass-panel p-6 rounded-3xl bg-black/60 border border-white/10 space-y-6 shadow-2xl backdrop-blur-2xl">
-                
+              <div className="p-6 rounded-3xl bg-white border border-black/10 space-y-6 shadow-lg shadow-black/5">
+
                 {/* Magic Enhance Action */}
-                <button 
+                <button
                   onClick={handleMagicEnhance}
-                  className="w-full relative group overflow-hidden rounded-xl p-[1px] shadow-2xl mb-2"
+                  className="w-full relative group overflow-hidden rounded-xl p-[1px] shadow-lg mb-2"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary via-purple-500 to-amber-500 rounded-xl opacity-70 group-hover:opacity-100 transition-opacity blur-sm"></span>
-                  <div className="relative bg-black px-4 py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
-                    <Sparkles className="w-5 h-5 text-amber-400" />
-                    <span className="font-black uppercase tracking-widest text-xs bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-primary">Auto-Magical Enhance</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-primary via-primary-light to-primary-dark rounded-xl opacity-70 group-hover:opacity-100 transition-opacity blur-sm"></span>
+                  <div className="relative bg-ink px-4 py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
+                    <Sparkles className="w-5 h-5 text-primary-light" />
+                    <span className="font-black uppercase tracking-widest text-xs bg-clip-text text-transparent bg-gradient-to-r from-primary-light to-primary">Auto-Magical Enhance</span>
                   </div>
                 </button>
 
-                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center justify-between border-b border-black/10 pb-4">
                   <div className="flex items-center gap-2">
                     <Settings2 className="w-5 h-5 text-primary" />
                     <h2 className="font-black text-sm uppercase tracking-widest">Global Master Rig</h2>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={undo} disabled={historyIndex <= 0} className="p-1 text-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hidden sm:block transition-colors" title="Undo Step">
+                    <button onClick={undo} disabled={historyIndex <= 0} className="p-1 text-[#55605B] hover:text-ink disabled:opacity-30 disabled:cursor-not-allowed hidden sm:block transition-colors" title="Undo Step">
                        <Undo2 className="w-4 h-4"/>
                     </button>
-                    <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-1 text-white/50 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed hidden sm:block transition-colors" title="Redo Step">
+                    <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-1 text-[#55605B] hover:text-ink disabled:opacity-30 disabled:cursor-not-allowed hidden sm:block transition-colors" title="Redo Step">
                        <Redo2 className="w-4 h-4"/>
                     </button>
-                    <div className="w-px h-3 bg-white/20 mx-1 hidden sm:block"></div>
-                    <button onClick={() => setShowHistoryModal(true)} className="text-[9px] text-white/50 hover:text-white uppercase font-black tracking-widest flex items-center gap-1 transition-colors">
+                    <div className="w-px h-3 bg-black/10 mx-1 hidden sm:block"></div>
+                    <button onClick={() => setShowHistoryModal(true)} className="text-[9px] text-[#55605B] hover:text-ink uppercase font-black tracking-widest flex items-center gap-1 transition-colors">
                       <History className="w-3 h-3"/> Log
                     </button>
-                    <div className="w-px h-3 bg-white/20 mx-1"></div>
-                    <button onClick={() => { resetFilters(); commitHistory('Reset All Configurations', { brightness:100, contrast:100, saturation:100, grayscale:0, blur:0, sepia:0, hueRotate:0, watermarkText:'' }); }} className="text-[9px] text-white/30 hover:text-white uppercase font-black tracking-widest underline decoration-white/20 underline-offset-4 transition-colors">Reset</button>
+                    <div className="w-px h-3 bg-black/10 mx-1"></div>
+                    <button onClick={() => { resetFilters(); commitHistory('Reset All Configurations', { brightness:100, contrast:100, saturation:100, grayscale:0, blur:0, sepia:0, hueRotate:0, watermarkText:'' }); }} className="text-[9px] text-[#8B958F] hover:text-ink uppercase font-black tracking-widest underline decoration-black/10 underline-offset-4 transition-colors">Reset</button>
                   </div>
                 </div>
 
                 {/* Presets Row */}
                 <div className="space-y-3">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 block">Cinematic LUTS ({presets.length})</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] block">Cinematic LUTS ({presets.length})</label>
                   <div className="flex gap-3 pb-3 overflow-x-auto custom-scrollbar hide-scrollbar-mobile snap-x pl-1 pr-4 -mx-1 pt-1">
                     {presets.map(p => {
                       const presetFilter = `brightness(${p.values.brightness}%) contrast(${p.values.contrast}%) saturate(${p.values.saturation}%) grayscale(${p.values.grayscale}%) blur(${p.values.blur}px) sepia(${p.values.sepia}%) hue-rotate(${p.values.hueRotate}deg)`;
@@ -790,15 +790,15 @@ export default function BulkImageEnhancer() {
                           className="snap-start shrink-0 group flex flex-col items-center gap-2 transition-transform hover:scale-105 relative"
                           title={`Apply ${p.name} LUT`}
                         >
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-white/10 group-hover:border-primary transition-colors bg-[#0a0a0a] shadow-lg relative">
-                            <img 
-                              src={images.length > 0 ? activeImg.previewUrl : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=200&auto=format&fit=crop"} 
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-black/10 group-hover:border-primary transition-colors bg-[#F6F8F7] shadow-sm relative">
+                            <img
+                              src={images.length > 0 ? activeImg.previewUrl : "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=200&auto=format&fit=crop"}
                               alt={p.name}
                               style={{ filter: presetFilter }}
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-white/60 group-hover:text-primary">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[#55605B] group-hover:text-primary">
                             {p.name}
                           </span>
                         </button>
@@ -809,79 +809,79 @@ export default function BulkImageEnhancer() {
 
                 <div className="space-y-6">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between">
                       <span>Exposure Base</span> <span className="text-primary font-mono">{brightness}%</span>
                     </label>
-                    <input type="range" min="0" max="200" value={brightness} onChange={(e) => { setBrightness(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Exposure set to ${brightness}%`, { brightness })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="200" value={brightness} onChange={(e) => { setBrightness(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Exposure set to ${brightness}%`, { brightness })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
 
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between">
                       <span>Contrast Index</span> <span className="text-primary font-mono">{contrast}%</span>
                     </label>
-                    <input type="range" min="0" max="200" value={contrast} onChange={(e) => { setContrast(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Contrast set to ${contrast}%`, { contrast })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="200" value={contrast} onChange={(e) => { setContrast(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Contrast set to ${contrast}%`, { contrast })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
 
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between">
                       <span>Color Peak (Sat)</span> <span className="text-primary font-mono">{saturation}%</span>
                     </label>
-                    <input type="range" min="0" max="200" value={saturation} onChange={(e) => { setSaturation(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Saturation set to ${saturation}%`, { saturation })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="200" value={saturation} onChange={(e) => { setSaturation(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Saturation set to ${saturation}%`, { saturation })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
 
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 flex justify-between">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between">
                       <span>Skin Softener (Blur)</span> <span className="text-primary font-mono">{blur}px</span>
                     </label>
-                    <input type="range" min="0" max="20" step="0.1" value={blur} onChange={(e) => { setBlur(parseFloat(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Blur set to ${blur}px`, { blur })} className="w-full accent-primary h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                    <input type="range" min="0" max="20" step="0.1" value={blur} onChange={(e) => { setBlur(parseFloat(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Blur set to ${blur}px`, { blur })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
                      <div className="space-y-3">
-                       <label className="text-[9px] font-bold uppercase tracking-widest text-white/50 flex justify-between"><span>Grayscale</span><span className="text-white/30">{grayscale}</span></label>
-                       <input type="range" min="0" max="100" value={grayscale} onChange={(e) => { setGrayscale(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Grayscale set to ${grayscale}%`, { grayscale })} className="w-full accent-white/50 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                       <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between"><span>Grayscale</span><span className="text-[#8B958F]">{grayscale}</span></label>
+                       <input type="range" min="0" max="100" value={grayscale} onChange={(e) => { setGrayscale(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Grayscale set to ${grayscale}%`, { grayscale })} className="w-full accent-[#8B958F] h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                      </div>
                      <div className="space-y-3">
-                       <label className="text-[9px] font-bold uppercase tracking-widest text-white/50 flex justify-between"><span>Sepia</span><span className="text-white/30">{sepia}</span></label>
-                       <input type="range" min="0" max="100" value={sepia} onChange={(e) => { setSepia(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Sepia set to ${sepia}%`, { sepia })} className="w-full accent-amber-500 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                       <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between"><span>Sepia</span><span className="text-[#8B958F]">{sepia}</span></label>
+                       <input type="range" min="0" max="100" value={sepia} onChange={(e) => { setSepia(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory(`Sepia set to ${sepia}%`, { sepia })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                      </div>
                   </div>
 
                   {/* Watermark Overlay Settings */}
-                  <div className="pt-6 border-t border-white/10 space-y-4">
+                  <div className="pt-6 border-t border-black/10 space-y-4">
                     <div className="flex items-center gap-2 mb-2">
-                       <Type className="w-4 h-4 text-purple-400" />
-                       <h3 className="text-[10px] font-black uppercase tracking-widest text-white flex-1">Watermark Engine</h3>
+                       <Type className="w-4 h-4 text-primary" />
+                       <h3 className="text-[10px] font-black uppercase tracking-widest text-ink flex-1">Watermark Engine</h3>
                     </div>
-                    
-                    <input 
-                      type="text" 
-                      placeholder="Add branding overlay text..." 
-                      value={watermarkText} 
-                      onChange={(e) => { setWatermarkText(e.target.value); setProcessed([]); }} 
-                      className="w-full bg-[#050505] border border-white/10 hover:border-white/20 focus:border-primary rounded-xl p-3 text-sm font-semibold transition-all focus:outline-none"
+
+                    <input
+                      type="text"
+                      placeholder="Add branding overlay text..."
+                      value={watermarkText}
+                      onChange={(e) => { setWatermarkText(e.target.value); setProcessed([]); }}
+                      className="w-full bg-white border border-black/10 hover:border-black/20 focus:border-primary rounded-xl p-3 text-sm font-semibold transition-all focus:outline-none"
                       onBlur={() => watermarkText && commitHistory(`Updated Watermark Text`, { watermarkText })}
                     />
 
-                    <p className="text-[9px] text-amber-500/80 font-bold uppercase tracking-widest leading-relaxed">
+                    <p className="text-[9px] text-amber-600 font-bold uppercase tracking-widest leading-relaxed">
                       * Watermarks are hidden from live preview. They will be applied directly to your full-res files when you click "Execute Batch Render".
                     </p>
-                    
+
                     {watermarkText && (
-                      <div className="space-y-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                      <div className="space-y-4 bg-[#F6F8F7] p-4 rounded-xl border border-black/[0.06]">
                         <div className="flex gap-2">
-                           <button onClick={() => { setWatermarkPosition('bottom-right'); setWatermarkSize(25); setWatermarkMode('solid'); setWatermarkOpacity(80); setProcessed([]); commitHistory('Applied Discrete Watermark', { watermarkPosition: 'bottom-right', watermarkSize: 25, watermarkMode: 'solid', watermarkOpacity: 80 }); }} className="flex-1 py-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500/40 rounded text-[9px] font-black uppercase tracking-widest">Discrete preset</button>
-                           <button onClick={() => { setWatermarkPosition('center'); setWatermarkSize(80); setWatermarkMode('outline'); setWatermarkOpacity(30); setProcessed([]); commitHistory('Applied Bold Watermark', { watermarkPosition: 'center', watermarkSize: 80, watermarkMode: 'outline', watermarkOpacity: 30 }); }} className="flex-1 py-1.5 bg-purple-500/20 text-purple-400 border border-purple-500/30 hover:bg-purple-500/40 rounded text-[9px] font-black uppercase tracking-widest">Bold preset</button>
+                           <button onClick={() => { setWatermarkPosition('bottom-right'); setWatermarkSize(25); setWatermarkMode('solid'); setWatermarkOpacity(80); setProcessed([]); commitHistory('Applied Discrete Watermark', { watermarkPosition: 'bottom-right', watermarkSize: 25, watermarkMode: 'solid', watermarkOpacity: 80 }); }} className="flex-1 py-1.5 bg-mint text-primary border border-primary/30 hover:bg-primary/20 rounded text-[9px] font-black uppercase tracking-widest">Discrete preset</button>
+                           <button onClick={() => { setWatermarkPosition('center'); setWatermarkSize(80); setWatermarkMode('outline'); setWatermarkOpacity(30); setProcessed([]); commitHistory('Applied Bold Watermark', { watermarkPosition: 'center', watermarkSize: 80, watermarkMode: 'outline', watermarkOpacity: 30 }); }} className="flex-1 py-1.5 bg-mint text-primary border border-primary/30 hover:bg-primary/20 rounded text-[9px] font-black uppercase tracking-widest">Bold preset</button>
                         </div>
-                        
+
                         <div>
-                          <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 block mb-2">Position</label>
+                          <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B] block mb-2">Position</label>
                           <div className="flex flex-wrap gap-1">
                             {['top-left', 'top-right', 'center', 'bottom-left', 'bottom-right'].map(pos => (
-                               <button 
-                                 key={pos} 
+                               <button
+                                 key={pos}
                                  onClick={() => { setWatermarkPosition(pos as any); setProcessed([]); commitHistory(`Watermark Position: ${pos}`, { watermarkPosition: pos }); }}
-                                 className={`px-2 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkPosition === pos ? 'bg-purple-500 text-white' : 'bg-black/50 border border-white/10 text-white/50 hover:bg-white/10'}`}
+                                 className={`px-2 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkPosition === pos ? 'bg-primary-dark text-white' : 'bg-white border border-black/10 text-[#55605B] hover:bg-black/[0.03]'}`}
                                >
                                  {pos.replace('-', ' ')}
                                </button>
@@ -890,15 +890,15 @@ export default function BulkImageEnhancer() {
                         </div>
 
                         <div className="flex gap-2">
-                          <button 
+                          <button
                             onClick={() => { setWatermarkMode('solid'); setProcessed([]); commitHistory('Watermark Style: Solid', { watermarkMode: 'solid' }); }}
-                            className={`flex-1 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkMode === 'solid' ? 'bg-purple-500 text-white' : 'bg-black/50 border border-white/10 text-white/50 hover:bg-white/10'}`}
+                            className={`flex-1 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkMode === 'solid' ? 'bg-primary-dark text-white' : 'bg-white border border-black/10 text-[#55605B] hover:bg-black/[0.03]'}`}
                           >
                             Solid Fill
                           </button>
-                          <button 
+                          <button
                             onClick={() => { setWatermarkMode('outline'); setProcessed([]); commitHistory('Watermark Style: Outline', { watermarkMode: 'outline' }); }}
-                            className={`flex-1 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkMode === 'outline' ? 'bg-purple-500 text-white' : 'bg-black/50 border border-white/10 text-white/50 hover:bg-white/10'}`}
+                            className={`flex-1 py-1.5 text-[9px] font-bold uppercase tracking-widest rounded transition-colors ${watermarkMode === 'outline' ? 'bg-primary-dark text-white' : 'bg-white border border-black/10 text-[#55605B] hover:bg-black/[0.03]'}`}
                           >
                             Outline
                           </button>
@@ -906,16 +906,16 @@ export default function BulkImageEnhancer() {
 
                         <div className="flex gap-4 items-center">
                            <div className="w-10 space-y-2">
-                             <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 block">Tint</label>
+                             <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B] block">Tint</label>
                              <input type="color" value={watermarkColor} onChange={(e) => { setWatermarkColor(e.target.value); setProcessed([]); }} onBlur={() => commitHistory('Changed Watermark Tint', { watermarkColor })} className="w-full h-5 rounded border-none appearance-none bg-transparent cursor-pointer" />
                            </div>
                            <div className="flex-1 space-y-2">
-                             <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 flex justify-between"><span>Size</span> <span className="text-purple-400">{watermarkSize}%</span></label>
-                             <input type="range" min="10" max="100" value={watermarkSize} onChange={(e) => { setWatermarkSize(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory('Scaled Watermark', { watermarkSize })} className="w-full accent-purple-400 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                             <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between"><span>Size</span> <span className="text-primary">{watermarkSize}%</span></label>
+                             <input type="range" min="10" max="100" value={watermarkSize} onChange={(e) => { setWatermarkSize(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory('Scaled Watermark', { watermarkSize })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                            </div>
                            <div className="flex-1 space-y-2">
-                             <label className="text-[9px] font-bold uppercase tracking-widest text-white/40 flex justify-between"><span>Alpha</span> <span className="text-purple-400">{watermarkOpacity}%</span></label>
-                             <input type="range" min="10" max="100" value={watermarkOpacity} onChange={(e) => { setWatermarkOpacity(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory('Adjusted Watermark Alpha', { watermarkOpacity })} className="w-full accent-purple-400 h-1 bg-white/10 rounded-lg appearance-none cursor-pointer" />
+                             <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B] flex justify-between"><span>Alpha</span> <span className="text-primary">{watermarkOpacity}%</span></label>
+                             <input type="range" min="10" max="100" value={watermarkOpacity} onChange={(e) => { setWatermarkOpacity(parseInt(e.target.value)); setProcessed([]); }} onPointerUp={() => commitHistory('Adjusted Watermark Alpha', { watermarkOpacity })} className="w-full accent-primary h-1 bg-black/10 rounded-lg appearance-none cursor-pointer" />
                            </div>
                         </div>
                       </div>
@@ -924,11 +924,11 @@ export default function BulkImageEnhancer() {
 
                   {/* Export Settings */}
                   <div className="pt-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 mb-2 block">Export Container Format</label>
-                    <select 
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] mb-2 block">Export Container Format</label>
+                    <select
                       value={outputFormat}
                       onChange={(e) => { setOutputFormat(e.target.value as any); setProcessed([]); }}
-                      className="w-full bg-[#050505] border border-white/10 rounded-xl p-3 text-xs font-bold uppercase tracking-widest focus:border-primary focus:outline-none cursor-pointer text-white/80"
+                      className="w-full bg-white border border-black/10 rounded-xl p-3 text-xs font-bold uppercase tracking-widest focus:border-primary focus:outline-none cursor-pointer text-[#55605B]"
                     >
                       <option value="image/webp">WebP (Ultra-Fast & Light)</option>
                       <option value="image/jpeg">JPEG (Lossy Standard)</option>
@@ -936,10 +936,10 @@ export default function BulkImageEnhancer() {
                     </select>
                   </div>
 
-                  <button 
+                  <button
                     onClick={processImages}
                     disabled={!images.length || isProcessing}
-                    className="w-full py-4 bg-gradient-to-r from-primary to-primary/80 text-black hover:to-white disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl font-black uppercase tracking-[0.2em] text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.5)] border border-white/10"
+                    className="w-full py-4 bg-primary-dark hover:bg-[#048532] text-white disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl font-black uppercase tracking-[0.2em] text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-3 mt-4 shadow-lg shadow-primary/25"
                   >
                     {isProcessing ? (
                       <>
@@ -957,26 +957,26 @@ export default function BulkImageEnhancer() {
           </div>
           
           {/* SEO Optimized Content Section */}
-          <article className="glass-panel p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-black/80 to-[#111] border border-white/5 mt-16 space-y-10 text-sm text-white/70 leading-relaxed font-sans shadow-2xl">
+          <article className="bg-white p-6 sm:p-10 rounded-3xl border border-black/10 mt-16 space-y-10 text-sm text-[#55605B] leading-relaxed font-sans shadow-sm shadow-black/[0.02]">
             <header className="space-y-4 text-center sm:text-left">
-              <h2 className="text-3xl font-black text-white tracking-wider font-mono">Guide: How to Use the Free Bulk Image Enhancer</h2>
-              <p className="text-lg text-white/80 max-w-4xl">
+              <h2 className="text-3xl font-black text-ink tracking-wider font-mono">Guide: How to Use the Free Bulk Image Enhancer</h2>
+              <p className="text-lg text-[#55605B] max-w-4xl">
                 Looking to quickly edit multiple photos, correct colors, smooth skin tones, or add watermarks to a whole batch of images? Our free online tool does it all instantly in your browser, keeping your files completely private.
               </p>
             </header>
 
             <section className="space-y-6">
-              <h3 className="text-xl font-bold text-white border-b border-white/10 pb-3">Step-by-Step Instructions</h3>
+              <h3 className="text-xl font-bold text-ink border-b border-black/10 pb-3">Step-by-Step Instructions</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <h4 className="text-lg font-bold text-primary">1. Upload Your Images</h4>
                   <p>Drag and drop your photos into the drop zone, or click to browse. We support JPG, PNG, and WebP formats. There are no strict batch limits on how many you can process at once.</p>
-                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop" alt="Uploading images on computer" className="w-full h-48 object-cover rounded-xl border border-white/10 shadow-lg" />
+                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop" alt="Uploading images on computer" className="w-full h-48 object-cover rounded-xl border border-black/10 shadow-sm" />
                 </div>
                 <div className="space-y-4">
                   <h4 className="text-lg font-bold text-primary">2. Apply Presets or Sliders</h4>
                   <p>Click on one of our 30+ built-in presets (like 'Glamour', 'Golden Hour', or 'Cyberpunk') or manually adjust Brightness, Contrast, and skin-smoothing Blur. Press <b>"Hold to Compare"</b> to instantly see your progress against the original image.</p>
-                  <img src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?q=80&w=800&auto=format&fit=crop" alt="Color correction presets interface example" className="w-full h-48 object-cover rounded-xl border border-white/10 shadow-lg" />
+                  <img src="https://images.unsplash.com/photo-1622737133809-d95047b9e673?q=80&w=800&auto=format&fit=crop" alt="Color correction presets interface example" className="w-full h-48 object-cover rounded-xl border border-black/10 shadow-sm" />
                 </div>
                 <div className="space-y-4">
                   <h4 className="text-lg font-bold text-primary">3. Add Custom Watermarks</h4>
@@ -990,16 +990,16 @@ export default function BulkImageEnhancer() {
             </section>
 
             <section className="space-y-4 bg-primary/5 p-6 rounded-2xl border border-primary/20">
-              <h3 className="text-xl font-bold text-white">Before and After Examples</h3>
+              <h3 className="text-xl font-bold text-ink">Before and After Examples</h3>
               <p>Wondering what our built-in beautification tools look like? Our "Soft Skin" and "Studio" presets subtly alter the lighting and add micro-blur smoothing to make portraits pop professionally, without artificial filtering artifacts.</p>
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-widest text-white/50">Before (Original)</span>
-                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" style={{ filter: 'brightness(95%) contrast(90%)' }} alt="Before portrait editing example" className="w-full h-64 object-cover rounded-xl grayscale-[20%]" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#55605B]">Before (Original)</span>
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" style={{ filter: 'brightness(95%) contrast(90%)' }} alt="Before portrait editing example" className="w-full h-64 object-cover rounded-xl grayscale-[20%] border border-black/10" />
                 </div>
                 <div className="space-y-2">
                   <span className="text-xs font-bold uppercase tracking-widest text-primary">After ("Glamour" Preset)</span>
-                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" style={{ filter: 'brightness(110%) contrast(115%) saturate(115%) sepia(10%) blur(0.2px)' }} alt="After portrait editing glamour effect" className="w-full h-64 object-cover rounded-xl" />
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop" style={{ filter: 'brightness(110%) contrast(115%) saturate(115%) sepia(10%) blur(0.2px)' }} alt="After portrait editing glamour effect" className="w-full h-64 object-cover rounded-xl border border-black/10" />
                 </div>
               </div>
             </section>

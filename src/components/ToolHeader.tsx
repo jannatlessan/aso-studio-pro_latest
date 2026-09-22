@@ -15,18 +15,18 @@ interface ToolHeaderProps {
  */
 export const ToolHeader = ({ toolName, isToolUsed, onBackClick, statusBadge }: ToolHeaderProps) => {
   return (
-    <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+    <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <button
           onClick={onBackClick}
-          className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors group"
+          className="inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors group"
           title={isToolUsed ? `Reset ${toolName} and stay on page` : 'Back to Tools'}
         >
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           {isToolUsed ? (
             <span>
               {toolName}
-              <span className="text-xs text-white/30 ml-2">(Reset)</span>
+              <span className="text-xs text-[#8B958F] ml-2">(Reset)</span>
             </span>
           ) : (
             'Back to Tools'

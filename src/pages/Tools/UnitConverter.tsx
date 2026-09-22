@@ -45,7 +45,7 @@ export default function UnitConverter() {
        if(unit1 === 'celsius') c = v;
        else if(unit1 === 'fahrenheit') c = (v - 32) * 5/9;
        else if(unit1 === 'kelvin') c = v - 273.15;
-       
+
        if(unit2 === 'celsius') return c;
        if(unit2 === 'fahrenheit') return (c * 9/5) + 32;
        if(unit2 === 'kelvin') return c + 273.15;
@@ -58,17 +58,17 @@ export default function UnitConverter() {
   const formatAns = typeof ans === 'number' ? parseFloat(ans.toFixed(5)) : ans;
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO title="Unit Converter | ShaadDev Studio" description="Convert length, weight, temperature." url="https://shaaddev.studio/tools/unit-converter" keywords="unit converter, imperial to metric, length mass" />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-4 h-4" />
             {isToolUsed ? 'Unit Converter' : 'Back to Tools'}
           </button>
-          <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
+          <div className="flex items-center gap-2 text-xs font-bold text-primary bg-mint px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             TRENDING TOOL
           </div>
@@ -79,56 +79,56 @@ export default function UnitConverter() {
       <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-12 lg:py-20 w-full space-y-16">
         {/* Title Section */}
         <div className="space-y-4 max-w-3xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink">
   Unit Converter
 </h1>
         </div>
-        
-        <div className="glass-panel p-6 md:p-10 rounded-3xl border border-white/10 bg-black/40 space-y-8">
+
+        <div className="glass-panel p-6 md:p-10 rounded-3xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] space-y-8">
            <div>
-              <label className="text-white/70 font-bold uppercase text-sm mb-3 block">Measurement Category</label>
+              <label className="text-[#55605B] font-bold uppercase text-sm mb-3 block">Measurement Category</label>
               <select value={category} onChange={e => {
                 const c = e.target.value;
                 setCategory(c);
                 setUnit1(Object.keys(units[c])[0]);
                 setUnit2(Object.keys(units[c])[1] || Object.keys(units[c])[0]);
-              }} className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white text-lg focus:border-primary outline-none">
-                 {categories.map(c => <option key={c} value={c} className="bg-black/90">{c.toUpperCase()}</option>)}
+              }} className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl p-4 text-ink text-lg focus:border-primary outline-none">
+                 {categories.map(c => <option key={c} value={c}>{c.toUpperCase()}</option>)}
               </select>
            </div>
-           
+
            <div className="flex flex-col md:flex-row gap-6 items-center">
               <div className="flex-1 w-full space-y-3">
-                 <input type="number" value={val1} onChange={e=>setVal1(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white text-xl focus:border-primary outline-none" />
-                 <select value={unit1} onChange={e=>setUnit1(e.target.value)} className="w-full bg-transparent border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none">
-                    {availableUnits.map(u => <option key={u} value={u} className="bg-black/90 text-sm">{u.toUpperCase()}</option>)}
+                 <input type="number" value={val1} onChange={e=>setVal1(e.target.value)} className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl p-4 text-ink text-xl focus:border-primary outline-none" />
+                 <select value={unit1} onChange={e=>setUnit1(e.target.value)} className="w-full bg-transparent border border-black/10 rounded-xl p-3 text-ink focus:border-primary outline-none">
+                    {availableUnits.map(u => <option key={u} value={u} className="text-sm">{u.toUpperCase()}</option>)}
                  </select>
               </div>
-              
-              <div className="p-4 rounded-full bg-primary/10 border border-primary/20 hover:scale-110 transition-transform cursor-pointer" onClick={() => {
+
+              <div className="p-4 rounded-full bg-mint border border-primary/20 hover:scale-110 transition-transform cursor-pointer" onClick={() => {
                 const temp = unit1; setUnit1(unit2); setUnit2(temp);
               }}>
                 <ArrowRightLeft className="w-6 h-6 text-primary" />
               </div>
-              
+
               <div className="flex-1 w-full space-y-3">
-                 <div className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-primary font-black text-xl overflow-hidden text-ellipsis whitespace-nowrap">
+                 <div className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl p-4 text-primary font-black text-xl overflow-hidden text-ellipsis whitespace-nowrap">
                    {formatAns}
                  </div>
-                 <select value={unit2} onChange={e=>setUnit2(e.target.value)} className="w-full bg-transparent border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none">
-                    {availableUnits.map(u => <option key={u} value={u} className="bg-black/90 text-sm">{u.toUpperCase()}</option>)}
+                 <select value={unit2} onChange={e=>setUnit2(e.target.value)} className="w-full bg-transparent border border-black/10 rounded-xl p-3 text-ink focus:border-primary outline-none">
+                    {availableUnits.map(u => <option key={u} value={u} className="text-sm">{u.toUpperCase()}</option>)}
                  </select>
               </div>
            </div>
         </div>
-      
+
         <div className="max-w-4xl mx-auto mt-16 mb-8 px-4">
-            <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 space-y-6 text-sm sm:text-base text-white/70 leading-relaxed font-sans">
-              <h2 className="text-xl sm:text-2xl font-semibold text-white">Universal Unit Converter</h2>
+            <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-white border border-black/10 shadow-sm shadow-black/[0.02] space-y-6 text-sm sm:text-base text-[#55605B] leading-relaxed font-sans">
+              <h2 className="text-xl sm:text-2xl font-semibold text-ink">Universal Unit Converter</h2>
               <p>Developers, engineers, and scientists constantly find themselves needing to translate imperial to metric, Celsius to Fahrenheit, or Megabytes to Gigabytes. Our universal Unit Converter consolidates these crucial mathematical pipelines into a single, intuitive interface.</p>
               <p>Powered by precise multiplier ratios, this tool eliminates the need for manual calculations or searching engines for conversion formulas, providing immediate results for Length, Weight, Temperature, and Data metrics.</p>
 
-              <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
+              <h3 className="text-lg font-semibold text-ink mt-8 mb-4">How to Use</h3>
               <ol className="list-decimal pl-5 space-y-3">
                 <li><strong>Select Category:</strong> First, choose the type of measurement you need to convert (e.g., Length, Weight, Temperature, Data).</li>
                 <li><strong>Input Value:</strong> Enter the numerical value you possess into the first numeric field.</li>
@@ -136,20 +136,20 @@ export default function UnitConverter() {
                 <li><strong>Read Result:</strong> The corresponding output instantly generates in real-time.</li>
               </ol>
 
-              <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
+              <h3 className="text-lg font-semibold text-ink mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
               <div className="space-y-4">
-                
+
                 <div>
-                  <strong className="text-white block mb-1">1. How exact are the conversions?</strong>
+                  <strong className="text-ink block mb-1">1. How exact are the conversions?</strong>
                   <p>We utilize standard scientific and mathematical multi-float multiplier ratios to ensure up to 6 decimal places of precision, suitable for standard engineering needs.</p>
                 </div>
-                
+
                 <div>
-                  <strong className="text-white block mb-1">2. Is temperature converted differently?</strong>
+                  <strong className="text-ink block mb-1">2. Is temperature converted differently?</strong>
                   <p>Yes, unlike weight or length which multiply linearly, temperature requires an additive/subtractive formula (e.g., multiplying by 9/5 and adding 32 for C to F), which our tool natively handles.</p>
                 </div>
               </div>
-            <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Decimal Significance</h4><p className="text-white/70">Don't imply false precision by keeping 8 decimal places for inputs that only have two.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Regional Standardize</h4><p className="text-white/70">Localize your application's default units (Imperial vs Metric) based on the specific browser locale.</p></div></div></section></article>
+            <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-ink font-mono border-b border-black/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Decimal Significance</h4><p className="text-[#55605B]">Don't imply false precision by keeping 8 decimal places for inputs that only have two.</p></div><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Regional Standardize</h4><p className="text-[#55605B]">Localize your application's default units (Imperial vs Metric) based on the specific browser locale.</p></div></div></section></article>
                     <div className="mt-12 mb-8">
             <RelatedTools currentPath="/tools/unit-converter" />
           </div>

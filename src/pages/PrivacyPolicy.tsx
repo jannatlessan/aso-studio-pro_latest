@@ -7,7 +7,7 @@ import Nav, { GRADIENT } from '../components/Nav';
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
       <SEO
         title="Privacy Policy | ShaadDev Studio"
         description="Privacy policy for ShaadDev Studio tools. We prioritize privacy, performance, and transparency."
@@ -25,39 +25,39 @@ export default function PrivacyPolicy() {
         >
           {/* Hero Section */}
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
               Legal · Last updated 2026
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
               Privacy <span className="text-primary">Policy.</span>
             </h1>
-            <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
+            <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
               Your data is your property. ShaadDev Studio is built to respect and protect it, with clear limits on what we collect and how it's used.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-black/[0.06]">
             {[
               { icon: Lock, label: "Encryption", desc: "TLS-encrypted connections throughout" },
               { icon: Eye, label: "Transparency", desc: "No hidden tracking or dark patterns" },
               { icon: Globe, label: "GDPR aligned", desc: "Built around global privacy standards" }
             ].map((item, idx) => (
-              <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4 hover:border-primary/25 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <div key={idx} className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-4 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
+                <div className="w-10 h-10 rounded-lg bg-mint border border-primary/20 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-white mb-1">{item.label}</div>
-                  <div className="text-xs text-white/50">{item.desc}</div>
+                  <div className="text-sm font-semibold text-ink mb-1">{item.label}</div>
+                  <div className="text-xs text-[#55605B]">{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Legal Content */}
-          <div className="prose prose-invert max-w-none space-y-10 text-white/60">
+          <div className="prose max-w-none space-y-10 text-[#55605B]">
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 1. Data we collect
               </h2>
               <p className="leading-relaxed">
@@ -66,7 +66,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 2. How your files are processed
               </h2>
               <p className="leading-relaxed">
@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 3. Local storage
               </h2>
               <p className="leading-relaxed">
@@ -84,7 +84,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 4. Third-party services
               </h2>
               <p className="leading-relaxed">
@@ -93,7 +93,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 5. Contact
               </h2>
               <p className="leading-relaxed">

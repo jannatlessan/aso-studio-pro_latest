@@ -4,7 +4,7 @@ import SEO from '../../components/SEO';
 
 export default function EventSlideshow() {
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
         title="Event Slideshow Player | ShaadDev Studio"
         description="Play a full-screen photo & video slideshow from your event folders — weddings, birthdays, anniversaries, corporate events, any occasion. Crossfade transitions, Ken Burns zoom, optional background music and title cards. 100% private, runs entirely in your browser."
@@ -13,13 +13,13 @@ export default function EventSlideshow() {
       />
 
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/tools" className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-primary transition-colors">
+          <Link to="/tools" className="inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors">
             <ChevronLeft className="w-4 h-4" />
             Back to Tools
           </Link>
-          <div className="flex items-center gap-2 text-xs font-bold text-primary/80 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
+          <div className="flex items-center gap-2 text-xs font-bold text-primary bg-mint px-3 py-1.5 rounded-full border border-primary/20">
             <Sparkles className="w-3.5 h-3.5" />
             Event Slideshow
           </div>

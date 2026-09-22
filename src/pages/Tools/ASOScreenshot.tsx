@@ -912,7 +912,7 @@ export default function App() {
         description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
         url="https://shaaddev.studio/tools/aso-screenshot" keywords="aso screenshot, app store asset grab, play store shots" />
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-3">
+      <header className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-3">
         <input
           type="file"
           ref={fileInputRef}
@@ -930,29 +930,29 @@ export default function App() {
         />
         <div className="max-w-[1600px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button onClick={handleBackClick} className="p-2 hover:bg-white/5 rounded-full transition-colors group" title={isToolUsed ? "(Click to reset)" : undefined}>
-              <ChevronLeft className="w-5 h-5 text-white/40 group-hover:text-accent" />
+            <button onClick={handleBackClick} className="p-2 hover:bg-black/[0.04] rounded-full transition-colors group" title={isToolUsed ? "(Click to reset)" : undefined}>
+              <ChevronLeft className="w-5 h-5 text-[#55605B] group-hover:text-ink" />
             </button>
-            <div 
-              className="w-10 h-10 bg-slate-800 border border-white/10 flex items-center justify-center rounded-xl shadow-lg shadow-black/20 group relative overflow-hidden cursor-pointer shrink-0" 
+            <div
+              className="w-10 h-10 bg-mint border border-primary/20 flex items-center justify-center rounded-xl shadow-sm shadow-black/5 group relative overflow-hidden cursor-pointer shrink-0"
               onClick={() => iconInputRef.current?.click()}
             >
               {appIcon ? (
                 <img src={appIcon.url} className="w-full h-full object-cover p-1.5" />
               ) : (
-                <Plus className="text-accent w-4 h-4 group-hover:scale-125 transition-transform" />
+                <Plus className="text-primary w-4 h-4 group-hover:scale-125 transition-transform" />
               )}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-[7px] font-black uppercase text-center leading-none px-1">
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-[7px] font-black uppercase text-center leading-none px-1 text-white">
                 {appIcon ? 'Change Icon' : 'Add App Icon'}
               </div>
             </div>
             <div>
-              <h1 className="text-sm font-black text-white tracking-widest uppercase flex items-center">
+              <h1 className="text-sm font-black text-ink tracking-widest uppercase flex items-center">
                 ASO STUDIO
-                <span className="text-accent text-[8px] ml-2 font-medium bg-accent/10 px-2 py-0.5 rounded-full border border-accent/20">PRO V3.8</span>
+                <span className="text-primary text-[8px] ml-2 font-medium bg-mint px-2 py-0.5 rounded-full border border-primary/20">PRO V3.8</span>
               </h1>
               <div className="flex items-center gap-2">
-                <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
+                <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
                 <p className="text-[9px] text-text-tertiary uppercase font-black tracking-tighter leading-none">Studio Synthesis Active</p>
               </div>
             </div>
@@ -960,7 +960,7 @@ export default function App() {
  
           <div className="flex items-center gap-3">
             {screenshots.length > 0 && (
-              <div className="flex items-center gap-1 bg-[#0a0a10] border border-white/10 p-1.5 rounded-xl shadow-inner">
+              <div className="flex items-center gap-1 bg-[#F6F8F7] border border-black/10 p-1.5 rounded-xl shadow-inner">
                 {[
                   { id: 'iphone', label: 'iOS Phone', active: exportIPhone, toggle: () => setExportIPhone(!exportIPhone) },
                   { id: 'ipad', label: 'iOS Tablet', active: exportIPad, toggle: () => setExportIPad(!exportIPad) },
@@ -971,9 +971,9 @@ export default function App() {
                     onClick={p.toggle}
                     className={cn(
                       "px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border shrink-0",
-                      p.active 
-                        ? "bg-[#06B6D4] text-[#0F1115] border-[#06B6D4] shadow-[0_0_15px_rgba(6,182,212,0.4)]" 
-                        : "bg-[#1e293b] text-white/50 border-white/10 hover:text-white hover:bg-slate-700"
+                      p.active
+                        ? "bg-mint text-primary border-primary"
+                        : "bg-white text-[#55605B] border-black/10 hover:text-ink hover:bg-black/[0.03]"
                     )}
                   >
                     {p.label}
@@ -981,12 +981,12 @@ export default function App() {
                 ))}
               </div>
             )}
-            
+
             {screenshots.length > 0 && (
               <button
                 onClick={generateAndDownload}
                 disabled={isProcessing || (!exportIPhone && !exportIPad && !exportAndroid)}
-                className="btn-primary py-2 px-6 !text-slate-950"
+                className="btn-primary py-2 px-6"
               >
                 {isProcessing ? (
                   <span className="animate-pulse">Synthesizing...</span>
@@ -1009,7 +1009,7 @@ export default function App() {
 
           {/* Sidebar Controls - Categorized for Pro Workflow */}
           <aside className="lg:col-span-3 space-y-6 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto pr-2 custom-scrollbar">
-            <div className="grid grid-cols-4 gap-2 bg-surface/50 p-1 rounded-2xl border border-white/5 mb-6">
+            <div className="grid grid-cols-4 gap-2 bg-surface/50 p-1 rounded-2xl border border-black/[0.06] mb-6">
               {[
                 { id: 'template', label: 'Layout', icon: Layout },
                 { id: 'canvas', label: 'Canvas', icon: Monitor },
@@ -1021,13 +1021,13 @@ export default function App() {
                   onClick={() => setActiveCategory(cat.id as any)}
                   className={cn(
                     "flex flex-col items-center gap-1.5 py-3 rounded-xl transition-all relative group",
-                    activeCategory === cat.id ? "bg-surface-variant text-accent shadow-lg border border-white/5" : "text-text-tertiary hover:text-text-secondary hover:bg-white/5"
+                    activeCategory === cat.id ? "bg-mint text-primary shadow-sm border border-primary/20" : "text-text-tertiary hover:text-text-secondary hover:bg-mint"
                   )}
                 >
-                  <cat.icon className={cn("w-4 h-4", activeCategory === cat.id ? "text-accent" : "text-text-tertiary group-hover:text-text-secondary")} />
+                  <cat.icon className={cn("w-4 h-4", activeCategory === cat.id ? "text-primary" : "text-text-tertiary group-hover:text-text-secondary")} />
                   <span className="text-[8px] font-black uppercase tracking-widest">{cat.label}</span>
                   {activeCategory === cat.id && (
-                    <motion.div layoutId="activeCat" className="absolute -bottom-1 w-1 h-1 rounded-full bg-accent" />
+                    <motion.div layoutId="activeCat" className="absolute -bottom-1 w-1 h-1 rounded-full bg-primary" />
                   )}
                 </button>
               ))}
@@ -1038,7 +1038,7 @@ export default function App() {
               <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
                 <section className="glass-panel p-5 space-y-4">
                   <div className="flex items-center gap-2 brightness-110">
-                    <ImageIcon className="w-3.5 h-3.5 text-accent" />
+                    <ImageIcon className="w-3.5 h-3.5 text-primary" />
                      <h2 className="section-title">Gallery Flow Strategy</h2>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
@@ -1048,7 +1048,7 @@ export default function App() {
                         onClick={() => setBackgroundMode(mode as any)}
                         className={cn(
                           "py-2 rounded-lg border text-[10px] font-black uppercase transition-all",
-                          backgroundMode === mode ? "bg-accent/20 border-accent/50 text-white" : "border-white/5 text-text-tertiary hover:bg-white/5 hover:text-white"
+                          backgroundMode === mode ? "bg-mint border-primary text-primary" : "bg-white border-black/10 text-text-tertiary hover:bg-mint hover:text-ink"
                         )}
                       >
                         {mode}
@@ -1058,7 +1058,7 @@ export default function App() {
 
                   {backgroundMode === 'panoramic' && (
                     <div className="space-y-3 pt-2">
-                       <p className="text-[9px] text-white/40 uppercase font-black tracking-tighter italic">Recommended: 3000x2000px+</p>
+                       <p className="text-[9px] text-[#8B958F] uppercase font-black tracking-tighter italic">Recommended: 3000x2000px+</p>
                        <button
                         onClick={() => {
                           const input = document.createElement('input');
@@ -1070,7 +1070,7 @@ export default function App() {
                           };
                           input.click();
                         }}
-                        className="w-full py-3 bg-white/5 border border-dashed border-white/10 rounded-xl flex items-center justify-center gap-2 hover:border-primary/50 transition-all text-[10px] font-black uppercase text-white/60"
+                        className="w-full py-3 bg-[#F6F8F7] border border-dashed border-black/10 rounded-xl flex items-center justify-center gap-2 hover:border-primary/50 transition-all text-[10px] font-black uppercase text-[#55605B]"
                       >
                         {panoramicImage ? <Check className="w-3 h-3 text-primary" /> : <Plus className="w-3 h-3" />}
                         {panoramicImage ? 'Change Pano Background' : 'Upload Pano Background'}
@@ -1079,10 +1079,10 @@ export default function App() {
                   )}
                 </section>
 
-                <section className="glass-panel p-5 space-y-4 shadow-sm border-white/[0.03]">
+                <section className="glass-panel p-5 space-y-4 shadow-sm border-black/[0.03]">
                   <div className="flex items-center justify-between brightness-110">
                     <div className="flex items-center gap-2">
-                       <Grid3X3 className="w-3.5 h-3.5 text-accent" />
+                       <Grid3X3 className="w-3.5 h-3.5 text-primary" />
                        <h2 className="section-title">Global Layout Template</h2>
                     </div>
                   </div>
@@ -1096,7 +1096,7 @@ export default function App() {
                         }}
                         className={cn(
                           "w-full text-left px-4 py-3 rounded-xl border text-[11px] font-black transition-all flex items-center justify-between group",
-                          globalTemplateId === template.id ? "bg-accent/20 border-accent text-white" : "bg-white/5 border-white/5 text-text-tertiary hover:bg-white/10 hover:text-white"
+                          globalTemplateId === template.id ? "bg-mint border-primary text-primary" : "bg-white border-black/10 text-text-tertiary hover:bg-mint hover:text-ink"
                         )}
                       >
                         <span>{template.name}</span>
@@ -1113,7 +1113,7 @@ export default function App() {
               <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
                 <section className="glass-panel p-5 space-y-5">
                   <div className="flex items-center gap-2 brightness-110">
-                    <Monitor className="w-3.5 h-3.5 text-accent" />
+                    <Monitor className="w-3.5 h-3.5 text-primary" />
                     <h2 className="section-title">Target Ecosystems</h2>
                   </div>
                   <div className="space-y-4">
@@ -1129,7 +1129,7 @@ export default function App() {
                             onClick={() => size.type === 'iphone' ? setSelectedIPhoneSize(size) : setSelectedIPadSize(size)}
                             className={cn(
                               "w-full text-left px-4 py-2 rounded-lg border text-[10px] uppercase font-black transition-all flex items-center justify-between",
-                              (selectedIPhoneSize.id === size.id || selectedIPadSize.id === size.id) ? "bg-accent/20 border-accent/40 text-accent" : "bg-white/5 border-white/5 text-text-tertiary hover:bg-white/10"
+                              (selectedIPhoneSize.id === size.id || selectedIPadSize.id === size.id) ? "bg-mint border-primary/40 text-primary" : "bg-white border-black/10 text-text-tertiary hover:bg-mint"
                             )}
                           >
                             <span>{size.name}</span>
@@ -1138,8 +1138,8 @@ export default function App() {
                         ))}
                       </div>
                     </div>
-                    <div className="space-y-2 pt-2 border-t border-white/5">
-                      <label className="text-[9px] font-black text-white/30 uppercase tracking-widest">Google Play Store</label>
+                    <div className="space-y-2 pt-2 border-t border-black/10">
+                      <label className="text-[9px] font-black text-[#8B958F] uppercase tracking-widest">Google Play Store</label>
                       <div className="grid grid-cols-1 gap-2">
                         {ANDROID_SIZES.filter(s => !s.id.includes('custom')).map(size => (
                           <button
@@ -1147,7 +1147,7 @@ export default function App() {
                             onClick={() => setSelectedAndroidSize(size)}
                             className={cn(
                               "w-full text-left px-4 py-2 rounded-lg border text-[10px] uppercase font-black transition-all flex items-center justify-between",
-                              selectedAndroidSize.id === size.id ? "bg-[#3DDC84] text-black border-[#3DDC84]" : "bg-white/5 border-white/5 text-white/40"
+                              selectedAndroidSize.id === size.id ? "bg-primary text-white border-primary" : "bg-white border-black/10 text-text-tertiary"
                             )}
                           >
                             <span>{size.name}</span>
@@ -1171,7 +1171,7 @@ export default function App() {
                             onClick={() => setGlobalFitMode(mode as any)}
                             className={cn(
                               "py-2 rounded-lg border text-[8px] font-black uppercase transition-all",
-                              globalFitMode === mode ? "bg-primary/20 border-primary/50 text-white" : "border-white/5 text-white/20"
+                              globalFitMode === mode ? "bg-mint border-primary text-primary" : "bg-white border-black/10 text-text-tertiary hover:bg-mint"
                             )}
                           >
                             {mode}
@@ -1184,7 +1184,7 @@ export default function App() {
                         <label className="control-label uppercase">Inner Padding</label>
                         <span className="text-[10px] font-black text-primary">{globalDevicePadding}px</span>
                       </div>
-                      <input type="range" min="0" max="100" value={globalDevicePadding} onChange={e => setGlobalDevicePadding(parseInt(e.target.value))} className="w-full accent-primary h-1 bg-white/5 rounded-lg appearance-none cursor-pointer" />
+                      <input type="range" min="0" max="100" value={globalDevicePadding} onChange={e => setGlobalDevicePadding(parseInt(e.target.value))} className="w-full accent-primary h-1 bg-black/[0.06] rounded-lg appearance-none cursor-pointer" />
                     </div>
                   </div>
                 </section>
@@ -1197,12 +1197,12 @@ export default function App() {
                 <section className="glass-panel p-5 space-y-4">
                   <div className="flex items-center justify-between brightness-110">
                     <div className="flex items-center gap-2">
-                       <Type className="w-3.5 h-3.5 text-accent" />
+                       <Type className="w-3.5 h-3.5 text-primary" />
                        <h2 className="section-title">Global Typography</h2>
                     </div>
                     <button 
                       onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, headlineFont: globalFont, subheadlineFont: globalFont })))}
-                      className="text-[8px] font-black text-accent uppercase hover:text-white transition-all bg-accent/5 px-2 py-1 rounded border border-accent/20"
+                      className="text-[8px] font-black text-primary uppercase hover:text-primary-dark transition-all bg-mint px-2 py-1 rounded border border-primary/20"
                     >
                       Apply to All
                     </button>
@@ -1217,7 +1217,7 @@ export default function App() {
                         }}
                         className={cn(
                           "px-4 py-3 rounded-xl border text-[11px] font-black transition-all text-left",
-                          globalFont === font.family ? "bg-accent/20 border-accent/40 text-white" : "bg-white/3 border-white/5 text-text-tertiary hover:bg-white/5"
+                          globalFont === font.family ? "bg-mint border-primary/40 text-primary" : "bg-white border-black/10 text-text-tertiary hover:bg-black/[0.03]"
                         )}
                         style={{ fontFamily: font.family }}
                       >
@@ -1229,7 +1229,7 @@ export default function App() {
 
                 <section className="glass-panel p-5 space-y-4">
                   <div className="flex items-center gap-2 brightness-110">
-                    <Sparkles className="w-3.5 h-3.5 text-accent" />
+                    <Sparkles className="w-3.5 h-3.5 text-primary" />
                     <h2 className="section-title">Visual Branding Assets</h2>
                   </div>
                   <div className="space-y-6">
@@ -1237,27 +1237,27 @@ export default function App() {
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
                          <label className="control-label uppercase">App Icon</label>
-                         <button onClick={() => setGlobalShowIcon(!globalShowIcon)} className={cn("text-[9px] font-black uppercase tracking-widest", globalShowIcon ? "text-primary" : "text-white/20")}>
+                         <button onClick={() => setGlobalShowIcon(!globalShowIcon)} className={cn("text-[9px] font-black uppercase tracking-widest", globalShowIcon ? "text-primary" : "text-[#8B958F]")}>
                            {globalShowIcon ? 'Visible' : 'Hidden'}
                          </button>
                       </div>
-                      <div onClick={() => iconInputRef.current?.click()} className="w-full h-24 bg-white/5 border-2 border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 transition-all relative overflow-hidden group">
+                      <div onClick={() => iconInputRef.current?.click()} className="w-full h-24 bg-[#F6F8F7] border-2 border-dashed border-black/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 transition-all relative overflow-hidden group">
                         {appIcon ? (
                           <>
                             <img src={appIcon.url} className="w-full h-full object-contain p-4" />
                             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-[10px] font-black text-white uppercase">Change Icon</div>
                           </>
                         ) : (
-                          <Plus className="w-6 h-6 text-white/10 group-hover:text-primary transition-all" />
+                          <Plus className="w-6 h-6 text-[#8B958F] group-hover:text-primary transition-all" />
                         )}
                       </div>
                     </div>
 
                     {/* Social Proof Badges */}
-                    <div className="space-y-3 pt-4 border-t border-white/5">
+                    <div className="space-y-3 pt-4 border-t border-black/10">
                       <div className="flex justify-between items-center">
                          <label className="control-label uppercase">Social Proof</label>
-                         <button onClick={() => setGlobalShowBadge(!globalShowBadge)} className={cn("text-[9px] font-black uppercase tracking-widest", globalShowBadge ? "text-primary" : "text-white/20")}>
+                         <button onClick={() => setGlobalShowBadge(!globalShowBadge)} className={cn("text-[9px] font-black uppercase tracking-widest", globalShowBadge ? "text-primary" : "text-[#8B958F]")}>
                            {globalShowBadge ? 'Enabled' : 'Disabled'}
                          </button>
                       </div>
@@ -1268,7 +1268,7 @@ export default function App() {
                             onClick={() => setBadgeType(type as any)}
                             className={cn(
                               "py-2 rounded-lg border text-[9px] font-black uppercase transition-all",
-                              badgeType === type ? "bg-primary/20 border-primary text-white" : "border-white/5 text-white/20"
+                              badgeType === type ? "bg-mint border-primary text-primary" : "border-black/10 text-text-tertiary hover:bg-black/[0.03]"
                             )}
                           >
                             {type} Badge
@@ -1285,7 +1285,7 @@ export default function App() {
               <div className="space-y-6 animate-in fade-in slide-in-from-left-2 duration-300">
                 <section className="glass-panel p-5 space-y-4">
                   <div className="flex items-center gap-2 brightness-110">
-                    <Edit3 className="w-3.5 h-3.5 text-accent" />
+                    <Edit3 className="w-3.5 h-3.5 text-primary" />
                     <h2 className="section-title">Bulk Logic Editor</h2>
                   </div>
                   <p className="text-[9px] text-text-tertiary uppercase font-black tracking-tighter leading-relaxed">
@@ -1305,15 +1305,15 @@ export default function App() {
                         return s;
                       }));
                     }}
-                    className="w-full h-48 bg-bg/40 border-2 border-dashed border-white/10 rounded-xl p-4 text-[11px] font-mono text-text focus:border-accent/40 outline-none resize-none transition-all"
+                    className="w-full h-48 bg-[#F6F8F7] border-2 border-dashed border-black/10 rounded-xl p-4 text-[11px] font-mono text-text focus:border-primary/40 outline-none resize-none transition-all"
                     placeholder="E.g. High Performance $- Fast & Stable"
                   />
                 </section>
- 
+
                 <section className="glass-panel p-5 space-y-4">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full py-4 bg-accent text-bg font-black uppercase text-[11px] tracking-widest rounded-xl hover:bg-white transition-all shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-primary-dark hover:bg-[#048532] text-white font-black uppercase text-[11px] tracking-widest rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
                   >
                     <PlusSquare className="w-4 h-4" /> Import New Assets
                   </button>
@@ -1383,18 +1383,18 @@ export default function App() {
                           {index + 1}
                         </div>
                       </div>
-                      <p className="text-[8px] text-white/40 truncate text-center font-black uppercase tracking-tighter px-1">
+                      <p className="text-[8px] text-[#8B958F] truncate text-center font-black uppercase tracking-tighter px-1">
                         Screen {index + 1}
                       </p>
                     </Reorder.Item>
                   ))}
-                  
+
                   {/* Add More Button in Reorder Group */}
-                  <div 
+                  <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex-shrink-0 w-24 aspect-[9/16] rounded-lg border-2 border-dashed border-white/10 hover:border-accent/40 bg-surface/30 hover:bg-surface-variant/40 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all group/add"
+                    className="flex-shrink-0 w-24 aspect-[9/16] rounded-lg border-2 border-dashed border-black/10 hover:border-primary/40 bg-surface/30 hover:bg-surface-variant/40 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all group/add"
                   >
-                    <div className="p-2 rounded-full bg-accent/10 text-accent group-hover/add:scale-110 transition-transform">
+                    <div className="p-2 rounded-full bg-primary/10 text-primary group-hover/add:scale-110 transition-transform">
                       <Plus className="w-5 h-5" />
                     </div>
                     <span className="text-[8px] font-black uppercase tracking-widest text-text-tertiary">Add More</span>
@@ -1456,8 +1456,8 @@ export default function App() {
                         <div className="space-y-8 order-2 xl:order-1">
                           {/* Fine-Tune Individual Asset */}
                           <section className="space-y-4">
-                            <div className="flex items-center gap-2 brightness-110 border-b border-white/5 pb-2">
-                               <Settings2 className="w-3.5 h-3.5 text-accent" />
+                            <div className="flex items-center gap-2 brightness-110 border-b border-black/10 pb-2">
+                               <Settings2 className="w-3.5 h-3.5 text-primary" />
                                <h3 className="text-[10px] uppercase font-black tracking-widest text-text">Fine-Tune Slide {index + 1}</h3>
                             </div>
                             
@@ -1484,7 +1484,7 @@ export default function App() {
                                        };
                                        input.click();
                                      }}
-                                     className="w-full h-24 bg-white/[0.02] border border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-accent/40 transition-all group/bg relative overflow-hidden"
+                                     className="w-full h-24 bg-[#F6F8F7] border border-dashed border-black/10 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 transition-all group/bg relative overflow-hidden"
                                   >
                                      {item.customBackgroundUrl ? (
                                        <>
@@ -1507,37 +1507,37 @@ export default function App() {
                                   <div className="space-y-3">
                                      <div className="flex justify-between">
                                        <label className="text-[9px] font-black uppercase text-text-tertiary">Focus Blur</label>
-                                       <span className="text-[10px] font-black text-accent">{item.backgroundBlur || 0}px</span>
+                                       <span className="text-[10px] font-black text-primary">{item.backgroundBlur || 0}px</span>
                                      </div>
-                                     <input type="range" min="0" max="40" value={item.backgroundBlur || 0} onChange={e => updateScreenshot(item.id, { backgroundBlur: parseInt(e.target.value) })} className="w-full accent-accent h-1 bg-white/5 rounded-lg appearance-none" />
+                                     <input type="range" min="0" max="40" value={item.backgroundBlur || 0} onChange={e => updateScreenshot(item.id, { backgroundBlur: parseInt(e.target.value) })} className="w-full accent-primary h-1 bg-black/[0.06] rounded-lg appearance-none" />
                                   </div>
                                )}
                             </div>
                           </section>
- 
+
                           {/* Text Editor */}
-                          <div className="space-y-6 pt-4 border-t border-white/5">
+                          <div className="space-y-6 pt-4 border-t border-black/10">
                             <div className="space-y-3 group">
                               <div className="flex justify-between items-center">
                                  <label className="control-label uppercase tracking-widest text-[9px]">Slide Headline</label>
-                                 <button onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, headline: item.headline })))} className="text-[8px] font-black text-accent uppercase opacity-0 group-hover:opacity-100 hover:text-white transition-all">Apply All</button>
+                                 <button onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, headline: item.headline })))} className="text-[8px] font-black text-primary uppercase opacity-0 group-hover:opacity-100 hover:text-primary-dark transition-all">Apply All</button>
                               </div>
                               <textarea
                                 value={item.headline}
                                 onChange={(e) => updateScreenshot(item.id, { headline: e.target.value })}
-                                className="control-input py-3 min-h-[80px] bg-white/[0.02] border-white/10 hover:border-accent/40 focus:border-accent transition-all resize-none text-sm font-medium"
+                                className="control-input py-3 min-h-[80px] hover:border-primary/40 focus:border-primary transition-all resize-none text-sm font-medium"
                                 placeholder="..."
                               />
                             </div>
                             <div className="space-y-3 group">
                               <div className="flex justify-between items-center">
                                  <label className="control-label uppercase tracking-widest text-[9px]">Slide Subheadline</label>
-                                 <button onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, subheadline: item.subheadline })))} className="text-[8px] font-black text-accent uppercase opacity-0 group-hover:opacity-100 hover:text-white transition-all">Apply All</button>
+                                 <button onClick={() => setScreenshots(prev => prev.map(s => ({ ...s, subheadline: item.subheadline })))} className="text-[8px] font-black text-primary uppercase opacity-0 group-hover:opacity-100 hover:text-primary-dark transition-all">Apply All</button>
                               </div>
                               <textarea
                                 value={item.subheadline}
                                 onChange={(e) => updateScreenshot(item.id, { subheadline: e.target.value })}
-                                className="control-input py-3 min-h-[80px] bg-white/[0.02] border-white/10 hover:border-accent/40 focus:border-accent transition-all resize-none text-sm font-medium"
+                                className="control-input py-3 min-h-[80px] hover:border-primary/40 focus:border-primary transition-all resize-none text-sm font-medium"
                                 placeholder="..."
                               />
                             </div>
@@ -1553,16 +1553,16 @@ export default function App() {
                               {[
                                 { id: 'iphone', label: 'iOS Phone', color: 'primary' },
                                 { id: 'ipad', label: 'iOS Tablet', color: 'primary' },
-                                { id: 'android', label: 'Android', color: '[#3DDC84]' },
+                                { id: 'android', label: 'Android', color: 'primary' },
                               ].map((btn) => (
                                 <button
                                   key={btn.id}
                                   onClick={() => setPreviewMode(btn.id as any)}
                                   className={cn(
                                     "px-3 py-1 rounded-lg text-[9px] font-black border transition-all uppercase tracking-widest",
-                                    previewMode === btn.id 
-                                      ? `bg-${btn.color} text-black border-${btn.color}` 
-                                      : "bg-white/5 text-white/40 border-white/5 hover:bg-white/10"
+                                    previewMode === btn.id
+                                      ? `bg-${btn.color} text-white border-${btn.color}`
+                                      : "bg-white text-text-tertiary border-black/10 hover:bg-black/[0.03]"
                                   )}
                                 >
                                   {btn.label}
@@ -1578,8 +1578,8 @@ export default function App() {
                           previewMode === 'android' ? "aspect-[9/20] max-w-[260px]" :
                           "aspect-[3/4.2] max-w-[380px]"
                         )}>
-                            <div className="absolute inset-x-0 top-0 h-24 bg-accent/0 group-hover/preview:bg-accent/5 transition-all z-10 flex items-center justify-center">
-                               <div className="opacity-0 group-hover/preview:opacity-100 transition-opacity bg-accent text-bg text-[8px] font-black px-2 py-1 rounded-full uppercase">Edit Styles</div>
+                            <div className="absolute inset-x-0 top-0 h-24 bg-primary/0 group-hover/preview:bg-primary/5 transition-all z-10 flex items-center justify-center">
+                               <div className="opacity-0 group-hover/preview:opacity-100 transition-opacity bg-primary text-bg text-[8px] font-black px-2 py-1 rounded-full uppercase">Edit Styles</div>
                             </div>
                             <ScreenshotPreview
                               item={item}
@@ -1621,9 +1621,9 @@ export default function App() {
                             )}
                           </div>
                           
-                          <button 
+                          <button
                             onClick={() => setShowStoreOverlay(!showStoreOverlay)}
-                            className="w-full py-2 bg-white/5 border border-white/10 rounded-lg text-[9px] font-black uppercase text-white/40 hover:text-white transition-all"
+                            className="w-full py-2 bg-[#F6F8F7] border border-black/10 rounded-lg text-[9px] font-black uppercase text-text-tertiary hover:text-ink transition-all"
                           >
                             {showStoreOverlay ? 'Hide Store Mockup' : 'Show Store Mockup Overlay'}
                           </button>
@@ -1760,7 +1760,7 @@ export default function App() {
                                     onClick={() => updateScreenshot(item.id, { backgroundColor: color })}
                                     className={cn(
                                       "w-6 h-6 rounded border transition-all",
-                                      item.backgroundColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-white/20"
+                                      item.backgroundColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-black/20"
                                     )}
                                     style={{ backgroundColor: color }}
                                   />
@@ -1776,7 +1776,7 @@ export default function App() {
                                     onClick={() => updateScreenshot(item.id, { secondaryColor: color })}
                                     className={cn(
                                       "w-6 h-6 rounded border transition-all",
-                                      item.secondaryColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-white/20"
+                                      item.secondaryColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-black/20"
                                     )}
                                     style={{ backgroundColor: color }}
                                   />
@@ -1795,7 +1795,7 @@ export default function App() {
                                     onClick={() => updateScreenshot(item.id, { textColor: color })}
                                     className={cn(
                                       "w-6 h-6 rounded border transition-all",
-                                      item.textColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-white/20"
+                                      item.textColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-black/20"
                                     )}
                                     style={{ backgroundColor: color }}
                                   />
@@ -1811,7 +1811,7 @@ export default function App() {
                                     onClick={() => updateScreenshot(item.id, { frameColor: color })}
                                     className={cn(
                                       "w-6 h-6 rounded border transition-all",
-                                      item.frameColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-white/20"
+                                      item.frameColor === color ? "border-primary ring-2 ring-primary/20" : "border-transparent hover:border-black/20"
                                     )}
                                     style={{ backgroundColor: color }}
                                   />
@@ -1820,7 +1820,7 @@ export default function App() {
                             </div>
                           </div>
 
-                          <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                          <div className="pt-4 border-t border-black/10 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                               <label className="flex items-center gap-2 cursor-pointer group">
                                 <div className="relative">
@@ -1873,16 +1873,16 @@ export default function App() {
             )}
             
             {/* SEO Optimized Content Section */}
-            <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl sm:text-2xl font-semibold text-white">App Store Optimization (ASO) & Mockup Generator</h2>
+            <article className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-6 sm:p-8 rounded-2xl mt-12 space-y-6 text-sm text-[#55605B] leading-relaxed font-sans">
+            <h2 className="text-xl sm:text-2xl font-semibold text-ink">App Store Optimization (ASO) & Mockup Generator</h2>
             <p>
               First impressions matter immensely in the highly competitive digital marketplace. When potential users discover your application on the Apple App Store or Google Play Store, the aesthetic quality of your store listing directly impacts your conversion rate. Our <strong>App Store Screenshots Generator</strong> helps developers, indie creators, and marketers design polished, professional-grade mockups without relying on complex, expensive, and heavy design software like Adobe Photoshop, Figma, or Sketch.
             </p>
             <p>
               By leveraging our intuitive tool, you can rapidly generate stunning, high-resolution application screenshots that effectively communicate your app's core value proposition. Whether you are launching a brand-new application, pushing an important update, or conducting A/B testing on different store listings, having high-quality, perfectly sized mockups is a critical factor for achieving App Store Optimization (ASO) success and maximizing your downloads.
             </p>
-            
-            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
+
+            <h3 className="text-lg font-semibold text-ink mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Upload Your Screenshots:</strong> Start by uploading the raw screenshots you took directly from your device simulator or physical hardware.</li>
               <li><strong>Select Your Target Device & Template:</strong> Choose from a variety of predefined device frames (such as iPhone 6.5", iPad Pro) and select a layout template (Classic, Modern Gradient, Split, etc.) that best suits your app's style.</li>
@@ -1890,22 +1890,22 @@ export default function App() {
               <li><strong>Export Your Creations:</strong> Once you are satisfied with the preview, hit the download button to export all your perfectly sized, high-resolution mockups in a convenient ZIP file, ready for immediate upload to the App Store Connect or Google Play Console.</li>
             </ol>
 
-            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-ink mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
-                <strong className="text-white block">1. What dimensions does the App Store require for screenshots?</strong>
+                <strong className="text-ink block">1. What dimensions does the App Store require for screenshots?</strong>
                 <p>Apple requires specific dimensions for different devices. For instance, iPhone 6.5" displays require 1242 x 2688 pixels, while iPads often use 2048 x 2732 pixels. Our tool automatically scales and exports your mockups to these exact specifications, ensuring compliance with Apple's strict guidelines.</p>
               </div>
               <div>
-                <strong className="text-white block">2. Is my app data or screenshots uploaded to a server?</strong>
+                <strong className="text-ink block">2. Is my app data or screenshots uploaded to a server?</strong>
                 <p>Absolutely not. At ShaadDev Studio, we prioritize your privacy and zero-trust security. All image processing, framing, and text rendering are performed entirely locally directly within your web browser. Your sensitive pre-release application mockups never leave your device.</p>
               </div>
               <div>
-                <strong className="text-white block">3. Can I use custom fonts for my ASO text?</strong>
+                <strong className="text-ink block">3. Can I use custom fonts for my ASO text?</strong>
                 <p>Yes! We provide a selection of highly readable, modern fonts tailored for mobile displays. You can customize the typography to ensure your headline and subheadline capture the user's attention in a fraction of a second.</p>
               </div>
             </div>
-          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Keep It Clean</h4><p className="text-white/70">Avoid cluttered photographic backgrounds to ensure the interface pops on the app store.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Highlight Features</h4><p className="text-white/70">Call out the core UI elements using the device frame as a realistic anchor.</p></div></div></section></article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-ink font-mono border-b border-black/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Keep It Clean</h4><p className="text-[#55605B]">Avoid cluttered photographic backgrounds to ensure the interface pops on the app store.</p></div><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Highlight Features</h4><p className="text-[#55605B]">Call out the core UI elements using the device frame as a realistic anchor.</p></div></div></section></article>
 
             <div className="font-sans">
                 <RelatedTools currentPath="/tools/aso-screenshot" />

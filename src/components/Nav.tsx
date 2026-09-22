@@ -5,7 +5,7 @@ import { Menu, X } from 'lucide-react';
 
 // A flat, single accent color — deliberately not a gradient. Kept as `GRADIENT`
 // to avoid touching every import site; the value itself is what matters.
-export const GRADIENT = 'var(--color-primary)';
+export const GRADIENT = 'var(--color-primary-dark)';
 
 const LINKS = [
   { label: 'Tools', path: '/tools' },
@@ -31,21 +31,21 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="fixed top-0 inset-x-0 z-50 border-b border-white/[0.06] bg-[#08080A]/75 backdrop-blur-xl">
+      <nav className="fixed top-0 inset-x-0 z-50 border-b border-black/[0.06] bg-white/85 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 shrink-0">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20" style={{ background: GRADIENT }}>
               <span className="text-white font-bold text-sm leading-none">R</span>
             </div>
-            <span className="font-semibold text-[15px] tracking-tight">ShaadDev Studio</span>
+            <span className="font-semibold text-[15px] tracking-tight text-ink">ShaadDev Studio</span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-white/55">
+          <div className="hidden lg:flex items-center gap-1 text-sm font-medium text-[#55605B]">
             {LINKS.map((link) => (
               <Link
                 key={link.label}
                 to={link.path}
-                className={`hover:text-white transition-colors ${location.pathname === link.path ? 'text-white' : ''}`}
+                className={`px-3.5 py-1.5 rounded-full transition-colors ${location.pathname === link.path ? 'bg-primary/10 text-primary' : 'hover:text-ink'}`}
               >
                 {link.label}
               </Link>
@@ -64,7 +64,7 @@ export default function Nav() {
               type="button"
               aria-label={open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen((prev) => !prev)}
-              className="lg:hidden p-2 rounded-lg border border-white/10 bg-white/[0.03] active:scale-95 transition-all"
+              className="lg:hidden p-2 rounded-lg border border-black/10 bg-black/[0.02] active:scale-95 transition-all text-ink"
             >
               {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -82,7 +82,7 @@ export default function Nav() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-30 bg-black/60 backdrop-blur-[2px] lg:hidden"
+              className="fixed inset-0 z-30 bg-black/40 backdrop-blur-[2px] lg:hidden"
             />
             <motion.div
               initial={{ opacity: 0, y: -12 }}
@@ -90,17 +90,17 @@ export default function Nav() {
               exit={{ opacity: 0, y: -12 }}
               className="fixed top-[72px] left-0 right-0 z-40 px-4 lg:hidden"
             >
-              <div className="rounded-2xl border border-white/10 bg-[#0F0F12] p-3 space-y-1 shadow-2xl shadow-black/60">
+              <div className="rounded-2xl border border-black/10 bg-white p-3 space-y-1 shadow-2xl shadow-black/10">
                 {LINKS.map((link) => (
                   <Link
                     key={link.label}
                     to={link.path}
-                    className="block py-2.5 px-3 text-sm font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                    className="block py-2.5 px-3 text-sm font-medium text-ink/80 hover:text-ink hover:bg-black/[0.03] rounded-lg transition-all"
                   >
                     {link.label}
                   </Link>
                 ))}
-                <a href="mailto:rizwanrasheed046@gmail.com" className="block py-2.5 px-3 text-sm font-semibold text-primary hover:bg-white/5 rounded-lg transition-all">
+                <a href="mailto:rizwanrasheed046@gmail.com" className="block py-2.5 px-3 text-sm font-semibold text-primary hover:bg-black/[0.03] rounded-lg transition-all">
                   Get in touch
                 </a>
               </div>

@@ -8,7 +8,7 @@ import Nav, { GRADIENT } from '../../components/Nav';
 
 export default function StamppediaPrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
       <SEO
         title="Privacy Policy | Stamppedia"
         description="Privacy policy for Stamppedia app. We prioritize your data privacy and security."
@@ -19,8 +19,8 @@ export default function StamppediaPrivacyPolicy() {
       <Nav />
 
       <main className="relative z-10 max-w-4xl mx-auto px-6 pt-36 pb-20">
-        <Link to="/apps/stamppedia" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-primary transition-colors mb-8">
-          Stamppedia <span className="text-white/30">/</span> Privacy policy
+        <Link to="/apps/stamppedia" className="inline-flex items-center gap-1.5 text-xs text-[#8B958F] hover:text-primary transition-colors mb-8">
+          Stamppedia <span className="text-black/20">/</span> Privacy policy
         </Link>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -29,39 +29,39 @@ export default function StamppediaPrivacyPolicy() {
         >
           {/* Hero Section */}
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
               Legal · Stamppedia
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
               Privacy <span className="text-primary">Policy.</span>
             </h1>
-            <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
+            <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
               Your stamp collection data is your property. Stamppedia is designed to protect and secure your information with industry-leading encryption.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-black/[0.06]">
             {[
               { icon: Lock, label: "Encryption", desc: "End-to-end encrypted sync" },
               { icon: Eye, label: "Transparency", desc: "No hidden data collection" },
               { icon: FileText, label: "Control", desc: "You own your data" }
             ].map((item, idx) => (
-              <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4 hover:border-primary/25 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <div key={idx} className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-4 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
+                <div className="w-10 h-10 rounded-lg bg-mint border border-primary/20 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-white mb-1">{item.label}</div>
-                  <div className="text-xs text-white/50">{item.desc}</div>
+                  <div className="text-sm font-semibold text-ink mb-1">{item.label}</div>
+                  <div className="text-xs text-[#55605B]">{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Legal Content */}
-          <div className="prose prose-invert max-w-none space-y-10 text-white/60">
+          <div className="prose max-w-none space-y-10 text-[#55605B]">
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 01. Introduction
               </h2>
               <p className="leading-relaxed">
@@ -70,7 +70,7 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 02. Information Collection and Use
               </h2>
               <p className="leading-relaxed">
@@ -90,7 +90,7 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 03. Data Storage and Security
               </h2>
               <p className="leading-relaxed">
@@ -102,7 +102,7 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 04. Third Party Access
               </h2>
               <p className="leading-relaxed">
@@ -120,7 +120,7 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 05. Opt-Out Rights
               </h2>
               <p className="leading-relaxed">
@@ -132,7 +132,7 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 06. Data Retention Policy
               </h2>
               <p className="leading-relaxed">
@@ -144,7 +144,7 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 07. Children's Privacy
               </h2>
               <p className="leading-relaxed">
@@ -156,19 +156,19 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 08. Changes to This Privacy Policy
               </h2>
               <p className="leading-relaxed">
                 This Privacy Policy may be updated from time to time. The Service Provider will notify you of changes by updating this page. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.
               </p>
-              <p className="text-white/40 text-sm mt-4">
+              <p className="text-[#8B958F] text-sm mt-4">
                 Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })}
               </p>
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 09. Your Consent
               </h2>
               <p className="leading-relaxed">
@@ -177,15 +177,15 @@ export default function StamppediaPrivacyPolicy() {
             </section>
 
             <section className="space-y-4">
-              <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 10. Contact Us
               </h2>
               <p className="leading-relaxed">
                 If you have any questions regarding privacy while using the Application, or have questions about our practices, please contact us:
               </p>
-              <div className="rounded-xl bg-white/[0.02] p-4 mt-4 border border-white/10">
-                <p className="text-sm"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
-                <p className="text-sm mt-2"><strong>Support:</strong> rizwanrasheed046@gmail.com</p>
+              <div className="rounded-xl bg-[#F6F8F7] p-4 mt-4 border border-black/10">
+                <p className="text-sm text-ink"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
+                <p className="text-sm text-ink mt-2"><strong>Support:</strong> rizwanrasheed046@gmail.com</p>
               </div>
             </section>
           </div>

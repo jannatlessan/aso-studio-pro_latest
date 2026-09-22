@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Type, 
-  Copy, 
-  Check, 
+import {
+  Type,
+  Copy,
+  Check,
   ChevronLeft,
   Trash2,
   RefreshCcw,
@@ -52,7 +52,7 @@ export default function TextUtilities() {
   const handleBase64Decode = () => {
     try { setText(atob(text)); } catch(e) { alert("Invalid Base64 string"); }
   };
-  
+
   const copyToClipboard = () => {
     if (!text) return;
     navigator.clipboard.writeText(text);
@@ -63,16 +63,16 @@ export default function TextUtilities() {
   const clearAll = () => setText('');
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
-      <SEO 
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
+      <SEO
         title="Free Online Text & String Utilities | ShaadDev Studio"
         description="Convert string case, analyze word count, and manage encodings conveniently."
         url="https://shaaddev.studio/tools/text-utilities" keywords="text utilities, base64 encode, counting strings" />
-      
+
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
             <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'Text Utilities' : 'Back to Tools'}</span>
           </button>
@@ -86,10 +86,10 @@ export default function TextUtilities() {
       {/* Main Content */}
       <main className="flex-grow p-4 sm:p-8 flex flex-col items-center">
         <div className="w-full max-w-6xl space-y-6">
-          
+
           <div className="space-y-1">
-             <h1 className="text-2xl font-black tracking-tight">String & Text Manipulations</h1>
-             <p className="text-white/60 text-xs">Instantly count characters and modify text casing and formatting.</p>
+             <h1 className="text-2xl font-black tracking-tight text-ink">String & Text Manipulations</h1>
+             <p className="text-[#8B958F] text-xs">Instantly count characters and modify text casing and formatting.</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
@@ -99,46 +99,46 @@ export default function TextUtilities() {
                { label: "Chars (No Space)", value: charNoSpacesCount },
                { label: "Lines", value: lineCount },
              ].map((stat, i) => (
-                <div key={i} className="glass-panel p-4 rounded-xl flex flex-col gap-2 items-center justify-center text-center bg-black/40 border border-white/10">
-                   <span className="text-[10px] font-bold uppercase tracking-widest text-white/50">{stat.label}</span>
+                <div key={i} className="glass-panel p-4 rounded-xl flex flex-col gap-2 items-center justify-center text-center bg-white border border-black/10 shadow-sm shadow-black/[0.02]">
+                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#8B958F]">{stat.label}</span>
                    <span className="text-3xl font-black text-primary">{stat.value}</span>
                 </div>
              ))}
           </div>
 
-          <div className="glass-panel rounded-2xl border border-white/10 bg-black/40 overflow-hidden flex flex-col min-h-[400px]">
+          <div className="glass-panel rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] overflow-hidden flex flex-col min-h-[400px]">
              {/* Toolbar */}
-             <div className="bg-white/5 border-b border-white/10 p-2 sm:p-3 flex flex-wrap gap-2 items-center">
-                <button onClick={handleUpperCase} className="px-3 py-1.5 hover:bg-white/10 text-white/80 rounded transition-colors text-xs font-bold uppercase">UPPERCASE</button>
-                <button onClick={handleLowerCase} className="px-3 py-1.5 hover:bg-white/10 text-white/80 rounded transition-colors text-xs font-bold lowercase">lowercase</button>
-                <button onClick={handleTitleCase} className="px-3 py-1.5 hover:bg-white/10 text-white/80 rounded transition-colors text-xs font-bold capitalize">Title Case</button>
-                <div className="w-px h-6 bg-white/10 mx-2 hidden sm:block"></div>
-                <button onClick={handleRemoveSpaces} className="px-3 py-1.5 hover:bg-white/10 text-white/80 rounded transition-colors text-xs font-bold">Fix Spaces</button>
-                <button onClick={handleBase64Encode} className="px-3 py-1.5 hover:bg-white/10 text-white/80 rounded transition-colors text-xs font-bold flex items-center gap-1">Encode 64</button>
-                <button onClick={handleBase64Decode} className="px-3 py-1.5 hover:bg-white/10 text-white/80 rounded transition-colors text-xs font-bold flex items-center gap-1">Decode 64</button>
-                
+             <div className="bg-[#F6F8F7] border-b border-black/10 p-2 sm:p-3 flex flex-wrap gap-2 items-center">
+                <button onClick={handleUpperCase} className="px-3 py-1.5 hover:bg-black/[0.04] text-[#55605B] hover:text-ink rounded transition-colors text-xs font-bold uppercase">UPPERCASE</button>
+                <button onClick={handleLowerCase} className="px-3 py-1.5 hover:bg-black/[0.04] text-[#55605B] hover:text-ink rounded transition-colors text-xs font-bold lowercase">lowercase</button>
+                <button onClick={handleTitleCase} className="px-3 py-1.5 hover:bg-black/[0.04] text-[#55605B] hover:text-ink rounded transition-colors text-xs font-bold capitalize">Title Case</button>
+                <div className="w-px h-6 bg-black/10 mx-2 hidden sm:block"></div>
+                <button onClick={handleRemoveSpaces} className="px-3 py-1.5 hover:bg-black/[0.04] text-[#55605B] hover:text-ink rounded transition-colors text-xs font-bold">Fix Spaces</button>
+                <button onClick={handleBase64Encode} className="px-3 py-1.5 hover:bg-black/[0.04] text-[#55605B] hover:text-ink rounded transition-colors text-xs font-bold flex items-center gap-1">Encode 64</button>
+                <button onClick={handleBase64Decode} className="px-3 py-1.5 hover:bg-black/[0.04] text-[#55605B] hover:text-ink rounded transition-colors text-xs font-bold flex items-center gap-1">Decode 64</button>
+
                 <div className="ml-auto flex items-center gap-2">
-                   <button onClick={clearAll} className="p-2 hover:bg-white/10 text-white/50 hover:text-red-400 rounded transition-colors" title="Clear">
+                   <button onClick={clearAll} className="p-2 hover:bg-black/[0.04] text-[#8B958F] hover:text-red-600 rounded transition-colors" title="Clear">
                      <Trash2 className="w-4 h-4" />
                    </button>
-                   <button onClick={copyToClipboard} className="p-2 hover:bg-primary/20 text-white/50 hover:text-primary rounded transition-colors" title="Copy">
-                     {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                   <button onClick={copyToClipboard} className="p-2 hover:bg-mint text-[#8B958F] hover:text-primary rounded transition-colors" title="Copy">
+                     {copied ? <Check className="w-4 h-4 text-primary" /> : <Copy className="w-4 h-4" />}
                    </button>
                 </div>
              </div>
 
-             <textarea 
+             <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Type or paste your text here to begin..."
-                className="flex-grow w-full bg-transparent resize-none p-6 font-mono text-sm sm:text-base leading-relaxed focus:outline-none text-white/90 placeholder:text-white/20 custom-scrollbar"
+                className="flex-grow w-full bg-transparent resize-none p-6 font-mono text-sm sm:text-base leading-relaxed focus:outline-none text-ink placeholder:text-black/30 custom-scrollbar"
                 spellCheck={false}
              />
           </div>
 
           {/* SEO Optimized Content Section */}
-          <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl sm:text-2xl font-semibold text-white">Advanced Text Manipulation & Formatting Utilities</h2>
+          <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-white border border-black/10 shadow-sm shadow-black/[0.02] mt-12 space-y-6 text-sm text-[#55605B] leading-relaxed font-sans">
+            <h2 className="text-xl sm:text-2xl font-semibold text-ink">Advanced Text Manipulation & Formatting Utilities</h2>
             <p>
               Working with large volumes of text, cleaning up raw data strings, or formatting content for various programming and editorial requirements can be an incredibly tedious process. Our comprehensive <strong>Text Utilities Suite</strong> provides developers, copywriters, data analysts, and content creators with an indispensable toolkit to quickly manipulate, transform, and analyze text strings without having to write custom scripts or switch between multiple different applications.
             </p>
@@ -146,7 +146,7 @@ export default function TextUtilities() {
               Whether you need to instantly strip out unnecessary whitespace, convert a messy block of text into a specific casing format (like camelCase for variables, or Title Case for articles), extract all the URLs from a document, or simply perform a fast character count for SEO optimization, this tool streamlines your entire workflow. By combining multiple operations into a single, cohesive, web-based interface, we save you valuable time and reduce human error, letting you focus on the actual logic and structure of your projects rather than mindlessly re-typing mundane text.
             </p>
 
-            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
+            <h3 className="text-lg font-semibold text-ink mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Input Your Text:</strong> Paste your raw, unformatted, or messy text block directly into the large input area provided on the screen.</li>
               <li><strong>Select an Operation:</strong> Browse through the assorted quick-action buttons below the text box. Choose actions such as Upper Case, Lower Case, Title Case, or more specific developer actions like generating camelCase or sorting lines alphabetically.</li>
@@ -154,22 +154,22 @@ export default function TextUtilities() {
               <li><strong>Copy to Clipboard:</strong> Once the text matches your exact requirements, utilize the one-click copy button to copy the transformed text back into your code editor, document, or content management system.</li>
             </ol>
 
-            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-ink mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
-                <strong className="text-white block">1. Does this tool process my text on a remote server?</strong>
+                <strong className="text-ink block">1. Does this tool process my text on a remote server?</strong>
                 <p>Not at all. Everything you type or paste into the text utility is processed locally directly within your own web browser's memory. We do not transmit, analyze, or log your proprietary text, ensuring complete privacy, especially for sensitive code snippets or confidential articles.</p>
               </div>
               <div>
-                <strong className="text-white block">2. What kind of casing formats are supported?</strong>
+                <strong className="text-ink block">2. What kind of casing formats are supported?</strong>
                 <p>We support a wide array of cases crucial for both developers and writers, including standard UPPERCASE, lowercase, and Title Case, alongside programming-specific paradigms such as camelCase, snake_case, kebab-case, and PascalCase.</p>
               </div>
               <div>
-                <strong className="text-white block">3. Can I use this for counting characters and words?</strong>
+                <strong className="text-ink block">3. Can I use this for counting characters and words?</strong>
                 <p>Yes, the tool features real-time analytics that automatically displays the accurate character count, word count, and line count of your input, which is particularly beneficial for SEO specialists aiming for specific content length constraints.</p>
               </div>
             </div>
-          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">SEO Character Limits</h4><p className="text-white/70">Keep Meta Titles under 60 characters and Meta Descriptions under 160 characters for optimal search display.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Base64 Security</h4><p className="text-white/70">Encoding is not secure encryption. Never use Base64 to hide secret API tokens inside client code.</p></div></div></section></article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-ink font-mono border-b border-black/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">SEO Character Limits</h4><p className="text-[#55605B]">Keep Meta Titles under 60 characters and Meta Descriptions under 160 characters for optimal search display.</p></div><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Base64 Security</h4><p className="text-[#55605B]">Encoding is not secure encryption. Never use Base64 to hide secret API tokens inside client code.</p></div></div></section></article>
 
           <RelatedTools currentPath="/tools/text-utilities" />
         </div>

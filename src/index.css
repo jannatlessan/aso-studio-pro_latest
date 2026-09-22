@@ -1,19 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-primary: #2FA37A;
-  --color-primary-light: #4FC79A;
-  --color-primary-dark: #1F7A5C;
-  --color-secondary: #2FA37A;
+  /* TechzQuad-style brand green */
+  --color-primary: #0E9D52;
+  --color-primary-light: #2EBA6B;
+  --color-primary-dark: #006622;
+  --color-secondary: #0E9D52;
 
-  --color-accent-teal: #2FA37A;
-  --color-accent-blue: #2FA37A;
+  --color-accent-teal: #0E9D52;
+  --color-accent-blue: #0E9D52;
+
+  --color-mint: #E8F9EE;
+  --color-ink: #101312;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -25,25 +28,99 @@
 }
 
 :root {
-  /* Global App Theme - Eye Friendly Soft Dark */
-  --bg: #08080A;
-  --surface: #17191E;
-  --surface-variant: #1E2127;
-  --text: #EDEDEF;
-  --text-secondary: #94A3B8;
-  --text-tertiary: #64748B;
-  --border: rgba(255, 255, 255, 0.06);
-  --accent: #2FA37A;
-  --line: rgba(255, 255, 255, 0.08);
-  --panel-bg: rgba(23, 25, 30, 0.6);
+  /* Global App Theme — TechzQuad-style light workspace, ink text, brand green accent */
+  --bg: #FFFFFF;
+  --bg-alt: #F6F8F7;
+  --bg-deep: #0A0C0B;
+  --surface: #FFFFFF;
+  --surface-variant: #F3F5F4;
+  --surface-mint: #E8F9EE;
+  --text: #101312;
+  --text-secondary: #55605B;
+  --text-tertiary: #8B958F;
+  --border: rgba(16, 19, 18, 0.10);
+  --border-soft: rgba(16, 19, 18, 0.06);
+  --accent: #0E9D52;
+  --line: rgba(16, 19, 18, 0.10);
+  --panel-bg: rgba(255, 255, 255, 0.7);
 }
 
 body {
   background-color: var(--bg);
-  background-image: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.05), transparent 40%);
+  background-image: radial-gradient(circle at 50% 0%, rgba(14, 157, 82, 0.06), transparent 40%);
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Eyebrow label: "—— LIKE THIS ——" small uppercase kicker used above every section heading */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* Pill buttons */
+.btn-pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-primary-dark);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  padding: 0.875rem 1.75rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.btn-pill-primary:hover {
+  background: #048532;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px rgba(0, 102, 34, 0.5);
+}
+
+.btn-pill-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  padding: 0.875rem 1.75rem;
+  border: 1px solid var(--border);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.btn-pill-secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .glass-panel {

@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useToolNavigation } from '../../hooks/useToolNavigation';
-import { 
-  Image as ImageIcon, 
-  Download, 
-  Upload, 
+import {
+  Image as ImageIcon,
+  Download,
+  Upload,
   ChevronLeft,
   Settings2,
   RefreshCcw,
@@ -49,7 +49,7 @@ export default function ImageResizer() {
   const [percentage, setPercentage] = useState(50);
   const [format, setFormat] = useState<'original' | 'image/png' | 'image/jpeg' | 'image/webp'>('original');
   const [quality, setQuality] = useState(0.9);
-  
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Smart Navigation
@@ -90,7 +90,7 @@ export default function ImageResizer() {
     const newImages: ImageObj[] = [];
     for (const file of files) {
       if (!file.type.startsWith('image/')) continue;
-      
+
       const url = URL.createObjectURL(file);
       const dimensions = await new Promise<{w: number, h: number}>((resolve) => {
         const img = new Image();
@@ -219,7 +219,7 @@ export default function ImageResizer() {
     processed.forEach(p => {
       zip.file(p.name, p.blob);
     });
-    
+
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     const url = URL.createObjectURL(zipBlob);
     const a = document.createElement('a');
@@ -230,16 +230,16 @@ export default function ImageResizer() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20 flex flex-col">
-      <SEO 
-        title="Free Online Bulk Image Resizer | ShaadDev Studio" 
-        description="Fast, local, high-quality bulk image resizing and format conversion tool. Resize single or multiple images instantly entirely in your browser." 
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
+      <SEO
+        title="Free Online Bulk Image Resizer | ShaadDev Studio"
+        description="Fast, local, high-quality bulk image resizing and format conversion tool. Resize single or multiple images instantly entirely in your browser."
         url="https://shaaddev.studio/tools/image-resizer" keywords="image resizer, crop images online, pixel width scaler" />
-      
+
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5 px-4 sm:px-8 py-4">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <button onClick={handleBackClick} className="flex items-center gap-3 group text-white/70 hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
+          <button onClick={handleBackClick} className="flex items-center gap-3 group text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>
             <ChevronLeft className="w-5 h-5" />
             <span className="font-bold tracking-wider text-sm uppercase hidden sm:inline">{isToolUsed ? 'Image Resizer' : 'Back to Tools'}</span>
           </button>
@@ -253,48 +253,48 @@ export default function ImageResizer() {
       {/* Main Content */}
       <main className="flex-grow p-4 sm:p-8 flex flex-col items-center">
         <div className="w-full max-w-6xl space-y-6">
-          
+
           <div className="space-y-1 text-center sm:text-left">
-             <h1 className="text-2xl sm:text-3xl font-black tracking-tight">Bulk Image Resizer</h1>
-             <p className="text-white/60 text-sm">Resize, convert, and format individual or bulk images straight in your browser.</p>
+             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-ink">Bulk Image Resizer</h1>
+             <p className="text-[#55605B] text-sm">Resize, convert, and format individual or bulk images straight in your browser.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
+
             {/* Left: Input List */}
             <div className="lg:col-span-8 space-y-6">
               {!images.length ? (
-                <div 
+                <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="glass-panel border border-dashed border-white/20 hover:border-primary/50 text-white/50 hover:text-primary rounded-2xl flex flex-col items-center justify-center p-16 cursor-pointer transition-all bg-black/40 min-h-[400px]"
+                  className="border-2 border-dashed border-black/15 hover:border-primary/50 text-[#8B958F] hover:text-primary rounded-2xl flex flex-col items-center justify-center p-16 cursor-pointer transition-all bg-[#F6F8F7] min-h-[400px]"
                 >
-                  <input 
-                    type="file" 
-                    accept="image/*" 
+                  <input
+                    type="file"
+                    accept="image/*"
                     multiple
-                    className="hidden" 
+                    className="hidden"
                     ref={fileInputRef}
                     onChange={handleFileUpload}
                   />
                   <Upload className="w-12 h-12 mb-4 opacity-50" />
                   <span className="font-bold text-lg uppercase tracking-wider">Add Single or Bulk Images</span>
-                  <span className="text-xs opacity-50 mt-2">Supports multiple JPG, PNG, WEBP files</span>
+                  <span className="text-xs opacity-70 mt-2">Supports multiple JPG, PNG, WEBP files</span>
                 </div>
               ) : (
-                <div className="glass-panel p-4 rounded-2xl border border-white/10 bg-black/40 space-y-4">
+                <div className="p-4 rounded-2xl border border-black/10 bg-white shadow-lg shadow-black/5 space-y-4">
                    <div className="flex justify-between items-center px-2">
-                     <span className="text-xs font-bold uppercase tracking-widest text-white/50 flex items-center gap-2">
-                        <ListPlus className="w-4 h-4"/> Input Images ({images.length})
+                     <span className="text-xs font-bold uppercase tracking-widest text-[#55605B] flex items-center gap-2">
+                        <ListPlus className="w-4 h-4 text-primary"/> Input Images ({images.length})
                      </span>
                      <div className="flex gap-3">
                        <button onClick={() => fileInputRef.current?.click()} className="text-xs text-primary hover:text-primary-light uppercase tracking-widest font-bold">Add More</button>
-                       <button onClick={clearAll} className="text-xs text-red-400 hover:text-red-300 uppercase tracking-widest font-bold">Clear All</button>
+                       <button onClick={clearAll} className="text-xs text-red-500 hover:text-red-600 uppercase tracking-widest font-bold">Clear All</button>
                      </div>
-                     <input 
-                       type="file" 
-                       accept="image/*" 
-                       multiple 
-                       className="hidden" 
+                     <input
+                       type="file"
+                       accept="image/*"
+                       multiple
+                       className="hidden"
                        ref={fileInputRef}
                        onChange={handleFileUpload}
                      />
@@ -304,37 +304,37 @@ export default function ImageResizer() {
                      {images.map((img) => {
                        const proc = processed.find(p => p.id === img.id);
                        return (
-                         <div key={img.id} className="relative group bg-[#0f0f0f] border border-white/5 rounded-xl overflow-hidden">
+                         <div key={img.id} className="relative group bg-[#F6F8F7] border border-black/[0.06] rounded-xl overflow-hidden">
                            <div className="absolute top-2 right-2 flex gap-1 z-10">
                              {proc && (
-                               <a 
-                                 href={proc.blobUrl} 
+                               <a
+                                 href={proc.blobUrl}
                                  download={proc.name}
-                                 className="bg-black/80 p-1.5 rounded-lg text-white/50 hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                                 className="bg-white/90 shadow-sm p-1.5 rounded-lg text-[#55605B] hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
                                  title="Download Image"
                                >
                                  <Download className="w-4 h-4"/>
                                </a>
                              )}
-                             <button 
+                             <button
                                onClick={() => removeImage(img.id)}
-                               className="bg-black/80 p-1.5 rounded-lg text-white/50 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                               className="bg-white/90 shadow-sm p-1.5 rounded-lg text-[#55605B] hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
                                title="Remove Image"
                              >
                                <Trash2 className="w-4 h-4"/>
                              </button>
                            </div>
                            <img src={proc ? proc.blobUrl : img.previewUrl} alt="preview" className="w-full h-32 object-cover" />
-                           <div className="p-2 space-y-1 bg-black/50 absolute bottom-0 left-0 right-0 backdrop-blur-sm">
-                             <p className="text-[9px] truncate text-white/80">{img.file.name}</p>
+                           <div className="p-2 space-y-1 bg-white/90 absolute bottom-0 left-0 right-0 backdrop-blur-sm border-t border-black/[0.06]">
+                             <p className="text-[9px] truncate text-ink">{img.file.name}</p>
                              {proc ? (
                                <p className="text-[10px] text-primary font-bold">{proc.width}x{proc.height} • {formatBytes(proc.size)}</p>
                              ) : (
-                               <p className="text-[10px] text-white/50">{img.width}x{img.height} • {formatBytes(img.file.size)}</p>
+                               <p className="text-[10px] text-[#8B958F]">{img.width}x{img.height} • {formatBytes(img.file.size)}</p>
                              )}
                            </div>
                            {proc && (
-                             <div className="absolute top-2 left-2 bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase flex items-center gap-1 shadow-lg">
+                             <div className="absolute top-2 left-2 bg-primary-dark text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase flex items-center gap-1 shadow-lg">
                                <Check className="w-3 h-3"/> Done
                              </div>
                            )}
@@ -342,20 +342,20 @@ export default function ImageResizer() {
                        )
                      })}
                    </div>
-                   
+
                    {processed.length > 0 && (
-                     <div className="p-4 bg-primary/10 border border-primary/20 rounded-xl flex justify-between items-center mt-4">
+                     <div className="p-4 bg-mint border border-primary/20 rounded-xl flex justify-between items-center mt-4">
                        <div className="space-y-1">
                           <span className="text-primary font-black uppercase tracking-widest text-sm flex items-center gap-2">
                             <Check className="w-5 h-5"/> Processing Complete
                           </span>
-                          <span className="text-white/60 text-xs">Total files: {processed.length}</span>
+                          <span className="text-[#55605B] text-xs">Total files: {processed.length}</span>
                        </div>
-                       <button 
+                       <button
                          onClick={downloadAll}
-                         className="px-6 py-3 bg-primary text-white hover:bg-white hover:text-black rounded-lg font-bold uppercase tracking-widest text-xs transition-all flex items-center gap-2"
+                         className="px-6 py-3 bg-primary-dark text-white hover:bg-[#048532] rounded-full font-bold uppercase tracking-widest text-xs transition-all flex items-center gap-2 shadow-lg shadow-primary/25"
                        >
-                         <Download className="w-4 h-4" /> 
+                         <Download className="w-4 h-4" />
                          {processed.length > 1 ? 'Download ZIP' : 'Download Image'}
                        </button>
                      </div>
@@ -366,15 +366,15 @@ export default function ImageResizer() {
 
             {/* Right: Settings */}
             <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
-              <div className="glass-panel p-6 rounded-2xl bg-black/40 border border-white/10 space-y-6">
-                <div className="flex items-center gap-2 border-b border-white/10 pb-4">
+              <div className="p-6 rounded-2xl bg-white border border-black/10 shadow-lg shadow-black/5 space-y-6">
+                <div className="flex items-center gap-2 border-b border-black/10 pb-4">
                   <Settings2 className="w-5 h-5 text-primary" />
-                  <h2 className="font-black text-sm uppercase tracking-widest">Global Settings</h2>
+                  <h2 className="font-black text-sm uppercase tracking-widest text-ink">Global Settings</h2>
                 </div>
 
                 <div className="space-y-5">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 block">Resize Mode</label>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] block">Resize Mode</label>
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       {[
                         { val: 'percentage', label: 'By %' },
@@ -385,7 +385,7 @@ export default function ImageResizer() {
                         <button
                           key={opt.val}
                           onClick={() => setResizeBy(opt.val as any)}
-                          className={`py-2 px-1 rounded-lg border text-center transition-all ${resizeBy === opt.val ? 'bg-primary/10 border-primary text-primary font-bold' : 'border-white/10 text-white/60 hover:bg-white/5'}`}
+                          className={`py-2 px-1 rounded-lg border text-center transition-all ${resizeBy === opt.val ? 'bg-mint border-primary text-primary font-bold' : 'border-black/10 text-[#55605B] hover:bg-mint'}`}
                         >
                           {opt.label}
                         </button>
@@ -395,35 +395,35 @@ export default function ImageResizer() {
 
                   {resizeBy === 'percentage' && (
                      <div>
-                       <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 mb-2 flex justify-between">
+                       <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] mb-2 flex justify-between">
                          <span>Scale Percentage</span>
                          <span className="text-primary">{percentage}%</span>
                        </label>
-                       <input 
-                         type="range" min="10" max="200" step="10" 
-                         value={percentage} 
+                       <input
+                         type="range" min="10" max="200" step="10"
+                         value={percentage}
                          onChange={(e) => setPercentage(parseInt(e.target.value))}
-                         className="w-full accent-primary h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                         className="w-full accent-primary h-1.5 bg-black/10 rounded-lg appearance-none cursor-pointer"
                        />
                      </div>
                   )}
 
                   {resizeBy === 'width' && (
                      <div>
-                       <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 block mb-2">Target Width (px) - Auto Height</label>
-                       <input 
+                       <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] block mb-2">Target Width (px) - Auto Height</label>
+                       <input
                          type="number" value={targetWidth} onChange={(e) => setTargetWidth(parseInt(e.target.value) || 1)}
-                         className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none"
+                         className="w-full bg-white border border-black/10 rounded-lg p-2.5 text-sm text-ink focus:border-primary focus:outline-none"
                        />
                      </div>
                   )}
 
                   {resizeBy === 'height' && (
                      <div>
-                       <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 block mb-2">Target Height (px) - Auto Width</label>
-                       <input 
+                       <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] block mb-2">Target Height (px) - Auto Width</label>
+                       <input
                          type="number" value={targetHeight} onChange={(e) => setTargetHeight(parseInt(e.target.value) || 1)}
-                         className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none"
+                         className="w-full bg-white border border-black/10 rounded-lg p-2.5 text-sm text-ink focus:border-primary focus:outline-none"
                        />
                      </div>
                   )}
@@ -431,28 +431,28 @@ export default function ImageResizer() {
                   {resizeBy === 'exact' && (
                      <div className="flex gap-3">
                        <div className="w-1/2">
-                         <label className="text-[9px] text-white/40 uppercase block mb-1">Width (px)</label>
-                         <input 
+                         <label className="text-[9px] text-[#8B958F] uppercase block mb-1">Width (px)</label>
+                         <input
                            type="number" value={targetWidth} onChange={(e) => setTargetWidth(parseInt(e.target.value) || 1)}
-                           className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none"
+                           className="w-full bg-white border border-black/10 rounded-lg p-2.5 text-sm text-ink focus:border-primary focus:outline-none"
                          />
                        </div>
                        <div className="w-1/2">
-                         <label className="text-[9px] text-white/40 uppercase block mb-1">Height (px)</label>
-                         <input 
+                         <label className="text-[9px] text-[#8B958F] uppercase block mb-1">Height (px)</label>
+                         <input
                            type="number" value={targetHeight} onChange={(e) => setTargetHeight(parseInt(e.target.value) || 1)}
-                           className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none"
+                           className="w-full bg-white border border-black/10 rounded-lg p-2.5 text-sm text-ink focus:border-primary focus:outline-none"
                          />
                        </div>
                      </div>
                   )}
 
-                  <div className="pt-4 border-t border-white/10">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50 block mb-2">Output Format</label>
-                    <select 
+                  <div className="pt-4 border-t border-black/10">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B] block mb-2">Output Format</label>
+                    <select
                       value={format}
                       onChange={(e) => setFormat(e.target.value as any)}
-                      className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg p-2.5 text-sm focus:border-primary focus:outline-none cursor-pointer"
+                      className="w-full bg-white border border-black/10 rounded-lg p-2.5 text-sm text-ink focus:border-primary focus:outline-none cursor-pointer"
                     >
                       <option value="original">Keep Original Format</option>
                       <option value="image/jpeg">Convert to JPEG</option>
@@ -462,24 +462,24 @@ export default function ImageResizer() {
                   </div>
 
                   {(format === 'image/jpeg' || format === 'image/webp' || format === 'original') && (
-                    <div className="pt-4 border-t border-white/10">
+                    <div className="pt-4 border-t border-black/10">
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/50">Quality Settings</label>
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B]">Quality Settings</label>
                         <span className="text-[10px] text-primary">{Math.round(quality * 100)}%</span>
                       </div>
-                      <input 
-                        type="range" min="0.1" max="1" step="0.1" 
+                      <input
+                        type="range" min="0.1" max="1" step="0.1"
                         value={quality}
                         onChange={(e) => setQuality(parseFloat(e.target.value))}
-                        className="w-full accent-primary bg-white/10 h-1.5 rounded-lg appearance-none cursor-pointer"
+                        className="w-full accent-primary bg-black/10 h-1.5 rounded-lg appearance-none cursor-pointer"
                       />
                     </div>
                   )}
 
-                  <button 
+                  <button
                     onClick={processImages}
                     disabled={!images.length || isProcessing}
-                    className="w-full py-3.5 bg-primary text-white hover:bg-primary-light disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2 mt-4 shadow-lg shadow-primary/20"
+                    className="w-full py-3.5 bg-primary-dark text-white hover:bg-[#048532] disabled:opacity-50 disabled:cursor-not-allowed rounded-xl font-black uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2 mt-4 shadow-lg shadow-primary/25"
                   >
                     {isProcessing ? (
                       <span className="flex items-center gap-2"><RefreshCcw className="w-5 h-5 animate-spin" /> Processing...</span>
@@ -491,10 +491,10 @@ export default function ImageResizer() {
               </div>
             </div>
           </div>
-          
+
           {/* SEO Optimized Content Section */}
-          <article className="glass-panel p-6 sm:p-8 rounded-2xl bg-black/30 border border-white/5 mt-12 space-y-6 text-sm text-white/70 leading-relaxed font-sans">
-            <h2 className="text-xl sm:text-2xl font-semibold text-white">Professional Bulk Image Resizer</h2>
+          <article className="p-6 sm:p-8 rounded-2xl bg-white border border-black/10 shadow-sm shadow-black/[0.02] mt-12 space-y-6 text-sm text-[#55605B] leading-relaxed font-sans">
+            <h2 className="text-xl sm:text-2xl font-semibold text-ink">Professional Bulk Image Resizer</h2>
             <p>
               In modern web development and digital content creation, optimizing image assets is absolutely essential for maintaining fast page load speeds, reducing bandwidth consumption, and ensuring a seamless user experience across a diverse range of devices. Our <strong>Professional Batch Image Resizer</strong> empowers developers, marketing teams, and designers to quickly scale, crop, and adjust the dimensions of multiple images simultaneously without compromising visual fidelity.
             </p>
@@ -502,7 +502,7 @@ export default function ImageResizer() {
               Whether you are preparing a massive batch of product thumbnails for an e-commerce platform, adjusting hero images to perfectly fit a new responsive layout, or simply reducing dimensions to bypass strict file upload limits on social media networks, this robust utility handles it all. By eliminating the necessity of firing up heavy graphic editing suites for repetitive resizing tasks, our tool significantly streamlines your content pipeline, ensuring your website remains highly performant and SEO-friendly.
             </p>
 
-            <h3 className="text-lg font-semibold text-white mt-8 mb-4">How to Use</h3>
+            <h3 className="text-lg font-semibold text-ink mt-8 mb-4">How to Use</h3>
             <ol className="list-decimal pl-5 space-y-3">
               <li><strong>Upload Images:</strong> Click the dropzone area or drag-and-drop the images you wish to alter. You can upload multiple files at once for batch processing.</li>
               <li><strong>Configure Dimensions:</strong> Enter your exact target width and height in pixels. Alternatively, use percentage-based scaling if you just need proportioned reduction.</li>
@@ -510,22 +510,22 @@ export default function ImageResizer() {
               <li><strong>Process & Download:</strong> Click the resize button. In moments, your scaled assets will be ready to download individually or packaged within a single, convenient ZIP archive.</li>
             </ol>
 
-            <h3 className="text-lg font-semibold text-white mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
+            <h3 className="text-lg font-semibold text-ink mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
             <div className="space-y-4">
               <div>
-                <strong className="text-white block">1. Is my original image quality degraded during resizing?</strong>
+                <strong className="text-ink block">1. Is my original image quality degraded during resizing?</strong>
                 <p>Our tool utilizes advanced canvas scaling algorithms that prioritize visual clarity. While making an image significantly smaller will naturally reduce its pixel count, making it sharper, we ensure the process doesn't introduce unnecessary artifacts or blurriness.</p>
               </div>
               <div>
-                <strong className="text-white block">2. Are my proprietary images uploaded to the cloud?</strong>
+                <strong className="text-ink block">2. Are my proprietary images uploaded to the cloud?</strong>
                 <p>No, we champion a privacy-first approach. All image manipulation—including decoding, resizing, and re-encoding—is executed entirely client-side using your browser's local resources. Your files never leave your computer.</p>
               </div>
               <div>
-                <strong className="text-white block">3. What image formats are supported by this resizer?</strong>
+                <strong className="text-ink block">3. What image formats are supported by this resizer?</strong>
                 <p>We universally support the most common web-friendly image formats, primarily including PNG, JPEG (JPG), and WebP, allowing seamless integration into practically any modern web project.</p>
               </div>
             </div>
-          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-white font-mono border-b border-white/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Lock Aspect Ratio</h4><p className="text-white/70">Always check the aspect ratio lock to prevent destructive image stretching.</p></div><div className="space-y-4 rounded-lg bg-black/40 p-6 border border-white/10"><h4 className="font-bold text-white mb-2">Standardize Outputs</h4><p className="text-white/70">Scale all hero images to a uniform width to stabilize CLS on your website.</p></div></div></section></article>
+          <section className="mt-12 mb-6"><h3 className="text-2xl font-bold text-ink font-mono border-b border-black/10 pb-4 mb-6">Best Practices for Usage & SEO</h3><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Lock Aspect Ratio</h4><p className="text-[#55605B]">Always check the aspect ratio lock to prevent destructive image stretching.</p></div><div className="space-y-4 rounded-lg bg-[#F6F8F7] p-6 border border-black/10"><h4 className="font-bold text-ink mb-2">Standardize Outputs</h4><p className="text-[#55605B]">Scale all hero images to a uniform width to stabilize CLS on your website.</p></div></div></section></article>
 
           <RelatedTools currentPath="/tools/image-resizer" />
         </div>

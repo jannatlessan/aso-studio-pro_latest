@@ -20,7 +20,7 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-white selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
       <SEO
         title="Contact Us | ShaadDev Studio"
         description="Get in touch with the ShaadDev Studio team. Whether you have a question, a feature request, or just want to say hello, we are here to help."
@@ -33,13 +33,13 @@ export default function ContactUs() {
       {/* Header */}
       <header className="relative pt-40 pb-20 px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
             Contact
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
             Get in <span className="text-primary">touch</span>
           </h1>
-          <p className="text-xl text-white/55 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl text-[#55605B] leading-relaxed max-w-2xl mx-auto">
             Have a question, feedback, or a partnership inquiry? We would love to hear from you. Drop us a message below and our team will get back to you promptly.
           </p>
         </div>
@@ -53,7 +53,7 @@ export default function ContactUs() {
           <div className="space-y-12">
             <div>
               <h2 className="text-3xl font-bold tracking-tight mb-4">Contact information</h2>
-              <div className="prose prose-invert text-white/60">
+              <div className="prose text-[#55605B]">
                 <p>
                   At <strong>ShaadDev Studio</strong>, community feedback is the lifeblood of our platform. As a developer tools platform dedicated to streamlining workflows for creators, engineers, and designers globally, we understand that robust support and open communication are absolutely essential.
                 </p>
@@ -64,45 +64,45 @@ export default function ContactUs() {
             </div>
 
             <div className="space-y-4">
-              <a href="mailto:rizwanrasheed046@gmail.com" className="flex items-start gap-4 p-4 border border-white/10 bg-white/[0.02] rounded-2xl hover:border-primary/30 transition-colors group">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+              <a href="mailto:rizwanrasheed046@gmail.com" className="flex items-start gap-4 p-4 border border-black/10 bg-white shadow-sm shadow-black/[0.02] rounded-2xl hover:border-primary/30 hover:shadow-lg hover:shadow-black/5 transition-all group">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-mint border border-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Email us</h3>
-                  <p className="text-white/55">rizwanrasheed046@gmail.com</p>
+                  <p className="text-[#55605B]">rizwanrasheed046@gmail.com</p>
                 </div>
               </a>
 
-              <a href="https://wa.me/923126733459" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 border border-white/10 bg-white/[0.02] rounded-2xl hover:border-primary/30 transition-colors group">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+              <a href="https://wa.me/923126733459" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 border border-black/10 bg-white shadow-sm shadow-black/[0.02] rounded-2xl hover:border-primary/30 hover:shadow-lg hover:shadow-black/5 transition-all group">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-mint border border-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">WhatsApp support</h3>
-                  <p className="text-white/55">+92 (312) 673-3459</p>
+                  <p className="text-[#55605B]">+92 (312) 673-3459</p>
                 </div>
               </a>
 
-              <div className="flex items-start gap-4 p-4 border border-white/10 bg-white/[0.02] rounded-2xl">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center">
+              <div className="flex items-start gap-4 p-4 border border-black/10 bg-white shadow-sm shadow-black/[0.02] rounded-2xl">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-mint border border-primary/20 text-primary flex items-center justify-center">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Location</h3>
-                  <p className="text-white/55">Global / remote first</p>
+                  <p className="text-[#55605B]">Global / remote first</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 md:p-10">
+          <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] rounded-3xl p-8 md:p-10">
             <h2 className="text-2xl font-bold tracking-tight mb-6">Send us a message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2 col-span-2 md:col-span-1">
-                  <label htmlFor="name" className="text-xs font-semibold text-white/50 uppercase tracking-wide">Your name</label>
+                  <label htmlFor="name" className="text-xs font-semibold text-[#55605B] uppercase tracking-wide">Your name</label>
                   <input
                     type="text"
                     id="name"
@@ -110,11 +110,11 @@ export default function ContactUs() {
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="John Doe"
                     required
-                    className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm"
+                    className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl px-4 py-3 text-ink placeholder:text-[#8B958F] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm"
                   />
                 </div>
                 <div className="space-y-2 col-span-2 md:col-span-1">
-                  <label htmlFor="email" className="text-xs font-semibold text-white/50 uppercase tracking-wide">Email address</label>
+                  <label htmlFor="email" className="text-xs font-semibold text-[#55605B] uppercase tracking-wide">Email address</label>
                   <input
                     type="email"
                     id="email"
@@ -122,13 +122,13 @@ export default function ContactUs() {
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="john@example.com"
                     required
-                    className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm"
+                    className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl px-4 py-3 text-ink placeholder:text-[#8B958F] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="subject" className="text-xs font-semibold text-white/50 uppercase tracking-wide">Subject</label>
+                <label htmlFor="subject" className="text-xs font-semibold text-[#55605B] uppercase tracking-wide">Subject</label>
                 <input
                   type="text"
                   id="subject"
@@ -136,12 +136,12 @@ export default function ContactUs() {
                   onChange={(e) => setFormData({...formData, subject: e.target.value})}
                   placeholder="How can we help?"
                   required
-                  className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm"
+                  className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl px-4 py-3 text-ink placeholder:text-[#8B958F] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-xs font-semibold text-white/50 uppercase tracking-wide">Message</label>
+                <label htmlFor="message" className="text-xs font-semibold text-[#55605B] uppercase tracking-wide">Message</label>
                 <textarea
                   id="message"
                   rows={5}
@@ -149,7 +149,7 @@ export default function ContactUs() {
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
                   placeholder="Tell us about your project, feedback, or inquiry..."
                   required
-                  className="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/25 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm resize-none"
+                  className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl px-4 py-3 text-ink placeholder:text-[#8B958F] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all text-sm resize-none"
                 />
               </div>
 

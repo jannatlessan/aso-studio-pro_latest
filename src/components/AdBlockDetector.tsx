@@ -52,8 +52,8 @@ export default function AdBlockDetector() {
   if (!isBlocking) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-[#08080A]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500 font-sans selection:bg-primary/20">
-      <div className="max-w-lg w-full bg-[#050505] border border-white/10 rounded-3xl p-8 sm:p-12 shadow-[0_0_50px_rgba(239,68,68,0.15)] animate-in zoom-in-95 duration-700 delay-150 space-y-8 relative overflow-hidden">
+    <div className="fixed inset-0 z-[99999] bg-[#0A0C0B]/95 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500 font-sans selection:bg-primary/20">
+      <div className="max-w-lg w-full bg-white border border-black/10 rounded-3xl p-8 sm:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] animate-in zoom-in-95 duration-700 delay-150 space-y-8 relative overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500"></div>
 
         <div className="w-24 h-24 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto shadow-inner">
@@ -61,22 +61,22 @@ export default function AdBlockDetector() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Ad blocker detected</h2>
-          <p className="text-white/60 text-base sm:text-lg leading-relaxed font-medium">
-            We rely on optional ads to keep this powerful Pro Tool <strong className="text-white">100% free</strong> and running privately.
+          <h2 className="text-3xl sm:text-4xl font-bold text-ink tracking-tight">Ad blocker detected</h2>
+          <p className="text-[#55605B] text-base sm:text-lg leading-relaxed font-medium">
+            We rely on optional ads to keep this powerful Pro Tool <strong className="text-ink">100% free</strong> and running privately.
             Please disable your ad blocker or pause it on this site to continue.
           </p>
         </div>
 
         <button
           onClick={() => window.location.reload()}
-          className="w-full flex justify-center items-center gap-2 py-4 bg-white text-black hover:bg-white/90 rounded-xl font-semibold text-sm transition-all"
+          className="w-full flex justify-center items-center gap-2 py-4 bg-primary-dark text-white hover:bg-[#048532] rounded-full font-semibold text-sm transition-all"
         >
           <RefreshCcw className="w-5 h-5" /> I've disabled it — reload
         </button>
       </div>
 
-      <p className="mt-8 text-white/35 text-xs max-w-sm text-center">
+      <p className="mt-8 text-white/40 text-xs max-w-sm text-center">
         Your privacy remains fully intact. We never track or sell your data.
       </p>
     </div>

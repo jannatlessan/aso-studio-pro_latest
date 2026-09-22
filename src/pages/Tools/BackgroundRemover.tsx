@@ -491,41 +491,41 @@ export default function BackgroundRemover() {
   return (
     <>
       <AdBlockDetector />
-      <div className="min-h-screen bg-[#08080A] text-white selection:bg-primary/20 font-sans">
-      <SEO 
+      <div className="min-h-screen bg-white text-ink selection:bg-primary/20 font-sans">
+      <SEO
         title="Free AI Background Remover | 100% Private Pro Cutout Tool"
         description="Instantly remove backgrounds from images online using powerful on-device Web AI. Completely free, private, and features pro studio composites like shadows and gradients."
         url="https://shaaddev.studio/tools/background-remover"
       />
 
       {/* Modern Header */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#08080A]/80 backdrop-blur-xl border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-xl border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={handleBackClick}
-              className="p-2 hover:bg-white/5 rounded-full transition-colors group"
+              className="p-2 hover:bg-black/[0.04] rounded-full transition-colors group"
               title={isToolUsed ? `Reset tool and stay on page` : 'Back to Tools'}
             >
-              <ChevronLeft className="w-5 h-5 text-white/60 group-hover:text-white group-hover:-translate-x-1 transition-transform" />
+              <ChevronLeft className="w-5 h-5 text-[#55605B] group-hover:text-ink group-hover:-translate-x-1 transition-transform" />
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+              <div className="w-8 h-8 rounded-lg bg-primary-dark flex items-center justify-center border border-black/5 shadow-lg shadow-primary/20">
                 <Wand2 className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h1 className="text-sm font-black uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">
+                <h1 className="text-sm font-black uppercase tracking-widest text-ink">
                   {isToolUsed ? `${sourceImage ? 'Processing...' : 'AuraCut AI'} (Click back to reset)` : 'AuraCut AI'}
                 </h1>
-                <p className="text-[10px] text-indigo-400 font-bold tracking-widest uppercase">100% Secure Local Processing</p>
+                <p className="text-[10px] text-primary font-bold tracking-widest uppercase">100% Secure Local Processing</p>
               </div>
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={handleResetTool} className="h-8 px-4 text-xs font-bold bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
+            <button onClick={handleResetTool} className="h-8 px-4 text-xs font-bold bg-black/[0.03] hover:bg-black/[0.06] border border-black/10 text-[#55605B] rounded-full transition-colors flex items-center gap-2 uppercase tracking-widest hidden sm:flex">
               <RefreshCcw className="w-3 h-3" /> Reset Tool
             </button>
-            <button onClick={handleExport} disabled={processState !== 'done'} className="h-8 px-5 text-xs font-bold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 rounded-lg transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed">
+            <button onClick={handleExport} disabled={processState !== 'done'} className="h-8 px-5 text-xs font-bold bg-primary-dark hover:bg-[#048532] text-white rounded-full transition-all flex items-center gap-2 shadow-lg shadow-primary/25 uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed">
               <Download className="w-3 h-3" /> Export Studio HD
             </button>
           </div>
@@ -541,39 +541,38 @@ export default function BackgroundRemover() {
         {/* State: Idle / Setup */}
         {processState === 'idle' && !sourceImage && (
           <div className="w-full max-w-2xl text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mint border border-primary/20 text-primary text-xs font-black uppercase tracking-widest">
               <Sparkles className="w-3 h-3" /> AuraCut AI Engine
             </div>
-            
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-indigo-500/50 pb-2">
-              AuraCut Studio.<br/>Zero Servers.
+
+            <h2 className="text-5xl md:text-7xl font-black tracking-tight text-ink pb-2">
+              AuraCut Studio.<br/><span className="text-primary">Zero Servers.</span>
             </h2>
-            
-            <p className="text-white/40 max-w-xl mx-auto text-lg leading-relaxed font-medium">
+
+            <p className="text-[#55605B] max-w-xl mx-auto text-lg leading-relaxed font-medium">
               Drop an image below to magnetically isolate your layers using our offline deep neural networks.
             </p>
 
-            <div 
+            <div
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
               className="relative group cursor-pointer"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-50 group-hover:opacity-100"></div>
-              <div className="relative border-2 border-dashed border-indigo-500/30 hover:border-indigo-500 rounded-3xl p-16 bg-[#050505]/80 backdrop-blur-sm transition-all flex flex-col items-center gap-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-600/20 border border-indigo-500/30 flex items-center justify-center relative overflow-hidden">
-                  <Upload className="w-8 h-8 text-indigo-400 z-10" />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-indigo-500/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-primary/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-50 group-hover:opacity-100"></div>
+              <div className="relative border-2 border-dashed border-primary/30 hover:border-primary rounded-3xl p-16 bg-[#F6F8F7] transition-all flex flex-col items-center gap-6">
+                <div className="w-20 h-20 rounded-2xl bg-mint border border-primary/30 flex items-center justify-center relative overflow-hidden">
+                  <Upload className="w-8 h-8 text-primary z-10" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">Upload Source Image</h3>
-                  <p className="text-sm text-white/40 font-medium">Drag & drop your file here, or click to browse</p>
-                  <p className="text-xs text-white/30 mt-2 font-mono">Supports JPG, PNG, WEBP (Max 25MB)</p>
+                  <h3 className="text-xl font-bold text-ink mb-2">Upload Source Image</h3>
+                  <p className="text-sm text-[#55605B] font-medium">Drag & drop your file here, or click to browse</p>
+                  <p className="text-xs text-[#8B958F] mt-2 font-mono">Supports JPG, PNG, WEBP (Max 25MB)</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-2 text-indigo-400/80 text-xs font-bold uppercase tracking-widest">
+            <div className="flex items-center justify-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
               <ShieldCheck className="w-4 h-4" /> 100% Secure & Private Processing
             </div>
           </div>
@@ -581,28 +580,28 @@ export default function BackgroundRemover() {
 
         {/* State: Loading & Processing */}
         {(processState === 'loading_model' || processState === 'processing') && (
-          <div className="w-full max-w-md p-10 bg-[#050505] border border-white/5 rounded-3xl shadow-2xl space-y-8 animate-in zoom-in-95 duration-500 text-center relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-white/5">
-               <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300" style={{ width: `${Math.round(simulatedProgress)}%` }}></div>
+          <div className="w-full max-w-md p-10 bg-white border border-black/10 rounded-3xl shadow-xl shadow-black/5 space-y-8 animate-in zoom-in-95 duration-500 text-center relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-black/[0.06]">
+               <div className="h-full bg-primary-dark transition-all duration-300" style={{ width: `${Math.round(simulatedProgress)}%` }}></div>
             </div>
-            
-            <Loader2 className="w-16 h-16 text-indigo-500 animate-spin mx-auto" />
-            
+
+            <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto" />
+
             <div className="space-y-4">
-              <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/50 animate-pulse">{progressText}</h3>
-              <p className="text-xs text-white/40 uppercase tracking-widest font-mono">{Math.round(simulatedProgress)}% Complete</p>
+              <h3 className="text-xl font-bold text-ink animate-pulse">{progressText}</h3>
+              <p className="text-xs text-[#55605B] uppercase tracking-widest font-mono">{Math.round(simulatedProgress)}% Complete</p>
             </div>
-            
+
           </div>
         )}
 
         {/* Pre-Processing State (File uploaded, button not pressed) */}
         {sourceImage && processState === 'idle' && (
-          <div className="w-full max-w-2xl bg-[#050505] p-2 rounded-3xl border border-white/10 shadow-2xl animate-in fade-in zoom-in-95">
-             <div className="relative aspect-video rounded-2xl overflow-hidden bg-black/50 border border-white/5">
+          <div className="w-full max-w-2xl bg-white p-2 rounded-3xl border border-black/10 shadow-xl shadow-black/5 animate-in fade-in zoom-in-95">
+             <div className="relative aspect-video rounded-2xl overflow-hidden bg-[#F6F8F7] border border-black/10">
                 <img src={URL.createObjectURL(sourceImage)} alt="Source Upload" className="w-full h-full object-contain" />
-                <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-center">
-                   <button onClick={() => { setRetryCount(0); executeRemoval(); }} className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all transform hover:scale-105">
+                <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent flex justify-center">
+                   <button onClick={() => { setRetryCount(0); executeRemoval(); }} className="flex items-center gap-2 bg-primary-dark hover:bg-[#048532] text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-lg shadow-primary/30 transition-all transform hover:scale-105">
                      <Wand2 className="w-5 h-5"/> Start AI Background Extraction
                    </button>
                 </div>
@@ -612,22 +611,22 @@ export default function BackgroundRemover() {
 
         {/* Error State */}
         {processState === 'error' && (
-           <div className="w-full max-w-lg p-10 bg-[#050505] border border-red-500/20 rounded-3xl text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-500">
-              <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto">
-                 <RefreshCcw className="w-8 h-8 text-red-400" />
+           <div className="w-full max-w-lg p-10 bg-white border border-red-200 rounded-3xl text-center space-y-6 shadow-xl shadow-black/5 animate-in zoom-in-95 duration-500">
+              <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto">
+                 <RefreshCcw className="w-8 h-8 text-red-500" />
               </div>
               <div className="space-y-2">
-                 <h3 className="text-xl font-bold text-white">AI Engine Stalled</h3>
-                 <p className="text-sm text-white/40 leading-relaxed font-mono break-words">{errorMsg}</p>
+                 <h3 className="text-xl font-bold text-ink">AI Engine Stalled</h3>
+                 <p className="text-sm text-[#55605B] leading-relaxed font-mono break-words">{errorMsg}</p>
                  {retryCount > 0 && (
-                   <p className="text-xs text-white/30 pt-2">Attempt {retryCount} of {RETRY_CONFIG.maxAttempts}</p>
+                   <p className="text-xs text-[#8B958F] pt-2">Attempt {retryCount} of {RETRY_CONFIG.maxAttempts}</p>
                  )}
               </div>
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                 <button onClick={executeRemoval} disabled={retryCount >= RETRY_CONFIG.maxAttempts} className="flex-1 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                 <button onClick={executeRemoval} disabled={retryCount >= RETRY_CONFIG.maxAttempts} className="flex-1 px-8 py-3 bg-primary-dark hover:bg-[#048532] text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg shadow-primary/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
                    {retryCount >= RETRY_CONFIG.maxAttempts ? 'Max Attempts Reached' : 'Restart AI Core'}
                  </button>
-                 <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessState('idle'); setRetryCount(0); setErrorMsg(''); }} className="flex-1 px-8 py-3 bg-white/5 hover:bg-white/10 text-white/50 rounded-xl text-xs font-bold uppercase tracking-widest transition-colors border border-white/5">
+                 <button onClick={() => { if (fileInputRef.current) fileInputRef.current.value = ''; setSourceImage(null); setProcessState('idle'); setRetryCount(0); setErrorMsg(''); }} className="flex-1 px-8 py-3 bg-black/[0.03] hover:bg-black/[0.06] text-[#55605B] rounded-xl text-xs font-bold uppercase tracking-widest transition-colors border border-black/10">
                    Try Different Image
                  </button>
               </div>
@@ -638,17 +637,15 @@ export default function BackgroundRemover() {
         {processState === 'done' && processed && (
           <div className="w-full max-w-[1400px] grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in duration-500">
             {/* Visual Canvas Layout */}
-            <div className="lg:col-span-8 xl:col-span-9 flex flex-col items-center justify-center p-4 sm:p-8 bg-[#050505] rounded-3xl border border-white/5 relative overflow-hidden h-[500px] xl:h-[700px]">
-               <div className="absolute inset-0 pattern-dots pattern-white outline-none opacity-[0.02]"></div>
-               
+            <div className="lg:col-span-8 xl:col-span-9 flex flex-col items-center justify-center p-4 sm:p-8 bg-[#F6F8F7] rounded-3xl border border-black/10 relative overflow-hidden h-[500px] xl:h-[700px]">
                {/* Draggable Zone Container */}
-               <div 
+               <div
                  ref={containerRef}
-                 className={`relative border shadow-[0_0_50px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden transition-[border-radius,width,height] duration-500 
-                   ${['whatsapp_dp', 'facebook_dp', 'linkedin_dp', 'instagram_dp'].includes(bgMode) ? 'w-full max-w-sm aspect-square ' + (bgMode === 'instagram_dp' || bgMode === 'whatsapp_dp' ? 'rounded-full' : 'rounded-3xl border-white/10') : 
-                     bgMode === 'youtube_thumb' ? 'w-full max-w-4xl aspect-[16/9] rounded-2xl border-white/10' : 'w-full max-w-3xl aspect-[4/3] rounded-2xl border-white/10'}`} 
+                 className={`relative border shadow-xl shadow-black/10 flex items-center justify-center overflow-hidden transition-[border-radius,width,height] duration-500
+                   ${['whatsapp_dp', 'facebook_dp', 'linkedin_dp', 'instagram_dp'].includes(bgMode) ? 'w-full max-w-sm aspect-square ' + (bgMode === 'instagram_dp' || bgMode === 'whatsapp_dp' ? 'rounded-full' : 'rounded-3xl border-black/10') :
+                     bgMode === 'youtube_thumb' ? 'w-full max-w-4xl aspect-[16/9] rounded-2xl border-black/10' : 'w-full max-w-3xl aspect-[4/3] rounded-2xl border-black/10'}`}
                  style={{
-                    background: bgMode === 'transparent' ? 'repeating-conic-gradient(#111 0% 25%, transparent 0% 50%) 50% / 20px 20px' :
+                    background: bgMode === 'transparent' ? 'repeating-conic-gradient(#E2E8E5 0% 25%, transparent 0% 50%) 50% / 20px 20px' :
                                 bgMode === 'solid' ? bgColor :
                                 (bgMode === 'gradient' || bgMode === 'facebook_dp' || bgMode === 'linkedin_dp' || bgMode === 'instagram_dp' || bgMode === 'youtube_thumb') ? `linear-gradient(135deg, ${gradientStart}, ${gradientEnd})` :
                                 (bgMode === 'whatsapp_dp' || bgMode === 'product_studio') ? `radial-gradient(circle at center, ${bgMode === 'whatsapp_dp' ? '#ffffff, #e5e7eb' : '#333 0%, #000 100%'})` : 'transparent'
@@ -674,7 +671,7 @@ export default function BackgroundRemover() {
 
                  {/* Simulated Environment Reflections for Specific Modes */}
                  {bgMode === 'product_studio' && (
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white/5 to-transparent z-0 blur-md pointer-events-none"></div>
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/10 to-transparent z-0 blur-md pointer-events-none"></div>
                  )}
                  {bgMode === 'instagram_dp' && (
                     <svg className="absolute inset-0 w-full h-full z-20 pointer-events-none drop-shadow-xl" viewBox="0 0 100 100">
@@ -694,42 +691,42 @@ export default function BackgroundRemover() {
                </div>
 
                {/* Absolute Scale Slider floating on top of canvas */}
-               <div className="absolute bottom-6 right-6 lg:left-6 lg:right-auto bg-[#111]/80 backdrop-blur-xl border border-white/10 p-4 rounded-2xl flex items-center gap-4 z-40 shadow-2xl">
-                  <ZoomIn className="w-5 h-5 text-white/50" />
-                  <input type="range" min="0.5" max="2.5" step="0.05" value={scale} onChange={(e) => setScale(parseFloat(e.target.value))} className="w-32 xl:w-48 accent-indigo-500" />
-                  <span className="text-xs font-mono text-white/50">{Math.round(scale * 100)}%</span>
+               <div className="absolute bottom-6 right-6 lg:left-6 lg:right-auto bg-white/90 backdrop-blur-xl border border-black/10 p-4 rounded-2xl flex items-center gap-4 z-40 shadow-lg shadow-black/10">
+                  <ZoomIn className="w-5 h-5 text-[#55605B]" />
+                  <input type="range" min="0.5" max="2.5" step="0.05" value={scale} onChange={(e) => setScale(parseFloat(e.target.value))} className="w-32 xl:w-48 accent-primary" />
+                  <span className="text-xs font-mono text-[#55605B]">{Math.round(scale * 100)}%</span>
                </div>
-               
+
                {/* Controls Hint */}
-               <div className="absolute top-6 left-6 text-[10px] uppercase tracking-widest font-black text-white/30 flex items-center gap-2">
+               <div className="absolute top-6 left-6 text-[10px] uppercase tracking-widest font-black text-[#8B958F] flex items-center gap-2">
                  <Move className="w-4 h-4" /> Click and Drag Subject freely
                </div>
             </div>
 
             {/* Pro Studio Settings Panel */}
-            <div className="lg:col-span-4 xl:col-span-3 bg-[#050505] rounded-3xl border border-white/5 shadow-xl p-6 flex flex-col h-[500px] xl:h-[700px] overflow-y-auto custom-scrollbar">
+            <div className="lg:col-span-4 xl:col-span-3 bg-white rounded-3xl border border-black/10 shadow-lg shadow-black/5 p-6 flex flex-col h-[500px] xl:h-[700px] overflow-y-auto custom-scrollbar">
               <div className="space-y-8 flex-1">
-                
+
                 {/* Section 1: 1-Click DP Presets */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 border-b border-white/10 pb-2">
-                    <Sparkles className="w-4 h-4 text-purple-400" />
-                    <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Social AI Makers</h2>
+                  <div className="flex items-center gap-2 border-b border-black/10 pb-2">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <h2 className="font-black text-xs uppercase tracking-widest text-ink">Social AI Makers</h2>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                     <button onClick={() => applyPreset('whatsapp_dp', '#ffffff', '#e5e7eb', 0.85, 20)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'whatsapp_dp' ? 'bg-green-500/20 border-green-500 text-green-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                     <button onClick={() => applyPreset('whatsapp_dp', '#ffffff', '#e5e7eb', 0.85, 20)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'whatsapp_dp' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                         <MessageCircle className="w-3 h-3" /> WhatsApp
                      </button>
-                     <button onClick={() => applyPreset('instagram_dp', '#f59e0b', '#ec4899', 0.75, 40)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'instagram_dp' ? 'bg-pink-500/20 border-pink-500 text-pink-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                     <button onClick={() => applyPreset('instagram_dp', '#f59e0b', '#ec4899', 0.75, 40)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'instagram_dp' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                         <Camera className="w-3 h-3" /> Instagram
                      </button>
-                     <button onClick={() => applyPreset('facebook_dp', '#3b5998', '#1e3a8a', 0.8, 40)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'facebook_dp' ? 'bg-blue-500/20 border-blue-500 text-blue-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                     <button onClick={() => applyPreset('facebook_dp', '#3b5998', '#1e3a8a', 0.8, 40)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'facebook_dp' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                         <span className="font-serif font-black text-sm outline-none px-1">f</span> Facebook
                      </button>
-                     <button onClick={() => applyPreset('linkedin_dp', '#0ea5e9', '#0284c7', 0.85, 30)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'linkedin_dp' ? 'bg-sky-500/20 border-sky-500 text-sky-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                     <button onClick={() => applyPreset('linkedin_dp', '#0ea5e9', '#0284c7', 0.85, 30)} className={`p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'linkedin_dp' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                         <Briefcase className="w-3 h-3" /> LinkedIn
                      </button>
-                     <button onClick={() => applyPreset('youtube_thumb', '#111111', '#ef4444', 1.0, 0)} className={`col-span-2 p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'youtube_thumb' ? 'bg-red-500/20 border-red-500 text-red-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                     <button onClick={() => applyPreset('youtube_thumb', '#111111', '#ef4444', 1.0, 0)} className={`col-span-2 p-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${bgMode === 'youtube_thumb' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                         <YoutubeIcon className="w-4 h-4" /> YouTube Thumbnail Pro
                      </button>
                   </div>
@@ -737,21 +734,21 @@ export default function BackgroundRemover() {
 
                 {/* Section 2: Mode Selector */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 border-b border-white/10 pb-2">
-                    <Palette className="w-4 h-4 text-indigo-400" />
-                    <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Custom Environment</h2>
+                  <div className="flex items-center gap-2 border-b border-black/10 pb-2">
+                    <Palette className="w-4 h-4 text-primary" />
+                    <h2 className="font-black text-xs uppercase tracking-widest text-ink">Custom Environment</h2>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <button onClick={() => applyPreset('transparent', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'transparent' ? 'bg-indigo-500/20 border-indigo-500 text-indigo-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                    <button onClick={() => applyPreset('transparent', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'transparent' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                       <Square className="w-4 h-4 dashed stroke-[1.5]" /> Transparent
                     </button>
-                    <button onClick={() => applyPreset('solid', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'solid' ? 'bg-indigo-500/20 border-indigo-500 text-indigo-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                    <button onClick={() => applyPreset('solid', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'solid' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                       <Square className="w-4 h-4 fill-current" /> Solid Base
                     </button>
-                    <button onClick={() => applyPreset('gradient', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'gradient' ? 'bg-indigo-500/20 border-indigo-500 text-indigo-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                    <button onClick={() => applyPreset('gradient', gradientStart, gradientEnd)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'gradient' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                       <Layers className="w-4 h-4" /> Gradient UI
                     </button>
-                    <button onClick={() => applyPreset('product_studio', gradientStart, gradientEnd, 1, -20)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'product_studio' ? 'bg-purple-500/20 border-purple-500 text-purple-400' : 'bg-black/50 border-white/10 hover:bg-white/5'}`}>
+                    <button onClick={() => applyPreset('product_studio', gradientStart, gradientEnd, 1, -20)} className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl border text-[10px] font-bold uppercase tracking-widest gap-2 transition-all ${bgMode === 'product_studio' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
                       <ImageIcon className="w-4 h-4" /> E-Com Shadow
                     </button>
                   </div>
@@ -759,17 +756,17 @@ export default function BackgroundRemover() {
 
                 {/* Section 3: Foreground Filters */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 border-b border-white/10 pb-2">
-                    <Sparkles className="w-4 h-4 text-pink-400" />
-                    <h2 className="font-black text-xs uppercase tracking-widest text-white/90">Subject Filters</h2>
+                  <div className="flex items-center gap-2 border-b border-black/10 pb-2">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <h2 className="font-black text-xs uppercase tracking-widest text-ink">Subject Filters</h2>
                   </div>
                   <div className="flex gap-2 pb-2 overflow-x-auto custom-scrollbar snap-x">
                     {(Object.keys(FILTER_MAP) as FilterPreset[]).map(preset => (
-                      <button 
+                      <button
                         key={preset}
                         onClick={() => setActiveFilter(preset)}
                         className={`flex-shrink-0 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest snap-start transition-all border ${
-                          activeFilter === preset ? 'bg-pink-500/20 border-pink-500 text-pink-400' : 'bg-black/50 border-white/10 hover:bg-white/5 text-white/50'
+                          activeFilter === preset ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 hover:bg-mint text-[#55605B]'
                         }`}
                       >
                         {preset}
@@ -780,28 +777,28 @@ export default function BackgroundRemover() {
 
                 {/* Section 4: Sub-settings based on mode */}
                 {bgMode === 'solid' && (
-                  <div className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/5 animate-in slide-in-from-top-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-white/50">Base Fill Color</label>
+                  <div className="space-y-4 p-4 bg-[#F6F8F7] rounded-xl border border-black/[0.06] animate-in slide-in-from-top-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#55605B]">Base Fill Color</label>
                     <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="w-full h-10 rounded-lg border-none cursor-pointer bg-transparent" />
                   </div>
                 )}
 
                 {['gradient', 'instagram_dp', 'facebook_dp', 'linkedin_dp', 'youtube_thumb'].includes(bgMode) && (
-                  <div className="space-y-4 p-4 bg-white/5 rounded-xl border border-white/5 animate-in slide-in-from-top-2 grid grid-cols-2 gap-4">
+                  <div className="space-y-4 p-4 bg-[#F6F8F7] rounded-xl border border-black/[0.06] animate-in slide-in-from-top-2 grid grid-cols-2 gap-4">
                     <div className="space-y-2 col-span-1">
-                       <label className="text-[9px] font-bold uppercase tracking-widest text-white/50">Gradient Start</label>
+                       <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B]">Gradient Start</label>
                        <input type="color" value={gradientStart} onChange={(e) => setGradientStart(e.target.value)} className="w-full h-10 rounded-lg border-none cursor-pointer bg-transparent" />
                     </div>
                     <div className="space-y-2 col-span-1">
-                       <label className="text-[9px] font-bold uppercase tracking-widest text-white/50">Gradient End</label>
+                       <label className="text-[9px] font-bold uppercase tracking-widest text-[#55605B]">Gradient End</label>
                        <input type="color" value={gradientEnd} onChange={(e) => setGradientEnd(e.target.value)} className="w-full h-10 rounded-lg border-none cursor-pointer bg-transparent" />
                     </div>
                   </div>
                 )}
-                
+
                 {bgMode === 'product_studio' && (
-                  <div className="p-4 bg-white/5 rounded-xl border border-white/5 animate-in slide-in-from-top-2 text-center text-[10px] text-white/50 uppercase tracking-widest leading-relaxed">
-                     <CheckCircle2 className="w-6 h-6 text-purple-400 mx-auto mb-2" />
+                  <div className="p-4 bg-[#F6F8F7] rounded-xl border border-black/[0.06] animate-in slide-in-from-top-2 text-center text-[10px] text-[#55605B] uppercase tracking-widest leading-relaxed">
+                     <CheckCircle2 className="w-6 h-6 text-primary mx-auto mb-2" />
                      Smart Environment active.<br/>Drop shadows and depth calculated.
                   </div>
                 )}
@@ -816,53 +813,53 @@ export default function BackgroundRemover() {
       <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" className="hidden" />
 
       {/* SEO Content Structure - Optimized for Google Search Strategy */}
-      <section className="bg-black border-t border-white/5 py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
+      <section className="bg-[#F6F8F7] border-t border-black/[0.06] py-24 px-4 relative z-10" itemScope itemType="https://schema.org/WebPage">
         <div className="max-w-4xl mx-auto space-y-16">
           <div className="text-center space-y-4">
-             <h2 className="text-3xl md:text-5xl font-black text-white" itemProp="headline">Free AI Background Remover Online</h2>
-             <p className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed" itemProp="description">
+             <h2 className="text-3xl md:text-5xl font-black text-ink" itemProp="headline">Free AI Background Remover Online</h2>
+             <p className="text-[#55605B] text-lg max-w-2xl mx-auto leading-relaxed" itemProp="description">
                Remove backgrounds from images instantly for free with AuraCut AI. Built for professionals, our tool uses strictly on-device artificial intelligence to cut out subjects completely offline. No subscriptions, zero watermarks, and no cloud uploads.
              </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
-                <ShieldCheck className="w-8 h-8 text-indigo-400" />
-                <h3 className="text-white font-bold text-lg">100% Private Offline Processing</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Unlike generic background removers that upload your files, your photos never leave your device. The AI neural network runs entirely inside your local browser memory ensuring enterprise-grade privacy.</p>
+             <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-8 rounded-2xl space-y-4">
+                <ShieldCheck className="w-8 h-8 text-primary" />
+                <h3 className="text-ink font-bold text-lg">100% Private Offline Processing</h3>
+                <p className="text-sm text-[#55605B] leading-relaxed">Unlike generic background removers that upload your files, your photos never leave your device. The AI neural network runs entirely inside your local browser memory ensuring enterprise-grade privacy.</p>
              </div>
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
-                <Sparkles className="w-8 h-8 text-purple-400" />
-                <h3 className="text-white font-bold text-lg">E-Commerce Product Shadows</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Generate stunning e-commerce product showrooms instantly. Our AI calculates soft drop shadows and generates professional curved portrait backdrops perfect for WooCommerce or Shopify.</p>
+             <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-8 rounded-2xl space-y-4">
+                <Sparkles className="w-8 h-8 text-primary" />
+                <h3 className="text-ink font-bold text-lg">E-Commerce Product Shadows</h3>
+                <p className="text-sm text-[#55605B] leading-relaxed">Generate stunning e-commerce product showrooms instantly. Our AI calculates soft drop shadows and generates professional curved portrait backdrops perfect for WooCommerce or Shopify.</p>
              </div>
-             <div className="bg-[#050505] border border-white/5 p-8 rounded-2xl space-y-4">
-                <Circle className="w-8 h-8 text-pink-400" />
-                <h3 className="text-white font-bold text-lg">WhatsApp & Social PFP Maker</h3>
-                <p className="text-sm text-white/50 leading-relaxed">Create the perfect WhatsApp DP or Instagram profile picture. Upload a selfie and our PFP Ring Mode naturally centers your face and applies a high-resolution gradient ring.</p>
+             <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-8 rounded-2xl space-y-4">
+                <Circle className="w-8 h-8 text-primary" />
+                <h3 className="text-ink font-bold text-lg">WhatsApp & Social PFP Maker</h3>
+                <p className="text-sm text-[#55605B] leading-relaxed">Create the perfect WhatsApp DP or Instagram profile picture. Upload a selfie and our PFP Ring Mode naturally centers your face and applies a high-resolution gradient ring.</p>
              </div>
           </div>
 
           {/* Highly Ranked SEO FAQ Schema Section */}
-          <div className="pt-12 border-t border-white/10" itemScope itemType="https://schema.org/FAQPage">
-             <h2 className="text-2xl font-black mb-8 text-center text-white">Frequently Asked Questions</h2>
+          <div className="pt-12 border-t border-black/10" itemScope itemType="https://schema.org/FAQPage">
+             <h2 className="text-2xl font-black mb-8 text-center text-ink">Frequently Asked Questions</h2>
              <div className="space-y-6">
-                <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                   <h3 className="text-lg font-bold text-white mb-2" itemProp="name">How do I remove the background from an image for free?</h3>
+                <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                   <h3 className="text-lg font-bold text-ink mb-2" itemProp="name">How do I remove the background from an image for free?</h3>
                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="text-white/50 leading-relaxed" itemProp="text">Simply drag and drop your image (JPG, PNG, or WebP) into the AuraCut AI upload box above. The advanced neuronal web logic will automatically detect the foreground subject, extract the background, and provide you with a transparent PNG ready for download instantly—all at absolutely zero cost.</p>
+                      <p className="text-[#55605B] leading-relaxed" itemProp="text">Simply drag and drop your image (JPG, PNG, or WebP) into the AuraCut AI upload box above. The advanced neuronal web logic will automatically detect the foreground subject, extract the background, and provide you with a transparent PNG ready for download instantly—all at absolutely zero cost.</p>
                    </div>
                 </div>
-                <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                   <h3 className="text-lg font-bold text-white mb-2" itemProp="name">Is AuraCut AI truly private and safe to use?</h3>
+                <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                   <h3 className="text-lg font-bold text-ink mb-2" itemProp="name">Is AuraCut AI truly private and safe to use?</h3>
                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="text-white/50 leading-relaxed" itemProp="text">Yes. Unlike standard cloud-based background removers, AuraCut AI runs the entire AI extraction directly inside your browser cache. Your images are never uploaded to our servers, ensuring your strict data privacy remains unbroken.</p>
+                      <p className="text-[#55605B] leading-relaxed" itemProp="text">Yes. Unlike standard cloud-based background removers, AuraCut AI runs the entire AI extraction directly inside your browser cache. Your images are never uploaded to our servers, ensuring your strict data privacy remains unbroken.</p>
                    </div>
                 </div>
-                <div className="bg-[#050505] border border-white/5 p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                   <h3 className="text-lg font-bold text-white mb-2" itemProp="name">Can I use this tool to create YouTube Thumbnails?</h3>
+                <div className="bg-white border border-black/10 shadow-sm shadow-black/[0.02] p-6 rounded-2xl" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                   <h3 className="text-lg font-bold text-ink mb-2" itemProp="name">Can I use this tool to create YouTube Thumbnails?</h3>
                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="text-white/50 leading-relaxed" itemProp="text">Absolutely! AuraCut AI includes specialized 16:9 canvas settings via our Custom Environment panel. Just click the "YouTube Thumbnail Pro" preset, adjust your extracted subject's size, pick a dramatic gradient filter, and export a ready-to-use thumbnail natively.</p>
+                      <p className="text-[#55605B] leading-relaxed" itemProp="text">Absolutely! AuraCut AI includes specialized 16:9 canvas settings via our Custom Environment panel. Just click the "YouTube Thumbnail Pro" preset, adjust your extracted subject's size, pick a dramatic gradient filter, and export a ready-to-use thumbnail natively.</p>
                    </div>
                 </div>
              </div>

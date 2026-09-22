@@ -18,7 +18,7 @@ export default function AppLegal({ type }: { type: 'privacy' | 'terms' }) {
   const title = isPrivacy ? 'Privacy Policy' : 'Terms of Service';
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
       <SEO
         title={`${title} | ${app.name}`}
         description={`${title} for the ${app.name} app.`}
@@ -29,8 +29,8 @@ export default function AppLegal({ type }: { type: 'privacy' | 'terms' }) {
       <Nav />
 
       <main className="relative z-10 max-w-4xl mx-auto px-6 pt-36 pb-20">
-        <Link to={`/apps/${app.slug}`} className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-primary transition-colors mb-8">
-          {app.name} <span className="text-white/30">/</span> {title}
+        <Link to={`/apps/${app.slug}`} className="inline-flex items-center gap-1.5 text-xs text-[#8B958F] hover:text-primary transition-colors mb-8">
+          {app.name} <span className="text-black/20">/</span> {title}
         </Link>
 
         <motion.div
@@ -39,7 +39,7 @@ export default function AppLegal({ type }: { type: 'privacy' | 'terms' }) {
           className="space-y-12"
         >
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
               Legal · {app.name}
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
@@ -49,14 +49,14 @@ export default function AppLegal({ type }: { type: 'privacy' | 'terms' }) {
                 <>Terms of <span className="text-primary">Service.</span></>
               )}
             </h1>
-            <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
+            <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
               {isPrivacy
                 ? `Your data is your property. ${app.name} is designed to protect and secure your information.`
                 : `By using ${app.name}, you agree to the terms below. We've kept them short and in plain language.`}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-black/[0.06]">
             {isPrivacy ? (
               <>
                 <InfoCard icon={Lock} label="Encryption" desc="Data transmitted over encrypted connections" />
@@ -72,7 +72,7 @@ export default function AppLegal({ type }: { type: 'privacy' | 'terms' }) {
             )}
           </div>
 
-          <div className="prose prose-invert max-w-none space-y-10 text-white/60">
+          <div className="prose max-w-none space-y-10 text-[#55605B]">
             {isPrivacy ? <PrivacyContent appName={app.name} /> : <TermsContent appName={app.name} />}
           </div>
         </motion.div>
@@ -85,13 +85,13 @@ export default function AppLegal({ type }: { type: 'privacy' | 'terms' }) {
 
 function InfoCard({ icon: Icon, label, desc }: { icon: React.ComponentType<{ className?: string }>; label: string; desc: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4 hover:border-primary/25 transition-colors">
-      <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+    <div className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-4 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
+      <div className="w-10 h-10 rounded-lg bg-mint border border-primary/20 flex items-center justify-center">
         <Icon className="w-5 h-5 text-primary" />
       </div>
       <div>
-        <div className="text-sm font-semibold text-white mb-1">{label}</div>
-        <div className="text-xs text-white/50">{desc}</div>
+        <div className="text-sm font-semibold text-ink mb-1">{label}</div>
+        <div className="text-xs text-[#55605B]">{desc}</div>
       </div>
     </div>
   );
@@ -99,7 +99,7 @@ function InfoCard({ icon: Icon, label, desc }: { icon: React.ComponentType<{ cla
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-xl font-semibold text-white flex items-center gap-3">
+    <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
       <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> {children}
     </h2>
   );
@@ -165,8 +165,8 @@ function PrivacyContent({ appName }: { appName: string }) {
         <p className="leading-relaxed">
           If you have questions about this policy, please contact us:
         </p>
-        <div className="rounded-xl bg-white/[0.02] p-4 mt-4 border border-white/10">
-          <p className="text-sm"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
+        <div className="rounded-xl bg-[#F6F8F7] p-4 mt-4 border border-black/10">
+          <p className="text-sm text-ink"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
         </div>
       </section>
     </>
@@ -216,11 +216,11 @@ function TermsContent({ appName }: { appName: string }) {
         </p>
       </section>
 
-      <section className="space-y-3 flex items-start gap-4 p-6 bg-red-500/5 border border-red-500/15 rounded-xl">
-        <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+      <section className="space-y-3 flex items-start gap-4 p-6 bg-red-50 border border-red-200 rounded-xl">
+        <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
         <div className="space-y-1.5">
-          <h3 className="text-sm font-semibold text-red-400">Termination</h3>
-          <p className="text-xs leading-relaxed text-white/60">
+          <h3 className="text-sm font-semibold text-red-600">Termination</h3>
+          <p className="text-xs leading-relaxed text-[#55605B]">
             Violation of these terms may result in restricted access to the Application.
           </p>
         </div>
@@ -238,8 +238,8 @@ function TermsContent({ appName }: { appName: string }) {
         <p className="leading-relaxed">
           If you have questions about these terms, please contact us:
         </p>
-        <div className="rounded-xl bg-white/[0.02] p-4 mt-4 border border-white/10">
-          <p className="text-sm"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
+        <div className="rounded-xl bg-[#F6F8F7] p-4 mt-4 border border-black/10">
+          <p className="text-sm text-ink"><strong>Email:</strong> rizwanrasheed046@gmail.com</p>
         </div>
       </section>
     </>

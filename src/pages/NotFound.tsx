@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-screen bg-[#08080A] text-[#EDEDEF] flex items-center justify-center p-5 overflow-hidden">
+    <div className="relative min-h-screen bg-white text-ink flex items-center justify-center p-5 overflow-hidden">
       <SEO
         title="Page Not Found | ShaadDev Studio"
         description="The page you're looking for doesn't exist."
@@ -13,15 +13,15 @@ export default function NotFound() {
       />
       {/* Decorative Background Elements */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-      
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
       {/* Grid Overlay */}
-      <div 
-        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-        style={{ 
-          backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, 
-          backgroundSize: '50px 50px' 
-        }} 
+      <div
+        className="absolute inset-0 z-0 opacity-[0.035] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}
       />
 
       <div className="relative z-10 w-full max-w-2xl">
@@ -51,7 +51,7 @@ export default function NotFound() {
                 <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">
                   Page not <span className="text-primary">found.</span>
                 </h2>
-                <p className="text-white/55 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
+                <p className="text-[#55605B] text-sm sm:text-base max-w-md mx-auto leading-relaxed">
                   The page you're looking for doesn't exist or may have moved.
                 </p>
               </motion.div>
@@ -75,7 +75,7 @@ export default function NotFound() {
             </Link>
             <button
               onClick={() => window.history.back()}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-sm font-semibold text-white/80 hover:border-white/30 hover:text-white transition-all"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-black/10 text-sm font-semibold text-[#55605B] hover:border-primary/30 hover:text-ink transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
               Go back
@@ -83,15 +83,15 @@ export default function NotFound() {
           </motion.div>
 
           {/* System Info */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.4 }}
             transition={{ delay: 1.2, duration: 1 }}
             className="pt-12 flex items-center justify-center gap-6"
           >
-            <div className="h-px w-12 bg-white/20" />
-            <div className="text-[10px] uppercase tracking-[0.3em] font-medium text-white/40">404 error</div>
-            <div className="h-px w-12 bg-white/20" />
+            <div className="h-px w-12 bg-black/10" />
+            <div className="text-[10px] uppercase tracking-[0.3em] font-medium text-[#8B958F]">404 error</div>
+            <div className="h-px w-12 bg-black/10" />
           </motion.div>
         </motion.div>
       </div>

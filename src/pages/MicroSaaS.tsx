@@ -43,7 +43,7 @@ export default function MicroSaaS() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
       <SEO
         title="MicroSaaS Apps | ShaadDev Studio"
         description="Explore our collection of lightweight, focused microSaaS applications designed for specific productivity needs."
@@ -61,19 +61,19 @@ export default function MicroSaaS() {
         >
           {/* Hero Section */}
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-white/65">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
               App suite
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
               MicroSaaS <span className="text-primary">Applications.</span>
             </h1>
-            <p className="text-white/55 text-lg max-w-2xl leading-relaxed">
+            <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
               Lightweight, focused applications designed to solve specific problems with precision and elegance.
             </p>
           </div>
 
           {/* Featured Apps Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-8 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-8 border-t border-black/[0.06]">
             {apps.map((app, idx) => (
               <motion.div
                 key={app.id}
@@ -82,9 +82,9 @@ export default function MicroSaaS() {
                 transition={{ delay: Math.min(idx * 0.06, 0.3) }}
               >
                 <Link to={app.route} className="group block h-full">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.02] h-full flex flex-col overflow-hidden hover:border-primary/30 hover:bg-white/[0.035] transition-all duration-300">
+                  <div className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] h-full flex flex-col overflow-hidden hover:border-primary/30 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
                     {app.featureUrl && (
-                      <div className="h-36 overflow-hidden border-b border-white/[0.06]">
+                      <div className="h-36 overflow-hidden border-b border-black/[0.06]">
                         <img src={app.featureUrl} alt={`${app.name} preview`} className="w-full h-full object-cover" loading="lazy" />
                       </div>
                     )}
@@ -92,7 +92,7 @@ export default function MicroSaaS() {
                       {/* App Icon and Title */}
                       <div className="flex items-start justify-between">
                         <div>
-                          <div className="mb-4 w-16 h-16 rounded-xl overflow-hidden shadow-lg border border-white/10">
+                          <div className="mb-4 w-16 h-16 rounded-xl overflow-hidden shadow-lg border border-black/10">
                             <img src={app.iconUrl} alt={`${app.name} icon`} className="w-full h-full object-cover" loading="lazy" />
                           </div>
                           <h3 className="text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
@@ -102,20 +102,20 @@ export default function MicroSaaS() {
                             {app.subtitle}
                           </p>
                         </div>
-                        <ExternalLink className="w-5 h-5 text-white/25 group-hover:text-primary transition-colors" />
+                        <ExternalLink className="w-5 h-5 text-[#8B958F] group-hover:text-primary transition-colors" />
                       </div>
 
                       {/* Description */}
-                      <p className="text-white/55 text-sm leading-relaxed flex-grow">
+                      <p className="text-[#55605B] text-sm leading-relaxed flex-grow">
                         {app.description}
                       </p>
 
                       {/* Platforms */}
-                      <div className="flex gap-2 pt-4 border-t border-white/[0.06]">
+                      <div className="flex gap-2 pt-4 border-t border-black/[0.06]">
                         {app.platforms.map((platform) => (
                           <span
                             key={platform}
-                            className="text-xs font-medium px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary"
+                            className="text-xs font-medium px-3 py-1 rounded-full bg-mint border border-primary/20 text-primary"
                           >
                             {platform}
                           </span>
@@ -137,7 +137,7 @@ export default function MicroSaaS() {
           </div>
 
           {/* Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-white/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-black/[0.06]">
             {[
               {
                 title: 'Privacy & security',
@@ -150,30 +150,30 @@ export default function MicroSaaS() {
                 icon: FileText,
               },
             ].map((card, idx) => (
-              <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4 hover:border-primary/25 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <div key={idx} className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-4 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
+                <div className="w-10 h-10 rounded-lg bg-mint border border-primary/20 flex items-center justify-center">
                   <card.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold text-white mb-1">
+                  <h4 className="text-sm font-semibold text-ink mb-1">
                     {card.title}
                   </h4>
-                  <p className="text-xs text-white/50">{card.description}</p>
+                  <p className="text-xs text-[#55605B]">{card.description}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Coming Soon */}
-          <div className="border-t border-white/[0.06] pt-8">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-4">
-              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary w-fit">
+          <div className="border-t border-black/[0.06] pt-8">
+            <div className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-8 space-y-4">
+              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-mint border border-primary/20 text-xs font-medium text-primary w-fit">
                 Coming soon
               </div>
-              <h3 className="text-xl font-semibold tracking-tight text-white">
+              <h3 className="text-xl font-semibold tracking-tight text-ink">
                 More apps in development
               </h3>
-              <p className="text-white/50 text-sm">
+              <p className="text-[#55605B] text-sm">
                 We're working on additional microSaaS applications to expand our suite. Sign up for updates to be notified when new apps launch.
               </p>
             </div>
