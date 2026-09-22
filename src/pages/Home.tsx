@@ -292,7 +292,7 @@ export default function Home() {
 
       <main className="relative z-10">
         {/* Hero — dark, textured, TechzQuad-style */}
-        <section className="relative pt-32 pb-20 sm:pt-44 sm:pb-28 bg-[#0A0C0B] overflow-hidden">
+        <section className="relative pt-32 pb-20 sm:pt-44 sm:pb-28 bg-dark-gradient overflow-hidden">
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
           <div className="absolute -top-32 -right-32 w-[36rem] h-[36rem] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
 
@@ -494,7 +494,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="rounded-2xl bg-[#101312] text-white p-6 space-y-3">
+                <div className="rounded-2xl bg-dark-gradient-soft overflow-hidden text-white p-6 space-y-3">
                   <div className="text-lg font-semibold">"Built to last."</div>
                   <p className="text-sm text-white/60 leading-relaxed">
                     Ready to help with mobile apps, web platforms, or free browser-based tools — for solo founders and international teams alike.
@@ -537,7 +537,7 @@ export default function Home() {
               ))}
             </div>
 
-            <Reveal delay={0.1} className="rounded-3xl bg-[#101312] p-8 sm:p-10">
+            <Reveal delay={0.1} className="rounded-3xl bg-dark-gradient-soft p-8 sm:p-10">
               <div className="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">Also comfortable with</div>
               <div className="flex flex-wrap gap-3">
                 {profileData.alsoDo.map((item) => (
@@ -779,10 +779,10 @@ export default function Home() {
         </section>
 
         {/* CTA */}
-        <section className="py-24 sm:py-32 bg-[#0A0C0B]">
+        <section className="py-24 sm:py-32 bg-dark-gradient">
           <div className="max-w-5xl mx-auto px-5 sm:px-8">
             <Reveal>
-              <div className="relative rounded-[2rem] border border-white/10 px-8 py-16 sm:px-16 sm:py-20 text-center overflow-hidden">
+              <div className="relative rounded-[2rem] border border-white/10 bg-dark-gradient-soft px-8 py-16 sm:px-16 sm:py-20 text-center overflow-hidden">
                   <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(45deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                   <div className="relative space-y-6">
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white">

@@ -95,7 +95,7 @@ export default function AboutUs() {
 
         {/* Conclusion */}
         <section className="relative rounded-[2rem] p-[1px] overflow-hidden" style={{ background: GRADIENT }}>
-          <div className="relative rounded-[2rem] bg-[#0B0B0E] p-12 text-center space-y-6 overflow-hidden">
+          <div className="relative rounded-[2rem] bg-dark-gradient-soft p-12 text-center space-y-6 overflow-hidden">
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[400px] h-[240px] rounded-full opacity-20 blur-[100px]" style={{ background: GRADIENT }} />
             <h2 className="relative text-2xl md:text-3xl font-bold tracking-tight text-white">Join us on our journey</h2>
             <p className="relative text-white/55 max-w-2xl mx-auto leading-relaxed">

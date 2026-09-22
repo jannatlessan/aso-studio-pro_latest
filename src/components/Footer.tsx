@@ -39,7 +39,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative z-10 bg-[#0A0C0B] text-white pt-16 pb-8 px-6">
+    <footer className="relative z-10 bg-dark-gradient text-white pt-16 pb-8 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
           <div className="space-y-4 lg:col-span-1">
