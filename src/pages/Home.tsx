@@ -141,22 +141,22 @@ const profileData = {
   ],
   testimonials: [
     {
-      client: "Alex Rivera",
+      client: "Lukas Vanecek",
       service: "App Store Optimization",
       text: "Rizwan improved our app listing assets and copy. Our store visibility and conversion rate both improved within the first release cycle.",
-      location: "San Francisco, USA"
+      location: "Prague, Czech Republic"
     },
     {
-      client: "Sarah Chen",
+      client: "Soraya Al-Mansoor",
       service: "Scalable Architecture",
       text: "The architecture is stable and easier for our team to maintain. We saw fewer production issues and faster delivery.",
-      location: "London, UK"
+      location: "Dubai, UAE"
     },
     {
-      client: "Markus Thulin",
+      client: "Henrik Lindqvist",
       service: "Mobile Infrastructure",
       text: "Great communication and clean implementation. He helped us improve app performance and delivery quality significantly.",
-      location: "Stockholm, Sweden"
+      location: "Gothenburg, Sweden"
     }
   ]
 };
