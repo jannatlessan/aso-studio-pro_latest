@@ -584,7 +584,12 @@ export default function Home() {
                     >
                       <div className="flex items-center justify-between mb-5">
                         <div className="text-[11px] font-medium text-[#8B958F] tracking-wide">{app.category}</div>
-                        <div className="flex gap-2.5">
+                        <div className="flex gap-2.5 items-center">
+                          {app.webLink && (
+                            <a href={app.webLink} target="_blank" rel="noopener noreferrer" title="Live Website">
+                              <Globe className="w-3.5 h-3.5 opacity-60 hover:opacity-100 hover:text-primary transition-opacity text-[#55605B]" />
+                            </a>
+                          )}
                           {app.playStore && (
                             <a href={app.playStore} target="_blank" rel="noopener noreferrer" title="Play Store">
                               <img src={PLAY_STORE_ICON_URL} alt="Play Store" className="w-3.5 h-3.5 object-contain opacity-60 hover:opacity-100 transition-opacity" loading="lazy" />
@@ -621,6 +626,11 @@ export default function Home() {
                       )}
 
                       <div className="pt-5 mt-5 border-t border-black/[0.06] flex flex-wrap gap-2">
+                        {app.webLink ? (
+                          <a href={app.webLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-xs font-semibold text-primary hover:bg-primary/20 transition-all">
+                            Live Website <ArrowUpRight className="w-3 h-3" />
+                          </a>
+                        ) : null}
                         {app.playStore ? (
                           <a href={app.playStore} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F6F8F7] border border-black/10 text-xs font-medium text-[#55605B] hover:border-primary/40 hover:text-ink transition-all">
                             Play Store <ArrowUpRight className="w-3 h-3" />

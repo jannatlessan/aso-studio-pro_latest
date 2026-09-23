@@ -1,8 +1,62 @@
 [
   {
+    "name": "Identifee",
+    "id": "PROJ-W01",
+    "description": "US banking sector platform with AI-powered chat, employee training modules, task-related emails, and real-time notifications.",
+    "webLink": "https://identifee.com",
+    "icon": "/assets/app_logo_icon.jpg",
+    "category": "Web / FinTech",
+    "screenshot": "/assets/projects/identifee_preview.jpg"
+  },
+  {
+    "name": "SYNZUR",
+    "id": "PROJ-W02",
+    "description": "Project management tool with team collaboration, role-based task assignment, and drag-and-drop task prioritization.",
+    "webLink": "https://synzur.com",
+    "icon": "/assets/app_logo_icon.jpg",
+    "category": "Web / SaaS",
+    "screenshot": "/assets/projects/synzur_preview.jpg"
+  },
+  {
+    "name": "Cash Advance",
+    "id": "PROJ-W03",
+    "description": "Form-based loan system saving applicant data into a Go High Level CRM, with automated loan qualification checks.",
+    "webLink": "https://web.cashadvance-usa.com",
+    "icon": "/assets/app_logo_icon.jpg",
+    "category": "Web / FinTech",
+    "screenshot": "/assets/projects/identifee_preview.jpg"
+  },
+  {
+    "name": "NOICE Audio Platform",
+    "id": "PROJ-W04",
+    "description": "Audio content platform for podcasts, shows, radio, and audiobooks.",
+    "webLink": "https://open.noice.id",
+    "icon": "/assets/app_logo_icon.jpg",
+    "category": "Web & Mobile / Audio",
+    "screenshot": "/assets/projects/noice_preview.jpg"
+  },
+  {
+    "name": "Win Your PIP (Age Trust)",
+    "id": "PROJ-W05",
+    "description": "UK PIP (Personal Independence Payment) support site, Next.js + Stripe, delivered across 2 milestones for $1,100.",
+    "webLink": "https://winyourpip.com",
+    "icon": "/assets/app_logo_icon.jpg",
+    "category": "Web / Legal Tech",
+    "screenshot": "/assets/projects/identifee_preview.jpg"
+  },
+  {
+    "name": "Naija Living",
+    "id": "PROJ-W06",
+    "description": "Marketplace platform for client Sylvia; currently undergoing security remediation after critical VAPT findings (CVSS 8.5, broken BOLA/IDOR).",
+    "webLink": "https://naijaliving.ng",
+    "icon": "/assets/app_logo_icon.jpg",
+    "category": "Web & Mobile / Marketplace",
+    "screenshot": "/assets/projects/synzur_preview.jpg"
+  },
+  {
     "name": "Kairos Time Entry TW",
     "id": "PROJ-K01",
-    "description": "Manage your workday with ease. Track hours, update job statuses, and view project details specifically tailored for the Kinetic project.",
+    "description": "Manage your workday with ease. Track hours, update job statuses, and view project details specifically tailored for Kinetic.",
     "playStore": "https://play.google.com/store/apps/details?id=com.kairos.kairos_time_entry_tw",
     "appStore": "https://apps.apple.com/pk/app/kairos-time-entry-tw/id6748434834",
     "icon": "https://play-lh.googleusercontent.com/ZGqvTRe8YcsgbjUuSwX1KV7Q8NEbDNdXUUpgKVP169q8P7RnN-uVouKnj08caknPOQ=w240-h480-rw",
@@ -30,73 +84,161 @@
     "screenshot": "/assets/projects/selfiestreet_preview.jpg"
   },
   {
-    "name": "Shad Audio",
+    "name": "Fish Audio: AI Voice Clone TTS",
     "id": "PROJ-A01",
-    "description": "Clone any voice from a short recording and generate natural-sounding speech, or choose from a library of AI voices.",
+    "description": "Voice cloning and text-to-speech app; original name of the app now also released as Mimicly/VoiceTwin under rebrands.",
     "playStore": "https://play.google.com/store/apps/details?id=com.fishaudio.studio",
-    "appStore": "https://apps.apple.com/pk/app/fish-audio-ai-voice-clone-tts/id6775396336",
+    "appStore": "https://apps.apple.com/us/app/fish-audio-ai-voice-clone-tts/id6775396336",
     "icon": "/assets/microsaas/shad-audio/icon.png",
     "category": "AI / Audio",
     "screenshot": "/assets/microsaas/shad-audio/feature.png"
   },
   {
-    "name": "CardVault – Sports Card Scanner",
-    "id": "PROJ-C01",
-    "description": "Point your camera at any sports or trading card to instantly identify it, check its market value, and manage your collection.",
-    "playStore": "https://play.google.com/store/apps/details?id=studio.shaaddev.sport_card_scanner",
-    "appStore": "https://apps.apple.com/pk/app/cardvault-sports-card-scanner/id6762130458",
-    "icon": "/assets/microsaas/cardvault/icon.png",
-    "category": "AI / Scanner",
-    "screenshot": "/assets/microsaas/cardvault/feature.png"
+    "name": "Mimicly: AI Voice Clone App",
+    "id": "PROJ-M01",
+    "description": "Rebranded voice cloning/TTS app (previously Fish Audio, previously Shaad), using the Fish Audio API.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.fishaudio.ai.tts.clone",
+    "icon": "/assets/microsaas/voice-cloning/icon.png",
+    "category": "AI / Audio",
+    "screenshot": "/assets/microsaas/voice-cloning/feature.png"
   },
   {
-    "name": "IncomeMap – Money Tracker",
-    "id": "PROJ-I01",
-    "description": "A secure, lightweight money manager for tracking income and expenses and building a real budget.",
-    "playStore": "https://play.google.com/store/apps/details?id=com.incomemap.budgettracker",
-    "appStore": "https://apps.apple.com/pk/app/incomemap-income-expenses/id6763291145",
-    "icon": "/assets/microsaas/incomemap/icon.jpg",
-    "category": "Finance / Utility",
-    "screenshot": "/assets/microsaas/incomemap/feature.png"
+    "name": "VoiceTwin AI: Voice Cloning",
+    "id": "PROJ-V02",
+    "description": "iOS voice cloning and voice-changer app, text-to-speech with cloned voices.",
+    "appStore": "https://apps.apple.com/us/app/voicetwin-ai-voice-cloning/id6766869439",
+    "icon": "/assets/microsaas/voice-cloning/icon.png",
+    "category": "AI / Voice",
+    "screenshot": "/assets/microsaas/voice-cloning/feature.png"
   },
   {
-    "name": "PromptGenius – AI Prompts",
-    "id": "PROJ-P01",
-    "description": "A prompt engineering tool for professionals, students, and hobbyists who want better output from their favorite AI models.",
-    "playStore": "https://play.google.com/store/apps/details?id=com.sds.promptgenius",
-    "appStore": "https://apps.apple.com/pk/app/promptgenius-ai-prompts/id6760140851",
+    "name": "PixelForge - Text to Image AI",
+    "id": "PROJ-P02",
+    "description": "Batch AI photo and art creator; text-to-image generation app.",
+    "appStore": "https://apps.apple.com/us/app/pixelforge-text-to-image-ai/id6788649609",
     "icon": "/assets/microsaas/promptgenius/icon.png",
     "category": "AI / Generative",
     "screenshot": "/assets/microsaas/promptgenius/feature.png"
   },
   {
-    "name": "Volume Lock & Limiter",
+    "name": "CardVault: Sports Card Scanner",
+    "id": "PROJ-C01",
+    "description": "Scans, values, and tracks sports cards.",
+    "playStore": "https://play.google.com/store/apps/details?id=studio.shaaddev.sport_card_scanner",
+    "appStore": "https://apps.apple.com/us/app/cardvault-sports-card-scanner/id6762130458",
+    "icon": "/assets/microsaas/cardvault/icon.png",
+    "category": "AI / Scanner",
+    "screenshot": "/assets/microsaas/cardvault/feature.png"
+  },
+  {
+    "name": "IncomeMap: Income & Expenses",
+    "id": "PROJ-I01",
+    "description": "Personal expense and income tracker.",
+    "appStore": "https://apps.apple.com/us/app/incomemap-income-expenses/id6763291145",
+    "icon": "/assets/microsaas/incomemap/icon.jpg",
+    "category": "Finance / Utility",
+    "screenshot": "/assets/microsaas/incomemap/feature.png"
+  },
+  {
+    "name": "Stamp ID: Scanner & Value",
+    "id": "PROJ-ST01",
+    "description": "Scans stamps and checks their value.",
+    "appStore": "https://apps.apple.com/us/app/stamp-id-scanner-value/id6761055547",
+    "icon": "https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/app_icon.png",
+    "category": "AI / Utility",
+    "screenshot": "https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/stamp_pedia_graphic_main.png"
+  },
+  {
+    "name": "PromptGenius: AI Prompts",
+    "id": "PROJ-P01",
+    "description": "AI prompt library tool.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.sds.promptgenius",
+    "appStore": "https://apps.apple.com/us/app/promptgenius-ai-prompts/id6760140851",
+    "icon": "/assets/microsaas/promptgenius/icon.png",
+    "category": "AI / Productivity",
+    "screenshot": "/assets/microsaas/promptgenius/feature.png"
+  },
+  {
+    "name": "Volume Lock: Parental Control",
     "id": "PROJ-V01",
-    "description": "Control and lock your device's volume to prevent accidental changes with built-in parental controls.",
-    "playStore": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock",
-    "appStore": "https://apps.apple.com/pk/app/volume-lock-parental-control/id6760347207",
+    "description": "Volume lock and limiter with parental controls to keep child sound volume safe.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.volumelock.limiter.control",
+    "appStore": "https://apps.apple.com/us/app/volume-lock-parental-control/id6760347207",
     "icon": "/assets/microsaas/volume-lock/icon.jpg",
     "category": "Utility / Control",
     "screenshot": "/assets/microsaas/volume-lock/feature.png"
   },
   {
-    "name": "BDVibes – Birthday Reminders",
+    "name": "BDVibes: Birthday Reminders",
     "id": "PROJ-B01",
-    "description": "Never miss a birthday again — smart reminders that help you celebrate the people who matter most.",
+    "description": "Smart birthday reminder app.",
     "playStore": "https://play.google.com/store/apps/details?id=com.bdayvibes.app",
-    "appStore": "https://apps.apple.com/pk/app/bdvibes-birthday-reminders/id6760343022",
+    "appStore": "https://apps.apple.com/us/app/bdvibes-birthday-reminders/id6760343022",
     "icon": "/assets/microsaas/bdvibes/icon.png",
     "category": "Social / Utility",
     "screenshot": "/assets/microsaas/bdvibes/feature.png"
   },
   {
+    "name": "PixPrompter: AI Prompt Library",
+    "id": "PROJ-PX01",
+    "description": "AI prompt generator, sister app to PhotoGem on Android.",
+    "appStore": "https://apps.apple.com/us/app/pixprompter-ai-prompt-library/id6754501908",
+    "icon": "/assets/microsaas/promptgenius/icon.png",
+    "category": "AI / Art",
+    "screenshot": "/assets/microsaas/promptgenius/feature.png"
+  },
+  {
+    "name": "PromptCraft: AI Photo Editing",
+    "id": "PROJ-PC01",
+    "description": "AI photo prompt generator for photo editing.",
+    "appStore": "https://apps.apple.com/us/app/promptcraft-ai-photo-editing/id6754223912",
+    "icon": "/assets/microsaas/promptgenius/icon.png",
+    "category": "AI / Photo",
+    "screenshot": "/assets/microsaas/promptgenius/feature.png"
+  },
+  {
+    "name": "PhotoGem: AI Pix Video Prompts",
+    "id": "PROJ-PG01",
+    "description": "Ready-made AI photo/video text prompts for creating stylized Pix content.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.shaaddevstudio.picsprompt",
+    "icon": "/assets/microsaas/promptgenius/icon.png",
+    "category": "AI / Video",
+    "screenshot": "/assets/microsaas/promptgenius/feature.png"
+  },
+  {
     "name": "FlashPad – Quick Notes",
     "id": "PROJ-F01",
-    "description": "Lightweight and fast note-taking app for capturing ideas and reminders on the fly.",
+    "description": "Quick note-taking app.",
     "playStore": "https://play.google.com/store/apps/details?id=com.flashpad.flashpad",
-    "appStore": "https://apps.apple.com/pk/app/flashpad-quick-notes/id6760437826",
     "icon": "https://play-lh.googleusercontent.com/uR121GleN04e6U97e5T40h9Jd3fR5k9_V77651z47W7_2I6g5g6k=w240-h480-rw",
     "category": "Utility / Notes",
     "screenshot": "/assets/projects/flashpad_preview.jpg"
+  },
+  {
+    "name": "Dimmer: Night Screen OLED Lens",
+    "id": "PROJ-D01",
+    "description": "Night screen dimmer for OLED displays.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.nightscreen.dimmer",
+    "icon": "/assets/microsaas/volume-lock/icon.jpg",
+    "category": "Utility / Screen",
+    "screenshot": "/assets/microsaas/volume-lock/feature.png"
+  },
+  {
+    "name": "RYK Hub: Rahim Yar Khan App",
+    "id": "PROJ-R01",
+    "description": "Local city information/utility app for Rahim Yar Khan.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.sds.digital.ryk.hub",
+    "icon": "/assets/microsaas/volume-lock/icon.jpg",
+    "category": "Utility / City Hub",
+    "screenshot": "/assets/microsaas/volume-lock/feature.png"
+  },
+  {
+    "name": "Volume Locker",
+    "id": "PROJ-VL01",
+    "description": "Volume and brightness lock utility (earlier/alternate version of the Volume Lock app).",
+    "playStore": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock",
+    "icon": "/assets/microsaas/volume-lock/icon.jpg",
+    "category": "Utility / Control",
+    "screenshot": "/assets/microsaas/volume-lock/feature.png"
   }
 ]

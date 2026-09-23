@@ -19,28 +19,16 @@ interface AppEntry {
 }
 
 export default function MicroSaaS() {
-  const apps: AppEntry[] = [
-    {
-      id: 'stamppedia',
-      name: 'Stamppedia',
-      subtitle: 'Scan & identify',
-      description: 'Identify and catalog stamps with advanced AI image recognition technology.',
-      iconUrl: 'https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/app_icon.png',
-      featureUrl: 'https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/stamp_pedia_graphic_main.png',
-      route: '/apps/stamppedia',
-      platforms: ['iOS', 'Android'],
-    },
-    ...microsaasApps.map((app): AppEntry => ({
-      id: app.slug,
-      name: app.name,
-      subtitle: app.tagline,
-      description: app.description,
-      iconUrl: app.iconUrl,
-      featureUrl: app.featureUrl,
-      route: `/apps/${app.slug}`,
-      platforms: app.platforms,
-    })),
-  ];
+  const apps: AppEntry[] = microsaasApps.map((app): AppEntry => ({
+    id: app.slug,
+    name: app.name,
+    subtitle: app.tagline,
+    description: app.description,
+    iconUrl: app.iconUrl,
+    featureUrl: app.featureUrl,
+    route: `/apps/${app.slug}`,
+    platforms: app.platforms,
+  }));
 
   return (
     <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
