@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Download, Star, Shield, Zap, MapPin } from 'lucide-react';
+import { Download, Star, Shield, Zap, MapPin, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
@@ -8,19 +8,18 @@ import Nav, { GRADIENT } from '../../components/Nav';
 
 export default function Stamppedia() {
   return (
-    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
       <SEO
         title="Stamppedia - Scan & Identify Stamps | ShaadDev Studio"
         description="Stamppedia: Advanced stamp identification and cataloging app using AI image recognition. Download for iOS and Android."
         url="https://shaaddev.studio/apps/stamppedia"
       />
 
-
       <Nav />
 
       <main className="relative z-10 max-w-6xl mx-auto px-6 pt-36 pb-20">
-        <Link to="/microsaas" className="inline-flex items-center gap-1.5 text-xs text-[#8B958F] hover:text-primary transition-colors mb-8">
-          MicroSaaS <span className="text-black/20">/</span> Stamppedia
+        <Link to="/microsaas" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-primary transition-colors mb-8">
+          MicroSaaS <span className="text-white/20">/</span> Stamppedia
         </Link>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,21 +29,21 @@ export default function Stamppedia() {
           {/* Hero Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
-                MicroSaaS app
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-semibold text-primary">
+                MicroSaaS Application
               </div>
               <div className="space-y-4">
-                <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
+                <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white">
                   Stamppedia<br />
-                  <span className="text-primary">Scan & identify</span>
+                  <span className="text-primary">Scan & Identify</span>
                 </h1>
-                <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
+                <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
                   Your personal stamp collection intelligence system. Identify, catalog, and learn about stamps using advanced AI recognition technology.
                 </p>
               </div>
 
               {/* Features */}
-              <div className="grid grid-cols-2 gap-4 pt-8 border-t border-black/[0.06]">
+              <div className="grid grid-cols-2 gap-4 pt-8 border-t border-white/10">
                 {[
                   { icon: Zap, text: 'AI-powered recognition' },
                   { icon: Shield, text: 'Secure storage' },
@@ -52,8 +51,8 @@ export default function Stamppedia() {
                   { icon: Star, text: 'Rarity ratings' },
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <feature.icon className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-sm text-[#55605B]">{feature.text}</span>
+                    <feature.icon className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-sm text-white/70">{feature.text}</span>
                   </div>
                 ))}
               </div>
@@ -61,22 +60,22 @@ export default function Stamppedia() {
 
             {/* App Icon / Visual */}
             <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
+              animate={{ y: [0, -16, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               className="flex justify-center"
             >
-              <div className="w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border border-primary/20">
+              <div className="w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-2xl border border-white/20 p-2 bg-white/[0.03]">
                 <img
                   src="https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/app_icon.png"
                   alt="Stamppedia - AI Stamp Identifier App Icon"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-2xl"
                 />
               </div>
             </motion.div>
           </div>
 
           {/* Main App Graphic */}
-          <div className="w-full rounded-2xl overflow-hidden border border-black/10 shadow-2xl my-16">
+          <div className="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl my-16 bg-[#0A0C0B]">
             <img
               src="https://raw.githubusercontent.com/jr270504/jrpc29092025/refs/heads/main/stamp_pedia_graphic_main.png"
               alt="Stamppedia - The Ultimate AI Stamp Identifier and Digital Collection App Interface"
@@ -85,13 +84,13 @@ export default function Stamppedia() {
           </div>
 
           {/* Download Section */}
-          <div className="border-t border-black/[0.06] pt-16">
+          <div className="border-t border-white/10 pt-16">
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold tracking-tight text-ink mb-2">
-                  Download now
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-2">
+                  Download Now
                 </h2>
-                <p className="text-[#55605B]">
+                <p className="text-white/50">
                   Available on both iOS and Android platforms
                 </p>
               </div>
@@ -103,40 +102,30 @@ export default function Stamppedia() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-8 space-y-6 group hover:border-primary/30 hover:shadow-lg hover:shadow-black/5 transition-all flex flex-col h-full"
+                  className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6 group hover:border-primary/40 hover:bg-white/[0.04] transition-all flex flex-col h-full shadow-xl shadow-black/30"
                 >
                   <div className="flex items-start justify-between">
                     <div className="space-y-4">
-                      <div className="h-14 flex items-center justify-start">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                          alt="Get it on Google Play"
-                          className="h-full w-auto object-contain"
-                          onError={(e) => {
-                            e.currentTarget.src = "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png";
-                          }}
-                        />
-                      </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-ink mb-1">
-                          Google Play
+                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                          Google Play Store
                         </h3>
-                        <p className="text-xs font-medium uppercase tracking-wide text-primary">
-                          Android
+                        <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+                          Android Package
                         </p>
                       </div>
                     </div>
-                    <Download className="w-5 h-5 text-[#8B958F] group-hover:text-primary transition-colors" />
+                    <Download className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
                   </div>
-                  <p className="text-[#55605B] text-sm flex-grow">
+                  <p className="text-white/60 text-sm flex-grow">
                     Download Stamppedia from Google Play Store and start cataloging your stamp collection today.
                   </p>
-                  <button
-                    className="text-sm font-semibold px-4 py-3 rounded-xl text-white w-full mt-auto shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/35 transition-all"
+                  <div
+                    className="text-sm font-semibold px-4 py-3 rounded-xl text-white w-full mt-auto shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
                     style={{ background: GRADIENT }}
                   >
-                    Open on Play Store
-                  </button>
+                    Open on Play Store <ArrowUpRight className="w-4 h-4" />
+                  </div>
                 </motion.a>
 
                 {/* Apple App Store */}
@@ -145,209 +134,137 @@ export default function Stamppedia() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-8 space-y-6 group hover:border-primary/30 hover:shadow-lg hover:shadow-black/5 transition-all flex flex-col h-full"
+                  className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6 group hover:border-primary/40 hover:bg-white/[0.04] transition-all flex flex-col h-full shadow-xl shadow-black/30"
                 >
                   <div className="flex items-start justify-between">
                     <div className="space-y-4">
-                      <div className="h-14 flex items-center justify-start">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
-                          alt="Download on the App Store"
-                          className="h-full w-auto object-contain"
-                          onError={(e) => {
-                            e.currentTarget.src = "https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg";
-                          }}
-                        />
-                      </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-ink mb-1">
-                          App Store
+                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                          Apple App Store
                         </h3>
-                        <p className="text-xs font-medium uppercase tracking-wide text-primary">
-                          iOS
+                        <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+                          iOS & iPadOS
                         </p>
                       </div>
                     </div>
-                    <Download className="w-5 h-5 text-[#8B958F] group-hover:text-primary transition-colors" />
+                    <Download className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
                   </div>
-                  <p className="text-[#55605B] text-sm flex-grow">
+                  <p className="text-white/60 text-sm flex-grow">
                     Download Stamppedia from the Apple App Store for iPhone and iPad.
                   </p>
-                  <button
-                    className="text-sm font-semibold px-4 py-3 rounded-xl text-white w-full mt-auto shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/35 transition-all"
+                  <div
+                    className="text-sm font-semibold px-4 py-3 rounded-xl text-white w-full mt-auto shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
                     style={{ background: GRADIENT }}
                   >
-                    Open on App Store
-                  </button>
+                    Open on App Store <ArrowUpRight className="w-4 h-4" />
+                  </div>
                 </motion.a>
               </div>
             </div>
           </div>
 
           {/* Features Section */}
-          <div className="border-t border-black/[0.06] pt-16">
-            <h2 className="text-3xl font-bold tracking-tight text-ink mb-8">
-              Key features
+          <div className="border-t border-white/10 pt-16">
+            <h2 className="text-3xl font-bold tracking-tight text-white mb-8">
+              Key Features
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                {
-                  title: 'Smart recognition',
-                  description: 'AI-powered image recognition to identify stamps instantly',
-                },
-                {
-                  title: 'Collection management',
-                  description: 'Organize and manage your entire stamp collection in one place',
-                },
-                {
-                  title: 'Historical data',
-                  description: 'Access detailed historical information about each stamp',
-                },
-                {
-                  title: 'Value estimation',
-                  description: 'Get approximate values based on condition and rarity',
-                },
-                {
-                  title: 'Export & share',
-                  description: 'Share your collection or export data for backup',
-                },
-                {
-                  title: 'Offline access',
-                  description: 'View your collection even without internet connection',
-                },
+                { title: 'Smart Recognition', description: 'AI-powered image recognition to identify stamps instantly' },
+                { title: 'Collection Management', description: 'Organize and manage your entire stamp collection in one place' },
+                { title: 'Historical Data', description: 'Access detailed historical information about each stamp' },
+                { title: 'Value Estimation', description: 'Get approximate values based on condition and rarity' },
+                { title: 'Export & Share', description: 'Share your collection or export data for backup' },
+                { title: 'Offline Access', description: 'View your collection even without an internet connection' },
               ].map((feature, idx) => (
-                <div key={idx} className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-3 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
-                  <h4 className="text-sm font-semibold text-ink">
+                <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-3 hover:border-primary/30 transition-all">
+                  <h4 className="text-sm font-bold text-white">
                     {feature.title}
                   </h4>
-                  <p className="text-xs text-[#55605B]">{feature.description}</p>
+                  <p className="text-xs text-white/50">{feature.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* SEO Content Section */}
-          <div className="border-t border-black/[0.06] pt-16">
+          <div className="border-t border-white/10 pt-16">
             <div className="space-y-8">
-              <h2 className="text-3xl font-bold tracking-tight text-ink mb-8">
-                Unlock the secrets of your stamp collection with Stamppedia
+              <h2 className="text-3xl font-bold tracking-tight text-white mb-8">
+                Unlock the Secrets of Your Stamp Collection with Stamppedia
               </h2>
 
-              <div className="prose max-w-none text-[#55605B] space-y-6">
-                <p>
-                  Are you a passionate philatelist or a collector who just stumbled upon an old album? Identifying rare and valuable stamps can be a daunting, time-consuming task. From deciphering tiny perforations to identifying obscure watermarks, the world of stamp collecting (philately) is as intricate as it is fascinating.
+              <div className="space-y-6 text-white/65 text-base leading-relaxed">
+                <p className="rounded-xl border border-white/5 bg-white/[0.015] p-5">
+                  Are you a passionate philatelist or a collector who just stumbled upon an old album? Identifying rare and valuable stamps can be a daunting task. From deciphering tiny perforations to identifying obscure watermarks, the world of stamp collecting is as intricate as it is fascinating.
                 </p>
-                <p>
-                  Enter <strong className="text-ink">Stamppedia</strong> — an advanced AI stamp identification app designed to bring your collection into the digital age.
+                <p className="rounded-xl border border-white/5 bg-white/[0.015] p-5">
+                  Enter <strong className="text-white">Stamppedia</strong> — an advanced AI stamp identification app designed to bring your collection into the digital age.
                 </p>
 
-                <h3 className="text-xl font-semibold text-ink mt-8 mb-4">Snap, identify, and value — all in seconds</h3>
-                <p>Stamppedia isn't just another database; it's your personal philatelist in your pocket. Using cutting-edge image recognition technology, the app allows you to simply point your camera and discover:</p>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li><strong className="text-ink">Instant recognition:</strong> Identify stamps from virtually any country and era in seconds.</li>
-                  <li><strong className="text-ink">Detailed philatelic data:</strong> Get the technical specs you need — issue year, printing method, perforation type, and more.</li>
-                  <li><strong className="text-ink">Rarity status:</strong> Is your find "common" or "one-of-a-kind"? Stamppedia tells you the truth about your discovery.</li>
-                  <li><strong className="text-ink">Market insights:</strong> Access historical market data and current valuation ranges from global platforms like eBay to see what your collection is actually worth.</li>
+                <h3 className="text-xl font-bold text-white mt-8 mb-4">Snap, Identify, and Value — All in Seconds</h3>
+                <ul className="list-disc pl-5 space-y-2 rounded-xl border border-white/5 bg-white/[0.015] p-5 text-sm">
+                  <li><strong className="text-white">Instant recognition:</strong> Identify stamps from virtually any country and era in seconds.</li>
+                  <li><strong className="text-white">Detailed philatelic data:</strong> Get technical specs — issue year, printing method, perforation type, and more.</li>
+                  <li><strong className="text-white">Rarity status:</strong> Discover whether your find is common or one-of-a-kind.</li>
+                  <li><strong className="text-white">Market insights:</strong> Access historical market data and valuation ranges.</li>
                 </ul>
-
-                <h3 className="text-xl font-semibold text-ink mt-8 mb-4">Create your digital stamp album</h3>
-                <p>Gone are the days of manually cataloging your stamps in paper ledgers. With Stamppedia, you can build a premium, high-resolution digital collection:</p>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li><strong className="text-ink">Save to collection:</strong> Every identify scan can be saved to your permanent digital archive.</li>
-                  <li><strong className="text-ink">Pinch-to-zoom detail:</strong> Use the digital loupe to inspect every tiny detail of your stamp without needing a physical magnifying glass.</li>
-                  <li><strong className="text-ink">Track your worth:</strong> Monitor the total value of your collection as it grows.</li>
-                </ul>
-
-                <h3 className="text-xl font-semibold text-ink mt-8 mb-4">Why collectors love Stamppedia</h3>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li><strong className="text-ink">High accuracy:</strong> Powered by specialized philatelic AI models.</li>
-                  <li><strong className="text-ink">Global coverage:</strong> From classic Victorian-era stamps to modern commemorative releases.</li>
-                  <li><strong className="text-ink">Seamless UX:</strong> Designed for collectors, by collectors. No ad-clutter — just your stamps.</li>
-                  <li><strong className="text-ink">Secure archive:</strong> Your collection is saved locally and synced with your account for peace of mind.</li>
-                </ul>
-
-                <h3 className="text-xl font-semibold text-ink mt-8 mb-4">Ready to discover your rare finds?</h3>
-                <p>
-                  Stop guessing and start identifying. Whether you're valuing a single stamp or an entire heritage collection, Stamppedia is the only tool you need.
-                </p>
               </div>
             </div>
           </div>
 
           {/* Legal Links */}
-          <div className="border-t border-black/[0.06] pt-16">
-            <div className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-8 space-y-6">
-              <h3 className="text-xl font-semibold text-ink">
-                Legal & support
+          <div className="border-t border-white/10 pt-16">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6">
+              <h3 className="text-xl font-bold text-white">
+                Legal & Support
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <Link
                   to="/apps/stamppedia/privacy"
-                  className="group p-4 rounded-xl border border-black/10 hover:border-primary/30 hover:bg-mint/40 transition-all"
+                  className="group p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:border-primary/40 hover:bg-primary/10 transition-all"
                 >
-                  <div className="text-sm font-semibold text-primary mb-2">
-                    Privacy policy
+                  <div className="text-sm font-bold text-primary mb-1 group-hover:underline">
+                    Privacy Policy
                   </div>
-                  <p className="text-xs text-[#55605B] group-hover:text-ink transition-colors">
-                    View our privacy and data protection policies
+                  <p className="text-xs text-white/50">
+                    View privacy and data protection policies
                   </p>
                 </Link>
                 <Link
                   to="/apps/stamppedia/terms"
-                  className="group p-4 rounded-xl border border-black/10 hover:border-primary/30 hover:bg-mint/40 transition-all"
+                  className="group p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:border-primary/40 hover:bg-primary/10 transition-all"
                 >
-                  <div className="text-sm font-semibold text-primary mb-2">
-                    Terms of service
+                  <div className="text-sm font-bold text-primary mb-1 group-hover:underline">
+                    Terms of Service
                   </div>
-                  <p className="text-xs text-[#55605B] group-hover:text-ink transition-colors">
-                    Read our terms and conditions
+                  <p className="text-xs text-white/50">
+                    Read terms and conditions
                   </p>
                 </Link>
                 <a
                   href="mailto:rizwanrasheed046@gmail.com"
-                  className="group p-4 rounded-xl border border-black/10 hover:border-primary/30 hover:bg-mint/40 transition-all"
+                  className="group p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:border-primary/40 hover:bg-primary/10 transition-all"
                 >
-                  <div className="text-sm font-semibold text-primary mb-2">
-                    Support
+                  <div className="text-sm font-bold text-primary mb-1 group-hover:underline">
+                    Developer Support
                   </div>
-                  <p className="text-xs text-[#55605B] group-hover:text-ink transition-colors">
-                    Get help and support
+                  <p className="text-xs text-white/50">
+                    Contact developer for assistance
                   </p>
                 </a>
                 <Link
                   to="/contact"
-                  className="group p-4 rounded-xl border border-black/10 hover:border-primary/30 hover:bg-mint/40 transition-all"
+                  className="group p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:border-primary/40 hover:bg-primary/10 transition-all"
                 >
-                  <div className="text-sm font-semibold text-primary mb-2">
-                    Contact
+                  <div className="text-sm font-bold text-primary mb-1 group-hover:underline">
+                    Contact Studio
                   </div>
-                  <p className="text-xs text-[#55605B] group-hover:text-ink transition-colors">
-                    Get in touch with us
+                  <p className="text-xs text-white/50">
+                    Get in touch with ShaadDev Studio
                   </p>
                 </Link>
               </div>
-            </div>
-          </div>
-
-          {/* Ratings Section */}
-          <div className="border-t border-black/[0.06] pt-16">
-            <div className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-8 space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-11 h-11 rounded-xl bg-mint border border-primary/20 flex items-center justify-center">
-                  <Star className="w-5 h-5 text-primary fill-current" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-ink">
-                    Highly rated
-                  </h3>
-                  <p className="text-sm text-[#55605B]">
-                    Trusted by stamp enthusiasts worldwide
-                  </p>
-                </div>
-              </div>
-              <p className="text-[#55605B] text-sm leading-relaxed">
-                Stamppedia is trusted by collectors and philatelists around the world. Our AI-powered identification system is continuously improving to provide the most accurate stamp information.
-              </p>
             </div>
           </div>
         </motion.div>

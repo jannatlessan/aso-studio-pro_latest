@@ -777,18 +777,18 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {profileData.testimonials.map((t, i) => (
                 <Reveal key={i} delay={Math.min(i * 0.08, 0.24)}>
-                  <div className="relative h-full rounded-2xl border border-primary/15 bg-mint p-7 space-y-6 flex flex-col overflow-hidden">
+                  <div className="relative h-full rounded-2xl border border-black/10 bg-white p-7 space-y-6 flex flex-col overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all">
                     <Quote className="absolute -top-2 -right-2 w-20 h-20 text-primary/10" fill="currentColor" />
                     <div className="flex items-center gap-1 text-amber-500 relative">
                       {[1, 2, 3, 4, 5].map(s => <Star key={s} className="w-3.5 h-3.5 fill-current" />)}
                     </div>
                     <p className="text-[#3D453F] text-sm leading-relaxed flex-1 relative">"{t.text}"</p>
-                    <div className="pt-5 border-t border-primary/15 flex items-center gap-3 relative">
+                    <div className="pt-5 border-t border-black/10 flex items-center gap-3 relative">
                       <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ background: GRADIENT }}>
                         {getProjectInitials(t.client)}
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-ink">{t.client}</div>
+                        <div className="text-sm font-bold text-ink">{t.client}</div>
                         <div className="text-xs text-[#55605B] mt-0.5">{t.service} · {t.location}</div>
                       </div>
                     </div>
