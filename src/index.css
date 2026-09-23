@@ -45,13 +45,21 @@
   --panel-bg: rgba(255, 255, 255, 0.7);
 }
 
-body, input, button, select, textarea {
+body {
   background-color: var(--bg);
   background-image: radial-gradient(circle at 50% 0%, rgba(14, 157, 82, 0.06), transparent 40%);
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input, select, textarea, button {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -92,7 +100,7 @@ code, kbd, pre, .font-mono {
   justify-content: center;
   gap: 0.5rem;
   background: var(--color-primary-dark);
-  color: #fff;
+  color: #ffffff !important;
   font-weight: 600;
   font-size: 0.875rem;
   border-radius: 9999px;
@@ -103,6 +111,7 @@ code, kbd, pre, .font-mono {
 
 .btn-pill-primary:hover {
   background: #048532;
+  color: #ffffff !important;
   transform: translateY(-1px);
   box-shadow: 0 8px 24px -8px rgba(0, 102, 34, 0.5);
 }
@@ -128,9 +137,7 @@ code, kbd, pre, .font-mono {
   color: var(--color-primary);
 }
 
-/* TechzQuad-style dark panel: near-black base with visible green gradient blooms.
-   Use on any full-bleed dark section (hero, CTA, footer) for the brand's
-   signature dark-green look instead of flat black. */
+/* TechzQuad-style dark panel: near-black base with visible green gradient blooms. */
 .bg-dark-gradient {
   background-color: #0A0C0B;
   background-image:
@@ -139,7 +146,6 @@ code, kbd, pre, .font-mono {
     radial-gradient(ellipse 40% 40% at 50% 50%, rgba(14, 157, 82, 0.08), transparent 70%);
 }
 
-/* Softer variant for smaller inset cards/callouts inside an otherwise light page. */
 .bg-dark-gradient-soft {
   background-color: #101312;
   background-image:
@@ -184,7 +190,7 @@ code, kbd, pre, .font-mono {
 
 .btn-primary {
   background: var(--accent);
-  color: white;
+  color: #ffffff !important;
   font-weight: 600;
   font-size: 0.875rem;
   border-radius: 0.5rem;
@@ -200,6 +206,7 @@ code, kbd, pre, .font-mono {
 
 .btn-primary:hover {
   background: var(--color-primary-light);
+  color: #ffffff !important;
   transform: translateY(-1px);
 }
 

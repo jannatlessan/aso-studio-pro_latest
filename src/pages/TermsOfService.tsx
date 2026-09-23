@@ -1,23 +1,26 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Scale, AlertCircle, Zap, ShieldAlert } from 'lucide-react';
+import { Scale, AlertCircle, ShieldAlert } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import Nav, { GRADIENT } from '../components/Nav';
+import Nav from '../components/Nav';
 
 export default function TermsOfService() {
   return (
-    <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
+    <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
       <SEO
         title="Terms of Service | ShaadDev Studio"
-        description="Terms of service and user agreements for ShaadDev Studio tools and platforms."
+        description="Terms of service and user agreements for ShaadDev Studio."
         url="https://shaaddev.studio/terms"
       />
 
-
       <Nav />
 
-      <main className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-20">
+      <main className="relative z-10 max-w-4xl mx-auto px-6 pt-36 pb-20">
+        <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-primary transition-colors mb-8">
+          Home <span className="text-white/20">/</span> Terms of Service
+        </Link>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -25,82 +28,65 @@ export default function TermsOfService() {
         >
           {/* Hero Section */}
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary">
-              Legal · Last updated 2026
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-semibold text-primary">
+              Legal Documentation
             </div>
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
+            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white">
               Terms of <span className="text-primary">Service.</span>
             </h1>
-            <p className="text-[#55605B] text-lg max-w-2xl leading-relaxed">
-              By using ShaadDev Studio, you agree to the terms below. We've kept them short and in plain language.
+            <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
+              By using our website and services, you agree to these terms. Written simply and clearly.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-black/[0.06]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/10">
             {[
-              { icon: Scale, label: "Fair use", desc: "Free for personal and commercial work" },
-              { icon: ShieldAlert, label: "Safety", desc: "No malicious code or hidden behavior" },
-              { icon: Zap, label: "Reliability", desc: "Built and maintained for consistent uptime" }
+              { icon: Scale, label: "Fair Use", desc: "Licensed for personal and commercial usage" },
+              { icon: AlertCircle, label: "Responsibility", desc: "Use services appropriately" },
+              { icon: ShieldAlert, label: "Reliability", desc: "Engineered for performance and uptime" }
             ].map((item, idx) => (
-              <div key={idx} className="rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02] p-6 space-y-4 hover:border-primary/25 hover:shadow-lg hover:shadow-black/5 transition-all">
-                <div className="w-10 h-10 rounded-lg bg-mint border border-primary/20 flex items-center justify-center">
+              <div key={idx} className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4 hover:border-primary/30 transition-all">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-ink mb-1">{item.label}</div>
-                  <div className="text-xs text-[#55605B]">{item.desc}</div>
+                  <div className="text-sm font-bold text-white mb-1">{item.label}</div>
+                  <div className="text-xs text-white/50">{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Legal Content */}
-          <div className="prose max-w-none space-y-10 text-[#55605B]">
-            <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 1. Use of our tools
+          {/* Terms Content */}
+          <div className="space-y-8 text-white/70">
+            <section className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.015] p-6">
+              <h2 className="text-xl font-bold text-white flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 1. Agreement to Terms
               </h2>
-              <p className="leading-relaxed">
-                ShaadDev Studio grants you a non-exclusive, non-transferable right to use our tools for personal, professional, or commercial purposes. Reverse-engineering our tools or scraping them for automated, unauthorized use is not permitted.
+              <p className="leading-relaxed text-sm">
+                By accessing ShaadDev Studio websites or apps, you agree to comply with these terms.
               </p>
             </section>
 
-            <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 2. Intellectual property
+            <section className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.015] p-6">
+              <h2 className="text-xl font-bold text-white flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 2. License & Intellectual Property
               </h2>
-              <p className="leading-relaxed">
-                You retain full ownership of any content or data you create using our tools. The underlying site, its design system, and source code remain the property of ShaadDev Studio and may not be copied or redistributed without permission.
+              <p className="leading-relaxed text-sm">
+                ShaadDev Studio grants you a limited, revocable license to use our tools and platforms.
               </p>
             </section>
 
-            <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 3. Liability
+            <section className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.015] p-6">
+              <h2 className="text-xl font-bold text-white flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 3. Contact Information
               </h2>
-              <p className="leading-relaxed">
-                Our tools are provided "as is," without warranties of any kind. We aim for high reliability but are not liable for interruptions, data loss, or issues arising from your browser or device environment.
+              <p className="leading-relaxed text-sm">
+                For questions regarding terms of service:
               </p>
-            </section>
-
-            <section className="space-y-3 flex items-start gap-4 p-6 bg-red-50 border border-red-200 rounded-xl">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <div className="space-y-1.5">
-                <h3 className="text-sm font-semibold text-red-600">Termination</h3>
-                <p className="text-xs leading-relaxed text-[#55605B]">
-                  Abuse of our tools or violation of these terms may result in restricted access to the site.
-                </p>
+              <div className="rounded-xl bg-white/5 p-4 mt-3 border border-white/10 text-xs text-white">
+                <strong>Email:</strong> rizwanrasheed046@gmail.com
               </div>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-ink flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" /> 4. Contact
-              </h2>
-              <p className="leading-relaxed">
-                Questions about these terms? Reach out at{' '}
-                <a href="mailto:rizwanrasheed046@gmail.com" className="text-primary hover:underline">rizwanrasheed046@gmail.com</a>.
-              </p>
             </section>
           </div>
         </motion.div>
