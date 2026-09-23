@@ -30,6 +30,66 @@
     "screenshot": "/assets/projects/selfiestreet_preview.jpg"
   },
   {
+    "name": "Shad Audio",
+    "id": "PROJ-A01",
+    "description": "Clone any voice from a short recording and generate natural-sounding speech, or choose from a library of AI voices.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.fishaudio.studio",
+    "appStore": "https://apps.apple.com/pk/app/fish-audio-ai-voice-clone-tts/id6775396336",
+    "icon": "/assets/microsaas/shad-audio/icon.png",
+    "category": "AI / Audio",
+    "screenshot": "/assets/microsaas/shad-audio/feature.png"
+  },
+  {
+    "name": "CardVault – Sports Card Scanner",
+    "id": "PROJ-C01",
+    "description": "Point your camera at any sports or trading card to instantly identify it, check its market value, and manage your collection.",
+    "playStore": "https://play.google.com/store/apps/details?id=studio.shaaddev.sport_card_scanner",
+    "appStore": "https://apps.apple.com/pk/app/cardvault-sports-card-scanner/id6762130458",
+    "icon": "/assets/microsaas/cardvault/icon.png",
+    "category": "AI / Scanner",
+    "screenshot": "/assets/microsaas/cardvault/feature.png"
+  },
+  {
+    "name": "IncomeMap – Money Tracker",
+    "id": "PROJ-I01",
+    "description": "A secure, lightweight money manager for tracking income and expenses and building a real budget.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.incomemap.budgettracker",
+    "appStore": "https://apps.apple.com/pk/app/incomemap-income-expenses/id6763291145",
+    "icon": "/assets/microsaas/incomemap/icon.jpg",
+    "category": "Finance / Utility",
+    "screenshot": "/assets/microsaas/incomemap/feature.png"
+  },
+  {
+    "name": "PromptGenius – AI Prompts",
+    "id": "PROJ-P01",
+    "description": "A prompt engineering tool for professionals, students, and hobbyists who want better output from their favorite AI models.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.sds.promptgenius",
+    "appStore": "https://apps.apple.com/pk/app/promptgenius-ai-prompts/id6760140851",
+    "icon": "/assets/microsaas/promptgenius/icon.png",
+    "category": "AI / Generative",
+    "screenshot": "/assets/microsaas/promptgenius/feature.png"
+  },
+  {
+    "name": "Volume Lock & Limiter",
+    "id": "PROJ-V01",
+    "description": "Control and lock your device's volume to prevent accidental changes with built-in parental controls.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock",
+    "appStore": "https://apps.apple.com/pk/app/volume-lock-parental-control/id6760347207",
+    "icon": "/assets/microsaas/volume-lock/icon.jpg",
+    "category": "Utility / Control",
+    "screenshot": "/assets/microsaas/volume-lock/feature.png"
+  },
+  {
+    "name": "BDVibes – Birthday Reminders",
+    "id": "PROJ-B01",
+    "description": "Never miss a birthday again — smart reminders that help you celebrate the people who matter most.",
+    "playStore": "https://play.google.com/store/apps/details?id=com.bdayvibes.app",
+    "appStore": "https://apps.apple.com/pk/app/bdvibes-birthday-reminders/id6760343022",
+    "icon": "/assets/microsaas/bdvibes/icon.png",
+    "category": "Social / Utility",
+    "screenshot": "/assets/microsaas/bdvibes/feature.png"
+  },
+  {
     "name": "FlashPad – Quick Notes",
     "id": "PROJ-F01",
     "description": "Lightweight and fast note-taking app for capturing ideas and reminders on the fly.",
@@ -38,34 +98,5 @@
     "icon": "https://play-lh.googleusercontent.com/uR121GleN04e6U97e5T40h9Jd3fR5k9_V77651z47W7_2I6g5g6k=w240-h480-rw",
     "category": "Utility / Notes",
     "screenshot": "/assets/projects/flashpad_preview.jpg"
-  },
-  {
-    "name": "PhotoGem: AI Pix Prompt",
-    "id": "PROJ-P01",
-    "description": "A gallery of trending AI prompts to help users generate high-quality AI images.",
-    "playStore": "https://play.google.com/store/apps/details?id=com.shaaddevstudio.picsprompt",
-    "icon": "/assets/microsaas/promptgenius/icon.png",
-    "category": "AI / Generative",
-    "screenshot": "/assets/microsaas/promptgenius/feature.png"
-  },
-  {
-    "name": "Volume Lock & Limiter",
-    "id": "PROJ-V01",
-    "description": "Control and lock your device's volume to prevent accidental changes.",
-    "playStore": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock",
-    "appStore": "https://apps.apple.com/pk/app/volume-lock-limiter-pro/id6739434834",
-    "icon": "/assets/microsaas/volume-lock/icon.jpg",
-    "category": "Utility / Control",
-    "screenshot": "/assets/microsaas/volume-lock/feature.png"
-  },
-  {
-    "name": "BDVibes: Birthday Reminders",
-    "id": "PROJ-B01",
-    "description": "Never miss a birthday again with custom reminders and wishes.",
-    "playStore": "https://play.google.com/store/apps/details?id=com.bdayvibes.app",
-    "appStore": "https://apps.apple.com/pk/app/bdvibes-birthday-reminders/id6738434834",
-    "icon": "/assets/microsaas/bdvibes/icon.png",
-    "category": "Social / Utility",
-    "screenshot": "/assets/microsaas/bdvibes/feature.png"
   }
 ]
