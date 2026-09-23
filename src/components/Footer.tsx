@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Globe
 } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Footer() {
   const socialLinks = [
@@ -43,12 +44,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
           <div className="space-y-4 lg:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/25 flex items-center justify-center">
-                <span className="font-bold text-primary text-sm leading-none">R</span>
-              </div>
-              <span className="font-semibold text-sm leading-none text-white">ShaadDev Studio</span>
-            </div>
+            <Logo />
             <p className="text-sm text-primary font-bold uppercase tracking-wider">Software, built to last.</p>
             <p className="text-sm text-white/50 leading-relaxed max-w-xs">
               Mobile and web engineering, plus a growing suite of free browser-based tools. Based in Pakistan, working with clients worldwide.

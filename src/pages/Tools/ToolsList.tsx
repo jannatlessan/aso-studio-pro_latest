@@ -345,7 +345,7 @@ export default function ToolsList() {
 
       <Nav />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-10 pt-32 pb-16 space-y-10" ref={containerRef}>
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-32 pb-16 space-y-10" ref={containerRef}>
         {/* Header */}
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint border border-primary/15 text-xs font-medium text-primary w-fit">
@@ -489,8 +489,8 @@ export default function ToolsList() {
         <div className="p-4 border border-black/10 rounded-2xl bg-[#F6F8F7] text-xs text-[#55605B] leading-relaxed">
           More tools are being prepared and will appear here as they become available.
         </div>
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 }
