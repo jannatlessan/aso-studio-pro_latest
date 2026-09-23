@@ -85,11 +85,11 @@ export default function MicroSaaS() {
                 <Link to={app.route} className="group block h-full">
                   <div className="rounded-2xl border border-white/10 bg-white/[0.02] h-full flex flex-col overflow-hidden hover:border-primary/40 hover:bg-white/[0.04] transition-all duration-300 shadow-xl shadow-black/20">
                     {app.featureUrl && (
-                      <div className="h-40 overflow-hidden border-b border-white/10 bg-black/40">
+                      <div className="aspect-[16/9] w-full overflow-hidden border-b border-white/10 bg-[#0A0C0B] flex items-center justify-center">
                         <img 
                           src={app.featureUrl} 
-                          alt={`${app.name} preview`} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                          alt={`${app.name} official feature banner`} 
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" 
                           loading="lazy" 
                         />
                       </div>
