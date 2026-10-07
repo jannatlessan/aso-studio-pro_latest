@@ -26,7 +26,8 @@ import {
   Wand2,
   Layers,
   Heart,
-  Images
+  Images,
+  Minimize
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
@@ -234,6 +235,15 @@ const tools = [
     icon: Music,
     path: "/tools/audio-merger",
     status: "Ready",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "PDF-002",
+    name: "Smart PDF Compressor",
+    description: "Shrink PDF files offline with lossless optimization or smart photo compression. Preview results and rename every output before downloading.",
+    icon: Minimize,
+    path: "/tools/pdf-compressor",
+    status: "New",
     actionLabel: "Open Tool"
   },
   {

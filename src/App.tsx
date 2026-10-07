@@ -19,6 +19,7 @@ import ImageResizer from './pages/Tools/ImageResizer';
 import ImageCompressor from './pages/Tools/ImageCompressor';
 import AudioMerger from './pages/Tools/AudioMerger';
 import PDFMerger from './pages/Tools/PDFMerger';
+import PDFCompressor from './pages/Tools/PDFCompressor';
 import BulkImageEnhancer from './pages/Tools/BulkImageEnhancer';
 import BackgroundRemover from './pages/Tools/BackgroundRemover';
 import VideoToGifMaker from './pages/Tools/VideoToGifMaker';
@@ -70,6 +71,7 @@ export default function App() {
         <Route path="/tools/background-remover" element={<BackgroundRemover />} />
         <Route path="/tools/audio-merger" element={<AudioMerger />} />
         <Route path="/tools/pdf-merger" element={<PDFMerger />} />
+        <Route path="/tools/pdf-compressor" element={<PDFCompressor />} />
         <Route path="/tools/event-slideshow" element={<EventSlideshow />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />

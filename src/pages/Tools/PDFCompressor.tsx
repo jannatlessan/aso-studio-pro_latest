@@ -1,0 +1,433 @@
+import { useState, useRef, useEffect } from 'react';
+import {
+  Minimize, Download, Upload, ChevronLeft, RefreshCcw, Settings2, Trash2, Loader2,
+  CheckCircle2, Eye, Archive, ShieldCheck, Sparkles, FileText, AlertCircle
+} from 'lucide-react';
+import JSZip from 'jszip';
+import { useToolNavigation } from '../../hooks/useToolNavigation';
+import { compressPdf, CompressMode } from '../../lib/pdfCompress';
+import Footer from '../../components/Footer';
+import SEO from '../../components/SEO';
+import RelatedTools from '../../components/RelatedTools';
+
+type ItemStatus = 'queued' | 'processing' | 'done' | 'error';
+
+interface PdfItem {
+  id: string;
+  file: File;
+  name: string;
+  originalSize: number;
+  originalUrl: string;
+  status: ItemStatus;
+  resultBlob?: Blob;
+  resultUrl?: string;
+  resultSize?: number;
+  keptOriginal?: boolean;
+  imagesRecompressed?: number;
+  error?: string;
+}
+
+const sanitizeName = (name: string) => name.replace(/[\\/:*?"<>|]/g, '-').trim() || 'document';
+const formatBytes = (n: number) => (n < 1024 * 1024 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1024 / 1024).toFixed(2)} MB`);
+
+export default function PDFCompressor() {
+  const [items, setItems] = useState<PdfItem[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [previewId, setPreviewId] = useState<string | null>(null);
+  const [zipping, setZipping] = useState(false);
+
+  const [mode, setMode] = useState<CompressMode>('smart');
+  const [jpegQuality, setJpegQuality] = useState(0.85);
+  const [maxEdge, setMaxEdge] = useState(2400);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const itemsRef = useRef<PdfItem[]>([]);
+
+  useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
+
+  useEffect(() => {
+    return () => {
+      itemsRef.current.forEach((i) => {
+        URL.revokeObjectURL(i.originalUrl);
+        if (i.resultUrl) URL.revokeObjectURL(i.resultUrl);
+      });
+    };
+  }, []);
+
+  const isToolUsed = items.length > 0;
+
+  const clearAll = () => {
+    items.forEach((i) => {
+      URL.revokeObjectURL(i.originalUrl);
+      if (i.resultUrl) URL.revokeObjectURL(i.resultUrl);
+    });
+    setItems([]);
+    setPreviewId(null);
+    setIsProcessing(false);
+  };
+
+  const resetAll = () => {
+    clearAll();
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    setMode('smart');
+    setJpegQuality(0.85);
+    setMaxEdge(2400);
+  };
+
+  const { handleBackClick } = useToolNavigation({
+    toolName: 'PDF Compressor',
+    isToolUsed,
+    onReset: resetAll
+  });
+
+  const addFiles = (fileList: FileList | null) => {
+    if (!fileList) return;
+    const pdfs = Array.from(fileList).filter((f) => f.type === 'application/pdf' || f.name.toLowerCase().endsWith('.pdf'));
+    const added: PdfItem[] = pdfs.map((file) => ({
+      id: crypto.randomUUID(),
+      file,
+      name: `${file.name.replace(/\.pdf$/i, '')}-compressed`,
+      originalSize: file.size,
+      originalUrl: URL.createObjectURL(file),
+      status: 'queued'
+    }));
+    setItems((prev) => [...prev, ...added]);
+    if (!previewId && added.length) setPreviewId(added[0].id);
+  };
+
+  const removeItem = (id: string) => {
+    const target = items.find((i) => i.id === id);
+    if (target) {
+      URL.revokeObjectURL(target.originalUrl);
+      if (target.resultUrl) URL.revokeObjectURL(target.resultUrl);
+    }
+    setItems((prev) => prev.filter((i) => i.id !== id));
+    if (previewId === id) setPreviewId(null);
+  };
+
+  const renameItem = (id: string, name: string) => {
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, name } : i)));
+  };
+
+  const patchItem = (id: string, patch: Partial<PdfItem>) => {
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, ...patch } : i)));
+  };
+
+  const processAll = async () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+    const queue = itemsRef.current.filter((i) => i.status !== 'done');
+
+    for (const item of queue) {
+      patchItem(item.id, { status: 'processing', error: undefined });
+      try {
+        const buffer = await item.file.arrayBuffer();
+        const result = await compressPdf(buffer, {
+          mode,
+          jpegQuality,
+          maxEdge: maxEdge || Number.MAX_SAFE_INTEGER
+        });
+        const blob = new Blob([result.bytes as BlobPart], { type: 'application/pdf' });
+        patchItem(item.id, {
+          status: 'done',
+          resultBlob: blob,
+          resultUrl: URL.createObjectURL(blob),
+          resultSize: blob.size,
+          keptOriginal: result.keptOriginal,
+          imagesRecompressed: result.imagesRecompressed
+        });
+      } catch (err: any) {
+        console.error(err);
+        const encrypted = /encrypt/i.test(String(err?.message));
+        patchItem(item.id, {
+          status: 'error',
+          error: encrypted ? 'This PDF is password protected and cannot be compressed.' : 'This file could not be read as a valid PDF.'
+        });
+      }
+    }
+    setIsProcessing(false);
+    if (!previewId) {
+      const first = itemsRef.current.find((i) => i.status === 'done');
+      if (first) setPreviewId(first.id);
+    }
+  };
+
+  const downloadOne = (item: PdfItem) => {
+    if (!item.resultUrl) return;
+    const a = document.createElement('a');
+    a.href = item.resultUrl;
+    a.download = `${sanitizeName(item.name)}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
+  const downloadAllAsZip = async () => {
+    const done = items.filter((i) => i.status === 'done' && i.resultBlob);
+    if (!done.length) return;
+    setZipping(true);
+    try {
+      const zip = new JSZip();
+      const usedNames = new Map<string, number>();
+      done.forEach((item) => {
+        let base = sanitizeName(item.name);
+        const count = usedNames.get(base) ?? 0;
+        usedNames.set(base, count + 1);
+        if (count > 0) base = `${base}-${count + 1}`;
+        zip.file(`${base}.pdf`, item.resultBlob!);
+      });
+      const content = await zip.generateAsync({ type: 'blob', compression: 'STORE' });
+      const url = URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'compressed-pdfs.zip';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 2000);
+    } finally {
+      setZipping(false);
+    }
+  };
+
+  const previewItem = items.find((i) => i.id === previewId) ?? null;
+  const doneCount = items.filter((i) => i.status === 'done').length;
+  const totalOriginal = items.reduce((s, i) => s + i.originalSize, 0);
+  const totalResult = items.reduce((s, i) => s + (i.status === 'done' ? i.resultSize ?? i.originalSize : 0), 0);
+  const totalSavings = doneCount ? Math.max(0, Math.round((1 - totalResult / items.filter((i) => i.status === 'done').reduce((s, i) => s + i.originalSize, 0)) * 100)) : 0;
+
+  return (
+    <div className="min-h-screen bg-white text-ink selection:bg-primary/20 font-sans flex flex-col">
+      <SEO
+        title="Smart PDF Compressor | Shrink PDFs Offline | ShaadDev Studio"
+        description="Compress PDF files in your browser without uploading them. Lossless optimization or smart image compression, preview before you download, and rename every output."
+        url="https://shaaddev.studio/tools/pdf-compressor"
+        keywords="pdf compressor, compress pdf, reduce pdf size, offline pdf compression, shrink pdf"
+      />
+
+      <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <button onClick={handleBackClick} className="inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? '(Click to reset)' : undefined}>
+            <ChevronLeft className="w-4 h-4" />
+            {isToolUsed ? 'PDF Compressor' : 'Back to Tools'}
+          </button>
+          <div className="flex items-center gap-2 text-xs font-bold text-primary bg-mint px-3 py-1.5 rounded-full border border-primary/20">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            Runs Locally
+          </div>
+        </div>
+      </nav>
+
+      <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-8 py-10 w-full space-y-10">
+        <div className="space-y-3 max-w-3xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-ink">
+            Smart PDF <span className="text-primary">Compressor.</span>
+          </h1>
+          <p className="text-[#55605B] text-base leading-relaxed">
+            Shrink PDFs without uploading them anywhere. Choose lossless optimization to keep every pixel and character, or smart mode to re-encode embedded photos. Preview each result and rename it before you download.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left: files + results */}
+          <div className="lg:col-span-7 space-y-6">
+            <div
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => { e.preventDefault(); addFiles(e.dataTransfer.files); }}
+              onClick={() => fileInputRef.current?.click()}
+              className="cursor-pointer rounded-3xl border-2 border-dashed border-primary/30 hover:border-primary bg-[#F6F8F7] p-10 text-center transition-all"
+            >
+              <div className="w-14 h-14 mx-auto rounded-2xl bg-mint border border-primary/30 flex items-center justify-center mb-4">
+                <Upload className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="font-bold text-ink">Add PDF files</h3>
+              <p className="text-sm text-[#55605B] mt-1">Drag & drop or click to browse. Multiple files supported.</p>
+            </div>
+
+            {items.length > 0 && (
+              <div className="bg-white rounded-3xl border border-black/10 shadow-sm p-5 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-black text-xs uppercase tracking-widest text-ink">Files ({items.length})</h2>
+                  {doneCount > 0 && (
+                    <button
+                      onClick={downloadAllAsZip}
+                      disabled={zipping}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary-dark hover:bg-[#048532] text-white disabled:opacity-60 rounded-full text-xs font-bold uppercase tracking-widest transition-colors"
+                    >
+                      {zipping ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Archive className="w-3.5 h-3.5" />}
+                      Download All (.zip)
+                    </button>
+                  )}
+                </div>
+
+                {items.map((item) => {
+                  const savedPct = item.resultSize !== undefined ? Math.round((1 - item.resultSize / item.originalSize) * 100) : null;
+                  const isPreviewing = previewId === item.id;
+                  return (
+                    <div key={item.id} className={`rounded-2xl border p-4 space-y-3 transition-colors ${isPreviewing ? 'border-primary/40 bg-mint/40' : 'border-black/10 bg-white'}`}>
+                      <div className="flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-lg bg-mint border border-primary/20 flex items-center justify-center shrink-0">
+                          <FileText className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0 space-y-2">
+                          <div className="text-[11px] font-mono text-[#8B958F] truncate">{item.file.name} · {formatBytes(item.originalSize)}</div>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="text"
+                              value={item.name}
+                              onChange={(e) => renameItem(item.id, e.target.value)}
+                              aria-label="Output file name"
+                              className="flex-1 min-w-0 bg-[#F6F8F7] border border-black/10 rounded-lg px-3 py-1.5 text-sm text-ink focus:outline-none focus:border-primary"
+                            />
+                            <span className="text-xs font-mono text-[#8B958F]">.pdf</span>
+                          </div>
+                        </div>
+                        <button onClick={() => removeItem(item.id)} className="p-1.5 rounded-full text-[#8B958F] hover:text-red-600 hover:bg-red-50 transition-colors" aria-label="Remove file">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 text-xs">
+                        {item.status === 'queued' && <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-bold uppercase tracking-wider">Queued</span>}
+                        {item.status === 'processing' && <span className="px-2.5 py-1 rounded-full bg-mint text-primary font-bold uppercase tracking-wider inline-flex items-center gap-1.5"><Loader2 className="w-3 h-3 animate-spin" /> Compressing</span>}
+                        {item.status === 'error' && <span className="px-2.5 py-1 rounded-full bg-red-50 text-red-600 font-bold inline-flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> {item.error}</span>}
+                        {item.status === 'done' && (
+                          <>
+                            <span className="px-2.5 py-1 rounded-full bg-mint text-primary font-bold inline-flex items-center gap-1.5">
+                              <CheckCircle2 className="w-3 h-3" />
+                              {item.keptOriginal ? 'Already optimal — original kept' : `${formatBytes(item.resultSize!)} (−${savedPct}%)`}
+                            </span>
+                            {!item.keptOriginal && (item.imagesRecompressed ?? 0) > 0 && (
+                              <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">{item.imagesRecompressed} photo{item.imagesRecompressed === 1 ? '' : 's'} re-encoded</span>
+                            )}
+                          </>
+                        )}
+                        <div className="ml-auto flex items-center gap-2">
+                          {item.status === 'done' && (
+                            <>
+                              <button onClick={() => setPreviewId(item.id)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/10 bg-white hover:bg-mint text-[#55605B] hover:text-primary font-bold uppercase tracking-wider transition-colors">
+                                <Eye className="w-3 h-3" /> Preview
+                              </button>
+                              <button onClick={() => downloadOne(item)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-dark hover:bg-[#048532] text-white font-bold uppercase tracking-wider transition-colors">
+                                <Download className="w-3 h-3" /> Download
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {previewItem && previewItem.status === 'done' && (
+              <div className="bg-white rounded-3xl border border-black/10 shadow-sm p-5 space-y-4">
+                <h2 className="font-black text-xs uppercase tracking-widest text-ink">Preview · {previewItem.name}.pdf</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <div className="text-[11px] font-bold uppercase tracking-widest text-[#55605B]">Original · {formatBytes(previewItem.originalSize)}</div>
+                    <iframe src={previewItem.originalUrl} title="Original PDF preview" className="w-full h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7]" />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-[11px] font-bold uppercase tracking-widest text-primary">Compressed · {formatBytes(previewItem.resultSize!)}</div>
+                    <iframe src={previewItem.resultUrl} title="Compressed PDF preview" className="w-full h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7]" />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right: settings */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-white rounded-3xl border border-black/10 shadow-lg shadow-black/5 p-6 space-y-6">
+              <div className="flex items-center gap-2 border-b border-black/10 pb-2">
+                <Settings2 className="w-4 h-4 text-primary" />
+                <h2 className="font-black text-xs uppercase tracking-widest text-ink">Compression</h2>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={() => setMode('lossless')} className={`p-3 rounded-xl border text-left transition-all ${mode === 'lossless' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
+                  <div className="text-[11px] font-black uppercase tracking-widest">Lossless</div>
+                  <div className="text-[11px] mt-1 leading-snug opacity-80">Restructures the file only. Zero quality change.</div>
+                </button>
+                <button onClick={() => setMode('smart')} className={`p-3 rounded-xl border text-left transition-all ${mode === 'smart' ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
+                  <div className="text-[11px] font-black uppercase tracking-widest">Smart</div>
+                  <div className="text-[11px] mt-1 leading-snug opacity-80">Re-encodes embedded photos for maximum savings.</div>
+                </button>
+              </div>
+
+              {mode === 'smart' && (
+                <div className="space-y-5 p-4 bg-[#F6F8F7] rounded-xl border border-black/[0.06]">
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-[#55605B]">
+                      <span>Photo JPEG quality</span>
+                      <span className="text-primary">{Math.round(jpegQuality * 100)}%</span>
+                    </div>
+                    <input type="range" min="0.5" max="0.95" step="0.05" value={jpegQuality} onChange={(e) => setJpegQuality(parseFloat(e.target.value))} className="w-full accent-primary" />
+                    <p className="text-[10px] text-[#8B958F]">Higher keeps more detail. 85–90% is visually lossless for most photos.</p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#55605B]">Max photo size</div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[{ v: 1600, l: '1600' }, { v: 2400, l: '2400' }, { v: 3200, l: '3200' }, { v: 0, l: 'Original' }].map((opt) => (
+                        <button key={opt.v} onClick={() => setMaxEdge(opt.v)} className={`py-2 rounded-lg border text-[10px] font-bold uppercase tracking-wider transition-all ${maxEdge === opt.v ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
+                          {opt.l}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={processAll}
+                disabled={items.length === 0 || isProcessing}
+                className="w-full flex items-center justify-center gap-2 bg-primary-dark hover:bg-[#048532] text-white disabled:opacity-40 disabled:cursor-not-allowed py-4 rounded-full font-black uppercase tracking-widest text-sm shadow-lg shadow-primary/25 transition-all"
+              >
+                {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : <Minimize className="w-5 h-5" />}
+                {isProcessing ? 'Compressing…' : items.some((i) => i.status === 'done') ? 'Compress Again' : 'Compress PDFs'}
+              </button>
+
+              {items.length > 0 && (
+                <div className="grid grid-cols-2 gap-3 pt-4 border-t border-black/10 text-center">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#8B958F]">Original total</div>
+                    <div className="text-lg font-bold text-ink">{formatBytes(totalOriginal)}</div>
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#8B958F]">Compressed total</div>
+                    <div className="text-lg font-bold text-primary">{doneCount ? `${formatBytes(totalResult)} (−${totalSavings}%)` : '—'}</div>
+                  </div>
+                </div>
+              )}
+
+              <button onClick={clearAll} className="w-full inline-flex items-center justify-center gap-2 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-[#55605B] hover:text-primary transition-colors">
+                <RefreshCcw className="w-3 h-3" /> Clear all
+              </button>
+            </div>
+
+            <div className="bg-[#F6F8F7] rounded-3xl border border-black/10 p-6 space-y-3">
+              <div className="flex items-center gap-2 text-primary">
+                <Sparkles className="w-4 h-4" />
+                <h3 className="font-black text-xs uppercase tracking-widest">How it stays high quality</h3>
+              </div>
+              <p className="text-sm text-[#55605B] leading-relaxed">
+                Lossless mode rewrites the PDF's internal structure (object streams), so text, vectors, fonts and images stay byte-identical. Smart mode only touches JPEG photos, and only keeps a re-encoded image when it is actually smaller, so the file never gets bigger.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <input type="file" ref={fileInputRef} onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} accept="application/pdf" multiple className="hidden" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full pb-10">
+        <RelatedTools currentPath="/tools/pdf-compressor" />
+      </div>
+      <Footer />
+    </div>
+  );
+}
