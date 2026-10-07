@@ -13,6 +13,7 @@ export interface CompressOptions {
 export interface CompressResult {
   bytes: Uint8Array;
   imagesRecompressed: number;
+  imagesFound: number;
   keptOriginal: boolean;
 }
 
@@ -72,9 +73,14 @@ function extractJpeg(doc: PDFDocument, stream: PDFRawStream, filters: string[]):
   return decodePDFRawStream(PDFRawStream.of(dict, stream.contents)).decode();
 }
 
-async function reencodeImages(doc: PDFDocument, jpegQuality: number, maxEdge: number): Promise<number> {
+async function reencodeImages(
+  doc: PDFDocument,
+  jpegQuality: number,
+  maxEdge: number,
+): Promise<{ recompressed: number; found: number }> {
   const ctx = doc.context;
   let recompressed = 0;
+  let found = 0;
 
   // Streams used as a soft/stencil mask by another image must never be re-encoded as RGB —
   // that would destroy transparency. Collect them up front and skip them.
@@ -93,6 +99,7 @@ async function reencodeImages(doc: PDFDocument, jpegQuality: number, maxEdge: nu
 
     const dict = obj.dict;
     if (dict.get(NAME('Subtype'))?.toString() !== '/Image') continue;
+    found++;
     // These change pixel semantics in ways a plain JPEG can't reproduce — leave them untouched.
     if (dict.get(NAME('ImageMask')) || dict.get(NAME('Mask')) || dict.get(NAME('Decode'))) continue;
 
@@ -173,7 +180,7 @@ async function reencodeImages(doc: PDFDocument, jpegQuality: number, maxEdge: nu
     recompressed++;
   }
 
-  return recompressed;
+  return { recompressed, found };
 }
 
 export async function compressPdf(input: ArrayBuffer, options: CompressOptions): Promise<CompressResult> {
@@ -181,14 +188,17 @@ export async function compressPdf(input: ArrayBuffer, options: CompressOptions):
   const originalSize = input.byteLength;
 
   let imagesRecompressed = 0;
+  let imagesFound = 0;
   if (options.mode === 'smart') {
-    imagesRecompressed = await reencodeImages(doc, options.jpegQuality, options.maxEdge);
+    const r = await reencodeImages(doc, options.jpegQuality, options.maxEdge);
+    imagesRecompressed = r.recompressed;
+    imagesFound = r.found;
   }
 
   const bytes = await doc.save({ useObjectStreams: true });
 
   if (bytes.byteLength >= originalSize) {
-    return { bytes: new Uint8Array(input), imagesRecompressed: 0, keptOriginal: true };
+    return { bytes: new Uint8Array(input), imagesRecompressed: 0, imagesFound, keptOriginal: true };
   }
-  return { bytes, imagesRecompressed, keptOriginal: false };
+  return { bytes, imagesRecompressed, imagesFound, keptOriginal: false };
 }

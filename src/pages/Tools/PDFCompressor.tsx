@@ -24,8 +24,24 @@ interface PdfItem {
   resultSize?: number;
   keptOriginal?: boolean;
   imagesRecompressed?: number;
+  imagesFound?: number;
   error?: string;
 }
+
+interface CompressionPreset {
+  id: string;
+  label: string;
+  hint: string;
+  quality: number;
+  maxEdge: number;
+}
+
+const PRESETS: CompressionPreset[] = [
+  { id: 'high', label: 'High quality', hint: 'Visually lossless', quality: 0.85, maxEdge: 2400 },
+  { id: 'balanced', label: 'Balanced', hint: 'Smaller, still crisp', quality: 0.7, maxEdge: 1800 },
+  { id: 'small', label: 'Small', hint: 'Great for sharing', quality: 0.55, maxEdge: 1400 },
+  { id: 'smallest', label: 'Smallest', hint: 'Maximum shrink', quality: 0.4, maxEdge: 1100 },
+];
 
 const sanitizeName = (name: string) => name.replace(/[\\/:*?"<>|]/g, '-').trim() || 'document';
 const formatBytes = (n: number) => (n < 1024 * 1024 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1024 / 1024).toFixed(2)} MB`);
@@ -39,6 +55,13 @@ export default function PDFCompressor() {
   const [mode, setMode] = useState<CompressMode>('smart');
   const [jpegQuality, setJpegQuality] = useState(0.85);
   const [maxEdge, setMaxEdge] = useState(2400);
+  const [presetId, setPresetId] = useState('high');
+
+  const applyPreset = (preset: CompressionPreset) => {
+    setPresetId(preset.id);
+    setJpegQuality(preset.quality);
+    setMaxEdge(preset.maxEdge);
+  };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const itemsRef = useRef<PdfItem[]>([]);
@@ -74,6 +97,7 @@ export default function PDFCompressor() {
     setMode('smart');
     setJpegQuality(0.85);
     setMaxEdge(2400);
+    setPresetId('high');
   };
 
   const { handleBackClick } = useToolNavigation({
@@ -136,7 +160,8 @@ export default function PDFCompressor() {
           resultUrl: URL.createObjectURL(blob),
           resultSize: blob.size,
           keptOriginal: result.keptOriginal,
-          imagesRecompressed: result.imagesRecompressed
+          imagesRecompressed: result.imagesRecompressed,
+          imagesFound: result.imagesFound
         });
       } catch (err: any) {
         console.error(err);
@@ -299,11 +324,14 @@ export default function PDFCompressor() {
                               <CheckCircle2 className="w-3 h-3" />
                               {item.keptOriginal ? 'No savings possible — original kept' : `${formatBytes(item.resultSize!)} (−${savedPct}%)`}
                             </span>
-                            {!item.keptOriginal && (item.imagesRecompressed ?? 0) === 0 && mode === 'smart' && (
-                              <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">No images to re-encode</span>
-                            )}
-                            {!item.keptOriginal && (item.imagesRecompressed ?? 0) > 0 && (
+                            {(item.imagesRecompressed ?? 0) > 0 && (
                               <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">{item.imagesRecompressed} photo{item.imagesRecompressed === 1 ? '' : 's'} re-encoded</span>
+                            )}
+                            {mode === 'smart' && (item.imagesRecompressed ?? 0) === 0 && (item.imagesFound ?? 0) > 0 && (
+                              <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-semibold">{item.imagesFound} photo{item.imagesFound === 1 ? '' : 's'} already optimized — try Small or Smallest</span>
+                            )}
+                            {mode === 'smart' && (item.imagesFound ?? 0) === 0 && (
+                              <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">No photos to compress</span>
                             )}
                           </>
                         )}
@@ -365,23 +393,47 @@ export default function PDFCompressor() {
               {mode === 'smart' && (
                 <div className="space-y-5 p-4 bg-[#F6F8F7] rounded-xl border border-black/[0.06]">
                   <div className="space-y-2">
-                    <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-[#55605B]">
-                      <span>Photo JPEG quality</span>
-                      <span className="text-primary">{Math.round(jpegQuality * 100)}%</span>
-                    </div>
-                    <input type="range" min="0.5" max="0.95" step="0.05" value={jpegQuality} onChange={(e) => setJpegQuality(parseFloat(e.target.value))} className="w-full accent-primary" />
-                    <p className="text-[10px] text-[#8B958F]">Higher keeps more detail. 85–90% is visually lossless for most photos.</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#55605B]">Max photo size</div>
-                    <div className="grid grid-cols-4 gap-2">
-                      {[{ v: 1600, l: '1600' }, { v: 2400, l: '2400' }, { v: 3200, l: '3200' }, { v: 0, l: 'Original' }].map((opt) => (
-                        <button key={opt.v} onClick={() => setMaxEdge(opt.v)} className={`py-2 rounded-lg border text-[10px] font-bold uppercase tracking-wider transition-all ${maxEdge === opt.v ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
-                          {opt.l}
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-[#55605B]">Compression level</div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {PRESETS.map((preset) => (
+                        <button
+                          key={preset.id}
+                          onClick={() => applyPreset(preset)}
+                          className={`p-2.5 rounded-lg border text-left transition-all ${presetId === preset.id ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}
+                        >
+                          <div className="text-[11px] font-black uppercase tracking-wider">{preset.label}</div>
+                          <div className="text-[10px] mt-0.5 leading-snug opacity-80">{preset.hint}</div>
                         </button>
                       ))}
                     </div>
+                    <p className="text-[10px] text-[#8B958F]">Already-compressed files need a stronger level to shrink further. Try <span className="font-semibold text-[#55605B]">Small</span> or <span className="font-semibold text-[#55605B]">Smallest</span> if High quality shows no savings.</p>
                   </div>
+
+                  <details className="group">
+                    <summary className="cursor-pointer text-[10px] font-bold uppercase tracking-widest text-[#55605B] hover:text-primary select-none">
+                      Advanced {presetId === 'custom' && <span className="text-primary normal-case tracking-normal">· custom</span>}
+                    </summary>
+                    <div className="space-y-5 pt-4">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-[#55605B]">
+                          <span>Photo JPEG quality</span>
+                          <span className="text-primary">{Math.round(jpegQuality * 100)}%</span>
+                        </div>
+                        <input type="range" min="0.3" max="0.95" step="0.05" value={jpegQuality} onChange={(e) => { setJpegQuality(parseFloat(e.target.value)); setPresetId('custom'); }} className="w-full accent-primary" />
+                        <p className="text-[10px] text-[#8B958F]">Higher keeps more detail. 85–90% is visually lossless for most photos.</p>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="text-[10px] font-bold uppercase tracking-widest text-[#55605B]">Max photo size</div>
+                        <div className="grid grid-cols-5 gap-2">
+                          {[{ v: 1100, l: '1100' }, { v: 1600, l: '1600' }, { v: 2400, l: '2400' }, { v: 3200, l: '3200' }, { v: 0, l: 'Orig' }].map((opt) => (
+                            <button key={opt.v} onClick={() => { setMaxEdge(opt.v); setPresetId('custom'); }} className={`py-2 rounded-lg border text-[10px] font-bold uppercase tracking-wider transition-all ${maxEdge === opt.v ? 'bg-mint border-primary text-primary' : 'bg-white border-black/10 text-[#55605B] hover:bg-mint'}`}>
+                              {opt.l}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </details>
                 </div>
               )}
 
