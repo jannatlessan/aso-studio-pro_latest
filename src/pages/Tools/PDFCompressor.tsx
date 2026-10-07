@@ -6,7 +6,7 @@ import {
 import JSZip from 'jszip';
 import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { compressPdf, CompressMode } from '../../lib/pdfCompress';
-import { renderFirstPage } from '../../lib/pdfThumbnail';
+import { renderPages, RenderedPdf } from '../../lib/pdfThumbnail';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
@@ -53,7 +53,7 @@ export default function PDFCompressor() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [previewId, setPreviewId] = useState<string | null>(null);
   const [zipping, setZipping] = useState(false);
-  const [preview, setPreview] = useState<{ id: string; key: string; original?: string; compressed?: string; failed?: boolean }>({ id: '', key: '' });
+  const [preview, setPreview] = useState<{ id: string; key: string; original?: RenderedPdf; compressed?: RenderedPdf; failed?: boolean }>({ id: '', key: '' });
 
   const [mode, setMode] = useState<CompressMode>('smart');
   const [jpegQuality, setJpegQuality] = useState(0.85);
@@ -99,8 +99,8 @@ export default function PDFCompressor() {
           activePreview.resultBlob!.arrayBuffer()
         ]);
         const [original, compressed] = await Promise.all([
-          renderFirstPage(origBuf),
-          renderFirstPage(compBuf)
+          renderPages(origBuf),
+          renderPages(compBuf)
         ]);
         if (!cancelled) setPreview({ id: activePreview.id, key: previewKey, original, compressed });
       } catch {
@@ -366,23 +366,30 @@ export default function PDFCompressor() {
                         {item.status === 'queued' && <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-bold uppercase tracking-wider">Queued</span>}
                         {item.status === 'processing' && <span className="px-2.5 py-1 rounded-full bg-mint text-primary font-bold uppercase tracking-wider inline-flex items-center gap-1.5"><Loader2 className="w-3 h-3 animate-spin" /> Compressing</span>}
                         {item.status === 'error' && <span className="px-2.5 py-1 rounded-full bg-red-50 text-red-600 font-bold inline-flex items-center gap-1.5"><AlertCircle className="w-3 h-3" /> {item.error}</span>}
-                        {item.status === 'done' && (
-                          <>
-                            <span className="px-2.5 py-1 rounded-full bg-mint text-primary font-bold inline-flex items-center gap-1.5">
-                              <CheckCircle2 className="w-3 h-3" />
-                              {item.keptOriginal ? 'No savings possible — original kept' : `${formatBytes(item.resultSize!)} (−${savedPct}%)`}
-                            </span>
-                            {(item.imagesRecompressed ?? 0) > 0 && (
-                              <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">{item.imagesRecompressed} photo{item.imagesRecompressed === 1 ? '' : 's'} re-encoded</span>
-                            )}
-                            {mode === 'smart' && (item.imagesRecompressed ?? 0) === 0 && (item.imagesFound ?? 0) > 0 && (
-                              <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-semibold">{item.imagesFound} photo{item.imagesFound === 1 ? '' : 's'} already optimized — try Small or Smallest</span>
-                            )}
-                            {mode === 'smart' && (item.imagesFound ?? 0) === 0 && (
-                              <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">No photos to compress</span>
-                            )}
-                          </>
-                        )}
+                        {item.status === 'done' && (() => {
+                          const usedSmart = item.settingsKey?.startsWith('smart');
+                          const realSaving = !item.keptOriginal && (savedPct ?? 0) > 0;
+                          return (
+                            <>
+                              <span className={`px-2.5 py-1 rounded-full font-bold inline-flex items-center gap-1.5 ${realSaving ? 'bg-mint text-primary' : 'bg-black/[0.04] text-[#55605B]'}`}>
+                                <CheckCircle2 className="w-3 h-3" />
+                                {realSaving ? `${formatBytes(item.resultSize!)} (−${savedPct}%)` : 'Already optimized · same size'}
+                              </span>
+                              {realSaving && (item.imagesRecompressed ?? 0) > 0 && (
+                                <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">{item.imagesRecompressed} photo{item.imagesRecompressed === 1 ? '' : 's'} re-encoded</span>
+                              )}
+                              {!realSaving && usedSmart && (item.imagesFound ?? 0) > 0 && (
+                                <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-semibold">Try Small or Smallest to shrink {item.imagesFound} photo{item.imagesFound === 1 ? '' : 's'}</span>
+                              )}
+                              {!realSaving && usedSmart && (item.imagesFound ?? 0) === 0 && (
+                                <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">No photos to compress — this PDF is already minimal</span>
+                              )}
+                              {!realSaving && !usedSmart && (
+                                <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-semibold">Switch to Smart + Small or Smallest to shrink photos</span>
+                              )}
+                            </>
+                          );
+                        })()}
                         <div className="ml-auto flex items-center gap-2">
                           {item.status === 'done' && (
                             <>
@@ -405,13 +412,13 @@ export default function PDFCompressor() {
             {previewItem && previewItem.status === 'done' && (() => {
               const matched = preview.key === `${previewItem.id}:${previewItem.resultUrl}`;
               const sides = [
-                { label: `Original · ${formatBytes(previewItem.originalSize)}`, labelClass: 'text-[#55605B]', img: matched ? preview.original : undefined, href: previewItem.originalUrl },
-                { label: `Compressed · ${formatBytes(previewItem.resultSize!)}`, labelClass: 'text-primary', img: matched ? preview.compressed : undefined, href: previewItem.resultUrl }
+                { label: `Original · ${formatBytes(previewItem.originalSize)}`, labelClass: 'text-[#55605B]', doc: matched ? preview.original : undefined, href: previewItem.originalUrl },
+                { label: `Compressed · ${formatBytes(previewItem.resultSize!)}`, labelClass: 'text-primary', doc: matched ? preview.compressed : undefined, href: previewItem.resultUrl }
               ];
               return (
                 <div className="bg-white rounded-3xl border border-black/10 shadow-sm p-5 space-y-3">
                   <h2 className="font-black text-xs uppercase tracking-widest text-ink">Preview · {previewItem.name}.pdf</h2>
-                  <p className="text-[11px] text-[#8B958F] -mt-1">Showing page 1. Tap <span className="font-semibold">Open</span> to view the full PDF.</p>
+                  <p className="text-[11px] text-[#8B958F] -mt-1">Scroll each panel to flip through the pages. Tap <span className="font-semibold">Open</span> for the full PDF.</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {sides.map((side, idx) => (
                       <div key={idx} className="space-y-2">
@@ -421,13 +428,26 @@ export default function PDFCompressor() {
                             <ExternalLink className="w-3 h-3" /> Open
                           </a>
                         </div>
-                        <div className="w-full h-[360px] sm:h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7] overflow-auto">
+                        <div className="w-full h-[360px] sm:h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7] overflow-auto overscroll-contain">
                           {matched && preview.failed ? (
                             <div className="h-full flex items-center justify-center text-xs text-[#8B958F] p-4 text-center">Preview unavailable — tap Open to view the PDF.</div>
-                          ) : side.img ? (
-                            <img src={side.img} alt={side.label} className="w-full h-auto block" />
+                          ) : side.doc ? (
+                            <div className="p-2 space-y-2">
+                              {side.doc.pages.map((src, p) => (
+                                <div key={p} className="relative">
+                                  <img src={src} alt={`${side.label} page ${p + 1}`} loading="lazy" className="w-full h-auto block rounded shadow-sm" />
+                                  <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/55 text-white text-[10px] font-semibold tabular-nums">{p + 1}/{side.doc!.total}</span>
+                                </div>
+                              ))}
+                              {side.doc.truncated && (
+                                <div className="text-center text-[10px] text-[#8B958F] py-2">First {side.doc.pages.length} of {side.doc.total} pages shown — tap Open for all.</div>
+                              )}
+                            </div>
                           ) : (
-                            <div className="h-full flex items-center justify-center text-[#8B958F]"><Loader2 className="w-5 h-5 animate-spin" /></div>
+                            <div className="h-full flex flex-col items-center justify-center gap-2 text-[#8B958F]">
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                              <span className="text-[10px]">Rendering pages…</span>
+                            </div>
                           )}
                         </div>
                       </div>
