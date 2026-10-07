@@ -25,6 +25,7 @@ interface PdfItem {
   keptOriginal?: boolean;
   imagesRecompressed?: number;
   imagesFound?: number;
+  settingsKey?: string;
   error?: string;
 }
 
@@ -141,11 +142,26 @@ export default function PDFCompressor() {
 
   const processAll = async () => {
     if (isProcessing) return;
+    // A file is (re)compressed when it isn't done yet, or when the current settings differ
+    // from the ones that produced its existing result — so changing a setting and clicking
+    // "Compress Again" actually re-runs it.
+    const settingsKey = mode === 'smart' ? `smart:${jpegQuality}:${maxEdge}` : 'lossless';
+    const queue = itemsRef.current.filter((i) => i.status !== 'done' || i.settingsKey !== settingsKey);
+    if (!queue.length) return;
     setIsProcessing(true);
-    const queue = itemsRef.current.filter((i) => i.status !== 'done');
 
     for (const item of queue) {
-      patchItem(item.id, { status: 'processing', error: undefined });
+      if (item.resultUrl) URL.revokeObjectURL(item.resultUrl);
+      patchItem(item.id, {
+        status: 'processing',
+        error: undefined,
+        resultBlob: undefined,
+        resultUrl: undefined,
+        resultSize: undefined,
+        keptOriginal: undefined,
+        imagesRecompressed: undefined,
+        imagesFound: undefined
+      });
       try {
         const buffer = await item.file.arrayBuffer();
         const result = await compressPdf(buffer, {
@@ -156,6 +172,7 @@ export default function PDFCompressor() {
         const blob = new Blob([result.bytes as BlobPart], { type: 'application/pdf' });
         patchItem(item.id, {
           status: 'done',
+          settingsKey,
           resultBlob: blob,
           resultUrl: URL.createObjectURL(blob),
           resultSize: blob.size,
