@@ -19,6 +19,58 @@ export interface CompressResult {
 
 const NAME = (key: string) => PDFName.of(key);
 
+// MozJPEG (WASM) encoder — lazy-loaded on first use so it never weighs down page load.
+// It produces 10–25% smaller JPEGs than the browser's canvas encoder at the same visual
+// quality (optimized Huffman tables, progressive scan, trellis quantization). Falls back
+// to canvas.toBlob if the WASM module can't load.
+type MozEncode = (data: ImageData, options?: Record<string, unknown>) => Promise<ArrayBuffer>;
+let mozEncoder: MozEncode | null = null;
+let mozDisabled = false;
+
+async function getMozEncoder(): Promise<MozEncode | null> {
+  if (mozEncoder || mozDisabled) return mozEncoder;
+  try {
+    // Compile the WASM ourselves from a Vite-resolved URL (correct MIME + hashing in dev and
+    // prod) and hand the module to init(). This avoids the encoder's built-in import.meta.url
+    // fetch, which an SPA rewrite would answer with index.html instead of the wasm binary.
+    const [mod, wasmUrlMod] = await Promise.all([
+      import('@jsquash/jpeg/encode'),
+      import('@jsquash/jpeg/codec/enc/mozjpeg_enc.wasm?url'),
+    ]);
+    const response = await fetch((wasmUrlMod as { default: string }).default);
+    const wasmModule = await WebAssembly.compile(await response.arrayBuffer());
+    await (mod as unknown as { init: (m: WebAssembly.Module) => Promise<void> }).init(wasmModule);
+    mozEncoder = mod.default as MozEncode;
+  } catch {
+    mozDisabled = true;
+  }
+  return mozEncoder;
+}
+
+async function encodeJpeg(
+  canvas: HTMLCanvasElement,
+  ctx2d: CanvasRenderingContext2D,
+  quality: number,
+): Promise<Uint8Array | null> {
+  const encoder = await getMozEncoder();
+  if (encoder) {
+    try {
+      const imageData = ctx2d.getImageData(0, 0, canvas.width, canvas.height);
+      const buf = await encoder(imageData, {
+        quality: Math.round(quality * 100),
+        progressive: true,
+        optimize_coding: true,
+        trellis_multipass: true,
+      });
+      return new Uint8Array(buf);
+    } catch {
+      mozDisabled = true; // stop retrying a broken encoder for the rest of this run
+    }
+  }
+  const blob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+  return blob ? new Uint8Array(await blob.arrayBuffer()) : null;
+}
+
 /** Resolve an image ColorSpace to the number of colour channels, or null if we can't safely re-encode it. */
 function resolveChannels(doc: PDFDocument, colorSpace: unknown): number | null {
   if (!colorSpace) return null;
@@ -161,9 +213,8 @@ async function reencodeImages(
     ctx2d.drawImage(sourceCanvas, 0, 0, outW, outH);
     if ('close' in sourceCanvas) sourceCanvas.close();
 
-    const blob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', jpegQuality));
-    if (!blob) continue;
-    const newBytes = new Uint8Array(await blob.arrayBuffer());
+    const newBytes = await encodeJpeg(canvas, ctx2d, jpegQuality);
+    if (!newBytes) continue;
     if (newBytes.length >= obj.contents.length) continue; // never make an image larger
 
     dict.set(NAME('Width'), PDFNumber.of(outW));

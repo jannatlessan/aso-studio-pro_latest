@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   Minimize, Download, Upload, ChevronLeft, RefreshCcw, Settings2, Trash2, Loader2,
-  CheckCircle2, Eye, Archive, ShieldCheck, Sparkles, FileText, AlertCircle
+  CheckCircle2, Eye, Archive, ShieldCheck, Sparkles, FileText, AlertCircle, ExternalLink
 } from 'lucide-react';
 import JSZip from 'jszip';
 import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { compressPdf, CompressMode } from '../../lib/pdfCompress';
+import { renderFirstPage } from '../../lib/pdfThumbnail';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
@@ -52,6 +53,7 @@ export default function PDFCompressor() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [previewId, setPreviewId] = useState<string | null>(null);
   const [zipping, setZipping] = useState(false);
+  const [preview, setPreview] = useState<{ id: string; key: string; original?: string; compressed?: string; failed?: boolean }>({ id: '', key: '' });
 
   const [mode, setMode] = useState<CompressMode>('smart');
   const [jpegQuality, setJpegQuality] = useState(0.85);
@@ -79,6 +81,35 @@ export default function PDFCompressor() {
       });
     };
   }, []);
+
+  // Render page-1 thumbnails for the active preview (mobile-safe; iframes don't show PDFs there).
+  const activePreview = items.find((i) => i.id === previewId && i.status === 'done' && i.resultBlob);
+  const previewKey = activePreview ? `${activePreview.id}:${activePreview.resultUrl}` : '';
+  useEffect(() => {
+    if (!activePreview) {
+      setPreview({ id: '', key: '' });
+      return;
+    }
+    let cancelled = false;
+    setPreview({ id: activePreview.id, key: previewKey });
+    (async () => {
+      try {
+        const [origBuf, compBuf] = await Promise.all([
+          activePreview.file.arrayBuffer(),
+          activePreview.resultBlob!.arrayBuffer()
+        ]);
+        const [original, compressed] = await Promise.all([
+          renderFirstPage(origBuf),
+          renderFirstPage(compBuf)
+        ]);
+        if (!cancelled) setPreview({ id: activePreview.id, key: previewKey, original, compressed });
+      } catch {
+        if (!cancelled) setPreview({ id: activePreview.id, key: previewKey, failed: true });
+      }
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewKey]);
 
   const isToolUsed = items.length > 0;
 
@@ -371,21 +402,40 @@ export default function PDFCompressor() {
               </div>
             )}
 
-            {previewItem && previewItem.status === 'done' && (
-              <div className="bg-white rounded-3xl border border-black/10 shadow-sm p-5 space-y-4">
-                <h2 className="font-black text-xs uppercase tracking-widest text-ink">Preview · {previewItem.name}.pdf</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <div className="text-[11px] font-bold uppercase tracking-widest text-[#55605B]">Original · {formatBytes(previewItem.originalSize)}</div>
-                    <iframe src={previewItem.originalUrl} title="Original PDF preview" className="w-full h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7]" />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-[11px] font-bold uppercase tracking-widest text-primary">Compressed · {formatBytes(previewItem.resultSize!)}</div>
-                    <iframe src={previewItem.resultUrl} title="Compressed PDF preview" className="w-full h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7]" />
+            {previewItem && previewItem.status === 'done' && (() => {
+              const matched = preview.key === `${previewItem.id}:${previewItem.resultUrl}`;
+              const sides = [
+                { label: `Original · ${formatBytes(previewItem.originalSize)}`, labelClass: 'text-[#55605B]', img: matched ? preview.original : undefined, href: previewItem.originalUrl },
+                { label: `Compressed · ${formatBytes(previewItem.resultSize!)}`, labelClass: 'text-primary', img: matched ? preview.compressed : undefined, href: previewItem.resultUrl }
+              ];
+              return (
+                <div className="bg-white rounded-3xl border border-black/10 shadow-sm p-5 space-y-3">
+                  <h2 className="font-black text-xs uppercase tracking-widest text-ink">Preview · {previewItem.name}.pdf</h2>
+                  <p className="text-[11px] text-[#8B958F] -mt-1">Showing page 1. Tap <span className="font-semibold">Open</span> to view the full PDF.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {sides.map((side, idx) => (
+                      <div key={idx} className="space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className={`text-[11px] font-bold uppercase tracking-widest ${side.labelClass}`}>{side.label}</div>
+                          <a href={side.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#55605B] hover:text-primary transition-colors shrink-0">
+                            <ExternalLink className="w-3 h-3" /> Open
+                          </a>
+                        </div>
+                        <div className="w-full h-[360px] sm:h-[480px] rounded-xl border border-black/10 bg-[#F6F8F7] overflow-auto">
+                          {matched && preview.failed ? (
+                            <div className="h-full flex items-center justify-center text-xs text-[#8B958F] p-4 text-center">Preview unavailable — tap Open to view the PDF.</div>
+                          ) : side.img ? (
+                            <img src={side.img} alt={side.label} className="w-full h-auto block" />
+                          ) : (
+                            <div className="h-full flex items-center justify-center text-[#8B958F]"><Loader2 className="w-5 h-5 animate-spin" /></div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
 
           {/* Right: settings */}
