@@ -297,8 +297,11 @@ export default function PDFCompressor() {
                           <>
                             <span className="px-2.5 py-1 rounded-full bg-mint text-primary font-bold inline-flex items-center gap-1.5">
                               <CheckCircle2 className="w-3 h-3" />
-                              {item.keptOriginal ? 'Already optimal — original kept' : `${formatBytes(item.resultSize!)} (−${savedPct}%)`}
+                              {item.keptOriginal ? 'No savings possible — original kept' : `${formatBytes(item.resultSize!)} (−${savedPct}%)`}
                             </span>
+                            {!item.keptOriginal && (item.imagesRecompressed ?? 0) === 0 && mode === 'smart' && (
+                              <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">No images to re-encode</span>
+                            )}
                             {!item.keptOriginal && (item.imagesRecompressed ?? 0) > 0 && (
                               <span className="px-2.5 py-1 rounded-full bg-black/[0.04] text-[#55605B] font-semibold">{item.imagesRecompressed} photo{item.imagesRecompressed === 1 ? '' : 's'} re-encoded</span>
                             )}
