@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, MessageCircle, MapPin, Send, Sparkles } from 'lucide-react';
+import { Mail, MessageCircle, MapPin, Send, Sparkles, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import SEO from '../components/SEO';
 import Nav, { GRADIENT } from '../components/Nav';
 import Footer from '../components/Footer';
+
+// Web3Forms public access key — safe to live in the frontend; it only maps to the
+// destination inbox on Web3Forms' servers and cannot be used to read submissions.
+const WEB3FORMS_ACCESS_KEY = '3b9d121b-70c2-4a5d-915f-b348320da086';
+
+type SubmitStatus = 'idle' | 'sending' | 'success' | 'error';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -11,11 +17,54 @@ export default function ContactUs() {
     subject: '',
     message: ''
   });
+  const [status, setStatus] = useState<SubmitStatus>('idle');
+  const [feedback, setFeedback] = useState('');
+  const [botField, setBotField] = useState(''); // honeypot — must stay empty
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Thank you for reaching out! We will get back to you shortly.");
+    if (status === 'sending') return;
+
+    // Silently drop submissions where the hidden honeypot was filled (bots).
+    if (botField) {
+      setStatus('success');
+      setFeedback("Thanks! Your message has been sent — we'll reply within 24–48 hours.");
+      return;
+    }
+
+    setStatus('sending');
+    setFeedback('');
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject
+            ? `[ShaadDev Contact] ${formData.subject}`
+            : `New contact form message from ${formData.name}`,
+          message: formData.message,
+          from_name: 'ShaadDev Studio Contact Form',
+          replyto: formData.email
+        })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus('success');
+        setFeedback("Thanks! Your message has been sent — we'll reply within 24–48 hours.");
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+        setFeedback(data?.message || 'Something went wrong while sending. Please email us directly at rizwanrasheed046@gmail.com.');
+      }
+    } catch {
+      setStatus('error');
+      setFeedback('Could not reach the mail service. Check your connection, or email us directly at rizwanrasheed046@gmail.com.');
+    }
   };
 
   return (
@@ -152,14 +201,49 @@ export default function ContactUs() {
                 />
               </div>
 
+              {/* Honeypot — hidden from humans, catches bots */}
+              <input
+                type="text"
+                name="botcheck"
+                value={botField}
+                onChange={(e) => setBotField(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute left-[-9999px] top-[-9999px] h-0 w-0 opacity-0"
+              />
+
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all group"
+                disabled={status === 'sending'}
+                className="w-full flex items-center justify-center gap-2 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all group disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 style={{ background: GRADIENT }}
               >
-                Send Message
-                <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                {status === 'sending' ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </>
+                )}
               </button>
+
+              {status === 'success' && (
+                <div className="flex items-start gap-3 p-4 rounded-xl border border-primary/30 bg-primary/10 text-sm text-primary" role="status">
+                  <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+                  <span>{feedback}</span>
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="flex items-start gap-3 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-sm text-red-300" role="alert">
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                  <span>{feedback}</span>
+                </div>
+              )}
             </form>
           </div>
 
