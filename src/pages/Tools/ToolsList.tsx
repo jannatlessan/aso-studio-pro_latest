@@ -34,8 +34,25 @@ import gsap from 'gsap';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import Nav, { GRADIENT } from '../../components/Nav';
+import toolsData from '../../data/tools.json';
 
-const tools = [
+// Single source of truth for the tool catalog lives in src/data/tools.json; it is also what the
+// public /tools.json feed (consumed by the mobile app) is generated from. Map the stored icon name
+// back to its lucide component here.
+const ICON_MAP: Record<string, typeof Film> = {
+  Image: ImageIcon, Film, Images, QrCode, Calculator, Timer, Scale, Palette, Paintbrush, AlignLeft,
+  Code, Percent, Youtube, Smartphone, Lock, FileJson, Type, Wand2, Layers, Music, Minimize,
+  FileOutput, FileBox, Heart
+};
+
+const tools = toolsData.map((t) => ({
+  ...t,
+  icon: ICON_MAP[t.icon] ?? FileBox,
+  actionLabel: t.id === 'GIF-001' ? 'Launch Viewer' : 'Open Tool'
+}));
+
+/* Legacy inline catalog — the live catalog is now sourced from tools.json above.
+const _legacyTools = [
   {
     id: "GIF-001",
     name: "GIF Online Viewer",
@@ -275,6 +292,7 @@ const tools = [
     actionLabel: "Open Tool"
   }
 ];
+*/
 
 export default function ToolsList() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -282,20 +300,8 @@ export default function ToolsList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Extract unique categories from tools
-  const categories = useMemo(() => {
-    const cats = new Set<string>();
-    tools.forEach(tool => {
-      if (tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut') || tool.name.includes('Slideshow')) cats.add('Images & Media');
-      else if (tool.name.includes('PDF') || tool.name.includes('Audio')) cats.add('Documents & Audio');
-      else if (tool.name.includes('Color') || tool.name.includes('CSS') || tool.name.includes('Screenshot') || tool.name.includes('Gradient')) cats.add('Design');
-      else if (tool.name.includes('JSON') || tool.name.includes('Code') || tool.name.includes('Markdown')) cats.add('Development');
-      else if (tool.name.includes('Text') || tool.name.includes('Lorem')) cats.add('Text Tools');
-      else if (tool.name.includes('Calculator') || tool.name.includes('Converter') || tool.name.includes('Percentage') || tool.name.includes('Age')) cats.add('Calculators');
-      else if (tool.name.includes('QR') || tool.name.includes('Password') || tool.name.includes('Timer') || tool.name.includes('YouTube') || tool.name.includes('ASO')) cats.add('Utilities');
-    });
-    return Array.from(cats).sort();
-  }, []);
+  // Categories come straight from the catalog data.
+  const categories = useMemo(() => Array.from(new Set(tools.map((t) => t.category))).sort(), []);
 
   // Enhanced filtering with category support
   const filteredTools = useMemo(() => {
@@ -303,17 +309,8 @@ export default function ToolsList() {
       const q = searchQuery.toLowerCase();
       const matchesSearch = !q || tool.name.toLowerCase().includes(q) || tool.description.toLowerCase().includes(q) || tool.id.toLowerCase().includes(q);
       
-      let matchesCategory = true;
-      if (selectedCategory) {
-        if (selectedCategory === 'Images & Media') matchesCategory = tool.name.includes('Image') || tool.name.includes('Compressor') || tool.name.includes('Resizer') || tool.name.includes('Enhancer') || tool.name.includes('GIF') || tool.name.includes('Video') || tool.name.includes('AuraCut') || tool.name.includes('Slideshow');
-        else if (selectedCategory === 'Documents & Audio') matchesCategory = tool.name.includes('PDF') || tool.name.includes('Audio');
-        else if (selectedCategory === 'Design') matchesCategory = tool.name.includes('Color') || tool.name.includes('CSS') || tool.name.includes('Screenshot') || tool.name.includes('Gradient');
-        else if (selectedCategory === 'Development') matchesCategory = tool.name.includes('JSON') || tool.name.includes('Code') || tool.name.includes('Markdown');
-        else if (selectedCategory === 'Text Tools') matchesCategory = tool.name.includes('Text') || tool.name.includes('Lorem');
-        else if (selectedCategory === 'Calculators') matchesCategory = tool.name.includes('Calculator') || tool.name.includes('Converter') || tool.name.includes('Percentage') || tool.name.includes('Age');
-        else if (selectedCategory === 'Utilities') matchesCategory = tool.name.includes('QR') || tool.name.includes('Password') || tool.name.includes('Timer') || tool.name.includes('YouTube') || tool.name.includes('ASO');
-      }
-      
+      const matchesCategory = !selectedCategory || tool.category === selectedCategory;
+
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, selectedCategory]);

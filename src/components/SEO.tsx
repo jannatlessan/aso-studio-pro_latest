@@ -17,7 +17,7 @@ export default function SEO({
   type = 'website',
   name = 'ShaadDev Studio',
   url,
-  image = 'https://shaaddev.studio/og-image.jpg',
+  image = 'https://shaaddev.studio/og-image.jpg?v=1',
   keywords = 'developer tools, web apps, productivity',
   noindex = false
 }: SEOProps) {

@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   FileOutput, Download, Upload, ChevronLeft, RefreshCcw, Settings2, Trash2, Loader2,
-  CheckCircle2, Archive, ShieldCheck, FileText, Image as ImageIcon, Table2, FileType2, AlertCircle
+  CheckCircle2, Archive, ShieldCheck, FileText, Image as ImageIcon, Table2, FileType2, AlertCircle,
+  Eye, ExternalLink, X
 } from 'lucide-react';
 import JSZip from 'jszip';
 import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { convertToPdf, mergePdfs, detectKind, kindLabel, FileKind, OutputSize } from '../../lib/toPdf';
+import { renderPages, RenderedPdf } from '../../lib/pdfThumbnail';
 import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import RelatedTools from '../../components/RelatedTools';
@@ -47,12 +49,34 @@ export default function FileToPDF() {
   const [combine, setCombine] = useState(false);
   const [combinedName, setCombinedName] = useState('combined');
   const [combined, setCombined] = useState<{ blob: Blob; url: string; pages: number } | null>(null);
+  const [previewTarget, setPreviewTarget] = useState<{ key: string; blob: Blob; url: string; label: string } | null>(null);
+  const [rendered, setRendered] = useState<{ key: string; doc?: RenderedPdf; failed?: boolean }>({ key: '' });
+  const [pendingFiles, setPendingFiles] = useState<File[] | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const itemsRef = useRef<ConvItem[]>([]);
 
   useEffect(() => { itemsRef.current = items; }, [items]);
   useEffect(() => () => { itemsRef.current.forEach((i) => { if (i.resultUrl) URL.revokeObjectURL(i.resultUrl); }); }, []);
+
+  // Render the previewed PDF to page images (pdf.js) — works on desktop and mobile, where
+  // <iframe>/<embed> PDF previews do not.
+  const previewKey = previewTarget?.key ?? '';
+  useEffect(() => {
+    if (!previewTarget) { setRendered({ key: '' }); return; }
+    let cancelled = false;
+    setRendered({ key: previewTarget.key });
+    (async () => {
+      try {
+        const doc = await renderPages(await previewTarget.blob.arrayBuffer());
+        if (!cancelled) setRendered({ key: previewTarget.key, doc });
+      } catch {
+        if (!cancelled) setRendered({ key: previewTarget.key, failed: true });
+      }
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewKey]);
 
   const isToolUsed = items.length > 0;
 
@@ -61,6 +85,7 @@ export default function FileToPDF() {
   const clearAll = () => {
     items.forEach((i) => { if (i.resultUrl) URL.revokeObjectURL(i.resultUrl); });
     clearCombined();
+    setPreviewTarget(null);
     setItems([]);
     setIsProcessing(false);
   };
@@ -76,7 +101,7 @@ export default function FileToPDF() {
 
   const { handleBackClick } = useToolNavigation({ toolName: 'File to PDF Converter', isToolUsed, onReset: resetAll });
 
-  const addFiles = (fileList: FileList | null) => {
+  const addFiles = (fileList: FileList | File[] | null) => {
     if (!fileList) return;
     const added: ConvItem[] = Array.from(fileList).map((file) => ({
       id: crypto.randomUUID(),
@@ -90,11 +115,29 @@ export default function FileToPDF() {
     clearCombined();
   };
 
+  // Once something has been generated, adding more files would discard those results — warn first.
+  const requestAddFiles = (fileList: FileList | null) => {
+    if (!fileList || fileList.length === 0) return;
+    const arr = Array.from(fileList);
+    const hasGenerations = items.some((i) => i.status === 'done') || combined !== null;
+    if (hasGenerations) setPendingFiles(arr);
+    else addFiles(arr);
+  };
+
+  const confirmReplace = () => {
+    const files = pendingFiles;
+    setPendingFiles(null);
+    if (!files) return;
+    clearAll();
+    addFiles(files);
+  };
+
   const removeItem = (id: string) => {
     const target = items.find((i) => i.id === id);
     if (target?.resultUrl) URL.revokeObjectURL(target.resultUrl);
     setItems((prev) => prev.filter((i) => i.id !== id));
     clearCombined();
+    setPreviewTarget((prev) => (prev && prev.key === `item:${id}` ? null : prev));
   };
 
   const renameItem = (id: string, name: string) => setItems((prev) => prev.map((i) => (i.id === id ? { ...i, name } : i)));
@@ -106,6 +149,7 @@ export default function FileToPDF() {
     if (!queue.length) return;
     setIsProcessing(true);
     clearCombined();
+    setPreviewTarget(null);
 
     const orderedBlobs: Blob[] = [];
     for (const item of queue) {
@@ -237,7 +281,7 @@ export default function FileToPDF() {
           <div className="lg:col-span-7 space-y-6">
             <div
               onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => { e.preventDefault(); addFiles(e.dataTransfer.files); }}
+              onDrop={(e) => { e.preventDefault(); requestAddFiles(e.dataTransfer.files); }}
               onClick={() => fileInputRef.current?.click()}
               className="cursor-pointer rounded-3xl border-2 border-dashed border-primary/30 hover:border-primary bg-[#F6F8F7] p-10 text-center transition-all"
             >
@@ -299,8 +343,11 @@ export default function FileToPDF() {
                             PDF ready{item.pages ? ` · ${item.pages} page${item.pages === 1 ? '' : 's'}` : ''}{item.resultBlob ? ` · ${formatBytes(item.resultBlob.size)}` : ''}
                           </span>
                         )}
-                        {!combine && item.status === 'done' && (
-                          <div className="ml-auto">
+                        {!combine && item.status === 'done' && item.resultBlob && item.resultUrl && (
+                          <div className="ml-auto flex items-center gap-2">
+                            <button onClick={() => setPreviewTarget({ key: `item:${item.id}`, blob: item.resultBlob!, url: item.resultUrl!, label: `${item.name}.pdf` })} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/10 bg-white hover:bg-mint text-[#55605B] hover:text-primary font-bold uppercase tracking-wider transition-colors">
+                              <Eye className="w-3 h-3" /> Preview
+                            </button>
                             <button onClick={() => downloadOne(item)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-dark hover:bg-[#048532] text-white font-bold uppercase tracking-wider transition-colors">
                               <Download className="w-3 h-3" /> Download
                             </button>
@@ -328,9 +375,51 @@ export default function FileToPDF() {
                     className="flex-1 min-w-0 bg-white border border-black/10 rounded-lg px-3 py-2 text-sm text-ink focus:outline-none focus:border-primary"
                   />
                   <span className="text-xs font-mono text-[#8B958F]">.pdf</span>
+                  <button onClick={() => setPreviewTarget({ key: 'combined', blob: combined.blob, url: combined.url, label: `${combinedName}.pdf` })} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full border border-black/10 bg-white hover:bg-mint text-[#55605B] hover:text-primary font-bold uppercase tracking-wider text-xs transition-colors shrink-0">
+                    <Eye className="w-3.5 h-3.5" /> Preview
+                  </button>
                   <button onClick={downloadCombined} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-dark hover:bg-[#048532] text-white font-bold uppercase tracking-wider text-xs transition-colors shrink-0">
                     <Download className="w-3.5 h-3.5" /> Download
                   </button>
+                </div>
+              </div>
+            )}
+
+            {previewTarget && (
+              <div className="bg-white rounded-3xl border border-black/10 shadow-sm p-5 space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="font-black text-xs uppercase tracking-widest text-ink truncate">Preview · {previewTarget.label}</h2>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <a href={previewTarget.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#55605B] hover:text-primary transition-colors">
+                      <ExternalLink className="w-3 h-3" /> Open
+                    </a>
+                    <button onClick={() => setPreviewTarget(null)} className="p-1 rounded-full text-[#8B958F] hover:text-ink hover:bg-black/[0.04] transition-colors" aria-label="Close preview">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <p className="text-[11px] text-[#8B958F] -mt-1">Scroll to flip through the pages. Tap <span className="font-semibold">Open</span> for the full PDF.</p>
+                <div className="w-full h-[360px] sm:h-[520px] rounded-xl border border-black/10 bg-[#F6F8F7] overflow-auto overscroll-contain">
+                  {rendered.key === previewTarget.key && rendered.failed ? (
+                    <div className="h-full flex items-center justify-center text-xs text-[#8B958F] p-4 text-center">Preview unavailable — tap Open to view the PDF.</div>
+                  ) : rendered.key === previewTarget.key && rendered.doc ? (
+                    <div className="p-2 space-y-2">
+                      {rendered.doc.pages.map((src, p) => (
+                        <div key={p} className="relative">
+                          <img src={src} alt={`Page ${p + 1}`} loading="lazy" className="w-full h-auto block rounded shadow-sm" />
+                          <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/55 text-white text-[10px] font-semibold tabular-nums">{p + 1}/{rendered.doc!.total}</span>
+                        </div>
+                      ))}
+                      {rendered.doc.truncated && (
+                        <div className="text-center text-[10px] text-[#8B958F] py-2">First {rendered.doc.pages.length} of {rendered.doc.total} pages shown — tap Open for all.</div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="h-full flex flex-col items-center justify-center gap-2 text-[#8B958F]">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span className="text-[10px]">Rendering pages…</span>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -446,7 +535,33 @@ export default function FileToPDF() {
         <RelatedTools currentPath="/tools/file-to-pdf" />
       </main>
 
-      <input type="file" ref={fileInputRef} onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} multiple className="hidden" />
+      <input type="file" ref={fileInputRef} onChange={(e) => { requestAddFiles(e.target.files); e.target.value = ''; }} multiple className="hidden" />
+
+      {pendingFiles && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" role="dialog" aria-modal="true" onClick={() => setPendingFiles(null)}>
+          <div className="w-full max-w-md bg-white rounded-3xl border border-black/10 shadow-2xl shadow-black/30 p-6 space-y-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
+                <AlertCircle className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="font-bold text-ink">Start over with new files?</h3>
+                <p className="text-sm text-[#55605B] leading-relaxed">
+                  Uploading {pendingFiles.length} new file{pendingFiles.length === 1 ? '' : 's'} will clear your current files and all converted PDFs. This can't be undone.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center justify-end gap-2 pt-1">
+              <button onClick={() => setPendingFiles(null)} className="px-4 py-2 rounded-full border border-black/10 bg-white hover:bg-[#F6F8F7] text-[#55605B] text-sm font-bold transition-colors">
+                Cancel
+              </button>
+              <button onClick={confirmReplace} className="px-4 py-2 rounded-full bg-primary-dark hover:bg-[#048532] text-white text-sm font-bold transition-colors">
+                Clear &amp; Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
