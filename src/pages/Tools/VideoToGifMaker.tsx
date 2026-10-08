@@ -7,6 +7,7 @@ import { useToolNavigation } from '../../hooks/useToolNavigation';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import Footer from '../../components/Footer';
+import RelatedTools from '../../components/RelatedTools';
 import SEO from '../../components/SEO';
 import AdBlockDetector from '../../components/AdBlockDetector';
 
@@ -591,6 +592,10 @@ export default function VideoToGifMaker() {
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full pb-10">
+        <RelatedTools currentPath="/tools/video-to-gif" />
+      </div>
 
       <Footer />
     </div>

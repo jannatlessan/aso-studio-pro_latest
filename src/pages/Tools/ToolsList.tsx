@@ -27,7 +27,8 @@ import {
   Layers,
   Heart,
   Images,
-  Minimize
+  Minimize,
+  FileOutput
 } from 'lucide-react';
 import gsap from 'gsap';
 import Footer from '../../components/Footer';
@@ -243,6 +244,15 @@ const tools = [
     description: "Shrink PDF files offline with lossless optimization or smart photo compression. Preview results and rename every output before downloading.",
     icon: Minimize,
     path: "/tools/pdf-compressor",
+    status: "New",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "PDF-003",
+    name: "File to PDF Converter",
+    description: "Convert images, CSV, Excel, Word (.docx), and text files into clean PDFs. Rename every output and download one at a time or all as a ZIP — 100% offline.",
+    icon: FileOutput,
+    path: "/tools/file-to-pdf",
     status: "New",
     actionLabel: "Open Tool"
   },

@@ -566,6 +566,46 @@ export default function PDFCompressor() {
 
       <input type="file" ref={fileInputRef} onChange={(e) => { addFiles(e.target.files); e.target.value = ''; }} accept="application/pdf" multiple className="hidden" />
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full">
+        <article className="p-6 sm:p-8 rounded-2xl bg-white border border-black/10 shadow-sm shadow-black/[0.02] mt-4 space-y-6 text-sm text-[#55605B] leading-relaxed">
+          <h2 className="text-xl sm:text-2xl font-semibold text-ink">Compress PDF Files Online — Without Uploading Them</h2>
+          <p>
+            Oversized PDFs are a constant headache: they bounce back from email attachment limits, slow down uploads to portals, and eat storage. Most "compress PDF" websites fix that by making you hand your documents to a remote server — a real privacy problem for contracts, invoices, ID scans, and reports. Our <strong>Smart PDF Compressor</strong> works entirely inside your browser, so your files are never uploaded. You get smaller PDFs with the same crisp text and sharp images, and nothing ever leaves your device.
+          </p>
+          <p>
+            Under the hood, the compressor goes well beyond a basic re-save. <strong>Lossless mode</strong> rebuilds the PDF's internal structure using object streams, keeping text, fonts, and vectors byte-for-byte identical. <strong>Smart mode</strong> re-encodes the embedded photos that usually dominate a PDF's size — including JPEGs tagged with ICC colour profiles and images wrapped in Flate compression that most tools skip — using the high-efficiency MozJPEG encoder, and it only keeps a re-encoded image when it actually comes out smaller, so your file never grows.
+          </p>
+
+          <h3 className="text-lg font-semibold text-ink mt-8 mb-4">How to Use</h3>
+          <ol className="list-decimal pl-5 space-y-3">
+            <li><strong>Add your PDFs:</strong> Drag and drop one or many PDF files into the upload zone — everything is processed locally.</li>
+            <li><strong>Choose a compression level:</strong> Keep <em>High quality</em> for visually lossless results, or pick <em>Small</em> / <em>Smallest</em> when a file is already optimised and you need a bigger reduction.</li>
+            <li><strong>Preview &amp; rename:</strong> Compare the original and compressed pages side by side, then give each output a clear filename.</li>
+            <li><strong>Download:</strong> Save each compressed PDF individually, or grab them all at once as a ZIP.</li>
+          </ol>
+
+          <h3 className="text-lg font-semibold text-ink mt-8 mb-4">Frequently Asked Questions (FAQ)</h3>
+          <div className="space-y-4">
+            <div>
+              <strong className="text-ink block">1. Are my PDFs uploaded anywhere?</strong>
+              <p>No. All compression happens in your browser using JavaScript and WebAssembly. Your documents are never transmitted to a server, which makes this safe for confidential and sensitive files.</p>
+            </div>
+            <div>
+              <strong className="text-ink block">2. Will compressing reduce the quality?</strong>
+              <p>Lossless mode changes nothing you can see — text and images stay identical. Smart mode re-encodes photos at a quality you choose; at High quality the difference is visually imperceptible for most documents.</p>
+            </div>
+            <div>
+              <strong className="text-ink block">3. Why did my file barely shrink?</strong>
+              <p>If a PDF has already been compressed, there may be little left to remove at high quality — the tool will never make it larger. Switching to the Small or Smallest level re-encodes the photos more aggressively for a meaningful reduction.</p>
+            </div>
+            <div>
+              <strong className="text-ink block">4. Can I compress several PDFs at once?</strong>
+              <p>Yes. Add as many files as you like, compress them in one click, and download them individually or together as a single ZIP archive.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full pb-10">
         <RelatedTools currentPath="/tools/pdf-compressor" />
       </div>

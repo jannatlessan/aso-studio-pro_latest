@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useToolNavigation } from '../../hooks/useToolNavigation';
 import Footer from '../../components/Footer';
+import RelatedTools from '../../components/RelatedTools';
 import SEO from '../../components/SEO';
 import AdBlockDetector from '../../components/AdBlockDetector';
 
@@ -867,7 +868,11 @@ export default function BackgroundRemover() {
 
         </div>
       </section>
-      
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full pb-10">
+        <RelatedTools currentPath="/tools/background-remover" />
+      </div>
+
       <Footer />
     </div>
     </>

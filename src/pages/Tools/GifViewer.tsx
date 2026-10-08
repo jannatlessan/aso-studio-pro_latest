@@ -9,6 +9,7 @@ import {
   SlidersHorizontal, CheckCircle2, Sparkles, FileBox, Camera
 } from 'lucide-react';
 import Footer from '../../components/Footer';
+import RelatedTools from '../../components/RelatedTools';
 import SEO from '../../components/SEO';
 import AdBlockDetector from '../../components/AdBlockDetector';
 
@@ -470,6 +471,10 @@ export default function GifViewer() {
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full pb-10">
+        <RelatedTools currentPath="/tools/gif-viewer" />
+      </div>
 
       <Footer />
     </div>
