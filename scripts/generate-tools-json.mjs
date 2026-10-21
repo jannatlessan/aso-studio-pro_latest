@@ -34,13 +34,14 @@ const toEntry = (t) => {
   };
 };
 
-const tools = JSON.parse(readFileSync(srcPath, 'utf8')).map(toEntry);
-// Games carry an extra `genre` ("Puzzle", "Arcade", …) used for filtering inside the Games section;
-// their feed `category` stays "Games" so the top-level categories list has one entry per section.
-const games = JSON.parse(readFileSync(gamesPath, 'utf8')).map((g) => ({
-  ...toEntry(g),
-  genre: g.genre
-}));
+// Games are appended to the same `tools` array with an identical field set — the feed's shape is a
+// contract with the Ryk Digital Hub app, so no new top-level keys and no extra per-entry fields.
+// Games are distinguished only by their "Games" category and their /games/ path. The `genre` field
+// in src/data/games.json is for on-site filtering and is deliberately not emitted here.
+const tools = [
+  ...JSON.parse(readFileSync(srcPath, 'utf8')).map(toEntry),
+  ...JSON.parse(readFileSync(gamesPath, 'utf8')).map(toEntry)
+];
 
 const payload = {
   version: 1,
@@ -52,11 +53,13 @@ const payload = {
     logo: `${BASE_URL}/og-image.jpg`,
     icon: `${BASE_URL}/favicon.svg`
   },
-  count: tools.length + games.length,
-  categories: [...new Set([...tools, ...games].map((t) => t.category))].sort(),
-  games,
+  count: tools.length,
+  categories: [...new Set(tools.map((t) => t.category))].sort(),
   tools
 };
 
 writeFileSync(outPath, JSON.stringify(payload, null, 2) + '\n');
-console.log(`generate-tools-json: wrote ${tools.length} tools + ${games.length} games to ${outPath}`);
+const gameCount = tools.filter((t) => t.category === 'Games').length;
+console.log(
+  `generate-tools-json: wrote ${tools.length} entries (${tools.length - gameCount} tools + ${gameCount} games) to ${outPath}`
+);

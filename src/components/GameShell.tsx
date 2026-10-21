@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, RotateCcw, Trophy } from 'lucide-react';
+import { ChevronLeft, RotateCcw, Trophy, Volume2, VolumeX } from 'lucide-react';
+import { audio } from '../lib/gameAudio';
 import SEO from './SEO';
 import Footer from './Footer';
 import RelatedGames from './RelatedGames';
@@ -25,6 +26,10 @@ interface GameShellProps {
   howTo: string[];
   /** Optional longer prose for SEO, rendered after "How to play". */
   about?: React.ReactNode;
+  /** Extra controls rendered next to the restart button (pause, mode toggles). */
+  actions?: React.ReactNode;
+  /** Shows the sound toggle. Opt-in: only the games that actually play sound pass this. */
+  sound?: boolean;
   children: React.ReactNode;
 }
 
@@ -43,9 +48,15 @@ export default function GameShell({
   restartLabel = 'Restart',
   howTo,
   about,
+  actions,
+  sound = false,
   children
 }: GameShellProps) {
   const url = `https://shaaddev.studio/games/${slug}`;
+  const [muted, setMuted] = useState(audio.muted);
+
+  // The mute preference is global and persisted, so mirror changes made on any other game page.
+  useEffect(() => audio.subscribe(setMuted), []);
 
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20">
@@ -89,6 +100,20 @@ export default function GameShell({
               </div>
             ))}
           </div>
+          {actions}
+          {sound && (
+            <button
+              onClick={() => {
+                audio.setMuted(!muted);
+                if (muted) audio.play('ui');
+              }}
+              aria-label={muted ? 'Unmute sound' : 'Mute sound'}
+              title={muted ? 'Unmute' : 'Mute'}
+              className="shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-xl border border-black/10 bg-[#F6F8F7] text-[#55605B] hover:text-primary hover:border-primary/30 active:scale-95 transition-all"
+            >
+              {muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+          )}
           <button
             onClick={onRestart}
             className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark active:scale-95 transition-all shadow-sm shadow-primary/20"
