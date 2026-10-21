@@ -11,6 +11,7 @@ export const GRADIENT = 'var(--color-primary-dark)';
 
 const LINKS = [
   { label: 'Tools', path: '/tools' },
+  { label: 'Games', path: '/games' },
   { label: 'MicroSaaS', path: '/microsaas' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/contact' }

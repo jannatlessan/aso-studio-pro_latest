@@ -39,6 +39,32 @@ import StamppediaPrivacyPolicy from './pages/Apps/StamppediaPrivacy';
 import StamppediaTerms from './pages/Apps/StamppediaTerms';
 import AppDetail from './pages/Apps/AppDetail';
 import AppLegal from './pages/Apps/AppLegal';
+import GamesList from './pages/Games/GamesList';
+import Game2048 from './pages/Games/Game2048';
+import SlidingPuzzle from './pages/Games/SlidingPuzzle';
+import Minesweeper from './pages/Games/Minesweeper';
+import Sudoku from './pages/Games/Sudoku';
+import GemSwap from './pages/Games/GemSwap';
+import WhackAMole from './pages/Games/WhackAMole';
+import ReactionTime from './pages/Games/ReactionTime';
+import BlockDodge from './pages/Games/BlockDodge';
+import TapFlyer from './pages/Games/TapFlyer';
+import WordScramble from './pages/Games/WordScramble';
+import WordSearch from './pages/Games/WordSearch';
+import Hangman from './pages/Games/Hangman';
+import MemoryMatch from './pages/Games/MemoryMatch';
+import Solitaire from './pages/Games/Solitaire';
+import Snake from './pages/Games/Snake';
+import Breakout from './pages/Games/Breakout';
+import TetroBlocks from './pages/Games/TetroBlocks';
+import Pong from './pages/Games/Pong';
+import ClickEmpire from './pages/Games/ClickEmpire';
+import TowerStacker from './pages/Games/TowerStacker';
+import TriviaQuiz from './pages/Games/TriviaQuiz';
+import SimonSays from './pages/Games/SimonSays';
+import TicTacToe from './pages/Games/TicTacToe';
+import TraceMaster from './pages/Games/TraceMaster';
+import HoopShot from './pages/Games/HoopShot';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -90,6 +116,34 @@ export default function App() {
         <Route path="/apps/:slug" element={<AppDetail />} />
         <Route path="/apps/:slug/privacy" element={<AppLegal type="privacy" />} />
         <Route path="/apps/:slug/terms" element={<AppLegal type="terms" />} />
+
+        {/* Games Section */}
+        <Route path="/games" element={<GamesList />} />
+        <Route path="/games/2048" element={<Game2048 />} />
+        <Route path="/games/sliding-puzzle" element={<SlidingPuzzle />} />
+        <Route path="/games/minesweeper" element={<Minesweeper />} />
+        <Route path="/games/sudoku" element={<Sudoku />} />
+        <Route path="/games/gem-swap" element={<GemSwap />} />
+        <Route path="/games/whack-a-mole" element={<WhackAMole />} />
+        <Route path="/games/reaction-time" element={<ReactionTime />} />
+        <Route path="/games/block-dodge" element={<BlockDodge />} />
+        <Route path="/games/tap-flyer" element={<TapFlyer />} />
+        <Route path="/games/word-scramble" element={<WordScramble />} />
+        <Route path="/games/word-search" element={<WordSearch />} />
+        <Route path="/games/hangman" element={<Hangman />} />
+        <Route path="/games/memory-match" element={<MemoryMatch />} />
+        <Route path="/games/solitaire" element={<Solitaire />} />
+        <Route path="/games/snake" element={<Snake />} />
+        <Route path="/games/breakout" element={<Breakout />} />
+        <Route path="/games/tetro-blocks" element={<TetroBlocks />} />
+        <Route path="/games/pong" element={<Pong />} />
+        <Route path="/games/click-empire" element={<ClickEmpire />} />
+        <Route path="/games/tower-stacker" element={<TowerStacker />} />
+        <Route path="/games/trivia-quiz" element={<TriviaQuiz />} />
+        <Route path="/games/simon-says" element={<SimonSays />} />
+        <Route path="/games/tic-tac-toe" element={<TicTacToe />} />
+        <Route path="/games/trace-master" element={<TraceMaster />} />
+        <Route path="/games/hoop-shot" element={<HoopShot />} />
 
         {/* 404 Page Not Found */}
         <Route path="*" element={<NotFound />} />
