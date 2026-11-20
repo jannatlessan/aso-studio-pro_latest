@@ -10,6 +10,8 @@ interface SEOProps {
   image?: string;
   keywords?: string;
   noindex?: boolean;
+  /** Page-specific JSON-LD (overrides the default WebSite / tool schema). */
+  schema?: object;
 }
 
 export default function SEO({
@@ -20,7 +22,8 @@ export default function SEO({
   url,
   image = 'https://shaaddev.studio/og-image.jpg?v=1',
   keywords = 'developer tools, web apps, productivity',
-  noindex = false
+  noindex = false,
+  schema
 }: SEOProps) {
   // Fall back to the page's actual current URL rather than the homepage,
   // so a page that forgets to pass `url` never emits a wrong canonical.
@@ -78,7 +81,7 @@ export default function SEO({
     ]
   };
 
-  const schemaObj = isTool ? toolSchema : defaultSchema;
+  const schemaObj = schema ?? (isTool ? toolSchema : defaultSchema);
 
   return (
     <Helmet>

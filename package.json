@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/generate-tools-json.mjs && vite --port=3000 --host=0.0.0.0",
     "prebuild": "node scripts/generate-tools-json.mjs",
-    "build": "vite build && node scripts/prerender-tools.mjs",
+    "build": "vite build && node scripts/prerender-tools.mjs && node scripts/prerender-apps.mjs",
     "gen:tools": "node scripts/generate-tools-json.mjs",
     "preview": "vite preview",
     "clean": "rm -rf dist",

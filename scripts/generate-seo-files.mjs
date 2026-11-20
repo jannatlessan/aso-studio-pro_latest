@@ -1,11 +1,12 @@
-// Generates public/sitemap.xml, public/robots.txt, public/llms.txt and public/llms-full.txt from
-// src/data/tools.json, src/data/games.json and src/data/toolDocs.json.
+// Generates public/sitemap.xml, public/robots.txt, public/llms.txt, public/llms-full.txt and
+// public/apps.json from src/data/tools.json, src/data/games.json, src/data/toolDocs.json and
+// src/data/appCatalog.json (mobile apps; helpers in src/lib/appPages.js).
 // Run locally with `npm run gen:seo` and commit the output: <lastmod> comes from the git history
 // of each page's source file (Vercel's shallow clone cannot give reliable dates, so this is NOT
 // part of the Vercel build).
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join, relative } from 'node:path';
 
 const BASE = 'https://shaaddev.studio';
@@ -14,6 +15,8 @@ const read = (p) => readFileSync(join(root, p), 'utf8');
 const tools = JSON.parse(read('src/data/tools.json'));
 const games = JSON.parse(read('src/data/games.json'));
 const docs = JSON.parse(read('src/data/toolDocs.json'));
+const catalog = JSON.parse(read('src/data/appCatalog.json'));
+const AP = await import(pathToFileURL(join(root, 'src/lib/appPages.js')).href);
 
 const gitDate = (...files) => {
   let best = '';
@@ -59,6 +62,12 @@ const gameFile = (path) => {
     gameFiles.find((n) => readFileSync(join(gameDir, n), 'utf8').includes(`'${path}'`) || readFileSync(join(gameDir, n), 'utf8').includes(`"${path}"`));
   return hit ? relative(root, join(gameDir, hit)) : 'src/data/games.json';
 };
+{
+  const d = gitDate('src/data/appCatalog.json', 'src/lib/appPages.js', 'scripts/prerender-apps.mjs');
+  urls.push({ p: '/apps', pr: 0.9, cf: 'weekly', d });
+  for (const c of catalog.categories) urls.push({ p: AP.categoryPath(c.slug), pr: 0.7, cf: 'monthly', d });
+  for (const a of catalog.apps) urls.push({ p: AP.appPath(a.slug), pr: 0.8, cf: 'monthly', d });
+}
 for (const g of games) urls.push({ p: g.path, pr: 0.5, cf: 'monthly', d: gitDate(pageFile[g.path] || gameFile(g.path)) });
 
 writeFileSync(join(root, 'public/sitemap.xml'),
@@ -82,6 +91,14 @@ Every tool is free and runs in a modern web browser; no sign-in is needed. Each 
 
 ${cats.map((c) => `## ${c}\n\n` + tools.filter((t) => t.category === c).map((t) => `- [${t.name}](${BASE}${t.path}): ${t.description}`).join('\n')).join('\n\n')}
 
+## Mobile apps (Android and iPhone)
+
+${catalog.about} Overview: ${BASE}/apps
+
+${catalog.categories.map((c) => `- [${c.title}](${BASE}${AP.categoryPath(c.slug)}): ${c.description}`).join('\n')}
+
+${catalog.apps.map((a) => `- [${a.name}](${BASE}${AP.appPath(a.slug)}) (${a.platforms.map((p) => p.os).join(', ')}): ${a.oneLine}`).join('\n')}
+
 ## Games
 
 - [Browser games](${BASE}/games): ${games.length} free casual games (puzzle, word, arcade) that run in the browser.
@@ -92,6 +109,7 @@ ${cats.map((c) => `## ${c}\n\n` + tools.filter((t) => t.category === c).map((t) 
 - [Contact](${BASE}/contact)
 - [Privacy policy](${BASE}/privacy)
 - [Tool feed (JSON)](${BASE}/tools.json): machine-readable list of all tools and games.
+- [App feed (JSON)](${BASE}/apps.json): machine-readable list of all mobile apps with store links.
 `;
 writeFileSync(join(root, 'public/llms.txt'), llms);
 
@@ -122,5 +140,44 @@ FAQ:
 ${d.faq.map((f) => `- Q: ${f.q}\n  A: ${f.a}`).join('\n')}
 `;
 }).join('\n');
-writeFileSync(join(root, 'public/llms-full.txt'), full);
-console.log(`gen:seo: sitemap ${urls.length} urls, robots.txt, llms.txt, llms-full.txt`);
+const appsFull = `
+
+# Mobile apps by ${docs.site.name}
+
+${catalog.about}
+Facts checked: ${catalog.checked}
+
+` + catalog.categories.map((c) => `## ${c.title}
+
+URL: ${BASE}${AP.categoryPath(c.slug)}
+${c.intro}
+
+How to choose:
+${c.criteria.map((x) => `- ${x}`).join('\n')}
+
+Our apps: ${AP.appsForCategory(catalog, c).map((a) => `${a.name} (${BASE}${AP.appPath(a.slug)})`).join('; ')}
+`).join('\n') + '\n' + catalog.apps.map((a) => `## ${a.name}
+
+URL: ${BASE}${AP.appPath(a.slug)}
+Store name: ${a.storeName}
+${a.description}
+
+- What it does: ${a.oneLine}
+- Who it is for: ${a.who}
+- Platforms: ${a.platforms.map((p) => `${p.os}: ${p.url}`).join(' ; ')}
+- Pricing: ${a.pricing}
+- Privacy: ${a.privacy}${a.privacyUrl ? ` Policy: ${a.privacyUrl}` : ''}
+${a.note ? `- Note: ${a.note}\n` : ''}
+Features:
+${a.features.map((f) => `- ${f}`).join('\n')}
+
+FAQ:
+${a.faq.map((f) => `- Q: ${f.q}\n  A: ${f.a}`).join('\n')}
+`).join('\n');
+writeFileSync(join(root, 'public/llms-full.txt'), full + appsFull);
+writeFileSync(join(root, 'public/apps.json'), JSON.stringify({
+  publisher: docs.site.name, checked: catalog.checked, about: catalog.about,
+  categories: catalog.categories.map((c) => ({ slug: c.slug, title: c.title, url: BASE + AP.categoryPath(c.slug) })),
+  apps: catalog.apps.map(AP.appSummary)
+}, null, 2) + '\n');
+console.log(`gen:seo: sitemap ${urls.length} urls, robots.txt, llms.txt, llms-full.txt, apps.json`);

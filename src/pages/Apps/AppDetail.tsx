@@ -5,37 +5,70 @@ import Footer from '../../components/Footer';
 import SEO from '../../components/SEO';
 import Nav, { GRADIENT } from '../../components/Nav';
 import { getMicrosaasApp } from '../../data/microsaasApps';
+import AppFacts, { getCatalogApp } from '../../components/AppFacts';
+import { appTitle, appDescription, appJsonLd, appPath } from '../../lib/appPages.js';
 
 const PLAY_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg';
 const APP_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg';
 
 export default function AppDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const app = slug ? getMicrosaasApp(slug) : undefined;
+  const ms = slug ? getMicrosaasApp(slug) : undefined;
+  // src/data/appCatalog.json holds the checked facts for every live app; when an app is in the
+  // catalogue its facts win over the older marketing copy in microsaasApps.ts.
+  const cat = getCatalogApp(ms?.slug ?? slug);
 
-  if (!app) {
-    return <Navigate to="/microsaas" replace />;
+  if (!ms && !cat) {
+    return <Navigate to="/apps" replace />;
   }
+
+  const store = (os: string) => cat?.platforms.find((p) => p.os === os)?.url;
+  const app = {
+    slug: cat?.slug ?? ms!.slug,
+    name: cat?.name ?? ms!.name,
+    tagline: cat?.oneLine ?? ms!.tagline,
+    description: cat?.description ?? ms!.description,
+    features: cat?.features ?? ms!.features,
+    longDescription: cat ? [] : ms!.longDescription,
+    platforms: cat ? cat.platforms.map((p) => (p.os === 'iOS' ? 'iOS' : p.os)) : ms!.platforms,
+    playStore: cat ? store('Android') : ms!.playStore,
+    appStore: cat ? store('iOS') : ms!.appStore,
+    playStoreLabel: ms?.playStoreLabel,
+    appStoreLabel: ms?.appStoreLabel,
+    iconUrl: ms?.iconUrl,
+    featureUrl: ms?.featureUrl,
+  };
 
   return (
     <div className="min-h-screen bg-[#08080A] text-[#EDEDEF] selection:bg-primary/20">
-      <SEO
-        title={`${app.name} - ${app.tagline} | ShaadDev Studio`}
-        description={`${app.description} Download ${app.name} for ${app.platforms.join(' & ')}.`}
-        url={`https://shaaddev.studio/apps/${app.slug}`}
-        image={app.featureUrl || app.iconUrl}
-        keywords={`${app.name}, ${app.tagline}, ${app.platforms.join(', ')} app, ShaadDev Studio`}
-      />
+      {cat ? (
+        <SEO
+          title={appTitle(cat)}
+          description={appDescription(cat)}
+          url={`https://shaaddev.studio${appPath(cat.slug)}`}
+          image={app.featureUrl || app.iconUrl || undefined}
+          keywords={cat.keywords.slice(0, 6).join(', ')}
+          schema={appJsonLd(cat)}
+        />
+      ) : (
+        <SEO
+          title={`${app.name} - ${app.tagline} | ShaadDev Studio`}
+          description={`${app.description} Download ${app.name} for ${app.platforms.join(' & ')}.`}
+          url={`https://shaaddev.studio/apps/${app.slug}`}
+          image={app.featureUrl || app.iconUrl}
+          keywords={`${app.name}, ${app.tagline}, ${app.platforms.join(', ')} app, ShaadDev Studio`}
+        />
+      )}
 
       <Nav />
 
       <main className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-32 pb-20">
         <Link 
-          to="/microsaas" 
+          to="/apps" 
           className="inline-flex items-center gap-2 text-xs font-medium text-white/50 hover:text-primary transition-colors mb-8 group"
         >
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Back to MicroSaaS Apps
+          All apps
         </Link>
 
         <motion.div
@@ -47,11 +80,12 @@ export default function AppDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-semibold text-primary">
-                MicroSaaS Application
+                Mobile app by ShaadDev Studio
               </div>
               
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
+                  {app.iconUrl && (
                   <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/15 shadow-xl shadow-primary/20 shrink-0">
                     <img
                       src={app.iconUrl}
@@ -59,6 +93,7 @@ export default function AppDetail() {
                       className="w-full h-full object-cover"
                     />
                   </div>
+                  )}
                   <div>
                     <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">
                       {app.name}
@@ -115,6 +150,7 @@ export default function AppDetail() {
             </div>
 
             {/* App Icon / Preview Banner */}
+            {(app.featureUrl || app.iconUrl) && (
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -128,6 +164,7 @@ export default function AppDetail() {
                 />
               </div>
             </motion.div>
+            )}
           </div>
 
           {/* Download Cards Section */}
@@ -212,7 +249,8 @@ export default function AppDetail() {
             </div>
           </div>
 
-          {/* Key Features Grid */}
+          {/* Key Features Grid (catalogue apps list features in AppFacts) */}
+          {!cat && (
           <div className="border-t border-white/10 pt-16 space-y-8">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
               Key Features
@@ -228,8 +266,12 @@ export default function AppDetail() {
               ))}
             </div>
           </div>
+          )}
+
+          {cat && <AppFacts app={cat} />}
 
           {/* Detailed Overview */}
+          {app.longDescription.length > 0 && (
           <div className="border-t border-white/10 pt-16 space-y-6">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
               Overview & Product Details
@@ -242,8 +284,10 @@ export default function AppDetail() {
               ))}
             </div>
           </div>
+          )}
 
           {/* Legal & Support Links */}
+          {ms && (
           <div className="border-t border-white/10 pt-16">
             <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 space-y-6">
               <div className="flex items-center gap-2">
@@ -304,6 +348,7 @@ export default function AppDetail() {
               </div>
             </div>
           </div>
+          )}
         </motion.div>
       </main>
 

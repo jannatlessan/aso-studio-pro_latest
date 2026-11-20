@@ -1,0 +1,1234 @@
+{
+  "checked": "2026-11-20",
+  "about": "Mobile apps published by ShaadDev Studio (developer \"shaad dev studio\" on Google Play, \"Rizwan Rashid\" on the App Store). Every listed app was live in its store on the date in \"checked\". Features, pricing and privacy facts are taken from each app's own store listing and the developer's Play Data safety / App Store privacy declarations.",
+  "groups": [
+    "Voice and audio",
+    "AI images and prompts",
+    "Photo and video",
+    "Scanners for collectors",
+    "Phone controls",
+    "Productivity and money",
+    "Health and fitness",
+    "Games",
+    "Local and community"
+  ],
+  "categories": [
+    {
+      "slug": "text-to-speech",
+      "title": "Text-to-speech and voice cloning apps",
+      "metaTitle": "Our text-to-speech and voice cloning apps compared | ShaadDev Studio",
+      "description": "ShaadDev Studio's three AI voice apps for text to speech and voice cloning on Android and iPhone, compared by platform, features, export and pricing model.",
+      "intro": "We publish three AI voice apps. All three turn typed text into speech and can clone your own voice from a short recording; they differ by platform and by the extra tools around that. None of them works offline: speech is generated on a server.",
+      "criteria": [
+        "Platform: which phone you use (Android or iPhone).",
+        "Voice cloning: whether you can create a voice from your own short recording (all three can).",
+        "Extra tools: voice changer, multi-speaker stories, speech to text, merging clips.",
+        "Export: which audio formats you can save.",
+        "Pricing model: what is free and what needs a paid plan.",
+        "Consent: only clone a voice you own or have permission to use."
+      ],
+      "columns": [
+        "Platforms",
+        "Main tools",
+        "Export",
+        "Pricing model"
+      ],
+      "rows": {
+        "fish-audio": [
+          "Android, iPhone",
+          "Voice cloning, text to speech, voice conversion; on iPhone also story builder, merge editor, speech to text",
+          "MP3, WAV (per Play listing)",
+          "Free download; paid Premium plan on iPhone for unlimited generations and longer text; in-app purchases on Android"
+        ],
+        "mimicly": [
+          "Android",
+          "Voice cloning, text to speech, voice changer presets, voiceover and dubbing, song covers",
+          "MP3, WAV",
+          "Free download with ads and in-app purchases"
+        ],
+        "voice-cloning": [
+          "iPhone",
+          "Text to speech with 300+ voices in several languages, voice cloning, Story Lab, speech to text, voice conversion, audio merge",
+          "WAV, MP3",
+          "Start free; Premium plan for unlimited generations, longer scripts and the full voice library"
+        ]
+      }
+    },
+    {
+      "slug": "ai-images-and-prompts",
+      "title": "AI image and prompt apps",
+      "metaTitle": "Our AI image generator and AI prompt apps compared | ShaadDev Studio",
+      "description": "ShaadDev Studio's AI image apps: one text-to-image generator and four AI prompt libraries for photos, videos, logos and text models.",
+      "intro": "One of these apps makes images from text (PixelForge). The other four do not generate images: they are libraries of ready-to-copy prompts that you paste into the AI tool you already use. Pick by what you need.",
+      "criteria": [
+        "Do you need the app to create the image itself, or only better prompts for another tool?",
+        "Platform: Android or iPhone.",
+        "Prompt type: photo edits, image or video generation, logos and stickers, or text/chat models.",
+        "Pricing model: what is free and what needs a purchase."
+      ],
+      "columns": [
+        "Platforms",
+        "What it does",
+        "Pricing model"
+      ],
+      "rows": {
+        "pixelforge": [
+          "iPhone",
+          "Generates images from text, up to 8 variations at once",
+          "Free to start; optional in-app purchases"
+        ],
+        "photogem": [
+          "Android",
+          "Prompt gallery for AI photos and videos, one-tap copy",
+          "Free download with ads and in-app purchases"
+        ],
+        "promptgenius": [
+          "Android, iPhone",
+          "Prompt library and builder for text and image AI models",
+          "Free download; in-app purchases (ads on Android)"
+        ],
+        "pixprompter": [
+          "iPhone",
+          "1,000+ prompts for profile pictures, logos and stickers",
+          "Free download; optional in-app purchases"
+        ],
+        "promptcraft": [
+          "iPhone",
+          "Copy-paste prompts for AI photo editing styles",
+          "Free download; optional Premium Access purchase"
+        ]
+      }
+    },
+    {
+      "slug": "collectible-scanners",
+      "title": "Scanner apps for collectors",
+      "metaTitle": "Our sports card and stamp scanner apps | ShaadDev Studio",
+      "description": "ShaadDev Studio's photo scanner apps for collectors: a sports card scanner with sold-price values and a stamp identifier with estimated values.",
+      "intro": "Both apps identify an item from a photo and show an estimated value. Values are guides based on available market data, not appraisals or guaranteed sale prices.",
+      "criteria": [
+        "What you collect: sports and trading cards, or postage stamps.",
+        "Platform: Android or iPhone.",
+        "Where values come from and how current they are.",
+        "Pricing model: what the free version includes."
+      ],
+      "columns": [
+        "Platforms",
+        "Collects",
+        "Values",
+        "Pricing model"
+      ],
+      "rows": {
+        "cardvault": [
+          "Android, iPhone",
+          "Baseball, basketball, football, soccer, hockey and TCG cards",
+          "Recent completed sales, raw and graded (PSA, BGS)",
+          "Free to try scanning; valuations and portfolio tracker are a paid upgrade"
+        ],
+        "stamp-id": [
+          "iPhone",
+          "Postage stamps",
+          "Estimated values",
+          "Free download; Premium plan or lifetime purchase"
+        ]
+      }
+    },
+    {
+      "slug": "volume-and-screen-control",
+      "title": "Volume limiter and screen dimmer apps",
+      "metaTitle": "Our volume limiter, volume lock and screen dimmer apps | ShaadDev Studio",
+      "description": "ShaadDev Studio's Android and iPhone apps to cap or lock volume for kids, lock brightness, and dim the screen below the minimum at night.",
+      "intro": "Two of these apps limit or lock sound and brightness levels; the third dims the screen further than Android allows. Choose by the problem you want to solve.",
+      "criteria": [
+        "Problem: a maximum volume for a child, locking volume or brightness so it does not change, or a darker screen at night.",
+        "PIN protection so children cannot change the setting.",
+        "Platform: Android or iPhone.",
+        "Pricing model: ads, in-app purchases or a Pro upgrade."
+      ],
+      "columns": [
+        "Platforms",
+        "Main job",
+        "PIN lock",
+        "Pricing model"
+      ],
+      "rows": {
+        "volume-lock": [
+          "Android, iPhone",
+          "Cap the maximum speaker and headphone volume",
+          "Yes",
+          "Free download; ads and in-app purchases on Android, Premium on iPhone"
+        ],
+        "volume-locker": [
+          "Android",
+          "Lock volume and brightness levels; auto silent and auto dim",
+          "Yes",
+          "Free download with ads and in-app purchases (Pro)"
+        ],
+        "dimmer": [
+          "Android",
+          "Dim the screen below the system minimum, with blue-light filter in Pro",
+          "No",
+          "Free download with ads and in-app purchases (Pro)"
+        ]
+      }
+    }
+  ],
+  "apps": [
+    {
+      "slug": "fish-audio",
+      "name": "AI Voice Clone & Text-to-Speech Studio",
+      "storeName": "Fish Audio: AI Voice Clone TTS",
+      "group": "Voice and audio",
+      "categories": [
+        "text-to-speech"
+      ],
+      "appCategory": "MultimediaApplication",
+      "oneLine": "Clone your voice from a short recording and turn text into natural speech on Android and iPhone.",
+      "description": "An AI voice app for text to speech and voice cloning: record or upload a short sample to create a voice model, type a script, and export the speech as audio.",
+      "keywords": [
+        "text to speech",
+        "tts",
+        "voice clone",
+        "voice cloning",
+        "clone my voice",
+        "ai voice",
+        "voiceover",
+        "narration",
+        "read text aloud",
+        "speech to text",
+        "transcribe",
+        "voice changer",
+        "audiobook",
+        "podcast",
+        "story"
+      ],
+      "who": "Creators, podcasters and storytellers who need voiceovers or narration without recording every line.",
+      "features": [
+        "Voice cloning: record or upload a short, clear sample to create your own voice model.",
+        "Text to speech: convert typed text into speech with a catalog of AI voices; adjust pace, pitch and tone (Play listing).",
+        "Voice conversion: make a recording sound like another voice in your catalog (App Store listing).",
+        "Story builder: write multi-speaker scripts and give each character a different voice (App Store listing).",
+        "Merge editor and speech to text for MP3, WAV, M4A recordings (App Store listing).",
+        "Export audio as MP3 or WAV (Play listing); generation history is kept on your device (App Store listing)."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.fishaudio.studio"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/fish-audio-ai-voice-clone-tts/id6775396336"
+        }
+      ],
+      "pricing": "Free to download with in-app purchases. On iPhone a Premium subscription (weekly, monthly or yearly) unlocks unlimited generations, up to 10,000 characters per generation and the full voice catalog.",
+      "privacy": "Speech is generated on a server through a third-party AI speech provider, so the text and voice samples you submit are sent over an encrypted connection. Play Data safety (developer declaration): audio and device IDs may be shared with third parties; no data collected; data encrypted in transit. App Store privacy label: Data Not Linked to You.",
+      "privacyUrl": "https://sites.google.com/view/fishttsprivacypolicy/home",
+      "note": "Listed in the stores as \"Fish Audio: AI Voice Clone TTS\". Made by ShaadDev Studio; the voices are generated with the speech API of Fish Audio (fish.audio), a separate company.",
+      "faq": [
+        {
+          "q": "What is a good app to clone my own voice on Android or iPhone?",
+          "a": "This app lets you record or upload a short, clear sample of your own voice, creates a voice model from it, and then reads any text you type in that voice. It is on Google Play and the App Store. Whether it suits you depends on your platform, languages and budget; our three voice apps are compared at https://shaaddev.studio/apps/category/text-to-speech."
+        },
+        {
+          "q": "Is there a free text-to-speech app that exports MP3 or WAV?",
+          "a": "The app is free to download and the Play listing says audio can be exported as MP3 or WAV. Heavier use (unlimited generations, longer texts, full voice catalog) needs the paid Premium plan on iPhone."
+        },
+        {
+          "q": "Does it work offline?",
+          "a": "No. Speech is generated on a server, so you need an internet connection."
+        },
+        {
+          "q": "Can I clone someone else's voice?",
+          "a": "Only if you have that person's permission. The listing's usage terms require that you hold the rights and consent for any voice you clone, and the app is not meant for impersonation."
+        }
+      ]
+    },
+    {
+      "slug": "mimicly",
+      "name": "Mimicly: AI Voice Changer & Voice Clone",
+      "storeName": "AI Voice Changer & Voice Clone",
+      "group": "Voice and audio",
+      "categories": [
+        "text-to-speech"
+      ],
+      "appCategory": "MultimediaApplication",
+      "oneLine": "Android app to clone your own voice, turn scripts into speech and change your voice for short videos.",
+      "description": "Mimicly is an Android AI voice app: clone your own voice from a short sample, convert text to speech, apply voice changer presets and export MP3 or WAV for your videos.",
+      "keywords": [
+        "voice changer",
+        "voice clone",
+        "voice cloning",
+        "text to speech",
+        "tts",
+        "ai voice",
+        "dubbing",
+        "voiceover",
+        "song cover",
+        "android voice app",
+        "reels",
+        "shorts",
+        "clone my voice"
+      ],
+      "who": "Android users making voiceovers, dubs and fun voice edits for short videos.",
+      "features": [
+        "Clone your own voice from a short, clear recording or upload.",
+        "Text to speech with adjustable speed, pitch and tone.",
+        "Voice changer with character and fun presets.",
+        "AI voiceover and dubbing for short videos.",
+        "AI song covers with your cloned voice.",
+        "Export high-quality MP3 or WAV."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.fishaudio.ai.tts.clone"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases.",
+      "privacy": "Audio is processed on a server, so an internet connection is needed. Play Data safety (developer declaration): audio, files and docs, and device IDs may be shared with third parties; no data collected; data encrypted in transit.",
+      "privacyUrl": "https://sites.google.com/view/fishttsprivacypolicy/home",
+      "faq": [
+        {
+          "q": "What is an Android app that can clone my voice and read text aloud?",
+          "a": "Mimicly records or takes an upload of a short sample of your voice, creates a personal voice clone, and reads text you type in that voice. It is Android only (Google Play)."
+        },
+        {
+          "q": "Can I use it for TikTok, Reels or YouTube Shorts voiceovers?",
+          "a": "Yes. It exports MP3 or WAV files that you can add in any video editor."
+        },
+        {
+          "q": "Is it free?",
+          "a": "It is free to download, shows ads and offers in-app purchases."
+        }
+      ]
+    },
+    {
+      "slug": "voice-cloning",
+      "name": "VoiceTwin AI: Voice Cloning",
+      "storeName": "VoiceTwin AI: Voice Cloning",
+      "group": "Voice and audio",
+      "categories": [
+        "text-to-speech"
+      ],
+      "appCategory": "MultimediaApplication",
+      "oneLine": "iPhone app for text to speech with 300+ voices in several languages and cloning your own voice.",
+      "description": "VoiceTwin AI is an iPhone text-to-speech and voice cloning app: type a script, pick one of 300+ voices or your own cloned voice, and export WAV or MP3.",
+      "keywords": [
+        "text to speech",
+        "tts",
+        "voice clone",
+        "voice cloning",
+        "iphone",
+        "ios",
+        "multilingual",
+        "spanish",
+        "french",
+        "german",
+        "portuguese",
+        "japanese",
+        "speech to text",
+        "transcribe",
+        "audiobook",
+        "podcast",
+        "story",
+        "clone my voice"
+      ],
+      "who": "iPhone users who need narration, podcasts or multi-character audio stories.",
+      "features": [
+        "Text to speech with 300+ voices across English, Spanish, French, German, Portuguese, Japanese and more.",
+        "Voice cloning from a short recorded or uploaded sample.",
+        "Story Lab: multi-character scripts rendered as multi-speaker audio.",
+        "Speech to text for audio and video files.",
+        "Voice conversion and audio merge.",
+        "Tone, speed and volume control per line; export WAV or MP3; personal library of everything you generate."
+      ],
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/voicetwin-ai-voice-cloning/id6766869439"
+        }
+      ],
+      "pricing": "Start free; a Premium subscription (weekly, monthly or yearly) unlocks unlimited generations, longer scripts and the full voice library.",
+      "privacy": "The listing says your voice and text are processed only to generate the audio you request and are never sold. App Store privacy label: Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "",
+      "faq": [
+        {
+          "q": "What is a text-to-speech app for iPhone with many languages?",
+          "a": "VoiceTwin AI offers 300+ voices across English, Spanish, French, German, Portuguese, Japanese and more, and exports WAV or MP3. It is iPhone only."
+        },
+        {
+          "q": "Can I make an audio story with several voices?",
+          "a": "Yes. Story Lab lets you write a multi-character script and generate it as one multi-speaker audio track."
+        },
+        {
+          "q": "Is it free?",
+          "a": "You can start free. Unlimited generations, longer scripts and the full voice library need the Premium subscription."
+        }
+      ]
+    },
+    {
+      "slug": "pixelforge",
+      "name": "PixelForge - Text to Image AI",
+      "storeName": "PixelForge - Text to Image AI",
+      "group": "AI images and prompts",
+      "categories": [
+        "ai-images-and-prompts"
+      ],
+      "appCategory": "MultimediaApplication",
+      "oneLine": "iPhone text-to-image AI app that makes up to 8 variations of an idea in one tap.",
+      "description": "PixelForge is an iPhone AI image generator: type a prompt, choose size and model, and generate one image or a batch of up to 8 variations, with your history kept on the device.",
+      "keywords": [
+        "text to image",
+        "ai image generator",
+        "ai art",
+        "image generation",
+        "picture from text",
+        "ai picture",
+        "iphone",
+        "batch images",
+        "wallpaper"
+      ],
+      "who": "People who want to create AI images from text on iPhone without an account.",
+      "features": [
+        "Batch generation: up to 8 variations of one idea in a single tap.",
+        "Sizes: square, portrait, story, landscape or custom dimensions.",
+        "Choose a model, lock a seed for repeatable results, or let the app enhance your prompt.",
+        "Sessions saved like chats, searchable; one-tap retry of a failed image.",
+        "No account or login needed."
+      ],
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/pixelforge-text-to-image-ai/id6788649609"
+        }
+      ],
+      "pricing": "Free to start; no subscription is required to generate. Optional in-app purchases are offered.",
+      "privacy": "The listing says your history, prompts and generated images are stored on your device and no account is needed. App Store privacy label: Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "https://sites.google.com/view/pixel-forge-privacy-policy/home",
+      "faq": [
+        {
+          "q": "Is there a free AI image generator app for iPhone without sign-up?",
+          "a": "PixelForge generates images from text on iPhone, needs no account, and does not require a subscription to start. Optional in-app purchases are available."
+        },
+        {
+          "q": "Can I make several versions of one image idea at once?",
+          "a": "Yes. One tap can create up to 8 variations of the same prompt."
+        }
+      ]
+    },
+    {
+      "slug": "photogem",
+      "name": "PhotoGem: AI Pix Video Prompts",
+      "storeName": "PhotoGem: AI Pix Video Prompts",
+      "group": "AI images and prompts",
+      "categories": [
+        "ai-images-and-prompts"
+      ],
+      "appCategory": "PhotographyApplication",
+      "oneLine": "Android gallery of 500+ ready-to-copy prompts for AI photos and AI videos.",
+      "description": "PhotoGem is an Android prompt gallery: browse example AI images and videos by category and copy the prompt behind each one in one tap. It does not generate images itself.",
+      "keywords": [
+        "ai photo prompts",
+        "ai video prompts",
+        "prompt gallery",
+        "prompts",
+        "copy prompt",
+        "photo editing prompt",
+        "couple photo",
+        "profile picture",
+        "dp",
+        "android"
+      ],
+      "who": "Android users who create AI photos or videos in another tool and want proven prompts.",
+      "features": [
+        "500+ prompts with example images and videos, grouped into categories such as couple, family, travel, profile pictures, office and trending.",
+        "Copy any prompt in one tap and share it.",
+        "No sign-up required."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.shaaddevstudio.picsprompt"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases.",
+      "privacy": "Play Data safety (developer declaration): device IDs may be collected; no data shared with third parties; data encrypted in transit.",
+      "privacyUrl": "https://docs.google.com/document/d/1HivHCLJT9IU6rfThyP0u5M9oR07e4HYH/edit?usp=sharing",
+      "faq": [
+        {
+          "q": "Where can I find good prompts for AI photo edits on Android?",
+          "a": "PhotoGem is a gallery of 500+ AI photo and video prompts with an example for each; tap to copy and paste into the AI tool you use. It does not create the images itself."
+        }
+      ]
+    },
+    {
+      "slug": "promptgenius",
+      "name": "PromptGenius: AI Prompts",
+      "storeName": "PromptGenius: AI Prompt Tool",
+      "group": "AI images and prompts",
+      "categories": [
+        "ai-images-and-prompts"
+      ],
+      "appCategory": "BusinessApplication",
+      "oneLine": "Prompt library and prompt builder for chat and image AI models, for work topics like SEO, marketing and coding.",
+      "description": "PromptGenius is a prompt library with a built-in prompt builder: pick a template for SEO, marketing, coding, content or business, fill in your details, and copy it into the AI model you use.",
+      "keywords": [
+        "prompt library",
+        "prompt engineering",
+        "prompt builder",
+        "chatbot prompts",
+        "ai prompts",
+        "seo prompts",
+        "marketing prompts",
+        "coding prompts",
+        "productivity"
+      ],
+      "who": "Professionals, students and content creators who want better results from AI chat and image models.",
+      "features": [
+        "Curated prompt library for text and image AI models.",
+        "Sections for SEO, digital marketing, coding, content creation and business strategy.",
+        "Prompt builder to tailor a template to your details.",
+        "Bookmark and organize your best prompts."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.sds.promptgenius"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/promptgenius-ai-prompts/id6760140851"
+        }
+      ],
+      "pricing": "Free to download with in-app purchases; the Android app contains ads.",
+      "privacy": "Play Data safety (developer declaration): device IDs may be collected; no data shared with third parties; data encrypted in transit. App Store privacy label: Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "https://docs.google.com/document/d/1JaR4vXrkuF3B_TMEubrF5TL_ep-JhlCFapopfpE_wfI/edit",
+      "faq": [
+        {
+          "q": "Is there an app with ready prompts for marketing, SEO and coding?",
+          "a": "PromptGenius has prompt sections for SEO, digital marketing, coding, content creation and business, plus a builder to fill a template with your details. Available on Android and iPhone."
+        }
+      ]
+    },
+    {
+      "slug": "pixprompter",
+      "name": "PixPrompter: AI Prompt Library",
+      "storeName": "PixPrompter: AI Prompt Library",
+      "group": "AI images and prompts",
+      "categories": [
+        "ai-images-and-prompts"
+      ],
+      "appCategory": "EntertainmentApplication",
+      "oneLine": "iPhone library of 1,000+ copy-ready prompts for AI profile pictures, logos and stickers.",
+      "description": "PixPrompter is an iPhone prompt library with 1,000+ prompts for AI profile pictures, logos, stickers and more. It does not generate or edit images; you paste the prompt into your image tool.",
+      "keywords": [
+        "prompt library",
+        "logo prompts",
+        "sticker prompts",
+        "profile picture prompts",
+        "dp",
+        "ai image prompts",
+        "iphone"
+      ],
+      "who": "iPhone users who make AI images in another app and want ready prompts for profile pictures, logos and stickers.",
+      "features": [
+        "1,000+ prompts in categories such as profile pictures, logo and branding ideas, stickers and icons.",
+        "One-tap copy.",
+        "New prompts added regularly; light and dark themes."
+      ],
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/pixprompter-ai-prompt-library/id6754501908"
+        }
+      ],
+      "pricing": "Free to download; optional in-app purchases.",
+      "privacy": "App Store privacy label: Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "https://docs.google.com/document/d/1lNhisglvfrTV2nNEuPz624cb3hUYKXYftomuRKSJ9co/edit?usp=sharing",
+      "faq": [
+        {
+          "q": "Where can I get prompts to make a logo or sticker with AI?",
+          "a": "PixPrompter (iPhone) has 1,000+ copy-ready prompts including logo, sticker and profile-picture categories. It only provides the prompts; you generate the image in your own AI tool."
+        }
+      ]
+    },
+    {
+      "slug": "promptcraft",
+      "name": "PromptCraft: AI Photo Editing",
+      "storeName": "PromptCraft: AI Photo Editing",
+      "group": "AI images and prompts",
+      "categories": [
+        "ai-images-and-prompts"
+      ],
+      "appCategory": "MultimediaApplication",
+      "oneLine": "iPhone collection of copy-paste prompts for AI photo editing styles like cinematic, retro and studio portraits.",
+      "description": "PromptCraft is an iPhone gallery of AI photo editing prompts: pick a style (cinematic, retro film, watercolor, studio light and more), copy the prompt, and use it in your AI image tool.",
+      "keywords": [
+        "photo editing prompts",
+        "ai photo edit",
+        "portrait prompts",
+        "cinematic",
+        "retro",
+        "prompt gallery",
+        "iphone"
+      ],
+      "who": "Creators who edit photos with AI image tools and want ready style prompts.",
+      "features": [
+        "Copy-paste prompts for AI photo edits.",
+        "Styles from retro and vintage film looks to cinematic portraits, watercolor and cyberpunk.",
+        "Example gallery for each style."
+      ],
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/promptcraft-ai-photo-editing/id6754223912"
+        }
+      ],
+      "pricing": "Free to download; optional Premium Access in-app purchase.",
+      "privacy": "App Store privacy label: Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "https://docs.google.com/document/d/1lNhisglvfrTV2nNEuPz624cb3hUYKXYftomuRKSJ9co/edit?usp=sharing",
+      "faq": [
+        {
+          "q": "Is there an app with prompts for AI portrait and photo edits?",
+          "a": "PromptCraft (iPhone) collects copy-paste prompts for AI photo edit styles such as cinematic portraits and retro film looks, with examples."
+        }
+      ]
+    },
+    {
+      "slug": "cardvault",
+      "name": "CardVault: Sports Card Scanner",
+      "storeName": "CardVault: Sports Card Scanner",
+      "group": "Scanners for collectors",
+      "categories": [
+        "collectible-scanners"
+      ],
+      "appCategory": "LifestyleApplication",
+      "oneLine": "Scan a sports card with your phone camera to identify it and see its value from recent sold prices.",
+      "description": "CardVault is a sports card scanner and price guide: photograph a card, the AI reads brand, year, set and variation, and the app shows its value from completed sales for raw and graded copies.",
+      "keywords": [
+        "sports card scanner",
+        "card value",
+        "baseball card value",
+        "basketball card",
+        "football card",
+        "hockey card",
+        "soccer card",
+        "tcg",
+        "trading card",
+        "card price guide",
+        "psa",
+        "grading",
+        "collection tracker",
+        "portfolio",
+        "card worth",
+        "card scanner"
+      ],
+      "who": "Sports card collectors and sellers who want a quick value check and a tracked collection.",
+      "features": [
+        "AI card identifier: brand, year, set and parallel from one photo.",
+        "Values from completed sales and auction results, for raw and graded cards (PSA, BGS).",
+        "Compare raw value with PSA 10 and BGS 9.5 prices before you pay to grade.",
+        "Digital vault and portfolio tracker for your collection's total value.",
+        "Baseball, basketball, football, soccer and hockey cards, plus TCG cards."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=studio.shaaddev.sport_card_scanner"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/cardvault-sports-card-scanner/id6762130458"
+        }
+      ],
+      "pricing": "Free to download; scanning is free to try; valuations and the portfolio tracker are part of a paid in-app upgrade.",
+      "privacy": "Card photos are sent for AI identification. Play Data safety (developer declaration): photos may be collected and shared with third parties; data encrypted in transit. App Store privacy label: Data Not Linked to You.",
+      "privacyUrl": "https://sites.google.com/view/sport-card-scanner-privacy/home",
+      "faq": [
+        {
+          "q": "What app can tell me what my sports cards are worth?",
+          "a": "CardVault identifies a sports card from a photo and shows its value based on completed sales and auction results, for raw and graded copies. Treat values as a guide: markets move. Available on Android and iPhone."
+        },
+        {
+          "q": "Can it help me decide whether to grade a card?",
+          "a": "For many cards you can compare the raw price with PSA 10 and BGS 9.5 prices before paying for grading."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Scanning is free to try; valuations and the portfolio tracker need the paid upgrade."
+        }
+      ]
+    },
+    {
+      "slug": "stamp-id",
+      "name": "Stamp ID: Scanner & Value",
+      "storeName": "Stamp ID: Scanner & Value",
+      "group": "Scanners for collectors",
+      "categories": [
+        "collectible-scanners"
+      ],
+      "appCategory": "ReferenceApplication",
+      "oneLine": "iPhone stamp identifier: scan a postage stamp to learn its origin, year and estimated value.",
+      "description": "Stamp ID is an iPhone stamp scanner: photograph or upload a postage stamp to identify it and see its country, year, background and an estimated value.",
+      "keywords": [
+        "stamp identifier",
+        "stamp scanner",
+        "stamp value",
+        "philately",
+        "postage stamp",
+        "stamp collecting",
+        "iphone"
+      ],
+      "who": "Stamp collectors and anyone curious about an old postage stamp.",
+      "features": [
+        "Identify a stamp from a photo or camera scan.",
+        "Estimated value of the stamp.",
+        "Origin, year, country and historical background."
+      ],
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/stamp-id-scanner-value/id6761055547"
+        }
+      ],
+      "pricing": "Free to download; Premium subscription (weekly, monthly or yearly) or a lifetime purchase in the app.",
+      "privacy": "App Store privacy label: Data Not Linked to You.",
+      "privacyUrl": "https://sites.google.com/view/stamp-pedia-app/home",
+      "faq": [
+        {
+          "q": "Is there an app that identifies postage stamps from a photo?",
+          "a": "Stamp ID (iPhone) identifies a stamp from a photo and shows its country, year, background and an estimated value. Values are estimates, not appraisals."
+        }
+      ]
+    },
+    {
+      "slug": "volume-lock",
+      "name": "Volume Lock: Parental Control",
+      "storeName": "Volume Lock & Limiter",
+      "group": "Phone controls",
+      "categories": [
+        "volume-and-screen-control"
+      ],
+      "appCategory": "UtilitiesApplication",
+      "oneLine": "Set a maximum volume on your child's phone or tablet and protect it with a PIN.",
+      "description": "Volume Lock caps the maximum speaker and headphone volume on a device and protects the setting with a PIN, so children cannot turn the sound up past your limit.",
+      "keywords": [
+        "volume limiter",
+        "volume lock",
+        "max volume",
+        "limit volume",
+        "parental control",
+        "kids",
+        "hearing protection",
+        "headphones",
+        "autism",
+        "sensory"
+      ],
+      "who": "Parents who want a safe maximum volume for children, including children with sensory needs.",
+      "features": [
+        "Set a maximum volume limit for speaker and headphones.",
+        "PIN lock so the limit cannot be changed without you.",
+        "Keeps the limit active in the background while other apps play.",
+        "Adjust levels for different environments."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.volumelock.limiter.control"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/volume-lock-parental-control/id6760347207"
+        }
+      ],
+      "pricing": "Free to download. Android: contains ads and in-app purchases. iPhone: optional Premium subscription or Pro purchase.",
+      "privacy": "Play Data safety (developer declaration): no data collected; no data shared with third parties. App Store privacy label: Data Not Collected.",
+      "privacyUrl": "https://sites.google.com/view/vllprivacypolicy/home",
+      "faq": [
+        {
+          "q": "How can I limit the maximum volume on my kid's phone?",
+          "a": "Volume Lock sets a maximum speaker and headphone volume and protects it with a PIN, so the limit stays while your child watches videos or plays games. Available on Android and iPhone."
+        }
+      ]
+    },
+    {
+      "slug": "volume-locker",
+      "name": "Volume Locker",
+      "storeName": "Volume locker",
+      "group": "Phone controls",
+      "categories": [
+        "volume-and-screen-control"
+      ],
+      "appCategory": "UtilitiesApplication",
+      "oneLine": "Android app that locks volume and brightness levels so they do not change by accident, with PIN and auto silent.",
+      "description": "Volume Locker locks your Android device's volume levels (media, ringtone, notifications, alarms, calls) and screen brightness, with a PIN for parental control, auto silent and auto dim.",
+      "keywords": [
+        "volume lock",
+        "lock volume",
+        "brightness lock",
+        "auto silent",
+        "auto dim",
+        "parental control",
+        "pin",
+        "android"
+      ],
+      "who": "Android users who keep changing volume or brightness by accident, and parents.",
+      "features": [
+        "Lock media, notification, alarm, ringtone and call volume.",
+        "Lock screen brightness.",
+        "PIN to stop children changing the settings.",
+        "Auto silent and auto dim for scheduled moments (Pro).",
+        "Dark mode."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases (Pro adds schedules and auto silent).",
+      "privacy": "Play Data safety (developer declaration): no data collected; no data shared with third parties.",
+      "privacyUrl": "https://sites.google.com/view/vblockprivacypolicy/home",
+      "faq": [
+        {
+          "q": "How do I stop my Android volume from changing by itself or by accident?",
+          "a": "Volume Locker locks each volume stream (media, ringtone, notifications, alarms, calls) at the level you choose, and can lock brightness too. A PIN keeps children from changing it."
+        }
+      ]
+    },
+    {
+      "slug": "dimmer",
+      "name": "Dimmer: Night Screen OLED Lens",
+      "storeName": "Dimmer: Night Screen OLED Lens",
+      "group": "Phone controls",
+      "categories": [
+        "volume-and-screen-control"
+      ],
+      "appCategory": "UtilitiesApplication",
+      "oneLine": "Dim your Android screen below the lowest system brightness for reading in the dark.",
+      "description": "Dimmer places a dimming layer over your Android screen so it can go darker than the system minimum, with a shake-to-reset safety and blue-light filters in Pro.",
+      "keywords": [
+        "screen dimmer",
+        "night mode",
+        "dim screen",
+        "too bright",
+        "low brightness",
+        "blue light filter",
+        "amoled",
+        "oled",
+        "eye strain",
+        "reading in bed",
+        "android"
+      ],
+      "who": "Android users who find the lowest brightness still too bright at night.",
+      "features": [
+        "Dim below the system's minimum brightness.",
+        "Shake the phone to reset brightness to 50% if the screen gets too dark.",
+        "Transparent control slider.",
+        "Pro: blue-light and amber filters, sunset/sunrise schedule, per-app dimming, quick settings tile."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.nightscreen.dimmer"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases (Pro).",
+      "privacy": "Uses the display-over-other-apps permission only to draw the dimming layer. Play Data safety (developer declaration): app info and performance and device IDs may be shared with third parties; no data collected.",
+      "privacyUrl": "https://sites.google.com/view/nightscreen-privacypolicy/home",
+      "faq": [
+        {
+          "q": "How can I make my Android screen darker than the lowest brightness?",
+          "a": "Dimmer draws a dimming layer over the screen so it goes below the system minimum. If it gets too dark to see, shaking the phone resets it to 50%."
+        }
+      ]
+    },
+    {
+      "slug": "flashpad",
+      "name": "FlashPad – Quick Notes",
+      "storeName": "FlashPad – Quick Notes",
+      "group": "Productivity and money",
+      "categories": [],
+      "appCategory": "ProductivityApplication",
+      "oneLine": "Offline Android quick notes that delete themselves after a time you choose and detect phone numbers, links and addresses.",
+      "description": "FlashPad is a quick notes app for Android: paste or type a note, set how long it lives (15 minutes to 1 week, or never), and tap detected phone numbers, emails, links and addresses. Notes stay on your phone.",
+      "keywords": [
+        "quick notes",
+        "temporary notes",
+        "self destructing notes",
+        "expiring notes",
+        "clipboard",
+        "offline notes",
+        "notepad",
+        "android",
+        "notes delete themselves",
+        "disappearing notes"
+      ],
+      "who": "People who jot down short-lived things: codes, Wi-Fi passwords, addresses, links.",
+      "features": [
+        "Notes expire after 15 minutes to 1 week, or never.",
+        "Detects phone numbers, emails, links, addresses and codes for one-tap actions.",
+        "One-tap paste, pin notes, swipe to archive or delete, light and dark themes.",
+        "Pro: full-text search, batch actions, export, custom colors, unlimited active notes."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.flashpad.flashpad"
+        }
+      ],
+      "pricing": "Free to download; in-app purchase for Pro.",
+      "privacy": "Notes are stored only on your device and the app works offline; no account. Play Data safety (developer declaration): no data collected; no data shared.",
+      "privacyUrl": "https://docs.google.com/document/d/1--j4XHJyifxHvuu217StSsujF0Gtii3AvGiC7BjwgSE/edit?usp=sharing",
+      "faq": [
+        {
+          "q": "Is there a notes app where notes delete themselves after a while?",
+          "a": "FlashPad (Android) lets you set each note to expire after 15 minutes up to 1 week, or keep it forever. Notes stay on your phone and it works offline."
+        }
+      ]
+    },
+    {
+      "slug": "incomemap",
+      "name": "IncomeMap: Income & Expenses",
+      "storeName": "IncomeMap : Income & Expenses",
+      "group": "Productivity and money",
+      "categories": [],
+      "appCategory": "FinanceApplication",
+      "oneLine": "iPhone expense tracker and budget planner with loan tracking and PDF receipts.",
+      "description": "IncomeMap is an iPhone income and expense tracker: log transactions by category, set monthly budgets with alerts, track loans and debts with PDF receipts, and see charts by day, week or month.",
+      "keywords": [
+        "expense tracker",
+        "budget planner",
+        "money manager",
+        "income tracker",
+        "loan tracker",
+        "debt tracker",
+        "pdf receipt",
+        "personal finance",
+        "iphone"
+      ],
+      "who": "People and small businesses who want a simple record of income, spending and loans.",
+      "features": [
+        "Log income and expenses by category.",
+        "Monthly budgets per category with alerts.",
+        "Loan and debt tracker with PDF receipts you can share.",
+        "Charts and reports by day, week or month; search and filters.",
+        "Backups to Google Drive."
+      ],
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/incomemap-income-expenses/id6763291145"
+        }
+      ],
+      "pricing": "Free to download; one-time Lifetime Access in-app purchase.",
+      "privacy": "App Store privacy label: Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "https://sites.google.com/view/incomemap-privacypolicy/home",
+      "faq": [
+        {
+          "q": "What is a simple iPhone app to track expenses and loans?",
+          "a": "IncomeMap records income and expenses, sets category budgets with alerts, and tracks loans with shareable PDF receipts. A one-time Lifetime Access purchase is offered."
+        }
+      ]
+    },
+    {
+      "slug": "bdvibes",
+      "name": "BDVibes: Birthday Reminders",
+      "storeName": "BDVibes: Birthday Reminders",
+      "group": "Productivity and money",
+      "categories": [],
+      "appCategory": "LifestyleApplication",
+      "oneLine": "Birthday and anniversary reminder app with countdowns and age tracking.",
+      "description": "BDVibes reminds you of birthdays and anniversaries on the day, the day before or a week early, shows a countdown and the age each person is turning.",
+      "keywords": [
+        "birthday reminder",
+        "anniversary reminder",
+        "birthday calendar",
+        "countdown",
+        "never forget birthdays",
+        "age calculator"
+      ],
+      "who": "Anyone who wants reminders for family and friends' birthdays and anniversaries.",
+      "features": [
+        "Reminders on the day, the day before or a week early.",
+        "Countdown to the next celebration.",
+        "Age tracker for the age each person is turning.",
+        "Birthday calendar."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.bdayvibes.app"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/bdvibes-birthday-reminders/id6760343022"
+        }
+      ],
+      "pricing": "Free to download with an in-app purchase.",
+      "privacy": "The listing says your data stays on your device. Play Data safety (developer declaration): no data collected; no data shared. App Store privacy label: Data Linked to You; Data Not Linked to You; Data Used to Track You.",
+      "privacyUrl": "https://docs.google.com/document/d/1l7wybSubOxw6jxeZ--CbCL9tutG_-2ScWUfS9ItureA/edit?usp=sharing",
+      "faq": [
+        {
+          "q": "What app reminds me of birthdays a week before?",
+          "a": "BDVibes lets you set reminders on the day, the day before or a week early, and shows a countdown. Android and iPhone."
+        }
+      ]
+    },
+    {
+      "slug": "footprint-check",
+      "name": "Footprint: Username Checker",
+      "storeName": "Footprint: Username Checker",
+      "group": "Productivity and money",
+      "categories": [],
+      "appCategory": "UtilitiesApplication",
+      "oneLine": "Check your own username on 45 sites to find old accounts and see your digital footprint.",
+      "description": "Footprint is an Android username checker for your own accounts: type your username and it looks for a public profile with that name on 45 sites, and gives one-tap links for 17 more you check yourself.",
+      "keywords": [
+        "username checker",
+        "username search",
+        "digital footprint",
+        "find old accounts",
+        "forgotten accounts",
+        "social media accounts",
+        "online presence",
+        "privacy",
+        "android"
+      ],
+      "who": "People who want to find and tidy up their own old online accounts. It is not for checking other people.",
+      "features": [
+        "62 built-in sites in categories such as social, video, developer, gaming, music and forums; 45 checked automatically.",
+        "Honest results: possible match, no match, or couldn't check.",
+        "Suggests name variants for you to confirm before scanning.",
+        "Last 50 scans saved on your phone; rescan to compare.",
+        "Confirm the name is yours before every scan."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=whatsmyname.sds.app"
+        }
+      ],
+      "pricing": "Free to download with banner ads; open results by watching one optional short ad or with Pro (monthly or yearly subscription; yearly has a 7-day free trial for new subscribers). If no ad loads, results open anyway.",
+      "privacy": "Scan history stays on your phone; no account or login. Play Data safety (developer declaration): device IDs may be collected and shared with third parties (ads); data encrypted in transit.",
+      "privacyUrl": "https://shaaddev.studio/footprint-check/privacy",
+      "faq": [
+        {
+          "q": "How can I find old accounts I made with my username?",
+          "a": "Footprint checks your username on 45 sites for a public profile with that name and gives links for 17 more you can check by hand. A possible match does not prove the account is yours, and the app says \"couldn't check\" instead of guessing."
+        },
+        {
+          "q": "Can I use it to look up someone else?",
+          "a": "No. It is made for checking yourself, and you confirm the name is yours before every scan."
+        }
+      ]
+    },
+    {
+      "slug": "fyzik",
+      "name": "Fyzik: Body Scan & AI Workout Planner",
+      "storeName": "Body Scan & AI Workout Planner",
+      "group": "Health and fitness",
+      "categories": [],
+      "appCategory": "HealthApplication",
+      "oneLine": "Take an AI body scan with your phone camera and get a gym or home workout plan that updates with each scan.",
+      "description": "Fyzik is an AI workout planner for Android: a phone-camera body scan gives a physique score and feedback, and the app builds a gym, home-equipment or bodyweight plan that changes after each new scan.",
+      "keywords": [
+        "ai workout planner",
+        "body scan",
+        "physique score",
+        "workout plan",
+        "home workout",
+        "gym workout",
+        "no equipment",
+        "fitness coach",
+        "workout tracker",
+        "android"
+      ],
+      "who": "Beginners to advanced trainees who want a plan built around their own body and equipment.",
+      "features": [
+        "AI body scan with the phone camera: physique score, symmetry and proportion feedback.",
+        "Workout plan for full gym, home equipment or bodyweight only.",
+        "Plan updates after each new scan.",
+        "Exercise library by muscle group, equipment and difficulty.",
+        "Workout log and progress tracker."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=online.fyzik.app"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases.",
+      "privacy": "Body-scan photos are sent for AI analysis. Play Data safety (developer declaration): photos and videos may be shared with third parties; data encrypted in transit.",
+      "privacyUrl": "https://www.fyzik.online/privacy.html",
+      "faq": [
+        {
+          "q": "Is there an app that makes a workout plan from a body scan?",
+          "a": "Fyzik (Android) scans your body with the phone camera, gives a physique score and feedback, and builds a workout plan for gym, home equipment or no equipment that updates after each scan."
+        },
+        {
+          "q": "Do I need a gym?",
+          "a": "No. You can choose home equipment or bodyweight-only training."
+        }
+      ]
+    },
+    {
+      "slug": "riz-words",
+      "name": "Riz Word: Calm Letter Puzzle",
+      "storeName": "Riz Word: Calm Letter Puzzle",
+      "group": "Games",
+      "categories": [],
+      "appCategory": "GameApplication",
+      "oneLine": "Relaxing word puzzle: swipe a ring of letters to find hidden words, with no timer.",
+      "description": "Riz Word is a calm word puzzle game for Android: swipe across a ring of letters to spell the answers, across 4,000 levels, with a daily challenge and no countdown.",
+      "keywords": [
+        "word game",
+        "word puzzle",
+        "relaxing game",
+        "letter puzzle",
+        "word connect",
+        "offline puzzle",
+        "daily challenge",
+        "brain game",
+        "android"
+      ],
+      "who": "Players who want a quiet word puzzle with no timer.",
+      "features": [
+        "4,000 levels; the letter ring grows from 4 to 7 letters.",
+        "Daily challenge with its own calendar and streak.",
+        "Tap any found word to read its meaning.",
+        "Bonus words earn free letters; hints and shuffle."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.shaaddev.rizwords"
+        }
+      ],
+      "pricing": "Free to download; banner and occasional full-screen ads between puzzles; optional rewarded videos; one-time purchases (remove ads, bundles, coins) and an optional weekly Riz Pass subscription.",
+      "privacy": "Game progress is stored on your device. Ads come from Google AdMob and purchases go through Google Play. Play Data safety (developer declaration): location, financial info and 3 other data types may be collected and shared with third parties; data encrypted in transit.",
+      "privacyUrl": "https://shaaddev.studio/riz-words/privacy",
+      "faq": [
+        {
+          "q": "What is a relaxing word game with no timer?",
+          "a": "Riz Word (Android) is a swipe-the-letters word puzzle with no countdown and no opponent, 4,000 levels and a daily challenge. It is free with ads and optional purchases."
+        }
+      ]
+    },
+    {
+      "slug": "cinelut",
+      "name": "CineLUT – Photo & Video LUTs",
+      "storeName": "CineLUT – Photo & Video LUTs",
+      "group": "Photo and video",
+      "categories": [],
+      "appCategory": "PhotographyApplication",
+      "oneLine": "Offline Android app with 500 LUT color presets for photos and videos, with .cube export.",
+      "description": "CineLUT is an offline color grading app for Android: apply one of 500 LUT presets to a photo or video, adjust intensity and basic settings, and export full-resolution photos, graded videos or .cube LUT files.",
+      "keywords": [
+        "lut",
+        "luts",
+        "color grading",
+        "photo filter",
+        "video filter",
+        "cinematic",
+        "cube lut",
+        "film look",
+        "video editor",
+        "offline",
+        "android"
+      ],
+      "who": "Creators who want cinematic color grades on their phone, and editors who use .cube LUTs on desktop.",
+      "features": [
+        "500 LUTs in 10 categories (cinematic, vintage, noir, moody, pastel and more); 350 are free.",
+        "Real-time preview on your own photos and videos; intensity slider and before/after compare.",
+        "Fine-tune exposure, contrast, warmth and saturation.",
+        "Export full-resolution photos, graded videos, or any LUT as a .cube file.",
+        "Works fully offline; no account."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.cinelut.app"
+        }
+      ],
+      "pricing": "Free to download with ads; 350 LUTs free; a single one-time Pro purchase unlocks all 500 (no subscription).",
+      "privacy": "The whole library works offline on your device, no account. Play Data safety (developer declaration): device IDs may be shared with third parties; no data collected.",
+      "privacyUrl": "https://shaaddev.studio/cinelut/privacy",
+      "faq": [
+        {
+          "q": "Is there an Android app to apply cinematic LUTs to videos offline?",
+          "a": "CineLUT applies 500 LUT presets to photos and videos on Android, fully offline, and can export graded videos and .cube files. 350 LUTs are free; Pro is a one-time purchase."
+        }
+      ]
+    },
+    {
+      "slug": "ryk-hub",
+      "name": "RYK Hub: Rahim Yar Khan App",
+      "storeName": "RYK Hub: Rahim Yar Khan App",
+      "group": "Local and community",
+      "categories": [],
+      "appCategory": "TravelApplication",
+      "oneLine": "City app for Rahim Yar Khan, Pakistan: electric bus routes and schedules, local services and business listings.",
+      "description": "RYK Hub is a community app for Rahim Yar Khan, Pakistan, with electric green bus routes and schedules, a local service directory, city updates and business listings. It is privately developed and not a government app.",
+      "keywords": [
+        "rahim yar khan",
+        "ryk",
+        "electric bus",
+        "green bus",
+        "bus schedule",
+        "punjab",
+        "pakistan",
+        "local services",
+        "city app"
+      ],
+      "who": "Residents and visitors of Rahim Yar Khan.",
+      "features": [
+        "RYK electric green bus routes and schedules (data from the public Punjab Masstransit Authority portal).",
+        "Local service directory.",
+        "City updates and announcements.",
+        "Business listings for shops and restaurants."
+      ],
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.sds.digital.ryk.hub"
+        }
+      ],
+      "pricing": "Free to download; contains ads.",
+      "privacy": "Play Data safety (developer declaration): device IDs may be shared with third parties; no data collected.",
+      "privacyUrl": "https://sites.google.com/view/drykhubprivacypolicy/home",
+      "faq": [
+        {
+          "q": "Is there an app with the Rahim Yar Khan electric bus schedule?",
+          "a": "RYK Hub shows RYK electric green bus routes and schedules sourced from the public Punjab Masstransit Authority portal. It is not a government app, so check official sources for changes."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "publisher": "ShaadDev Studio",
+  "checked": "2026-11-20",
+  "about": "Mobile apps published by ShaadDev Studio (developer \"shaad dev studio\" on Google Play, \"Rizwan Rashid\" on the App Store). Every listed app was live in its store on the date in \"checked\". Features, pricing and privacy facts are taken from each app's own store listing and the developer's Play Data safety / App Store privacy declarations.",
+  "categories": [
+    {
+      "slug": "text-to-speech",
+      "title": "Text-to-speech and voice cloning apps",
+      "url": "https://shaaddev.studio/apps/category/text-to-speech"
+    },
+    {
+      "slug": "ai-images-and-prompts",
+      "title": "AI image and prompt apps",
+      "url": "https://shaaddev.studio/apps/category/ai-images-and-prompts"
+    },
+    {
+      "slug": "collectible-scanners",
+      "title": "Scanner apps for collectors",
+      "url": "https://shaaddev.studio/apps/category/collectible-scanners"
+    },
+    {
+      "slug": "volume-and-screen-control",
+      "title": "Volume limiter and screen dimmer apps",
+      "url": "https://shaaddev.studio/apps/category/volume-and-screen-control"
+    }
+  ],
+  "apps": [
+    {
+      "slug": "fish-audio",
+      "name": "AI Voice Clone & Text-to-Speech Studio",
+      "description": "Clone your voice from a short recording and turn text into natural speech on Android and iPhone.",
+      "group": "Voice and audio",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.fishaudio.studio"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/fish-audio-ai-voice-clone-tts/id6775396336"
+        }
+      ],
+      "pricing": "Free to download with in-app purchases. On iPhone a Premium subscription (weekly, monthly or yearly) unlocks unlimited generations, up to 10,000 characters per generation and the full voice catalog.",
+      "page": "https://shaaddev.studio/apps/fish-audio"
+    },
+    {
+      "slug": "mimicly",
+      "name": "Mimicly: AI Voice Changer & Voice Clone",
+      "description": "Android app to clone your own voice, turn scripts into speech and change your voice for short videos.",
+      "group": "Voice and audio",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.fishaudio.ai.tts.clone"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases.",
+      "page": "https://shaaddev.studio/apps/mimicly"
+    },
+    {
+      "slug": "voice-cloning",
+      "name": "VoiceTwin AI: Voice Cloning",
+      "description": "iPhone app for text to speech with 300+ voices in several languages and cloning your own voice.",
+      "group": "Voice and audio",
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/voicetwin-ai-voice-cloning/id6766869439"
+        }
+      ],
+      "pricing": "Start free; a Premium subscription (weekly, monthly or yearly) unlocks unlimited generations, longer scripts and the full voice library.",
+      "page": "https://shaaddev.studio/apps/voice-cloning"
+    },
+    {
+      "slug": "pixelforge",
+      "name": "PixelForge - Text to Image AI",
+      "description": "iPhone text-to-image AI app that makes up to 8 variations of an idea in one tap.",
+      "group": "AI images and prompts",
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/pixelforge-text-to-image-ai/id6788649609"
+        }
+      ],
+      "pricing": "Free to start; no subscription is required to generate. Optional in-app purchases are offered.",
+      "page": "https://shaaddev.studio/apps/pixelforge"
+    },
+    {
+      "slug": "photogem",
+      "name": "PhotoGem: AI Pix Video Prompts",
+      "description": "Android gallery of 500+ ready-to-copy prompts for AI photos and AI videos.",
+      "group": "AI images and prompts",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.shaaddevstudio.picsprompt"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases.",
+      "page": "https://shaaddev.studio/apps/photogem"
+    },
+    {
+      "slug": "promptgenius",
+      "name": "PromptGenius: AI Prompts",
+      "description": "Prompt library and prompt builder for chat and image AI models, for work topics like SEO, marketing and coding.",
+      "group": "AI images and prompts",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.sds.promptgenius"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/promptgenius-ai-prompts/id6760140851"
+        }
+      ],
+      "pricing": "Free to download with in-app purchases; the Android app contains ads.",
+      "page": "https://shaaddev.studio/apps/promptgenius"
+    },
+    {
+      "slug": "pixprompter",
+      "name": "PixPrompter: AI Prompt Library",
+      "description": "iPhone library of 1,000+ copy-ready prompts for AI profile pictures, logos and stickers.",
+      "group": "AI images and prompts",
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/pixprompter-ai-prompt-library/id6754501908"
+        }
+      ],
+      "pricing": "Free to download; optional in-app purchases.",
+      "page": "https://shaaddev.studio/apps/pixprompter"
+    },
+    {
+      "slug": "promptcraft",
+      "name": "PromptCraft: AI Photo Editing",
+      "description": "iPhone collection of copy-paste prompts for AI photo editing styles like cinematic, retro and studio portraits.",
+      "group": "AI images and prompts",
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/promptcraft-ai-photo-editing/id6754223912"
+        }
+      ],
+      "pricing": "Free to download; optional Premium Access in-app purchase.",
+      "page": "https://shaaddev.studio/apps/promptcraft"
+    },
+    {
+      "slug": "cardvault",
+      "name": "CardVault: Sports Card Scanner",
+      "description": "Scan a sports card with your phone camera to identify it and see its value from recent sold prices.",
+      "group": "Scanners for collectors",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=studio.shaaddev.sport_card_scanner"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/cardvault-sports-card-scanner/id6762130458"
+        }
+      ],
+      "pricing": "Free to download; scanning is free to try; valuations and the portfolio tracker are part of a paid in-app upgrade.",
+      "page": "https://shaaddev.studio/apps/cardvault"
+    },
+    {
+      "slug": "stamp-id",
+      "name": "Stamp ID: Scanner & Value",
+      "description": "iPhone stamp identifier: scan a postage stamp to learn its origin, year and estimated value.",
+      "group": "Scanners for collectors",
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/stamp-id-scanner-value/id6761055547"
+        }
+      ],
+      "pricing": "Free to download; Premium subscription (weekly, monthly or yearly) or a lifetime purchase in the app.",
+      "page": "https://shaaddev.studio/apps/stamp-id"
+    },
+    {
+      "slug": "volume-lock",
+      "name": "Volume Lock: Parental Control",
+      "description": "Set a maximum volume on your child's phone or tablet and protect it with a PIN.",
+      "group": "Phone controls",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.volumelock.limiter.control"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/volume-lock-parental-control/id6760347207"
+        }
+      ],
+      "pricing": "Free to download. Android: contains ads and in-app purchases. iPhone: optional Premium subscription or Pro purchase.",
+      "page": "https://shaaddev.studio/apps/volume-lock"
+    },
+    {
+      "slug": "volume-locker",
+      "name": "Volume Locker",
+      "description": "Android app that locks volume and brightness levels so they do not change by accident, with PIN and auto silent.",
+      "group": "Phone controls",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.vblock.volumebrightnesslock"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases (Pro adds schedules and auto silent).",
+      "page": "https://shaaddev.studio/apps/volume-locker"
+    },
+    {
+      "slug": "dimmer",
+      "name": "Dimmer: Night Screen OLED Lens",
+      "description": "Dim your Android screen below the lowest system brightness for reading in the dark.",
+      "group": "Phone controls",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.nightscreen.dimmer"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases (Pro).",
+      "page": "https://shaaddev.studio/apps/dimmer"
+    },
+    {
+      "slug": "flashpad",
+      "name": "FlashPad – Quick Notes",
+      "description": "Offline Android quick notes that delete themselves after a time you choose and detect phone numbers, links and addresses.",
+      "group": "Productivity and money",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.flashpad.flashpad"
+        }
+      ],
+      "pricing": "Free to download; in-app purchase for Pro.",
+      "page": "https://shaaddev.studio/apps/flashpad"
+    },
+    {
+      "slug": "incomemap",
+      "name": "IncomeMap: Income & Expenses",
+      "description": "iPhone expense tracker and budget planner with loan tracking and PDF receipts.",
+      "group": "Productivity and money",
+      "platforms": [
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/incomemap-income-expenses/id6763291145"
+        }
+      ],
+      "pricing": "Free to download; one-time Lifetime Access in-app purchase.",
+      "page": "https://shaaddev.studio/apps/incomemap"
+    },
+    {
+      "slug": "bdvibes",
+      "name": "BDVibes: Birthday Reminders",
+      "description": "Birthday and anniversary reminder app with countdowns and age tracking.",
+      "group": "Productivity and money",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.bdayvibes.app"
+        },
+        {
+          "os": "iOS",
+          "store": "App Store",
+          "url": "https://apps.apple.com/us/app/bdvibes-birthday-reminders/id6760343022"
+        }
+      ],
+      "pricing": "Free to download with an in-app purchase.",
+      "page": "https://shaaddev.studio/apps/bdvibes"
+    },
+    {
+      "slug": "footprint-check",
+      "name": "Footprint: Username Checker",
+      "description": "Check your own username on 45 sites to find old accounts and see your digital footprint.",
+      "group": "Productivity and money",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=whatsmyname.sds.app"
+        }
+      ],
+      "pricing": "Free to download with banner ads; open results by watching one optional short ad or with Pro (monthly or yearly subscription; yearly has a 7-day free trial for new subscribers). If no ad loads, results open anyway.",
+      "page": "https://shaaddev.studio/apps/footprint-check"
+    },
+    {
+      "slug": "fyzik",
+      "name": "Fyzik: Body Scan & AI Workout Planner",
+      "description": "Take an AI body scan with your phone camera and get a gym or home workout plan that updates with each scan.",
+      "group": "Health and fitness",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=online.fyzik.app"
+        }
+      ],
+      "pricing": "Free to download; contains ads and in-app purchases.",
+      "page": "https://shaaddev.studio/apps/fyzik"
+    },
+    {
+      "slug": "riz-words",
+      "name": "Riz Word: Calm Letter Puzzle",
+      "description": "Relaxing word puzzle: swipe a ring of letters to find hidden words, with no timer.",
+      "group": "Games",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.shaaddev.rizwords"
+        }
+      ],
+      "pricing": "Free to download; banner and occasional full-screen ads between puzzles; optional rewarded videos; one-time purchases (remove ads, bundles, coins) and an optional weekly Riz Pass subscription.",
+      "page": "https://shaaddev.studio/apps/riz-words"
+    },
+    {
+      "slug": "cinelut",
+      "name": "CineLUT – Photo & Video LUTs",
+      "description": "Offline Android app with 500 LUT color presets for photos and videos, with .cube export.",
+      "group": "Photo and video",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.cinelut.app"
+        }
+      ],
+      "pricing": "Free to download with ads; 350 LUTs free; a single one-time Pro purchase unlocks all 500 (no subscription).",
+      "page": "https://shaaddev.studio/apps/cinelut"
+    },
+    {
+      "slug": "ryk-hub",
+      "name": "RYK Hub: Rahim Yar Khan App",
+      "description": "City app for Rahim Yar Khan, Pakistan: electric bus routes and schedules, local services and business listings.",
+      "group": "Local and community",
+      "platforms": [
+        {
+          "os": "Android",
+          "store": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.sds.digital.ryk.hub"
+        }
+      ],
+      "pricing": "Free to download; contains ads.",
+      "page": "https://shaaddev.studio/apps/ryk-hub"
+    }
+  ]
+}

@@ -38,6 +38,7 @@ import Stamppedia from './pages/Apps/Stamppedia';
 import StamppediaPrivacyPolicy from './pages/Apps/StamppediaPrivacy';
 import StamppediaTerms from './pages/Apps/StamppediaTerms';
 import AppDetail from './pages/Apps/AppDetail';
+import AppsHub, { AppCategory } from './pages/Apps/AppsHub';
 import AppLegal from './pages/Apps/AppLegal';
 import GamesList from './pages/Games/GamesList';
 import Game2048 from './pages/Games/Game2048';
@@ -115,6 +116,8 @@ export default function App() {
         <Route path="/apps/stamppedia" element={<Stamppedia />} />
         <Route path="/apps/stamppedia/privacy" element={<StamppediaPrivacyPolicy />} />
         <Route path="/apps/stamppedia/terms" element={<StamppediaTerms />} />
+        <Route path="/apps" element={<AppsHub />} />
+        <Route path="/apps/category/:category" element={<AppCategory />} />
         <Route path="/apps/:slug" element={<AppDetail />} />
         <Route path="/apps/:slug/privacy" element={<AppLegal type="privacy" />} />
         <Route path="/apps/:slug/terms" element={<AppLegal type="terms" />} />

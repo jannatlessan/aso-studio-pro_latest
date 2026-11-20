@@ -51,6 +51,37 @@ Every tool is free and runs in a modern web browser; no sign-in is needed. Each 
 - [File to PDF Converter](https://shaaddev.studio/tools/file-to-pdf): Convert images, CSV, Excel, Word (.docx), and text files into clean PDFs. Rename every output and download one at a time or all as a ZIP — 100% offline.
 - [Secure PDF Merger](https://shaaddev.studio/tools/pdf-merger): Combine multiple PDF documents into a single file quickly, securely, and completely offline.
 
+## Mobile apps (Android and iPhone)
+
+Mobile apps published by ShaadDev Studio (developer "shaad dev studio" on Google Play, "Rizwan Rashid" on the App Store). Every listed app was live in its store on the date in "checked". Features, pricing and privacy facts are taken from each app's own store listing and the developer's Play Data safety / App Store privacy declarations. Overview: https://shaaddev.studio/apps
+
+- [Text-to-speech and voice cloning apps](https://shaaddev.studio/apps/category/text-to-speech): ShaadDev Studio's three AI voice apps for text to speech and voice cloning on Android and iPhone, compared by platform, features, export and pricing model.
+- [AI image and prompt apps](https://shaaddev.studio/apps/category/ai-images-and-prompts): ShaadDev Studio's AI image apps: one text-to-image generator and four AI prompt libraries for photos, videos, logos and text models.
+- [Scanner apps for collectors](https://shaaddev.studio/apps/category/collectible-scanners): ShaadDev Studio's photo scanner apps for collectors: a sports card scanner with sold-price values and a stamp identifier with estimated values.
+- [Volume limiter and screen dimmer apps](https://shaaddev.studio/apps/category/volume-and-screen-control): ShaadDev Studio's Android and iPhone apps to cap or lock volume for kids, lock brightness, and dim the screen below the minimum at night.
+
+- [AI Voice Clone & Text-to-Speech Studio](https://shaaddev.studio/apps/fish-audio) (Android, iOS): Clone your voice from a short recording and turn text into natural speech on Android and iPhone.
+- [Mimicly: AI Voice Changer & Voice Clone](https://shaaddev.studio/apps/mimicly) (Android): Android app to clone your own voice, turn scripts into speech and change your voice for short videos.
+- [VoiceTwin AI: Voice Cloning](https://shaaddev.studio/apps/voice-cloning) (iOS): iPhone app for text to speech with 300+ voices in several languages and cloning your own voice.
+- [PixelForge - Text to Image AI](https://shaaddev.studio/apps/pixelforge) (iOS): iPhone text-to-image AI app that makes up to 8 variations of an idea in one tap.
+- [PhotoGem: AI Pix Video Prompts](https://shaaddev.studio/apps/photogem) (Android): Android gallery of 500+ ready-to-copy prompts for AI photos and AI videos.
+- [PromptGenius: AI Prompts](https://shaaddev.studio/apps/promptgenius) (Android, iOS): Prompt library and prompt builder for chat and image AI models, for work topics like SEO, marketing and coding.
+- [PixPrompter: AI Prompt Library](https://shaaddev.studio/apps/pixprompter) (iOS): iPhone library of 1,000+ copy-ready prompts for AI profile pictures, logos and stickers.
+- [PromptCraft: AI Photo Editing](https://shaaddev.studio/apps/promptcraft) (iOS): iPhone collection of copy-paste prompts for AI photo editing styles like cinematic, retro and studio portraits.
+- [CardVault: Sports Card Scanner](https://shaaddev.studio/apps/cardvault) (Android, iOS): Scan a sports card with your phone camera to identify it and see its value from recent sold prices.
+- [Stamp ID: Scanner & Value](https://shaaddev.studio/apps/stamp-id) (iOS): iPhone stamp identifier: scan a postage stamp to learn its origin, year and estimated value.
+- [Volume Lock: Parental Control](https://shaaddev.studio/apps/volume-lock) (Android, iOS): Set a maximum volume on your child's phone or tablet and protect it with a PIN.
+- [Volume Locker](https://shaaddev.studio/apps/volume-locker) (Android): Android app that locks volume and brightness levels so they do not change by accident, with PIN and auto silent.
+- [Dimmer: Night Screen OLED Lens](https://shaaddev.studio/apps/dimmer) (Android): Dim your Android screen below the lowest system brightness for reading in the dark.
+- [FlashPad – Quick Notes](https://shaaddev.studio/apps/flashpad) (Android): Offline Android quick notes that delete themselves after a time you choose and detect phone numbers, links and addresses.
+- [IncomeMap: Income & Expenses](https://shaaddev.studio/apps/incomemap) (iOS): iPhone expense tracker and budget planner with loan tracking and PDF receipts.
+- [BDVibes: Birthday Reminders](https://shaaddev.studio/apps/bdvibes) (Android, iOS): Birthday and anniversary reminder app with countdowns and age tracking.
+- [Footprint: Username Checker](https://shaaddev.studio/apps/footprint-check) (Android): Check your own username on 45 sites to find old accounts and see your digital footprint.
+- [Fyzik: Body Scan & AI Workout Planner](https://shaaddev.studio/apps/fyzik) (Android): Take an AI body scan with your phone camera and get a gym or home workout plan that updates with each scan.
+- [Riz Word: Calm Letter Puzzle](https://shaaddev.studio/apps/riz-words) (Android): Relaxing word puzzle: swipe a ring of letters to find hidden words, with no timer.
+- [CineLUT – Photo & Video LUTs](https://shaaddev.studio/apps/cinelut) (Android): Offline Android app with 500 LUT color presets for photos and videos, with .cube export.
+- [RYK Hub: Rahim Yar Khan App](https://shaaddev.studio/apps/ryk-hub) (Android): City app for Rahim Yar Khan, Pakistan: electric bus routes and schedules, local services and business listings.
+
 ## Games
 
 - [Browser games](https://shaaddev.studio/games): 25 free casual games (puzzle, word, arcade) that run in the browser.
@@ -61,3 +92,4 @@ Every tool is free and runs in a modern web browser; no sign-in is needed. Each 
 - [Contact](https://shaaddev.studio/contact)
 - [Privacy policy](https://shaaddev.studio/privacy)
 - [Tool feed (JSON)](https://shaaddev.studio/tools.json): machine-readable list of all tools and games.
+- [App feed (JSON)](https://shaaddev.studio/apps.json): machine-readable list of all mobile apps with store links.

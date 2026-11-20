@@ -1,4 +1,5 @@
-// WebMCP: lets an AI agent running in the visitor's browser discover and open our tools.
+// WebMCP: lets an AI agent running in the visitor's browser discover and open our tools, and
+// look up our own mobile apps (list_apps, find_app_for_task, describe_app; read-only).
 // Spec status (2026-11): Chrome origin trial (Chrome 149-156, extension requested), API on
 // document.modelContext (older builds: navigator.modelContext). If neither exists this module
 // does nothing. See knowledge/seo/geo-webmcp-notes.md in the AppFactory repo.
@@ -11,6 +12,8 @@
 // trial token in index.html (placeholder there; the Boss registers it).
 import tools from '../data/tools.json';
 import { TOOL_DOCS } from '../components/ToolFacts';
+import { CATALOG, getCatalogApp } from '../components/AppFacts';
+import { findAppsForTask, appSummary, appPath, categoryPath } from './appPages.js';
 
 type Json = Record<string, unknown>;
 interface ModelContextTool {
@@ -92,6 +95,79 @@ export function registerWebMcpTools(navigate: (path: string) => void): void {
         if (!t) return text(`Unknown tool "${String(args?.slug)}". Call list_tools for valid slugs.`);
         navigate(t.path);
         return text(`Opened ${t.name} at ${BASE + t.path}.`);
+      },
+    },
+    // ---- Mobile apps (ShaadDev Studio's own Android/iPhone apps; facts from src/data/appCatalog.json)
+    {
+      name: 'list_apps',
+      description:
+        "List ShaadDev Studio's own mobile apps (Android and iPhone) with one-line description, platforms, store links and pricing model. " +
+        'Optional filter by group (e.g. "Voice and audio") or platform ("Android" or "iOS").',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          group: { type: 'string', description: `Optional group: ${CATALOG.groups.join(', ')}.` },
+          platform: { type: 'string', enum: ['Android', 'iOS'], description: 'Optional platform filter.' },
+        },
+        additionalProperties: false,
+      },
+      annotations: { readOnlyHint: true },
+      execute: async (args) => {
+        const group = typeof args?.group === 'string' ? args.group.toLowerCase() : '';
+        const platform = typeof args?.platform === 'string' ? args.platform.toLowerCase() : '';
+        const list = CATALOG.apps
+          .filter((a) => !group || a.group.toLowerCase() === group)
+          .filter((a) => !platform || a.platforms.some((p) => p.os.toLowerCase() === platform))
+          .map(appSummary);
+        return text({ checked: CATALOG.checked, apps: list, comparisons: CATALOG.categories.map((c) => ({ title: c.title, url: BASE + categoryPath(c.slug) })) });
+      },
+    },
+    {
+      name: 'find_app_for_task',
+      description:
+        "Find which of ShaadDev Studio's own mobile apps fits a task described in plain words (e.g. \"text to speech\", \"clone my voice on Android\", \"limit my kid's volume\"). " +
+        'Keyword match over the app catalogue; returns up to 3 apps with name, one-line description, store links and page URL, or none if nothing fits. ' +
+        'Only covers this studio\'s apps; it is not a ranking of all apps on the market.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          task: { type: 'string', description: 'What the user wants to do, in plain words.' },
+          platform: { type: 'string', enum: ['Android', 'iOS'], description: 'Optional platform filter.' },
+        },
+        required: ['task'],
+        additionalProperties: false,
+      },
+      annotations: { readOnlyHint: true },
+      execute: async (args) => {
+        const task = typeof args?.task === 'string' ? args.task.slice(0, 300) : '';
+        const platform = typeof args?.platform === 'string' ? args.platform : '';
+        const hits = findAppsForTask(CATALOG, task, { platform, limit: 3 });
+        if (!hits.length) {
+          return text({ task, matches: [], message: 'None of our apps fits this task. Call list_apps to see everything we publish.' });
+        }
+        return text({ task, matches: hits.map((h) => ({ ...appSummary(h.app), matched: h.matched })) });
+      },
+    },
+    {
+      name: 'describe_app',
+      description:
+        'Get the checked facts about one ShaadDev Studio app: what it does, who it is for, features, platforms and store links, pricing model, privacy summary and FAQ.',
+      inputSchema: {
+        type: 'object',
+        properties: { slug: { type: 'string', description: 'App slug from list_apps or find_app_for_task, e.g. "cardvault".' } },
+        required: ['slug'],
+        additionalProperties: false,
+      },
+      annotations: { readOnlyHint: true },
+      execute: async (args) => {
+        const slug = String(args?.slug ?? '').replace(/^\/?(apps\/)?/, '');
+        const a = getCatalogApp(slug);
+        if (!a) return text(`Unknown app "${slug}". Call list_apps for valid slugs.`);
+        return text({
+          slug: a.slug, name: a.name, storeName: a.storeName, page: BASE + appPath(a.slug), description: a.description,
+          who: a.who, features: a.features, platforms: a.platforms, pricing: a.pricing, privacy: a.privacy,
+          privacyPolicy: a.privacyUrl || null, note: a.note ?? null, faq: a.faq, checked: CATALOG.checked,
+        });
       },
     },
   ];
