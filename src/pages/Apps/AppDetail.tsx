@@ -8,8 +8,8 @@ import { getMicrosaasApp } from '../../data/microsaasApps';
 import AppFacts, { getCatalogApp } from '../../components/AppFacts';
 import { appTitle, appDescription, appJsonLd, appPath } from '../../lib/appPages.js';
 
-const PLAY_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg';
-const APP_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg';
+const PLAY_STORE_ICON_URL = '/assets/icons/google-play.svg';
+const APP_STORE_ICON_URL = '/assets/icons/app-store.svg';
 
 export default function AppDetail() {
   const { slug } = useParams<{ slug: string }>();

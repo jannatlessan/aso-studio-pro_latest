@@ -162,8 +162,8 @@ const profileData = {
 };
 
 const RIZWAN_ULTRA_IMAGE_URL = '/assets/profile/rizwan-portrait.jpg';
-const PLAY_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg';
-const APP_STORE_ICON_URL = 'https://upload.wikimedia.org/wikipedia/commons/6/67/App_Store_%28iOS%29.svg';
+const PLAY_STORE_ICON_URL = '/assets/icons/google-play.svg';
+const APP_STORE_ICON_URL = '/assets/icons/app-store.svg';
 
 const TECH_ICON_MAP: Record<string, string> = {
   "Flutter": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
@@ -267,6 +267,10 @@ export default function Home() {
         <img
           src={app.icon}
           alt={`${app.name} icon`}
+          width={48}
+          height={48}
+          loading="lazy"
+          decoding="async"
           className={`${sizeClass} rounded-xl border border-black/10 object-cover`}
           onError={() => markIconFailed(app.id)}
         />
@@ -311,7 +315,7 @@ export default function Home() {
               </motion.div>
 
               <motion.h1
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 }}
                 className="text-[2.75rem] sm:text-7xl lg:text-[5rem] font-bold tracking-tight leading-[1.02] text-white"
@@ -614,6 +618,10 @@ export default function Home() {
                           <img
                             src={app.screenshot}
                             alt={`${app.name} preview`}
+                            width={800}
+                            height={400}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover object-top"
                             onError={() => markScreenshotFailed(app.id)}
                           />

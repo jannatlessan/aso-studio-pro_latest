@@ -79,8 +79,8 @@ export default function AgeCalculator() {
         </div>
 
         <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-black/10 bg-white shadow-sm shadow-black/[0.02]">
-           <label className="block mb-3 text-[#55605B] font-bold uppercase tracking-wider text-sm">Select Date of Birth</label>
-           <input type="date" value={dob} onChange={(e) => {
+           <label htmlFor="age-dob" className="block mb-3 text-[#55605B] font-bold uppercase tracking-wider text-sm">Select Date of Birth</label>
+           <input id="age-dob" type="date" value={dob} onChange={(e) => {
              setDob(e.target.value);
              calculateAge(e.target.value);
            }} className="w-full bg-[#F6F8F7] border border-black/10 rounded-xl p-4 text-ink focus:border-primary focus:outline-none mb-10 text-lg transition-all hover:bg-black/[0.03]" />

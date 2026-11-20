@@ -1,79 +1,89 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import QRCodeGenerator from './pages/Tools/QRCodeGenerator';
-import AgeCalculator from './pages/Tools/AgeCalculator';
-import PomodoroTimer from './pages/Tools/PomodoroTimer';
-import UnitConverter from './pages/Tools/UnitConverter';
-import ColorPalette from './pages/Tools/ColorPalette';
-import CSSGradient from './pages/Tools/CSSGradient';
-import LoremIpsum from './pages/Tools/LoremIpsum';
-import MarkdownToHtml from './pages/Tools/MarkdownToHtml';
-import PercentageCalculator from './pages/Tools/PercentageCalculator';
-import YTThumbnail from './pages/Tools/YTThumbnail';
+const QRCodeGenerator = lazy(() => import('./pages/Tools/QRCodeGenerator'));
+const AgeCalculator = lazy(() => import('./pages/Tools/AgeCalculator'));
+const PomodoroTimer = lazy(() => import('./pages/Tools/PomodoroTimer'));
+const UnitConverter = lazy(() => import('./pages/Tools/UnitConverter'));
+const ColorPalette = lazy(() => import('./pages/Tools/ColorPalette'));
+const CSSGradient = lazy(() => import('./pages/Tools/CSSGradient'));
+const LoremIpsum = lazy(() => import('./pages/Tools/LoremIpsum'));
+const MarkdownToHtml = lazy(() => import('./pages/Tools/MarkdownToHtml'));
+const PercentageCalculator = lazy(() => import('./pages/Tools/PercentageCalculator'));
+const YTThumbnail = lazy(() => import('./pages/Tools/YTThumbnail'));
 import Home from './pages/Home';
-import ToolsList from './pages/Tools/ToolsList';
-import ASOScreenshot from './pages/Tools/ASOScreenshot';
-import PasswordGenerator from './pages/Tools/PasswordGenerator';
-import JSONFormatter from './pages/Tools/JSONFormatter';
-import TextUtilities from './pages/Tools/TextUtilities';
-import ImageResizer from './pages/Tools/ImageResizer';
-import ImageCompressor from './pages/Tools/ImageCompressor';
-import AudioMerger from './pages/Tools/AudioMerger';
-import PDFMerger from './pages/Tools/PDFMerger';
-import PDFCompressor from './pages/Tools/PDFCompressor';
-import FileToPDF from './pages/Tools/FileToPDF';
-import BulkImageEnhancer from './pages/Tools/BulkImageEnhancer';
-import BackgroundRemover from './pages/Tools/BackgroundRemover';
-import VideoToGifMaker from './pages/Tools/VideoToGifMaker';
-import VideoToImages from './pages/Tools/VideoToImages';
+const ToolsList = lazy(() => import('./pages/Tools/ToolsList'));
+const ASOScreenshot = lazy(() => import('./pages/Tools/ASOScreenshot'));
+const PasswordGenerator = lazy(() => import('./pages/Tools/PasswordGenerator'));
+const JSONFormatter = lazy(() => import('./pages/Tools/JSONFormatter'));
+const TextUtilities = lazy(() => import('./pages/Tools/TextUtilities'));
+const ImageResizer = lazy(() => import('./pages/Tools/ImageResizer'));
+const ImageCompressor = lazy(() => import('./pages/Tools/ImageCompressor'));
+const AudioMerger = lazy(() => import('./pages/Tools/AudioMerger'));
+const PDFMerger = lazy(() => import('./pages/Tools/PDFMerger'));
+const PDFCompressor = lazy(() => import('./pages/Tools/PDFCompressor'));
+const FileToPDF = lazy(() => import('./pages/Tools/FileToPDF'));
+const BulkImageEnhancer = lazy(() => import('./pages/Tools/BulkImageEnhancer'));
+const BackgroundRemover = lazy(() => import('./pages/Tools/BackgroundRemover'));
+const VideoToGifMaker = lazy(() => import('./pages/Tools/VideoToGifMaker'));
+const VideoToImages = lazy(() => import('./pages/Tools/VideoToImages'));
 
-import GifViewer from './pages/Tools/GifViewer';
-import EventSlideshow from './pages/Tools/EventSlideshow';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import AboutUs from './pages/AboutUs';
-import ContactUs from './pages/ContactUs';
+const GifViewer = lazy(() => import('./pages/Tools/GifViewer'));
+const EventSlideshow = lazy(() => import('./pages/Tools/EventSlideshow'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const AboutUs = lazy(() => import('./pages/AboutUs'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
 import ScrollToTop from './components/ScrollToTop';
-import MicroSaaS from './pages/MicroSaaS';
-import Stamppedia from './pages/Apps/Stamppedia';
-import StamppediaPrivacyPolicy from './pages/Apps/StamppediaPrivacy';
-import StamppediaTerms from './pages/Apps/StamppediaTerms';
-import AppDetail from './pages/Apps/AppDetail';
-import AppsHub, { AppCategory } from './pages/Apps/AppsHub';
-import AppLegal from './pages/Apps/AppLegal';
-import GamesList from './pages/Games/GamesList';
-import Game2048 from './pages/Games/Game2048';
-import SlidingPuzzle from './pages/Games/SlidingPuzzle';
-import Minesweeper from './pages/Games/Minesweeper';
-import Sudoku from './pages/Games/Sudoku';
-import GemSwap from './pages/Games/GemSwap';
-import WhackAMole from './pages/Games/WhackAMole';
-import ReactionTime from './pages/Games/ReactionTime';
-import BlockDodge from './pages/Games/BlockDodge';
-import TapFlyer from './pages/Games/TapFlyer';
-import WordScramble from './pages/Games/WordScramble';
-import WordSearch from './pages/Games/WordSearch';
-import Hangman from './pages/Games/Hangman';
-import MemoryMatch from './pages/Games/MemoryMatch';
-import Solitaire from './pages/Games/Solitaire';
-import Snake from './pages/Games/Snake';
-import Breakout from './pages/Games/Breakout';
-import TetroBlocks from './pages/Games/TetroBlocks';
-import Pong from './pages/Games/Pong';
-import ClickEmpire from './pages/Games/ClickEmpire';
-import TowerStacker from './pages/Games/TowerStacker';
-import TriviaQuiz from './pages/Games/TriviaQuiz';
-import SimonSays from './pages/Games/SimonSays';
-import TicTacToe from './pages/Games/TicTacToe';
-import TraceMaster from './pages/Games/TraceMaster';
-import HoopShot from './pages/Games/HoopShot';
-import NotFound from './pages/NotFound';
+const MicroSaaS = lazy(() => import('./pages/MicroSaaS'));
+const Stamppedia = lazy(() => import('./pages/Apps/Stamppedia'));
+const StamppediaPrivacyPolicy = lazy(() => import('./pages/Apps/StamppediaPrivacy'));
+const StamppediaTerms = lazy(() => import('./pages/Apps/StamppediaTerms'));
+const AppDetail = lazy(() => import('./pages/Apps/AppDetail'));
+const AppsHub = lazy(() => import('./pages/Apps/AppsHub'));
+const AppCategory = lazy(() => import('./pages/Apps/AppsHub').then((m) => ({ default: m.AppCategory })));
+const AppLegal = lazy(() => import('./pages/Apps/AppLegal'));
+const GamesList = lazy(() => import('./pages/Games/GamesList'));
+const Game2048 = lazy(() => import('./pages/Games/Game2048'));
+const SlidingPuzzle = lazy(() => import('./pages/Games/SlidingPuzzle'));
+const Minesweeper = lazy(() => import('./pages/Games/Minesweeper'));
+const Sudoku = lazy(() => import('./pages/Games/Sudoku'));
+const GemSwap = lazy(() => import('./pages/Games/GemSwap'));
+const WhackAMole = lazy(() => import('./pages/Games/WhackAMole'));
+const ReactionTime = lazy(() => import('./pages/Games/ReactionTime'));
+const BlockDodge = lazy(() => import('./pages/Games/BlockDodge'));
+const TapFlyer = lazy(() => import('./pages/Games/TapFlyer'));
+const WordScramble = lazy(() => import('./pages/Games/WordScramble'));
+const WordSearch = lazy(() => import('./pages/Games/WordSearch'));
+const Hangman = lazy(() => import('./pages/Games/Hangman'));
+const MemoryMatch = lazy(() => import('./pages/Games/MemoryMatch'));
+const Solitaire = lazy(() => import('./pages/Games/Solitaire'));
+const Snake = lazy(() => import('./pages/Games/Snake'));
+const Breakout = lazy(() => import('./pages/Games/Breakout'));
+const TetroBlocks = lazy(() => import('./pages/Games/TetroBlocks'));
+const Pong = lazy(() => import('./pages/Games/Pong'));
+const ClickEmpire = lazy(() => import('./pages/Games/ClickEmpire'));
+const TowerStacker = lazy(() => import('./pages/Games/TowerStacker'));
+const TriviaQuiz = lazy(() => import('./pages/Games/TriviaQuiz'));
+const SimonSays = lazy(() => import('./pages/Games/SimonSays'));
+const TicTacToe = lazy(() => import('./pages/Games/TicTacToe'));
+const TraceMaster = lazy(() => import('./pages/Games/TraceMaster'));
+const HoopShot = lazy(() => import('./pages/Games/HoopShot'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 import WebMcpBridge from './components/WebMcpBridge';
+
+// Every route except Home is a lazy chunk, so the home page does not download every tool's code
+// (pdf/ffmpeg/onnx/xlsx...). Pre-rendered pages (dist/tools/*, dist/apps/*) keep showing their
+// static #root markup until the route chunk arrives, so there is no blank flash.
+const ssgHtml = typeof document !== 'undefined' ? document.querySelector('#root > .ssg')?.innerHTML ?? '' : '';
+const RouteFallback = () =>
+  ssgHtml ? <div className="ssg" dangerouslySetInnerHTML={{ __html: ssgHtml }} /> : <div className="min-h-screen" />;
 
 export default function App() {
   return (
     <Router>
       <ScrollToTop />
       <WebMcpBridge />
+      <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tools" element={<ToolsList />} />
@@ -153,6 +163,7 @@ export default function App() {
         {/* 404 Page Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Suspense>
     </Router>
   );
 }

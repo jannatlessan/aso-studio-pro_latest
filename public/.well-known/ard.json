@@ -1,0 +1,39 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:shaaddev.studio:catalog:browser-tools",
+      "displayName": "ShaadDev Studio browser tools catalog",
+      "description": "Machine-readable list of the free, browser-based tools and games on shaaddev.studio (images, video, audio, PDF, text, design), with each tool's URL, category and description. No account needed; most tools process files inside the user's browser.",
+      "type": "application/json",
+      "url": "https://shaaddev.studio/tools.json",
+      "representativeQueries": [
+        "free online image resizer that runs in the browser",
+        "compress or merge PDF files without uploading",
+        "remove image background in the browser for free",
+        "convert video to GIF online free"
+      ]
+    },
+    {
+      "identifier": "urn:air:shaaddev.studio:catalog:mobile-apps",
+      "displayName": "ShaadDev Studio mobile apps catalog",
+      "description": "Machine-readable list of the mobile apps published by ShaadDev Studio on Google Play and the App Store, with store links, features, pricing and privacy facts taken from each store listing.",
+      "type": "application/json",
+      "url": "https://shaaddev.studio/apps.json",
+      "representativeQueries": [
+        "Android apps by ShaadDev Studio",
+        "privacy-friendly utility apps for Android and iPhone"
+      ]
+    },
+    {
+      "identifier": "urn:air:shaaddev.studio:docs:llms-txt",
+      "displayName": "ShaadDev Studio llms.txt",
+      "description": "Plain-text overview of every tool and app on shaaddev.studio for language models (llms.txt format); full details in /llms-full.txt.",
+      "type": "application/vnd.llmstxt+markdown",
+      "url": "https://shaaddev.studio/llms.txt",
+      "representativeQueries": [
+        "what tools does shaaddev.studio offer",
+        "shaaddev studio tool list for AI assistants"
+      ]
+    }
+  ]
+}
