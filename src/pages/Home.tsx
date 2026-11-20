@@ -161,6 +161,9 @@ const profileData = {
   ]
 };
 
+// The hero is pre-rendered into index.html (scripts/prerender-home.mjs) so it paints before JS.
+// When React mounts over that static copy, the hero skips its entry animation (no fade-out/in flash).
+const FROM_SSG = typeof document !== 'undefined' && !!document.querySelector('#root > .ssg-home');
 const RIZWAN_ULTRA_IMAGE_URL = '/assets/profile/rizwan-portrait.jpg';
 const PLAY_STORE_ICON_URL = '/assets/icons/google-play.svg';
 const APP_STORE_ICON_URL = '/assets/icons/app-store.svg';
@@ -303,7 +306,7 @@ export default function Home() {
           <div className="relative max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-16 items-center">
             <div className="space-y-8">
               <motion.div
-                initial={{ opacity: 0, y: 8 }}
+                initial={FROM_SSG ? false : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-xs font-bold uppercase tracking-widest text-primary-light"
               >
@@ -315,7 +318,7 @@ export default function Home() {
               </motion.div>
 
               <motion.h1
-                initial={{ y: 16 }}
+                initial={FROM_SSG ? false : { y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 }}
                 className="text-[2.75rem] sm:text-7xl lg:text-[5rem] font-bold tracking-tight leading-[1.02] text-white"
@@ -330,7 +333,7 @@ export default function Home() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 12 }}
+                initial={FROM_SSG ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="max-w-xl text-lg text-white/55 leading-relaxed"
@@ -339,7 +342,7 @@ export default function Home() {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 12 }}
+                initial={FROM_SSG ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
                 className="flex flex-wrap items-center gap-4"
@@ -381,7 +384,7 @@ export default function Home() {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={FROM_SSG ? false : { opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
               className="relative mx-auto w-full max-w-[480px]"
@@ -392,7 +395,7 @@ export default function Home() {
 
                 <div className="relative flex items-start justify-between gap-3 mb-3">
                   <motion.div
-                    initial={{ opacity: 0, y: -8 }}
+                    initial={FROM_SSG ? false : { opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                     className="rounded-2xl border border-white/10 bg-[#141814] px-4 py-3 shadow-lg shadow-black/30"
@@ -401,7 +404,7 @@ export default function Home() {
                     <div className="text-[11px] font-semibold text-white/70 mt-1 whitespace-nowrap">Systems shipped</div>
                   </motion.div>
                   <motion.div
-                    initial={{ opacity: 0, y: -8 }}
+                    initial={FROM_SSG ? false : { opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
                     className="rounded-2xl border border-white/10 bg-[#141814] px-4 py-3 shadow-lg shadow-black/30"
@@ -425,7 +428,7 @@ export default function Home() {
                     {['Mobile Apps', 'Web Platforms', 'AI Tooling'].map((label, i) => (
                       <motion.div
                         key={label}
-                        initial={{ opacity: 0, x: 14 }}
+                        initial={FROM_SSG ? false : { opacity: 0, x: 14 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.75 + i * 0.1, duration: 0.5 }}
                         className="rounded-full border border-white/10 bg-[#141814]/95 backdrop-blur-sm px-3.5 py-1.5 shadow-lg shadow-black/30 flex items-center gap-1.5"
@@ -437,7 +440,7 @@ export default function Home() {
                   </div>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={FROM_SSG ? false : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.85, duration: 0.5 }}
                     className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-[#141814]/95 backdrop-blur-sm px-5 py-4 shadow-lg shadow-black/30"
@@ -451,7 +454,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={FROM_SSG ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
             className="relative hidden sm:flex justify-center mt-20"

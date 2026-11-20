@@ -74,7 +74,7 @@ import WebMcpBridge from './components/WebMcpBridge';
 // Every route except Home is a lazy chunk, so the home page does not download every tool's code
 // (pdf/ffmpeg/onnx/xlsx...). Pre-rendered pages (dist/tools/*, dist/apps/*) keep showing their
 // static #root markup until the route chunk arrives, so there is no blank flash.
-const ssgHtml = typeof document !== 'undefined' ? document.querySelector('#root > .ssg')?.innerHTML ?? '' : '';
+const ssgHtml = typeof document !== 'undefined' ? document.querySelector('#root > .ssg:not(.ssg-home)')?.innerHTML ?? '' : '';
 const RouteFallback = () =>
   ssgHtml ? <div className="ssg" dangerouslySetInnerHTML={{ __html: ssgHtml }} /> : <div className="min-h-screen" />;
 

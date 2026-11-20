@@ -2,8 +2,17 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T911X372DP"></script>
     <script>
+      // gtag.js loads after the page's load event so it never competes with first paint;
+      // dataLayer queues the calls below until it arrives (page_view is still sent).
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-T911X372DP';
+          document.head.appendChild(s);
+        }, 0);
+      });
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -39,8 +48,8 @@
     <meta name="twitter:image" content="https://shaaddev.studio/og-image.jpg?v=1" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
-    <link rel="apple-touch-icon" href="/assets/app_logo_icon.jpg?v=3" />
-    <link rel="shortcut icon" href="/assets/app_logo_icon.jpg?v=3" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=4" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=4" />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
