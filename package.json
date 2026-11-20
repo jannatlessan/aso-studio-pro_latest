@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "node scripts/generate-tools-json.mjs && vite --port=3000 --host=0.0.0.0",
     "prebuild": "node scripts/generate-tools-json.mjs",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender-tools.mjs",
     "gen:tools": "node scripts/generate-tools-json.mjs",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "gen:seo": "node scripts/generate-seo-files.mjs"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.12.10",

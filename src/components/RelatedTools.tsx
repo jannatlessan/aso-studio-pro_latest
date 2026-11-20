@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import ToolFacts from './ToolFacts';
 import {
   ChevronRight, Image as ImageIcon, Wand2, Layers, Film, Images, Heart, Minimize, FileBox,
   FileOutput, Music, Palette, Paintbrush, Smartphone, FileJson, Code, Type, AlignLeft,
@@ -68,9 +69,11 @@ export default function RelatedTools({ currentPath }: { currentPath: string }) {
   CATALOG.forEach(pushUnique);
 
   const links = picks.slice(0, 3);
-  if (links.length === 0) return null;
+  if (links.length === 0) return <ToolFacts currentPath={currentPath} />;
 
   return (
+    <>
+    <ToolFacts currentPath={currentPath} />
     <div className="pt-10 border-t border-black/10 mt-16">
       <h3 className="text-xl font-black text-ink mb-6 uppercase tracking-wider text-center sm:text-left">
         Related Tools You Might Like
@@ -100,5 +103,6 @@ export default function RelatedTools({ currentPath }: { currentPath: string }) {
         ))}
       </div>
     </div>
+    </>
   );
 }

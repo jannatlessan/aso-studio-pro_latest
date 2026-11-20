@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { TOOL_DOCS } from './ToolFacts';
 
 interface SEOProps {
   title: string;
@@ -36,19 +37,45 @@ export default function SEO({
     "description": "Premium developer tools and web applications."
   };
 
+  // Tool pages: WebApplication + Organization (+ FAQPage when the page has no FAQ microdata
+  // of its own). Built from src/data/toolDocs.json, the same data scripts/prerender-tools.mjs
+  // writes into the static HTML, so both always agree with the visible "Quick facts" section.
+  const toolPath = resolvedUrl.replace('https://shaaddev.studio', '').replace(/\/$/, '');
+  const doc = TOOL_DOCS[toolPath];
+  const orgNode = {
+    "@type": "Organization",
+    "@id": "https://shaaddev.studio/#organization",
+    "name": "ShaadDev Studio",
+    "url": "https://shaaddev.studio",
+    "logo": "https://shaaddev.studio/og-image.jpg"
+  };
   const toolSchema = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": title,
-    "url": resolvedUrl,
-    "description": description,
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": `${resolvedUrl}#app`,
+        "name": title.split(' | ')[0],
+        "url": resolvedUrl,
+        "description": description,
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (modern web browser)",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@id": "https://shaaddev.studio/#organization" }
+      },
+      orgNode,
+      ...(doc && !doc.pageHasFaqMicrodata ? [{
+        "@type": "FAQPage",
+        "@id": `${resolvedUrl}#faq`,
+        "mainEntity": doc.faq.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a }
+        }))
+      }] : [])
+    ]
   };
 
   const schemaObj = isTool ? toolSchema : defaultSchema;

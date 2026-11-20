@@ -1,0 +1,692 @@
+{
+  "_note": "Plain facts per tool, checked against each tool's source code (2026-11-20). Rendered visibly by src/components/ToolFacts.tsx and pre-rendered into static HTML by scripts/prerender-tools.mjs; also feeds llms.txt and WebMCP describe_tool. Keep every claim backed by the code.",
+  "site": {
+    "name": "ShaadDev Studio",
+    "url": "https://shaaddev.studio",
+    "logo": "https://shaaddev.studio/og-image.jpg",
+    "summary": "ShaadDev Studio is a collection of free, browser-based tools for images, video, audio, PDFs, text and design, plus small browser games and mobile apps by the studio. No account is needed. Most tools process your files inside your own browser tab instead of uploading them.",
+    "analytics": "Every page loads Google Analytics to count visits. File contents and text you enter in a tool are not sent to it."
+  },
+  "tools": {
+    "/tools/gif-viewer": {
+      "who": "Designers, meme makers and developers who need to inspect or extract frames from an animated GIF.",
+      "steps": [
+        "Open a .gif file from your device.",
+        "Pause, scrub or step through the animation frame by frame.",
+        "Save single frames as PNG, or convert the GIF to an MP4 video."
+      ],
+      "input": "Animated GIF files.",
+      "output": "PNG frames; MP4 video.",
+      "limits": "Long or very large GIFs use a lot of memory; speed depends on your device. Needs a modern desktop or mobile browser.",
+      "privacy": "The GIF is decoded and converted in your browser. On first use the page downloads the open-source ffmpeg WebAssembly engine from unpkg.com; your file is not uploaded.",
+      "pageHasFaqMicrodata": true,
+      "faq": [
+        {
+          "q": "Is the GIF uploaded anywhere?",
+          "a": "No. Decoding and MP4 conversion run in your browser tab with ffmpeg compiled to WebAssembly."
+        },
+        {
+          "q": "Why does the first conversion take longer?",
+          "a": "The browser first downloads the ffmpeg engine (several megabytes) from a public CDN. Later conversions reuse it from the browser cache."
+        },
+        {
+          "q": "Do I need an account?",
+          "a": "No. The tool is free and works without signing in."
+        }
+      ]
+    },
+    "/tools/video-to-gif": {
+      "who": "Creators and developers who want a short animated GIF from a video clip for chats, docs or bug reports.",
+      "steps": [
+        "Choose an MP4, WebM, MOV or M4V video.",
+        "Pick the start and end time, frame rate and width.",
+        "Convert and download the GIF."
+      ],
+      "input": "MP4, WebM, QuickTime (MOV) and M4V video.",
+      "output": "Animated GIF.",
+      "limits": "GIF is an old format: long or high-resolution clips produce large files. Conversion speed depends on your device.",
+      "privacy": "The video is converted in your browser with ffmpeg compiled to WebAssembly, downloaded from unpkg.com on first use. Your video is not uploaded.",
+      "pageHasFaqMicrodata": true,
+      "faq": [
+        {
+          "q": "Is my video uploaded to a server?",
+          "a": "No. Conversion runs locally in your browser tab."
+        },
+        {
+          "q": "How do I keep the GIF small?",
+          "a": "Use a shorter clip, a lower frame rate (for example 10 to 15 fps) and a smaller width."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Yes, with no account and no watermark."
+        }
+      ]
+    },
+    "/tools/video-to-images": {
+      "who": "Editors, researchers and developers who need still frames from a video.",
+      "steps": [
+        "Choose a video file (MP4, WebM, MOV or M4V).",
+        "Set how many frames per second to extract and the image format.",
+        "Preview the frames and download one image or all of them as a ZIP."
+      ],
+      "input": "MP4, WebM, QuickTime (MOV) and M4V video.",
+      "output": "JPEG or PNG images, single or as a ZIP archive.",
+      "limits": "Up to 300 frames per extraction. Large videos need enough device memory.",
+      "privacy": "Frames are captured with your browser's own video decoder and canvas. Nothing is uploaded.",
+      "pageHasFaqMicrodata": true,
+      "faq": [
+        {
+          "q": "Is there a frame limit?",
+          "a": "Yes, one extraction stops at 300 frames. Lower the frame rate or trim the time range for longer videos."
+        },
+        {
+          "q": "Are my videos uploaded?",
+          "a": "No. Extraction happens in your browser tab."
+        },
+        {
+          "q": "Can I download everything at once?",
+          "a": "Yes, the frames can be downloaded together as a single ZIP file."
+        }
+      ]
+    },
+    "/tools/qr-code-generator": {
+      "who": "Anyone who needs a QR code for a link, text or contact details, for print or screens.",
+      "steps": [
+        "Type or paste the URL or text.",
+        "The QR code updates as you type.",
+        "Export it as a PNG image."
+      ],
+      "input": "Any text or URL.",
+      "output": "PNG image of the QR code (high error correction).",
+      "limits": "Very long text makes a dense code that is harder to scan; keep links short.",
+      "privacy": "The QR code is drawn in your browser; the text you enter is not sent to a server.",
+      "faq": [
+        {
+          "q": "Do these QR codes expire?",
+          "a": "No. The code contains your text or link directly, there is no redirect service in between."
+        },
+        {
+          "q": "Can I track scans?",
+          "a": "No. Because there is no redirect, scans are not counted by this tool."
+        },
+        {
+          "q": "Which error correction level is used?",
+          "a": "Level H, the highest, so the code still scans when partly damaged."
+        }
+      ]
+    },
+    "/tools/age-calculator": {
+      "who": "Anyone who needs an exact age, for forms, birthdays or eligibility checks.",
+      "steps": [
+        "Enter the date of birth.",
+        "Read the age in years, months and days.",
+        "Change the date to recalculate instantly."
+      ],
+      "input": "A date of birth.",
+      "output": "Exact age in years, months and days.",
+      "limits": "Uses your device's current date and time zone.",
+      "privacy": "The calculation runs in your browser; the date is not sent anywhere.",
+      "faq": [
+        {
+          "q": "Which date is used as today?",
+          "a": "The current date of your device."
+        },
+        {
+          "q": "Is my birth date stored?",
+          "a": "No. It is only used in the page while it is open."
+        },
+        {
+          "q": "Does it handle leap years?",
+          "a": "Yes, it works with real calendar dates, so leap years are counted."
+        }
+      ]
+    },
+    "/tools/pomodoro-timer": {
+      "who": "Students and professionals who work in focused time blocks.",
+      "steps": [
+        "Start a 25-minute focus session.",
+        "Take a 5-minute break when the timer ends.",
+        "Repeat, resetting the timer when needed."
+      ],
+      "input": "None.",
+      "output": "A countdown with an alert when a focus or break period ends.",
+      "limits": "The tab must stay open; browsers may slow timers in background tabs.",
+      "privacy": "Runs entirely in your browser; nothing is stored on a server.",
+      "faq": [
+        {
+          "q": "How long are the sessions?",
+          "a": "25 minutes of focus and 5 minutes of break, the classic Pomodoro rhythm."
+        },
+        {
+          "q": "Will it alert me?",
+          "a": "Yes, the page shows an alert when a period ends while the tab is open."
+        },
+        {
+          "q": "Do I need to sign up?",
+          "a": "No."
+        }
+      ]
+    },
+    "/tools/unit-converter": {
+      "who": "Students, cooks, travellers and engineers converting everyday measurements.",
+      "steps": [
+        "Choose a category: length, weight or temperature.",
+        "Enter a value and pick the from and to units.",
+        "Read the converted value instantly."
+      ],
+      "input": "A number and two units.",
+      "output": "The converted value.",
+      "limits": "Covers length, weight and temperature.",
+      "privacy": "Calculations run in your browser.",
+      "faq": [
+        {
+          "q": "Which categories are supported?",
+          "a": "Length, weight and temperature."
+        },
+        {
+          "q": "Is temperature conversion exact?",
+          "a": "Yes, it uses the standard Celsius, Fahrenheit and Kelvin formulas rather than a ratio."
+        },
+        {
+          "q": "Does it work offline?",
+          "a": "Once the page has loaded, conversions do not need the network."
+        }
+      ]
+    },
+    "/tools/color-palette": {
+      "who": "Designers and developers looking for colour ideas for a UI, brand or illustration.",
+      "steps": [
+        "Open the tool to get a palette of five colours.",
+        "Generate new palettes until one fits.",
+        "Copy the hex codes you want."
+      ],
+      "input": "None.",
+      "output": "Five random hex colours per palette.",
+      "limits": "Colours are random, not checked for contrast or accessibility; test text contrast separately.",
+      "privacy": "Runs in your browser.",
+      "faq": [
+        {
+          "q": "How are the colours chosen?",
+          "a": "Each of the five colours is a random hex value. Generate again for a new set."
+        },
+        {
+          "q": "Are the palettes accessible?",
+          "a": "Not automatically. Check text and background pairs with a contrast checker before use."
+        },
+        {
+          "q": "Can I use the colours commercially?",
+          "a": "Yes, colour values are not owned by anyone."
+        }
+      ]
+    },
+    "/tools/css-gradient": {
+      "who": "Front-end developers and designers who need a CSS linear gradient.",
+      "steps": [
+        "Pick two colours.",
+        "Set the angle.",
+        "Copy the generated CSS."
+      ],
+      "input": "Two colours and an angle.",
+      "output": "A CSS linear-gradient() declaration with a live preview.",
+      "limits": "Two-stop linear gradients only.",
+      "privacy": "Runs in your browser.",
+      "faq": [
+        {
+          "q": "What CSS does it produce?",
+          "a": "A standard linear-gradient(angle, colour1 0%, colour2 100%) value that works in all modern browsers."
+        },
+        {
+          "q": "Can I add more colour stops?",
+          "a": "Not in this tool; it creates two-colour linear gradients."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Yes."
+        }
+      ]
+    },
+    "/tools/lorem-ipsum": {
+      "who": "Designers and developers filling mockups and layouts with placeholder text.",
+      "steps": [
+        "Choose how many paragraphs you need.",
+        "Generate the text.",
+        "Copy it into your design or code."
+      ],
+      "input": "Number of paragraphs.",
+      "output": "Random Lorem Ipsum paragraphs.",
+      "limits": "Text is random Latin-like filler and has no meaning.",
+      "privacy": "Generated in your browser.",
+      "faq": [
+        {
+          "q": "Is the text real Latin?",
+          "a": "No. It is shuffled Lorem Ipsum words meant only as visual filler."
+        },
+        {
+          "q": "Why use placeholder text?",
+          "a": "It shows how a layout looks with text without readers focusing on the content."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Yes."
+        }
+      ]
+    },
+    "/tools/markdown-to-html": {
+      "who": "Writers and developers converting Markdown into HTML for websites, emails or CMS fields.",
+      "steps": [
+        "Paste or type Markdown.",
+        "See the HTML and a preview update.",
+        "Copy the HTML or download it as an .html file."
+      ],
+      "input": "Markdown text.",
+      "output": "HTML code (copy or .html download).",
+      "limits": "Uses the marked library's standard Markdown rules; check custom extensions before relying on them.",
+      "privacy": "Conversion runs in your browser; your text is not uploaded.",
+      "faq": [
+        {
+          "q": "Which Markdown flavour is supported?",
+          "a": "Standard Markdown with common GitHub-style additions as handled by the open-source marked library."
+        },
+        {
+          "q": "Can I download the result?",
+          "a": "Yes, as markdown-export.html, or copy it to the clipboard."
+        },
+        {
+          "q": "Is my text stored?",
+          "a": "No."
+        }
+      ]
+    },
+    "/tools/percentage-calculator": {
+      "who": "Shoppers, students and anyone working out percentages, discounts or changes.",
+      "steps": [
+        "Enter the numbers in the calculation you need.",
+        "Read the result instantly.",
+        "Change any number to recalculate."
+      ],
+      "input": "Numbers.",
+      "output": "The percentage result.",
+      "limits": "Results are rounded for display.",
+      "privacy": "Calculations run in your browser.",
+      "faq": [
+        {
+          "q": "What can it calculate?",
+          "a": "What X% of a number is, and what percentage one number is of another."
+        },
+        {
+          "q": "Are my numbers saved?",
+          "a": "No."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Yes."
+        }
+      ]
+    },
+    "/tools/yt-thumbnail": {
+      "who": "Creators and marketers who need the thumbnail image of a YouTube video.",
+      "steps": [
+        "Paste a YouTube video link.",
+        "The tool shows the maximum-resolution and high-quality thumbnails.",
+        "Open or save the image you need."
+      ],
+      "input": "A YouTube video URL.",
+      "output": "The video's thumbnail images (maxresdefault and hqdefault).",
+      "limits": "Some videos have no max-resolution thumbnail; use the high-quality one then. Respect the creator's rights when reusing thumbnails.",
+      "privacy": "The thumbnail images are loaded directly from img.youtube.com by your browser; the link is not sent to ShaadDev Studio servers.",
+      "faq": [
+        {
+          "q": "Why is the max-resolution image missing for some videos?",
+          "a": "YouTube only creates it when the video was uploaded in high resolution. The high-quality version is always available."
+        },
+        {
+          "q": "Can I reuse any thumbnail?",
+          "a": "Thumbnails belong to the video's creator. Get permission before reusing them commercially."
+        },
+        {
+          "q": "Does it need an API key or account?",
+          "a": "No."
+        }
+      ]
+    },
+    "/tools/aso-screenshot": {
+      "who": "App developers and marketers making App Store and Google Play screenshots.",
+      "steps": [
+        "Add your app screenshots.",
+        "Choose a layout, device size, headline text and colours.",
+        "Export the finished screenshots as PNG files (zipped for a batch)."
+      ],
+      "input": "Your app screenshots (images).",
+      "output": "Store-ready PNG screenshots.",
+      "limits": "Check each store's current size rules before upload; this tool does not submit anything to a store.",
+      "privacy": "Rendering happens in your browser. Your project is saved in this browser's local storage so you can continue later; images are not uploaded. Fonts are loaded from Google Fonts.",
+      "faq": [
+        {
+          "q": "Are my screenshots uploaded?",
+          "a": "No. They are composed and exported in your browser."
+        },
+        {
+          "q": "Is my work saved?",
+          "a": "Yes, in this browser's local storage on your device. Clearing site data removes it."
+        },
+        {
+          "q": "Does it publish to the stores?",
+          "a": "No. You download the images and upload them in App Store Connect or Play Console yourself."
+        }
+      ]
+    },
+    "/tools/password-generator": {
+      "who": "Anyone creating a new password for an account.",
+      "steps": [
+        "Set the length and the character types (letters, numbers, symbols).",
+        "Generate a password.",
+        "Copy it into your password manager or sign-up form."
+      ],
+      "input": "Length and character options.",
+      "output": "A random password.",
+      "limits": "Generated with the browser's standard random function; for high-value secrets, a password manager's built-in generator is the stronger choice.",
+      "privacy": "Passwords are generated in your browser and are not sent or stored anywhere.",
+      "faq": [
+        {
+          "q": "Is the password sent to a server?",
+          "a": "No. It exists only in your browser tab until you copy it."
+        },
+        {
+          "q": "How long should a password be?",
+          "a": "At least 16 characters with mixed character types is a good default for most accounts."
+        },
+        {
+          "q": "Should I reuse a generated password?",
+          "a": "No. Use a different password for every account and keep them in a password manager."
+        }
+      ]
+    },
+    "/tools/json-formatter": {
+      "who": "Developers debugging API responses, config files and logs.",
+      "steps": [
+        "Paste JSON or open a .json file.",
+        "Choose 2 or 4 spaces of indentation.",
+        "Read the formatted output or the validation error, then copy or download it."
+      ],
+      "input": "JSON text or a .json / .txt file.",
+      "output": "Formatted, validated JSON.",
+      "limits": "Very large files depend on device memory; formatting runs in a background worker so the page stays responsive.",
+      "privacy": "Parsing and formatting run in a Web Worker in your browser; your JSON is not uploaded.",
+      "faq": [
+        {
+          "q": "Is my JSON sent anywhere?",
+          "a": "No. It is processed by a Web Worker inside your browser."
+        },
+        {
+          "q": "Does it validate JSON?",
+          "a": "Yes, invalid JSON shows an error instead of formatted output."
+        },
+        {
+          "q": "Which indentation can I use?",
+          "a": "2 or 4 spaces."
+        }
+      ]
+    },
+    "/tools/text-utilities": {
+      "who": "Writers, students and developers who need quick text counts and conversions.",
+      "steps": [
+        "Paste your text.",
+        "See word and character counts.",
+        "Switch case or encode/decode Base64 with one click."
+      ],
+      "input": "Plain text.",
+      "output": "Counts and converted text.",
+      "limits": "Base64 encoding uses the browser's btoa, which only accepts Latin-1 characters; text with emoji or non-Latin scripts shows an error.",
+      "privacy": "All processing happens in your browser.",
+      "faq": [
+        {
+          "q": "Why does Base64 fail on some text?",
+          "a": "The browser's built-in Base64 encoder only accepts Latin-1 characters, so emoji and many non-Latin scripts are rejected."
+        },
+        {
+          "q": "Is my text stored?",
+          "a": "No."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Yes."
+        }
+      ]
+    },
+    "/tools/image-resizer": {
+      "who": "Bloggers, sellers and developers who need many images at a set size or format.",
+      "steps": [
+        "Add one or many images.",
+        "Resize by percentage, width, height or exact size, and choose to keep the format or convert to PNG, JPEG or WebP.",
+        "Download the resized images."
+      ],
+      "input": "Image files your browser can open (for example JPEG, PNG, WebP).",
+      "output": "Resized images in the original format, PNG, JPEG or WebP.",
+      "limits": "Very large batches or huge images depend on device memory.",
+      "privacy": "Images are resized with the browser's canvas on your device; they are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my images uploaded?",
+          "a": "No. Resizing happens in your browser tab."
+        },
+        {
+          "q": "Can I convert formats at the same time?",
+          "a": "Yes: keep the original format or export as PNG, JPEG or WebP, with a quality setting for JPEG and WebP."
+        },
+        {
+          "q": "How many images can I resize at once?",
+          "a": "There is no fixed limit; it depends on your device's memory."
+        }
+      ]
+    },
+    "/tools/image-compressor": {
+      "who": "Website owners, bloggers and anyone who needs smaller image files.",
+      "steps": [
+        "Add one or more images.",
+        "Choose the output format and quality.",
+        "Compare the sizes and download."
+      ],
+      "input": "Image files your browser can open (for example JPEG, PNG, WebP).",
+      "output": "Compressed JPEG or WebP images.",
+      "limits": "Compression is lossy; lower quality settings make smaller but softer images.",
+      "privacy": "Compression runs in your browser; images are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my images uploaded?",
+          "a": "No. Everything runs on your device."
+        },
+        {
+          "q": "Which formats can it export?",
+          "a": "JPEG and WebP."
+        },
+        {
+          "q": "Will quality drop?",
+          "a": "Lossy compression always removes some detail; at high quality settings the difference is usually hard to see."
+        }
+      ]
+    },
+    "/tools/bulk-image-enhancer": {
+      "who": "Photographers, sellers and social media managers editing many photos the same way.",
+      "steps": [
+        "Add your photos (or try the sample photos).",
+        "Adjust brightness, contrast, saturation and other filters, or apply a preset and a text watermark.",
+        "Export all edited photos."
+      ],
+      "input": "Image files.",
+      "output": "Edited images with the same settings applied to all.",
+      "limits": "Edits are filter adjustments, not AI retouching. Large batches depend on device memory.",
+      "privacy": "Your photos are edited in your browser and not uploaded. The optional sample photos are loaded from Unsplash.",
+      "faq": [
+        {
+          "q": "Are my photos uploaded?",
+          "a": "No. Filters are applied with your browser's canvas."
+        },
+        {
+          "q": "Can I add a watermark?",
+          "a": "Yes, a text watermark with colour, opacity and position settings."
+        },
+        {
+          "q": "Where do the sample photos come from?",
+          "a": "From Unsplash, loaded only if you use them."
+        }
+      ]
+    },
+    "/tools/background-remover": {
+      "who": "Sellers, designers and social media users who need a cut-out of a person or product.",
+      "steps": [
+        "Add an image.",
+        "Wait while the on-device AI model separates the subject from the background.",
+        "Choose transparent, colour or styled background and download PNG or JPG."
+      ],
+      "input": "Image files.",
+      "output": "PNG with transparency, or JPG with a new background.",
+      "limits": "First run downloads the AI model (tens of megabytes). Fine hair and low-contrast edges may need a retry with a clearer photo.",
+      "privacy": "Background removal runs on your device with the open-source IMG.LY background-removal model, downloaded from staticimgly.com on first use. Your image is not uploaded.",
+      "pageHasFaqMicrodata": true,
+      "faq": [
+        {
+          "q": "Is my photo uploaded for AI processing?",
+          "a": "No. The AI model runs in your browser; only the model files are downloaded."
+        },
+        {
+          "q": "Why is the first run slow?",
+          "a": "The model has to be downloaded once; the browser caches it for later use."
+        },
+        {
+          "q": "Which formats can I download?",
+          "a": "PNG with a transparent background, or JPG with the background you choose."
+        }
+      ]
+    },
+    "/tools/audio-merger": {
+      "who": "Podcasters, musicians and anyone joining voice notes or audio clips into one file.",
+      "steps": [
+        "Add the audio files.",
+        "Drag them into the order you want.",
+        "Merge and download as MP3 or WAV."
+      ],
+      "input": "Audio files your browser can decode (for example MP3, WAV, OGG, M4A, WebM).",
+      "output": "One merged MP3 or WAV file.",
+      "limits": "Very long recordings need enough device memory. Files are joined end to end without crossfades.",
+      "privacy": "Decoding, joining and encoding run in your browser (Web Audio API and the lamejs MP3 encoder). Files are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my recordings uploaded?",
+          "a": "No. All audio processing happens on your device."
+        },
+        {
+          "q": "Which output formats are available?",
+          "a": "MP3 or WAV."
+        },
+        {
+          "q": "Can I change the order of the clips?",
+          "a": "Yes, drag the tracks into the order you want before merging."
+        }
+      ]
+    },
+    "/tools/pdf-compressor": {
+      "who": "Anyone who needs to email or upload a PDF that is too large.",
+      "steps": [
+        "Add one or more PDF files.",
+        "Choose lossless optimisation, or smart mode with a quality preset to re-encode embedded photos.",
+        "Preview the result, rename it and download."
+      ],
+      "input": "PDF files.",
+      "output": "Smaller PDF files.",
+      "limits": "Smart mode re-encodes embedded photos at lower quality and resolution, so it saves most on scans and photo-heavy PDFs; text-only PDFs shrink little.",
+      "privacy": "PDFs are processed in your browser (pdf-lib and PDF.js); they are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my PDFs uploaded?",
+          "a": "No. Compression runs on your device."
+        },
+        {
+          "q": "What is the difference between the modes?",
+          "a": "Lossless optimisation rewrites the file without changing any pixel or character. Smart mode re-encodes the embedded photos at the quality preset you choose, which shrinks scans and photo-heavy PDFs much more."
+        },
+        {
+          "q": "Can I rename the output?",
+          "a": "Yes, every output file can be renamed before download."
+        }
+      ]
+    },
+    "/tools/file-to-pdf": {
+      "who": "Students, office workers and anyone who needs a PDF from images, spreadsheets or documents.",
+      "steps": [
+        "Add images, CSV, Excel, Word or text files.",
+        "Rename each output if you like.",
+        "Download one PDF at a time or all as a ZIP."
+      ],
+      "input": "Images (JPG, PNG, WebP, GIF, BMP), CSV/TSV, Excel (.xlsx, .xls), Word (.docx) and text (.txt, .md, .json).",
+      "output": "PDF files (single or zipped).",
+      "limits": "Word conversion keeps text and basic structure, not exact page layout. Each Excel sheet becomes its own page.",
+      "privacy": "Conversion runs in your browser; files are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my files uploaded?",
+          "a": "No. Every file is converted on your device."
+        },
+        {
+          "q": "Will a Word file look exactly the same?",
+          "a": "Not always. Text and basic structure are kept, but complex layouts, fonts and floating images may change."
+        },
+        {
+          "q": "Can I convert many files at once?",
+          "a": "Yes, and download them together as a ZIP."
+        }
+      ]
+    },
+    "/tools/pdf-merger": {
+      "who": "Anyone combining several PDFs, such as scans, invoices or chapters, into one document.",
+      "steps": [
+        "Add the PDF files.",
+        "Put them in the right order.",
+        "Merge and download one PDF."
+      ],
+      "input": "PDF files.",
+      "output": "One merged PDF.",
+      "limits": "Password-protected PDFs may not merge. Large files depend on device memory.",
+      "privacy": "Merging runs in your browser with pdf-lib; files are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my PDFs uploaded?",
+          "a": "No. They are merged on your device."
+        },
+        {
+          "q": "Can I change the order?",
+          "a": "Yes, arrange the files before merging."
+        },
+        {
+          "q": "Do encrypted PDFs work?",
+          "a": "Password-protected files may fail; remove the password first with software you trust."
+        }
+      ]
+    },
+    "/tools/event-slideshow": {
+      "who": "Families and event hosts who want to show wedding, birthday or event photos and videos on a big screen.",
+      "steps": [
+        "Choose the folder of photos and videos from your device.",
+        "Add optional background music and title cards.",
+        "Play the full-screen slideshow with crossfades and slow zoom."
+      ],
+      "input": "Photos and videos from your device; optional music file.",
+      "output": "A full-screen slideshow played in the browser.",
+      "limits": "Plays in the browser; it does not export a video file.",
+      "privacy": "Your photos, videos and music are read from your device by the browser and are not uploaded.",
+      "faq": [
+        {
+          "q": "Are my event photos uploaded?",
+          "a": "No. The slideshow reads them directly from your device."
+        },
+        {
+          "q": "Can I export the slideshow as a video?",
+          "a": "No, it plays live in the browser. Use screen recording if you need a file."
+        },
+        {
+          "q": "Can I add music?",
+          "a": "Yes, pick an audio file from your device to play in the background."
+        }
+      ]
+    }
+  }
+}

@@ -66,11 +66,13 @@ import TicTacToe from './pages/Games/TicTacToe';
 import TraceMaster from './pages/Games/TraceMaster';
 import HoopShot from './pages/Games/HoopShot';
 import NotFound from './pages/NotFound';
+import WebMcpBridge from './components/WebMcpBridge';
 
 export default function App() {
   return (
     <Router>
       <ScrollToTop />
+      <WebMcpBridge />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tools" element={<ToolsList />} />

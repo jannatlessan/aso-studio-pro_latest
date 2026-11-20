@@ -1,0 +1,655 @@
+# ShaadDev Studio: full tool reference
+
+> ShaadDev Studio is a collection of free, browser-based tools for images, video, audio, PDFs, text and design, plus small browser games and mobile apps by the studio. No account is needed. Most tools process your files inside your own browser tab instead of uploading them.
+
+Every page loads Google Analytics to count visits. File contents and text you enter in a tool are not sent to it.
+
+## GIF Online Viewer
+
+URL: https://shaaddev.studio/tools/gif-viewer
+Category: Images & Media
+Upload any GIF to pause, scrub frame-by-frame, and extract absolute high-definition PNG frame slices locally.
+
+- Who it is for: Designers, meme makers and developers who need to inspect or extract frames from an animated GIF.
+- Input: Animated GIF files.
+- Output: PNG frames; MP4 video.
+- Limits: Long or very large GIFs use a lot of memory; speed depends on your device. Needs a modern desktop or mobile browser.
+- Privacy: The GIF is decoded and converted in your browser. On first use the page downloads the open-source ffmpeg WebAssembly engine from unpkg.com; your file is not uploaded.
+
+How to use:
+1. Open a .gif file from your device.
+2. Pause, scrub or step through the animation frame by frame.
+3. Save single frames as PNG, or convert the GIF to an MP4 video.
+
+FAQ:
+- Q: Is the GIF uploaded anywhere?
+  A: No. Decoding and MP4 conversion run in your browser tab with ffmpeg compiled to WebAssembly.
+- Q: Why does the first conversion take longer?
+  A: The browser first downloads the ffmpeg engine (several megabytes) from a public CDN. Later conversions reuse it from the browser cache.
+- Q: Do I need an account?
+  A: No. The tool is free and works without signing in.
+
+## Video to GIF Maker
+
+URL: https://shaaddev.studio/tools/video-to-gif
+Category: Images & Media
+Convert any video into an exceptionally high-quality animated GIF instantly. 100% offline edge-processing running locally in your browser.
+
+- Who it is for: Creators and developers who want a short animated GIF from a video clip for chats, docs or bug reports.
+- Input: MP4, WebM, QuickTime (MOV) and M4V video.
+- Output: Animated GIF.
+- Limits: GIF is an old format: long or high-resolution clips produce large files. Conversion speed depends on your device.
+- Privacy: The video is converted in your browser with ffmpeg compiled to WebAssembly, downloaded from unpkg.com on first use. Your video is not uploaded.
+
+How to use:
+1. Choose an MP4, WebM, MOV or M4V video.
+2. Pick the start and end time, frame rate and width.
+3. Convert and download the GIF.
+
+FAQ:
+- Q: Is my video uploaded to a server?
+  A: No. Conversion runs locally in your browser tab.
+- Q: How do I keep the GIF small?
+  A: Use a shorter clip, a lower frame rate (for example 10 to 15 fps) and a smaller width.
+- Q: Is it free?
+  A: Yes, with no account and no watermark.
+
+## Video to Images
+
+URL: https://shaaddev.studio/tools/video-to-images
+Category: Images & Media
+Convert any video into a full sequence of high-quality images. Set a custom frame rate, preview every frame, and download one image or the entire batch as a ZIP.
+
+- Who it is for: Editors, researchers and developers who need still frames from a video.
+- Input: MP4, WebM, QuickTime (MOV) and M4V video.
+- Output: JPEG or PNG images, single or as a ZIP archive.
+- Limits: Up to 300 frames per extraction. Large videos need enough device memory.
+- Privacy: Frames are captured with your browser's own video decoder and canvas. Nothing is uploaded.
+
+How to use:
+1. Choose a video file (MP4, WebM, MOV or M4V).
+2. Set how many frames per second to extract and the image format.
+3. Preview the frames and download one image or all of them as a ZIP.
+
+FAQ:
+- Q: Is there a frame limit?
+  A: Yes, one extraction stops at 300 frames. Lower the frame rate or trim the time range for longer videos.
+- Q: Are my videos uploaded?
+  A: No. Extraction happens in your browser tab.
+- Q: Can I download everything at once?
+  A: Yes, the frames can be downloaded together as a single ZIP file.
+
+## QR Code Generator
+
+URL: https://shaaddev.studio/tools/qr-code-generator
+Category: Utilities
+Generate high-res QR codes instantly for URLs, text, and contact info.
+
+- Who it is for: Anyone who needs a QR code for a link, text or contact details, for print or screens.
+- Input: Any text or URL.
+- Output: PNG image of the QR code (high error correction).
+- Limits: Very long text makes a dense code that is harder to scan; keep links short.
+- Privacy: The QR code is drawn in your browser; the text you enter is not sent to a server.
+
+How to use:
+1. Type or paste the URL or text.
+2. The QR code updates as you type.
+3. Export it as a PNG image.
+
+FAQ:
+- Q: Do these QR codes expire?
+  A: No. The code contains your text or link directly, there is no redirect service in between.
+- Q: Can I track scans?
+  A: No. Because there is no redirect, scans are not counted by this tool.
+- Q: Which error correction level is used?
+  A: Level H, the highest, so the code still scans when partly damaged.
+
+## Age Calculator
+
+URL: https://shaaddev.studio/tools/age-calculator
+Category: Calculators
+Calculate your exact age in years, months, days, and seconds.
+
+- Who it is for: Anyone who needs an exact age, for forms, birthdays or eligibility checks.
+- Input: A date of birth.
+- Output: Exact age in years, months and days.
+- Limits: Uses your device's current date and time zone.
+- Privacy: The calculation runs in your browser; the date is not sent anywhere.
+
+How to use:
+1. Enter the date of birth.
+2. Read the age in years, months and days.
+3. Change the date to recalculate instantly.
+
+FAQ:
+- Q: Which date is used as today?
+  A: The current date of your device.
+- Q: Is my birth date stored?
+  A: No. It is only used in the page while it is open.
+- Q: Does it handle leap years?
+  A: Yes, it works with real calendar dates, so leap years are counted.
+
+## Pomodoro Timer
+
+URL: https://shaaddev.studio/tools/pomodoro-timer
+Category: Utilities
+Boost productivity with our sleek customizable Pomodoro technique timer.
+
+- Who it is for: Students and professionals who work in focused time blocks.
+- Input: None.
+- Output: A countdown with an alert when a focus or break period ends.
+- Limits: The tab must stay open; browsers may slow timers in background tabs.
+- Privacy: Runs entirely in your browser; nothing is stored on a server.
+
+How to use:
+1. Start a 25-minute focus session.
+2. Take a 5-minute break when the timer ends.
+3. Repeat, resetting the timer when needed.
+
+FAQ:
+- Q: How long are the sessions?
+  A: 25 minutes of focus and 5 minutes of break, the classic Pomodoro rhythm.
+- Q: Will it alert me?
+  A: Yes, the page shows an alert when a period ends while the tab is open.
+- Q: Do I need to sign up?
+  A: No.
+
+## Unit Converter
+
+URL: https://shaaddev.studio/tools/unit-converter
+Category: Calculators
+Convert length, weight, temperature, data, and more effortlessly.
+
+- Who it is for: Students, cooks, travellers and engineers converting everyday measurements.
+- Input: A number and two units.
+- Output: The converted value.
+- Limits: Covers length, weight and temperature.
+- Privacy: Calculations run in your browser.
+
+How to use:
+1. Choose a category: length, weight or temperature.
+2. Enter a value and pick the from and to units.
+3. Read the converted value instantly.
+
+FAQ:
+- Q: Which categories are supported?
+  A: Length, weight and temperature.
+- Q: Is temperature conversion exact?
+  A: Yes, it uses the standard Celsius, Fahrenheit and Kelvin formulas rather than a ratio.
+- Q: Does it work offline?
+  A: Once the page has loaded, conversions do not need the network.
+
+## Color Palette Gen
+
+URL: https://shaaddev.studio/tools/color-palette
+Category: Design
+Create beautiful trending color schemes for your UI/UX designs.
+
+- Who it is for: Designers and developers looking for colour ideas for a UI, brand or illustration.
+- Input: None.
+- Output: Five random hex colours per palette.
+- Limits: Colours are random, not checked for contrast or accessibility; test text contrast separately.
+- Privacy: Runs in your browser.
+
+How to use:
+1. Open the tool to get a palette of five colours.
+2. Generate new palettes until one fits.
+3. Copy the hex codes you want.
+
+FAQ:
+- Q: How are the colours chosen?
+  A: Each of the five colours is a random hex value. Generate again for a new set.
+- Q: Are the palettes accessible?
+  A: Not automatically. Check text and background pairs with a contrast checker before use.
+- Q: Can I use the colours commercially?
+  A: Yes, colour values are not owned by anyone.
+
+## CSS Gradient Generator
+
+URL: https://shaaddev.studio/tools/css-gradient
+Category: Design
+Visually create and export fluid CSS linear gradients instantly.
+
+- Who it is for: Front-end developers and designers who need a CSS linear gradient.
+- Input: Two colours and an angle.
+- Output: A CSS linear-gradient() declaration with a live preview.
+- Limits: Two-stop linear gradients only.
+- Privacy: Runs in your browser.
+
+How to use:
+1. Pick two colours.
+2. Set the angle.
+3. Copy the generated CSS.
+
+FAQ:
+- Q: What CSS does it produce?
+  A: A standard linear-gradient(angle, colour1 0%, colour2 100%) value that works in all modern browsers.
+- Q: Can I add more colour stops?
+  A: Not in this tool; it creates two-colour linear gradients.
+- Q: Is it free?
+  A: Yes.
+
+## Lorem Ipsum Generator
+
+URL: https://shaaddev.studio/tools/lorem-ipsum
+Category: Text
+Generate customizable, high-quality placeholder dummy text.
+
+- Who it is for: Designers and developers filling mockups and layouts with placeholder text.
+- Input: Number of paragraphs.
+- Output: Random Lorem Ipsum paragraphs.
+- Limits: Text is random Latin-like filler and has no meaning.
+- Privacy: Generated in your browser.
+
+How to use:
+1. Choose how many paragraphs you need.
+2. Generate the text.
+3. Copy it into your design or code.
+
+FAQ:
+- Q: Is the text real Latin?
+  A: No. It is shuffled Lorem Ipsum words meant only as visual filler.
+- Q: Why use placeholder text?
+  A: It shows how a layout looks with text without readers focusing on the content.
+- Q: Is it free?
+  A: Yes.
+
+## Markdown to HTML
+
+URL: https://shaaddev.studio/tools/markdown-to-html
+Category: Development
+Convert Markdown strings into clean, formatted HTML code instantly.
+
+- Who it is for: Writers and developers converting Markdown into HTML for websites, emails or CMS fields.
+- Input: Markdown text.
+- Output: HTML code (copy or .html download).
+- Limits: Uses the marked library's standard Markdown rules; check custom extensions before relying on them.
+- Privacy: Conversion runs in your browser; your text is not uploaded.
+
+How to use:
+1. Paste or type Markdown.
+2. See the HTML and a preview update.
+3. Copy the HTML or download it as an .html file.
+
+FAQ:
+- Q: Which Markdown flavour is supported?
+  A: Standard Markdown with common GitHub-style additions as handled by the open-source marked library.
+- Q: Can I download the result?
+  A: Yes, as markdown-export.html, or copy it to the clipboard.
+- Q: Is my text stored?
+  A: No.
+
+## Percentage Calculator
+
+URL: https://shaaddev.studio/tools/percentage-calculator
+Category: Calculators
+Calculate percentage changes, discounts, tips, and financial math safely.
+
+- Who it is for: Shoppers, students and anyone working out percentages, discounts or changes.
+- Input: Numbers.
+- Output: The percentage result.
+- Limits: Results are rounded for display.
+- Privacy: Calculations run in your browser.
+
+How to use:
+1. Enter the numbers in the calculation you need.
+2. Read the result instantly.
+3. Change any number to recalculate.
+
+FAQ:
+- Q: What can it calculate?
+  A: What X% of a number is, and what percentage one number is of another.
+- Q: Are my numbers saved?
+  A: No.
+- Q: Is it free?
+  A: Yes.
+
+## YT Thumbnail Saver
+
+URL: https://shaaddev.studio/tools/yt-thumbnail
+Category: Utilities
+Fetch max-resolution YouTube video thumbnails directly to your device.
+
+- Who it is for: Creators and marketers who need the thumbnail image of a YouTube video.
+- Input: A YouTube video URL.
+- Output: The video's thumbnail images (maxresdefault and hqdefault).
+- Limits: Some videos have no max-resolution thumbnail; use the high-quality one then. Respect the creator's rights when reusing thumbnails.
+- Privacy: The thumbnail images are loaded directly from img.youtube.com by your browser; the link is not sent to ShaadDev Studio servers.
+
+How to use:
+1. Paste a YouTube video link.
+2. The tool shows the maximum-resolution and high-quality thumbnails.
+3. Open or save the image you need.
+
+FAQ:
+- Q: Why is the max-resolution image missing for some videos?
+  A: YouTube only creates it when the video was uploaded in high resolution. The high-quality version is always available.
+- Q: Can I reuse any thumbnail?
+  A: Thumbnails belong to the video's creator. Get permission before reusing them commercially.
+- Q: Does it need an API key or account?
+  A: No.
+
+## ASO Screenshot Pro
+
+URL: https://shaaddev.studio/tools/aso-screenshot
+Category: Design
+Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes.
+
+- Who it is for: App developers and marketers making App Store and Google Play screenshots.
+- Input: Your app screenshots (images).
+- Output: Store-ready PNG screenshots.
+- Limits: Check each store's current size rules before upload; this tool does not submit anything to a store.
+- Privacy: Rendering happens in your browser. Your project is saved in this browser's local storage so you can continue later; images are not uploaded. Fonts are loaded from Google Fonts.
+
+How to use:
+1. Add your app screenshots.
+2. Choose a layout, device size, headline text and colours.
+3. Export the finished screenshots as PNG files (zipped for a batch).
+
+FAQ:
+- Q: Are my screenshots uploaded?
+  A: No. They are composed and exported in your browser.
+- Q: Is my work saved?
+  A: Yes, in this browser's local storage on your device. Clearing site data removes it.
+- Q: Does it publish to the stores?
+  A: No. You download the images and upload them in App Store Connect or Play Console yourself.
+
+## Secure Password Generator
+
+URL: https://shaaddev.studio/tools/password-generator
+Category: Utilities
+Instantly create strong, random, and highly secure passwords with customizable parameters to keep data safe.
+
+- Who it is for: Anyone creating a new password for an account.
+- Input: Length and character options.
+- Output: A random password.
+- Limits: Generated with the browser's standard random function; for high-value secrets, a password manager's built-in generator is the stronger choice.
+- Privacy: Passwords are generated in your browser and are not sent or stored anywhere.
+
+How to use:
+1. Set the length and the character types (letters, numbers, symbols).
+2. Generate a password.
+3. Copy it into your password manager or sign-up form.
+
+FAQ:
+- Q: Is the password sent to a server?
+  A: No. It exists only in your browser tab until you copy it.
+- Q: How long should a password be?
+  A: At least 16 characters with mixed character types is a good default for most accounts.
+- Q: Should I reuse a generated password?
+  A: No. Use a different password for every account and keep them in a password manager.
+
+## JSON Formatter
+
+URL: https://shaaddev.studio/tools/json-formatter
+Category: Development
+Quickly format, validate, and beautify your raw JSON responses. Perfect for debugging messy API payloads.
+
+- Who it is for: Developers debugging API responses, config files and logs.
+- Input: JSON text or a .json / .txt file.
+- Output: Formatted, validated JSON.
+- Limits: Very large files depend on device memory; formatting runs in a background worker so the page stays responsive.
+- Privacy: Parsing and formatting run in a Web Worker in your browser; your JSON is not uploaded.
+
+How to use:
+1. Paste JSON or open a .json file.
+2. Choose 2 or 4 spaces of indentation.
+3. Read the formatted output or the validation error, then copy or download it.
+
+FAQ:
+- Q: Is my JSON sent anywhere?
+  A: No. It is processed by a Web Worker inside your browser.
+- Q: Does it validate JSON?
+  A: Yes, invalid JSON shows an error instead of formatted output.
+- Q: Which indentation can I use?
+  A: 2 or 4 spaces.
+
+## Text Utilities
+
+URL: https://shaaddev.studio/tools/text-utilities
+Category: Text
+A complete suite for your text: word count, character count, case switching, and Base64 encoding/decoding.
+
+- Who it is for: Writers, students and developers who need quick text counts and conversions.
+- Input: Plain text.
+- Output: Counts and converted text.
+- Limits: Base64 encoding uses the browser's btoa, which only accepts Latin-1 characters; text with emoji or non-Latin scripts shows an error.
+- Privacy: All processing happens in your browser.
+
+How to use:
+1. Paste your text.
+2. See word and character counts.
+3. Switch case or encode/decode Base64 with one click.
+
+FAQ:
+- Q: Why does Base64 fail on some text?
+  A: The browser's built-in Base64 encoder only accepts Latin-1 characters, so emoji and many non-Latin scripts are rejected.
+- Q: Is my text stored?
+  A: No.
+- Q: Is it free?
+  A: Yes.
+
+## Bulk Image Resizer
+
+URL: https://shaaddev.studio/tools/image-resizer
+Category: Images & Media
+Batch resize multiple images at once instantly in your browser without uploading to any server.
+
+- Who it is for: Bloggers, sellers and developers who need many images at a set size or format.
+- Input: Image files your browser can open (for example JPEG, PNG, WebP).
+- Output: Resized images in the original format, PNG, JPEG or WebP.
+- Limits: Very large batches or huge images depend on device memory.
+- Privacy: Images are resized with the browser's canvas on your device; they are not uploaded.
+
+How to use:
+1. Add one or many images.
+2. Resize by percentage, width, height or exact size, and choose to keep the format or convert to PNG, JPEG or WebP.
+3. Download the resized images.
+
+FAQ:
+- Q: Are my images uploaded?
+  A: No. Resizing happens in your browser tab.
+- Q: Can I convert formats at the same time?
+  A: Yes: keep the original format or export as PNG, JPEG or WebP, with a quality setting for JPEG and WebP.
+- Q: How many images can I resize at once?
+  A: There is no fixed limit; it depends on your device's memory.
+
+## Smart Image Compressor
+
+URL: https://shaaddev.studio/tools/image-compressor
+Category: Images & Media
+Compress JPEG, PNG, and WebP images locally with maximum size savings and zero visible quality loss.
+
+- Who it is for: Website owners, bloggers and anyone who needs smaller image files.
+- Input: Image files your browser can open (for example JPEG, PNG, WebP).
+- Output: Compressed JPEG or WebP images.
+- Limits: Compression is lossy; lower quality settings make smaller but softer images.
+- Privacy: Compression runs in your browser; images are not uploaded.
+
+How to use:
+1. Add one or more images.
+2. Choose the output format and quality.
+3. Compare the sizes and download.
+
+FAQ:
+- Q: Are my images uploaded?
+  A: No. Everything runs on your device.
+- Q: Which formats can it export?
+  A: JPEG and WebP.
+- Q: Will quality drop?
+  A: Lossy compression always removes some detail; at high quality settings the difference is usually hard to see.
+
+## Bulk Image Enhancer
+
+URL: https://shaaddev.studio/tools/bulk-image-enhancer
+Category: Images & Media
+Edit bulk images quickly. Apply Brightness, Contrast, Saturation, and other real-time filters instantly to all your photos.
+
+- Who it is for: Photographers, sellers and social media managers editing many photos the same way.
+- Input: Image files.
+- Output: Edited images with the same settings applied to all.
+- Limits: Edits are filter adjustments, not AI retouching. Large batches depend on device memory.
+- Privacy: Your photos are edited in your browser and not uploaded. The optional sample photos are loaded from Unsplash.
+
+How to use:
+1. Add your photos (or try the sample photos).
+2. Adjust brightness, contrast, saturation and other filters, or apply a preset and a text watermark.
+3. Export all edited photos.
+
+FAQ:
+- Q: Are my photos uploaded?
+  A: No. Filters are applied with your browser's canvas.
+- Q: Can I add a watermark?
+  A: Yes, a text watermark with colour, opacity and position settings.
+- Q: Where do the sample photos come from?
+  A: From Unsplash, loaded only if you use them.
+
+## AuraCut AI
+
+URL: https://shaaddev.studio/tools/background-remover
+Category: Images & Media
+Instantly isolate backgrounds using our local neural engine. Features DP Makers, layer filters, and pro studio drop-shadows.
+
+- Who it is for: Sellers, designers and social media users who need a cut-out of a person or product.
+- Input: Image files.
+- Output: PNG with transparency, or JPG with a new background.
+- Limits: First run downloads the AI model (tens of megabytes). Fine hair and low-contrast edges may need a retry with a clearer photo.
+- Privacy: Background removal runs on your device with the open-source IMG.LY background-removal model, downloaded from staticimgly.com on first use. Your image is not uploaded.
+
+How to use:
+1. Add an image.
+2. Wait while the on-device AI model separates the subject from the background.
+3. Choose transparent, colour or styled background and download PNG or JPG.
+
+FAQ:
+- Q: Is my photo uploaded for AI processing?
+  A: No. The AI model runs in your browser; only the model files are downloaded.
+- Q: Why is the first run slow?
+  A: The model has to be downloaded once; the browser caches it for later use.
+- Q: Which formats can I download?
+  A: PNG with a transparent background, or JPG with the background you choose.
+
+## Audio Merger Pro
+
+URL: https://shaaddev.studio/tools/audio-merger
+Category: Documents & Files
+Merge multiple audio files (MP3, WAV, M4A) securely in your browser without uploading data to servers.
+
+- Who it is for: Podcasters, musicians and anyone joining voice notes or audio clips into one file.
+- Input: Audio files your browser can decode (for example MP3, WAV, OGG, M4A, WebM).
+- Output: One merged MP3 or WAV file.
+- Limits: Very long recordings need enough device memory. Files are joined end to end without crossfades.
+- Privacy: Decoding, joining and encoding run in your browser (Web Audio API and the lamejs MP3 encoder). Files are not uploaded.
+
+How to use:
+1. Add the audio files.
+2. Drag them into the order you want.
+3. Merge and download as MP3 or WAV.
+
+FAQ:
+- Q: Are my recordings uploaded?
+  A: No. All audio processing happens on your device.
+- Q: Which output formats are available?
+  A: MP3 or WAV.
+- Q: Can I change the order of the clips?
+  A: Yes, drag the tracks into the order you want before merging.
+
+## Smart PDF Compressor
+
+URL: https://shaaddev.studio/tools/pdf-compressor
+Category: Documents & Files
+Shrink PDF files offline with lossless optimization or smart photo compression. Preview results and rename every output before downloading.
+
+- Who it is for: Anyone who needs to email or upload a PDF that is too large.
+- Input: PDF files.
+- Output: Smaller PDF files.
+- Limits: Smart mode re-encodes embedded photos at lower quality and resolution, so it saves most on scans and photo-heavy PDFs; text-only PDFs shrink little.
+- Privacy: PDFs are processed in your browser (pdf-lib and PDF.js); they are not uploaded.
+
+How to use:
+1. Add one or more PDF files.
+2. Choose lossless optimisation, or smart mode with a quality preset to re-encode embedded photos.
+3. Preview the result, rename it and download.
+
+FAQ:
+- Q: Are my PDFs uploaded?
+  A: No. Compression runs on your device.
+- Q: What is the difference between the modes?
+  A: Lossless optimisation rewrites the file without changing any pixel or character. Smart mode re-encodes the embedded photos at the quality preset you choose, which shrinks scans and photo-heavy PDFs much more.
+- Q: Can I rename the output?
+  A: Yes, every output file can be renamed before download.
+
+## File to PDF Converter
+
+URL: https://shaaddev.studio/tools/file-to-pdf
+Category: Documents & Files
+Convert images, CSV, Excel, Word (.docx), and text files into clean PDFs. Rename every output and download one at a time or all as a ZIP — 100% offline.
+
+- Who it is for: Students, office workers and anyone who needs a PDF from images, spreadsheets or documents.
+- Input: Images (JPG, PNG, WebP, GIF, BMP), CSV/TSV, Excel (.xlsx, .xls), Word (.docx) and text (.txt, .md, .json).
+- Output: PDF files (single or zipped).
+- Limits: Word conversion keeps text and basic structure, not exact page layout. Each Excel sheet becomes its own page.
+- Privacy: Conversion runs in your browser; files are not uploaded.
+
+How to use:
+1. Add images, CSV, Excel, Word or text files.
+2. Rename each output if you like.
+3. Download one PDF at a time or all as a ZIP.
+
+FAQ:
+- Q: Are my files uploaded?
+  A: No. Every file is converted on your device.
+- Q: Will a Word file look exactly the same?
+  A: Not always. Text and basic structure are kept, but complex layouts, fonts and floating images may change.
+- Q: Can I convert many files at once?
+  A: Yes, and download them together as a ZIP.
+
+## Secure PDF Merger
+
+URL: https://shaaddev.studio/tools/pdf-merger
+Category: Documents & Files
+Combine multiple PDF documents into a single file quickly, securely, and completely offline.
+
+- Who it is for: Anyone combining several PDFs, such as scans, invoices or chapters, into one document.
+- Input: PDF files.
+- Output: One merged PDF.
+- Limits: Password-protected PDFs may not merge. Large files depend on device memory.
+- Privacy: Merging runs in your browser with pdf-lib; files are not uploaded.
+
+How to use:
+1. Add the PDF files.
+2. Put them in the right order.
+3. Merge and download one PDF.
+
+FAQ:
+- Q: Are my PDFs uploaded?
+  A: No. They are merged on your device.
+- Q: Can I change the order?
+  A: Yes, arrange the files before merging.
+- Q: Do encrypted PDFs work?
+  A: Password-protected files may fail; remove the password first with software you trust.
+
+## Event Slideshow
+
+URL: https://shaaddev.studio/tools/event-slideshow
+Category: Images & Media
+Turn your event folders into a full-screen slideshow with crossfade transitions, slow zoom/pan on photos, background music, and title cards. Works for weddings, birthdays, or any occasion.
+
+- Who it is for: Families and event hosts who want to show wedding, birthday or event photos and videos on a big screen.
+- Input: Photos and videos from your device; optional music file.
+- Output: A full-screen slideshow played in the browser.
+- Limits: Plays in the browser; it does not export a video file.
+- Privacy: Your photos, videos and music are read from your device by the browser and are not uploaded.
+
+How to use:
+1. Choose the folder of photos and videos from your device.
+2. Add optional background music and title cards.
+3. Play the full-screen slideshow with crossfades and slow zoom.
+
+FAQ:
+- Q: Are my event photos uploaded?
+  A: No. The slideshow reads them directly from your device.
+- Q: Can I export the slideshow as a video?
+  A: No, it plays live in the browser. Use screen recording if you need a file.
+- Q: Can I add music?
+  A: Yes, pick an audio file from your device to play in the background.

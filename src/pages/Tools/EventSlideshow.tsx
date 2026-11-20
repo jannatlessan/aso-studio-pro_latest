@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChevronLeft, Sparkles } from 'lucide-react';
 import SEO from '../../components/SEO';
+import ToolFacts from '../../components/ToolFacts';
 
 export default function EventSlideshow() {
   return (
@@ -35,6 +36,9 @@ export default function EventSlideshow() {
         className="w-full flex-1 border-0"
         style={{ minHeight: 'calc(100vh - 64px)' }}
       />
+      <div className="max-w-4xl mx-auto w-full px-4 sm:px-8 pb-16">
+        <ToolFacts currentPath="/tools/event-slideshow" />
+      </div>
     </div>
   );
 }

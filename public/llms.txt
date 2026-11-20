@@ -1,0 +1,63 @@
+# ShaadDev Studio
+
+> ShaadDev Studio is a collection of free, browser-based tools for images, video, audio, PDFs, text and design, plus small browser games and mobile apps by the studio. No account is needed. Most tools process your files inside your own browser tab instead of uploading them.
+
+Every tool is free and runs in a modern web browser; no sign-in is needed. Each tool page has a "Quick facts" section (input, output, limits, privacy) and an FAQ. Full details for every tool: https://shaaddev.studio/llms-full.txt
+
+## Images & Media
+
+- [GIF Online Viewer](https://shaaddev.studio/tools/gif-viewer): Upload any GIF to pause, scrub frame-by-frame, and extract absolute high-definition PNG frame slices locally.
+- [Video to GIF Maker](https://shaaddev.studio/tools/video-to-gif): Convert any video into an exceptionally high-quality animated GIF instantly. 100% offline edge-processing running locally in your browser.
+- [Video to Images](https://shaaddev.studio/tools/video-to-images): Convert any video into a full sequence of high-quality images. Set a custom frame rate, preview every frame, and download one image or the entire batch as a ZIP.
+- [Bulk Image Resizer](https://shaaddev.studio/tools/image-resizer): Batch resize multiple images at once instantly in your browser without uploading to any server.
+- [Smart Image Compressor](https://shaaddev.studio/tools/image-compressor): Compress JPEG, PNG, and WebP images locally with maximum size savings and zero visible quality loss.
+- [Bulk Image Enhancer](https://shaaddev.studio/tools/bulk-image-enhancer): Edit bulk images quickly. Apply Brightness, Contrast, Saturation, and other real-time filters instantly to all your photos.
+- [AuraCut AI](https://shaaddev.studio/tools/background-remover): Instantly isolate backgrounds using our local neural engine. Features DP Makers, layer filters, and pro studio drop-shadows.
+- [Event Slideshow](https://shaaddev.studio/tools/event-slideshow): Turn your event folders into a full-screen slideshow with crossfade transitions, slow zoom/pan on photos, background music, and title cards. Works for weddings, birthdays, or any occasion.
+
+## Utilities
+
+- [QR Code Generator](https://shaaddev.studio/tools/qr-code-generator): Generate high-res QR codes instantly for URLs, text, and contact info.
+- [Pomodoro Timer](https://shaaddev.studio/tools/pomodoro-timer): Boost productivity with our sleek customizable Pomodoro technique timer.
+- [YT Thumbnail Saver](https://shaaddev.studio/tools/yt-thumbnail): Fetch max-resolution YouTube video thumbnails directly to your device.
+- [Secure Password Generator](https://shaaddev.studio/tools/password-generator): Instantly create strong, random, and highly secure passwords with customizable parameters to keep data safe.
+
+## Calculators
+
+- [Age Calculator](https://shaaddev.studio/tools/age-calculator): Calculate your exact age in years, months, days, and seconds.
+- [Unit Converter](https://shaaddev.studio/tools/unit-converter): Convert length, weight, temperature, data, and more effortlessly.
+- [Percentage Calculator](https://shaaddev.studio/tools/percentage-calculator): Calculate percentage changes, discounts, tips, and financial math safely.
+
+## Design
+
+- [Color Palette Gen](https://shaaddev.studio/tools/color-palette): Create beautiful trending color schemes for your UI/UX designs.
+- [CSS Gradient Generator](https://shaaddev.studio/tools/css-gradient): Visually create and export fluid CSS linear gradients instantly.
+- [ASO Screenshot Pro](https://shaaddev.studio/tools/aso-screenshot): Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes.
+
+## Text
+
+- [Lorem Ipsum Generator](https://shaaddev.studio/tools/lorem-ipsum): Generate customizable, high-quality placeholder dummy text.
+- [Text Utilities](https://shaaddev.studio/tools/text-utilities): A complete suite for your text: word count, character count, case switching, and Base64 encoding/decoding.
+
+## Development
+
+- [Markdown to HTML](https://shaaddev.studio/tools/markdown-to-html): Convert Markdown strings into clean, formatted HTML code instantly.
+- [JSON Formatter](https://shaaddev.studio/tools/json-formatter): Quickly format, validate, and beautify your raw JSON responses. Perfect for debugging messy API payloads.
+
+## Documents & Files
+
+- [Audio Merger Pro](https://shaaddev.studio/tools/audio-merger): Merge multiple audio files (MP3, WAV, M4A) securely in your browser without uploading data to servers.
+- [Smart PDF Compressor](https://shaaddev.studio/tools/pdf-compressor): Shrink PDF files offline with lossless optimization or smart photo compression. Preview results and rename every output before downloading.
+- [File to PDF Converter](https://shaaddev.studio/tools/file-to-pdf): Convert images, CSV, Excel, Word (.docx), and text files into clean PDFs. Rename every output and download one at a time or all as a ZIP — 100% offline.
+- [Secure PDF Merger](https://shaaddev.studio/tools/pdf-merger): Combine multiple PDF documents into a single file quickly, securely, and completely offline.
+
+## Games
+
+- [Browser games](https://shaaddev.studio/games): 25 free casual games (puzzle, word, arcade) that run in the browser.
+
+## Optional
+
+- [About](https://shaaddev.studio/about)
+- [Contact](https://shaaddev.studio/contact)
+- [Privacy policy](https://shaaddev.studio/privacy)
+- [Tool feed (JSON)](https://shaaddev.studio/tools.json): machine-readable list of all tools and games.
