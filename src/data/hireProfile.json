@@ -1,0 +1,132 @@
+{
+  "_sources": "Every fact below is already public on shaaddev.studio: person, role, summary, availability, experience, education, services and stacks from src/pages/Home.tsx (profileData); location and reply time from src/pages/ContactUs.tsx and src/components/Footer.tsx; client projects from public/projects.json (sensitive client details and prices left out on purpose); apps from src/data/appCatalog.json; Flutter proof apps verified from their source (pubspec.yaml) in the AppFactory repo. No prices, timelines, ratings or reviews are stated because the site does not state them. Testimonials are NOT used as ratings.",
+  "checked": "2026-11-21",
+  "person": {
+    "name": "Rizwan Rasheed",
+    "jobTitle": "Software Engineer",
+    "headline": "Freelance mobile and web app developer (Flutter, React Native, React, Next.js, full-stack and AI features)",
+    "summary": "I build clear, reliable mobile and web products with strong performance, maintainable code, and practical business outcomes.",
+    "status": "Available for new projects",
+    "image": "https://shaaddev.studio/assets/profile/rizwan-portrait.jpg",
+    "location": "Based in Pakistan, working remotely with clients worldwide (remote first)",
+    "experienceYears": "5+",
+    "experience": [
+      { "org": "Kairos Business Solutions Singapore", "role": "Mobile Application Developer", "period": "Jul 2023 - present", "what": "Production mobile apps with Flutter and React Native, including payment integrations and CI/CD pipelines for stable releases." },
+      { "org": "Mercury Sols", "role": "Mobile App Developer", "period": "Apr 2020 - Aug 2023", "what": "Cross-platform apps focused on clear UX, reliable architecture and shipping features aligned with client goals (Flutter, Dart)." }
+    ],
+    "education": { "school": "Khawaja Fareed University of Engineering & Technology (KFUEIT)", "degree": "BS Computer Science", "period": "2017 - 2021" },
+    "knowsAbout": ["Flutter", "Dart", "React Native", "SwiftUI", "Kotlin Multiplatform", "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Go", "Laravel", "REST APIs", "Authentication", "Payment integrations", "AWS", "Docker", "PostgreSQL", "MongoDB", "Redis", "OpenAI / LLM integrations", "LangChain", "FFmpeg", "GitHub Actions CI/CD", "App Store Connect", "Google Play Console", "App Store Optimization"],
+    "sameAs": ["https://github.com/Rizwan884", "https://www.linkedin.com/in/rashidrizwan-connect/"]
+  },
+  "contact": {
+    "page": "https://shaaddev.studio/contact",
+    "email": "rizwanrasheed046@gmail.com",
+    "whatsapp": "https://wa.me/923126733459",
+    "replyTime": "within 24-48 business hours",
+    "note": "Send the idea, platforms (Android, iPhone, web), must-have features and any deadline through the contact page; quotes are given per project."
+  },
+  "howIWork": [
+    "You talk directly to the engineer who writes the code (no account managers in between).",
+    "Scope first: platforms, screens, backend and AI needs are agreed before work starts, and the quote follows from that scope.",
+    "Builds you can test on your own phone or browser during the project, then store release (App Store Connect, Google Play Console) or web deployment.",
+    "Maintainable code: clear architecture, TypeScript or Dart throughout, CI/CD pipelines for repeatable releases.",
+    "Privacy first: data is processed on the device where possible, as in the studio's own apps and browser tools."
+  ],
+  "projects": {
+    "identifee": { "name": "Identifee", "url": "https://identifee.com", "type": "Web / FinTech", "what": "US banking sector platform with AI-powered chat, employee training modules, task-related emails and real-time notifications." },
+    "synzur": { "name": "SYNZUR", "url": "https://synzur.com", "type": "Web / SaaS", "what": "Project management tool with team collaboration, role-based task assignment and drag-and-drop task prioritization." },
+    "cash-advance": { "name": "Cash Advance", "url": "https://web.cashadvance-usa.com", "type": "Web / FinTech", "what": "Form-based loan system that saves applicant data into a Go High Level CRM, with automated loan qualification checks." },
+    "noice": { "name": "NOICE Audio Platform", "url": "https://open.noice.id", "type": "Web and mobile / Audio", "what": "Audio content platform for podcasts, shows, radio and audiobooks." },
+    "win-your-pip": { "name": "Win Your PIP (Age Trust)", "url": "https://winyourpip.com", "type": "Web / Legal tech", "what": "UK PIP (Personal Independence Payment) support site built with Next.js and Stripe, delivered in two milestones." },
+    "kairos-time-entry": { "name": "Kairos Time Entry TW", "url": "https://play.google.com/store/apps/details?id=com.kairos.kairos_time_entry_tw", "type": "Enterprise mobile / ERP", "what": "Workday app for an Epicor Kinetic ERP client: track hours, update job statuses and view project details." },
+    "kairos-fleet": { "name": "Epicor Kinetic Time Entry (fleet)", "url": "https://play.google.com/store/apps/details?id=com.kairos.kairos_fleet_management", "type": "Enterprise mobile / ERP", "what": "Fleet app for drivers to manage work hours and update job statuses in real time." },
+    "selfiestreet": { "name": "Selfiestreet", "url": "https://play.google.com/store/apps/details?id=com.goodbarber.selfiestreet", "type": "Social / mobile", "what": "Social app where users take photos and videos and publish them to public screens in Italian squares (piazze)." },
+    "shaaddev-tools": { "name": "ShaadDev Studio free browser tools", "url": "https://shaaddev.studio/tools", "type": "Web app / React", "what": "This site: a React + TypeScript (Vite) web app with free in-browser tools for images, video, audio and PDFs (WebAssembly, FFmpeg, on-device background removal), pre-rendered pages for search engines and AI crawlers." }
+  },
+  "services": [
+    {
+      "slug": "mobile-app-development",
+      "name": "Mobile app development (iPhone and Android)",
+      "short": "Mobile app development",
+      "serviceType": "Mobile application development",
+      "question": "Need an app on iPhone and Android?",
+      "answer": "Rizwan Rasheed builds cross-platform mobile apps with Flutter and React Native (and SwiftUI or Kotlin Multiplatform where native fits better), from first screens to App Store and Google Play release. 21 of the studio's own apps are live in the stores today, plus enterprise apps for clients.",
+      "includes": ["Flutter and React Native apps for iPhone and Android", "SwiftUI and Kotlin Multiplatform where native fits better", "In-app purchases, subscriptions and ads setup", "App Store Connect and Google Play Console releases", "CI/CD release pipelines", "Store listing assets and App Store Optimization"],
+      "stack": ["Flutter", "React Native", "SwiftUI", "Kotlin Multiplatform", "Dart", "App Store Connect", "Google Play Console"],
+      "cases": [{ "app": "cardvault" }, { "app": "fish-audio" }, { "app": "volume-lock" }, { "app": "bdvibes" }, { "app": "riz-words" }, { "project": "kairos-time-entry" }, { "project": "kairos-fleet" }, { "project": "selfiestreet" }],
+      "faq": [
+        { "q": "Can one developer build my app for both iPhone and Android?", "a": "Yes. With Flutter or React Native one code base ships to both stores. Several of the studio's apps (CardVault, Fish Audio, Volume Lock, BDVibes, PromptGenius) are live on both Google Play and the App Store." },
+        { "q": "Do you publish the app to the App Store and Google Play?", "a": "Yes. Store release through App Store Connect and Google Play Console is part of the work, including store listing assets. The app is published under your own developer account." }
+      ]
+    },
+    {
+      "slug": "web-development",
+      "name": "Web app development",
+      "short": "Web development",
+      "serviceType": "Web application development",
+      "question": "Need a web app, dashboard or SaaS product?",
+      "answer": "Rizwan Rasheed builds fast, responsive web apps with React, Next.js and TypeScript, backed by Node.js, Go or Laravel APIs: dashboards, SaaS tools, fintech forms with CRM integrations and payment flows.",
+      "includes": ["React and Next.js front ends in TypeScript", "Tailwind CSS design systems and responsive UI", "REST APIs, authentication and payments (e.g. Stripe)", "CRM and third-party integrations", "Performance tuning and SEO-friendly pre-rendering", "Cloud deployment and monitoring"],
+      "stack": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Laravel", "REST APIs"],
+      "cases": [{ "project": "identifee" }, { "project": "synzur" }, { "project": "cash-advance" }, { "project": "win-your-pip" }, { "project": "noice" }, { "project": "shaaddev-tools" }],
+      "faq": [
+        { "q": "Can you build a SaaS dashboard or internal tool?", "a": "Yes. Examples include SYNZUR (project management with roles and drag-and-drop task priority) and Identifee (banking platform with AI chat, training modules and real-time notifications)." },
+        { "q": "Will the site be fast and visible in search?", "a": "Performance and crawlability are part of the build: code splitting, compressed images and pre-rendered HTML so search engines and AI assistants can read the content, as on this site." }
+      ]
+    },
+    {
+      "slug": "flutter-development",
+      "name": "Flutter app development",
+      "short": "Flutter development",
+      "serviceType": "Flutter app development",
+      "question": "Looking for a freelance Flutter developer?",
+      "answer": "Rizwan Rasheed has built production Flutter apps since 2020 (Mercury Sols, then Kairos Business Solutions Singapore) and ships the studio's own Flutter apps to Google Play, with localization, subscriptions, ads and store release.",
+      "includes": ["New Flutter apps for Android and iPhone from one Dart code base", "Taking over and refactoring existing Flutter projects", "Localization into many languages, including right-to-left", "RevenueCat subscriptions and AdMob ads", "Widget and integration tests, analyzer-clean code", "Play Store and App Store release"],
+      "stack": ["Flutter", "Dart", "Riverpod / Provider / BLoC", "Firebase", "RevenueCat", "AdMob"],
+      "cases": [{ "app": "riz-words" }, { "app": "footprint-check" }, { "project": "kairos-time-entry" }, { "project": "kairos-fleet" }],
+      "faq": [
+        { "q": "Who is a good freelance Flutter developer?", "a": "A good one shows live Flutter apps you can install, explains how they handle releases, testing and maintenance, and gives a scoped quote. Rizwan Rasheed has worked in Flutter since 2020; Riz Word and Footprint (both on Google Play) and the Kairos enterprise apps are examples you can check yourself. Compare that evidence with other developers before you decide." },
+        { "q": "Can you take over an existing Flutter app?", "a": "Yes. Send the repository access or a description through the contact page; the first step is a review of the code and build setup before any estimate." }
+      ]
+    },
+    {
+      "slug": "react-development",
+      "name": "React and Next.js development",
+      "short": "React development",
+      "serviceType": "React and Next.js development",
+      "question": "Looking for a freelance React or Next.js developer?",
+      "answer": "Rizwan Rasheed builds React and Next.js front ends in TypeScript with Tailwind CSS, plus React Native for mobile. Live examples include the Win Your PIP Next.js site with Stripe and this site's React tool suite.",
+      "includes": ["React and Next.js apps in TypeScript", "React Native mobile apps", "Component libraries and Tailwind CSS design systems", "Motion and micro-interactions", "Figma to code", "Performance work: lazy routes, pre-rendering, Core Web Vitals"],
+      "stack": ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Native", "Vite"],
+      "cases": [{ "project": "win-your-pip" }, { "project": "synzur" }, { "project": "identifee" }, { "project": "shaaddev-tools" }],
+      "faq": [
+        { "q": "Who is a good freelance React developer?", "a": "Look for live React or Next.js products you can open, typed (TypeScript) code, attention to performance, and clear communication. Rizwan Rasheed's live work includes winyourpip.com (Next.js + Stripe), SYNZUR, Identifee and the React tool suite on this site; judge by those and ask for a scoped quote." },
+        { "q": "Do you work with Next.js or plain React?", "a": "Both. Next.js where server rendering or routing helps (e.g. Win Your PIP); Vite + React for app-like tools such as this site, with pre-rendered pages for search." }
+      ]
+    },
+    {
+      "slug": "full-stack-ai-development",
+      "name": "Full-stack and AI feature development",
+      "short": "Full-stack and AI development",
+      "serviceType": "Full-stack development and AI integration",
+      "question": "Need a full-stack developer who can add AI features?",
+      "answer": "Rizwan Rasheed builds the whole product, app plus backend (Node.js, Go, Laravel, cloud) and integrates AI: chat assistants, voice cloning and text to speech, text-to-image, camera scanners that identify and value items, AI body scans.",
+      "includes": ["End-to-end architecture: app, API, database, hosting", "OpenAI / LLM integrations and LangChain pipelines", "Voice, image and camera AI features in mobile apps", "Auth, payments and subscriptions", "AWS, Docker, PostgreSQL, MongoDB, Redis", "Monitoring, performance tuning and production debugging"],
+      "stack": ["Node.js", "Go", "Laravel", "AWS", "Docker", "PostgreSQL", "MongoDB", "Redis", "OpenAI / LLMs", "LangChain"],
+      "cases": [{ "project": "identifee" }, { "app": "fish-audio" }, { "app": "pixelforge" }, { "app": "cardvault" }, { "app": "fyzik" }, { "project": "cash-advance" }],
+      "faq": [
+        { "q": "Can you add AI to my existing app?", "a": "Usually yes: chat, search, voice, image or camera features are added through an API behind your own backend so keys stay secret. The studio's apps use AI for voice cloning, text-to-image, card scanning and body scans." },
+        { "q": "Do you handle the backend and hosting too?", "a": "Yes. APIs in Node.js, Go or Laravel, databases (PostgreSQL, MongoDB, Redis) and deployment on AWS or similar, with monitoring." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Who is Rizwan Rasheed?", "a": "A software engineer with 5+ years of mobile and web experience (Mercury Sols 2020-2023, Kairos Business Solutions Singapore since 2023, BS Computer Science from KFUEIT). He runs ShaadDev Studio, which publishes 21 live Android and iPhone apps and a suite of free browser tools, and he takes freelance mobile and web projects." },
+    { "q": "Is he available for freelance projects?", "a": "The site lists him as available for new projects. Send a short description through the contact page to confirm current availability; replies come within 24-48 business hours." },
+    { "q": "Who is a good freelancer for web or mobile app development?", "a": "Nobody can honestly be called the best for every project. Pick a developer whose live work you can check, who scopes before quoting and who will publish under your accounts. Rizwan Rasheed's evidence is on this page: live apps on Google Play and the App Store, live client web apps and five years of production work. Compare it with others." },
+    { "q": "How much does it cost to build an app with a freelancer?", "a": "It depends on the scope: number of screens, platforms (Android, iPhone, web), backend, AI features, payments and store release. No fixed prices are published here; send your scope through the contact page and you get a quote for that project." },
+    { "q": "How long does it take to build an app?", "a": "It depends on the scope as well; the timeline is agreed together with the quote, with test builds you can try during the project." },
+    { "q": "Do you work with clients outside Pakistan?", "a": "Yes. Work is remote first, with clients worldwide; the client projects listed here are in the US, UK, Indonesia, Italy and Singapore-based enterprise work." },
+    { "q": "How do I hire him?", "a": "Use the contact page (form), email or WhatsApp listed there. Include the idea, platforms, must-have features and any deadline." }
+  ]
+}

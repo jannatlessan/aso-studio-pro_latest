@@ -3,16 +3,27 @@
   <head>
     <!-- Google tag (gtag.js) -->
     <script>
-      // gtag.js loads after the page's load event so it never competes with first paint;
-      // dataLayer queues the calls below until it arrives (page_view is still sent).
-      window.addEventListener('load', function () {
-        setTimeout(function () {
+      // gtag.js loads on the first user interaction, or 5 s after the load event (when idle),
+      // so it never competes with loading; dataLayer queues the calls below until it arrives.
+      (function () {
+        var done = false;
+        var evs = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+        function load() {
+          if (done) return;
+          done = true;
+          evs.forEach(function (e) { removeEventListener(e, load, true); });
           var s = document.createElement('script');
           s.async = true;
           s.src = 'https://www.googletagmanager.com/gtag/js?id=G-T911X372DP';
           document.head.appendChild(s);
-        }, 0);
-      });
+        }
+        evs.forEach(function (e) { addEventListener(e, load, { capture: true, passive: true, once: true }); });
+        addEventListener('load', function () {
+          setTimeout(function () {
+            if (window.requestIdleCallback) requestIdleCallback(load, { timeout: 3000 }); else load();
+          }, 5000);
+        });
+      })();
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -51,13 +62,9 @@
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=4" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png?v=4" />
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Non-render-blocking font CSS (display=swap): fallback fonts paint first, web fonts swap in. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap"></noscript>
+    <!-- Self-hosted fonts (src/fonts.css, font-display: swap); the hero's two faces are preloaded. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit-normal-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-normal-latin.woff2" crossorigin>
 
 
     <script>

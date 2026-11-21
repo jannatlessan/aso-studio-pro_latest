@@ -15,6 +15,12 @@ if (!existsSync(shellFile)) { console.log('prerender-home: no snapshot, skipped'
 const shell = readFileSync(shellFile, 'utf8').trim();
 const html = readFileSync(file, 'utf8');
 if (!html.includes('<div id="root"></div>')) { console.error('prerender-home: #root not found'); process.exit(1); }
-const drop = `<script>if(location.pathname!=='/')document.currentScript.previousElementSibling.remove()</script>`;
-writeFileSync(file, html.replace('<div id="root"></div>', `<div id="root"><div class="ssg ssg-home">${shell}</div>${drop}</div>`));
+// The hero sits outside #root so React never replaces it (Home.tsx keeps the node and renders the
+// rest of the page). min-h-screen is dropped from the static wrapper so no gap appears below it.
+const m = shell.match(/^<div class="([^"]*)">/);
+if (!m) { console.error('prerender-home: unexpected snapshot root'); process.exit(1); }
+const cls = m[1].split(/\s+/).filter((c) => c !== 'min-h-screen').join(' ');
+const hero = shell.replace(m[0], `<div id="ssg-hero" class="${cls}">`);
+const drop = `<script>if(location.pathname!=='/')document.getElementById('ssg-hero').remove()</script>`;
+writeFileSync(file, html.replace('<div id="root"></div>', `${hero}${drop}<div id="root"></div>`));
 console.log(`prerender-home: hero ${shell.length} bytes`);

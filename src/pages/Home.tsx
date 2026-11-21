@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import { useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, useLayoutEffect, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import {
@@ -161,51 +161,48 @@ const profileData = {
   ]
 };
 
-// The hero is pre-rendered into index.html (scripts/prerender-home.mjs) so it paints before JS.
-// When React mounts over that static copy, the hero skips its entry animation (no fade-out/in flash).
-const FROM_SSG = typeof document !== 'undefined' && !!document.querySelector('#root > .ssg-home');
 const RIZWAN_ULTRA_IMAGE_URL = '/assets/profile/rizwan-portrait.jpg';
 const PLAY_STORE_ICON_URL = '/assets/icons/google-play.svg';
 const APP_STORE_ICON_URL = '/assets/icons/app-store.svg';
 
 const TECH_ICON_MAP: Record<string, string> = {
-  "Flutter": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
-  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  "SwiftUI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
-  "KMP (Kotlin)": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
-  "Dart": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
+  "Flutter": "/assets/tech/flutter-flutter-original.svg",
+  "React Native": "/assets/tech/react-react-original.svg",
+  "SwiftUI": "/assets/tech/swift-swift-original.svg",
+  "KMP (Kotlin)": "/assets/tech/kotlin-kotlin-original.svg",
+  "Dart": "/assets/tech/dart-dart-original.svg",
   "App Store Connect": APP_STORE_ICON_URL,
   "Google Play Console": PLAY_STORE_ICON_URL,
-  "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  "Next.js": "https://cdn.simpleicons.org/nextdotjs",
-  "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-  "Tailwind CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
-  "Responsive UI": "https://cdn.jsdelivr.net/npm/simple-icons/icons/css3.svg",
-  "Motion / Animation": "https://cdn.simpleicons.org/framer",
-  "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  "Go": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
-  "Laravel": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
-  "REST APIs": "https://cdn.simpleicons.org/openapiinitiative",
-  "Authentication": "https://cdn.simpleicons.org/auth0",
-  "Payment Integrations": "https://cdn.simpleicons.org/stripe",
-  "End-to-End Architecture": "https://cdn.simpleicons.org/miro",
-  "CI/CD": "https://cdn.simpleicons.org/githubactions",
-  "Performance Tuning": "https://cdn.simpleicons.org/speedtest",
-  "Scalable Deployments": "https://cdn.simpleicons.org/kubernetes",
-  "Monitoring": "https://cdn.simpleicons.org/grafana",
-  "Production Debugging": "https://cdn.simpleicons.org/sentry",
-  "AWS": "https://cdn.jsdelivr.net/npm/simple-icons/icons/amazonwebservices.svg",
-  "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-  "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  "Redis": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
-  "Storage & Caching": "https://cdn.simpleicons.org/cloudflare",
-  "OpenAI / LLMs": "https://cdn.jsdelivr.net/npm/simple-icons/icons/openai.svg",
-  "LangChain": "https://cdn.simpleicons.org/langchain",
-  "FFmpeg": "https://cdn.simpleicons.org/ffmpeg",
-  "GitHub Actions": "https://cdn.simpleicons.org/githubactions",
-  "Postman": "https://cdn.simpleicons.org/postman",
-  "Figma": "https://cdn.simpleicons.org/figma"
+  "React": "/assets/tech/react-react-original.svg",
+  "Next.js": "/assets/tech/nextdotjs.svg",
+  "TypeScript": "/assets/tech/typescript-typescript-original.svg",
+  "Tailwind CSS": "/assets/tech/tailwindcss-tailwindcss-original.svg",
+  "Responsive UI": "/assets/tech/css3.svg",
+  "Motion / Animation": "/assets/tech/framer.svg",
+  "Node.js": "/assets/tech/nodejs-nodejs-original.svg",
+  "Go": "/assets/tech/go-go-original-wordmark.svg",
+  "Laravel": "/assets/tech/laravel-laravel-original.svg",
+  "REST APIs": "/assets/tech/openapiinitiative.svg",
+  "Authentication": "/assets/tech/auth0.svg",
+  "Payment Integrations": "/assets/tech/stripe.svg",
+  "End-to-End Architecture": "/assets/tech/miro.svg",
+  "CI/CD": "/assets/tech/githubactions.svg",
+  "Performance Tuning": "/assets/tech/speedtest.svg",
+  "Scalable Deployments": "/assets/tech/kubernetes.svg",
+  "Monitoring": "/assets/tech/grafana.svg",
+  "Production Debugging": "/assets/tech/sentry.svg",
+  "AWS": "/assets/tech/amazonwebservices.svg",
+  "Docker": "/assets/tech/docker-docker-original.svg",
+  "PostgreSQL": "/assets/tech/postgresql-postgresql-original.svg",
+  "MongoDB": "/assets/tech/mongodb-mongodb-original.svg",
+  "Redis": "/assets/tech/redis-redis-original.svg",
+  "Storage & Caching": "/assets/tech/cloudflare.svg",
+  "OpenAI / LLMs": "/assets/tech/openai.svg",
+  "LangChain": "/assets/tech/langchain.svg",
+  "FFmpeg": "/assets/tech/ffmpeg.svg",
+  "GitHub Actions": "/assets/tech/githubactions.svg",
+  "Postman": "/assets/tech/postman.svg",
+  "Figma": "/assets/tech/figma.svg"
 };
 
 const MARQUEE_TECH = [
@@ -256,6 +253,21 @@ export default function Home() {
     setFailedIcons((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
   };
 
+  // index.html carries a static copy of the hero (#ssg-hero, scripts/prerender-home.mjs) outside
+  // #root so it paints before any JS. React keeps that exact node (no re-render, no new LCP
+  // candidate) and renders everything below it; its own Nav replaces the static nav in the same
+  // frame. Leaving the page removes the static hero; coming back renders the React hero as usual.
+  const [staticHero] = useState<HTMLElement | null>(() =>
+    typeof document !== 'undefined' ? document.getElementById('ssg-hero') : null,
+  );
+  useLayoutEffect(() => {
+    if (!staticHero) return;
+    Array.from(staticHero.children).forEach((c) => {
+      if (c.tagName !== 'MAIN') c.remove();
+    });
+    return () => staticHero.remove();
+  }, [staticHero]);
+
   const markScreenshotFailed = (id: string) => {
     setFailedScreenshots((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
   };
@@ -298,6 +310,7 @@ export default function Home() {
       <Nav />
 
       <main className="relative z-10">
+        {!staticHero && (<>
         {/* Hero — dark, textured, TechzQuad-style */}
         <section className="relative pt-32 pb-20 sm:pt-44 sm:pb-28 bg-dark-gradient overflow-hidden">
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
@@ -306,7 +319,7 @@ export default function Home() {
           <div className="relative max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-16 items-center">
             <div className="space-y-8">
               <motion.div
-                initial={FROM_SSG ? false : { opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-xs font-bold uppercase tracking-widest text-primary-light"
               >
@@ -318,7 +331,7 @@ export default function Home() {
               </motion.div>
 
               <motion.h1
-                initial={FROM_SSG ? false : { y: 16 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 }}
                 className="text-[2.75rem] sm:text-7xl lg:text-[5rem] font-bold tracking-tight leading-[1.02] text-white"
@@ -333,7 +346,7 @@ export default function Home() {
               </motion.h1>
 
               <motion.p
-                initial={FROM_SSG ? false : { opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="max-w-xl text-lg text-white/55 leading-relaxed"
@@ -342,7 +355,7 @@ export default function Home() {
               </motion.p>
 
               <motion.div
-                initial={FROM_SSG ? false : { opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
                 className="flex flex-wrap items-center gap-4"
@@ -384,7 +397,7 @@ export default function Home() {
             </div>
 
             <motion.div
-              initial={FROM_SSG ? false : { opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
               className="relative mx-auto w-full max-w-[480px]"
@@ -395,7 +408,7 @@ export default function Home() {
 
                 <div className="relative flex items-start justify-between gap-3 mb-3">
                   <motion.div
-                    initial={FROM_SSG ? false : { opacity: 0, y: -8 }}
+                    initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                     className="rounded-2xl border border-white/10 bg-[#141814] px-4 py-3 shadow-lg shadow-black/30"
@@ -404,7 +417,7 @@ export default function Home() {
                     <div className="text-[11px] font-semibold text-white/70 mt-1 whitespace-nowrap">Systems shipped</div>
                   </motion.div>
                   <motion.div
-                    initial={FROM_SSG ? false : { opacity: 0, y: -8 }}
+                    initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.5 }}
                     className="rounded-2xl border border-white/10 bg-[#141814] px-4 py-3 shadow-lg shadow-black/30"
@@ -428,7 +441,7 @@ export default function Home() {
                     {['Mobile Apps', 'Web Platforms', 'AI Tooling'].map((label, i) => (
                       <motion.div
                         key={label}
-                        initial={FROM_SSG ? false : { opacity: 0, x: 14 }}
+                        initial={{ opacity: 0, x: 14 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.75 + i * 0.1, duration: 0.5 }}
                         className="rounded-full border border-white/10 bg-[#141814]/95 backdrop-blur-sm px-3.5 py-1.5 shadow-lg shadow-black/30 flex items-center gap-1.5"
@@ -440,7 +453,7 @@ export default function Home() {
                   </div>
 
                   <motion.div
-                    initial={FROM_SSG ? false : { opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.85, duration: 0.5 }}
                     className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/10 bg-[#141814]/95 backdrop-blur-sm px-5 py-4 shadow-lg shadow-black/30"
@@ -454,7 +467,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            initial={FROM_SSG ? false : { opacity: 0 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
             className="relative hidden sm:flex justify-center mt-20"
@@ -462,6 +475,7 @@ export default function Home() {
             <ChevronDown className="w-5 h-5 text-white/25 animate-bounce" />
           </motion.div>
         </section>
+        </>)}
 
         {/* Tech marquee */}
         <Reveal className="py-10 border-b border-black/[0.06] bg-[#F6F8F7]">

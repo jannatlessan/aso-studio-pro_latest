@@ -17,6 +17,10 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 await page.setViewport({ width: 412, height: 823, deviceScaleFactor: 1 });
+// Drop any existing static hero so React renders (and we capture) the live one.
+await page.evaluateOnNewDocument(() => {
+  document.addEventListener('DOMContentLoaded', () => document.getElementById('ssg-hero')?.remove());
+});
 await page.goto(url, { waitUntil: 'networkidle0' });
 await page.waitForSelector('main section h1');
 await new Promise((r) => setTimeout(r, 2500)); // let entry animations finish (final inline styles)
