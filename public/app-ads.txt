@@ -303,7 +303,8 @@ inmobi.com, ef083d721beb4c0f8776ced01e262c03, RESELLER, 83e75a7ae333ca9d
 inmobi.com, b01aa06531c543d8a5fb9982f60afb00, RESELLER, 83e75a7ae333ca9d
 thunder-monetize.com, 5257091605, RESELLER
 thunder-monetize.com, 8221217003, RESELLER
-visoon.de, 64393, RESELLERonetag.com, 9898f56d06285b0, DIRECT
+visoon.de, 64393, RESELLER
+onetag.com, 9898f56d06285b0, DIRECT
 onetag.com, 9898f56d06285b0-OB, DIRECT
 appnexus.com, 13099, RESELLER
 pubmatic.com, 161593, RESELLER, 5d62403b186f2ace
