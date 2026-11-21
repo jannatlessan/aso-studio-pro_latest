@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
+import { makePreloader } from './route-preload.mjs';
 const P = await import(pathToFileURL(join(root, 'src/lib/appPages.js')).href);
 const catalog = JSON.parse(readFileSync(join(root, 'src/data/appCatalog.json'), 'utf8'));
 if (!existsSync(join(dist, 'index.html'))) { console.error('prerender-apps: run vite build first'); process.exit(1); }
@@ -42,7 +43,10 @@ function head({ title, description, url, ld }) {
 
 const nav = `<nav><a href="/">ShaadDev Studio</a> · <a href="/apps">Apps</a> · <a href="/tools">Free tools</a> · <a href="/about">About</a></nav>`;
 const foot = `<footer><p><a href="/privacy">Privacy policy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></p></footer>`;
-const page = (html, body) => html.replace('<div id="root"></div>', `<div id="root"><div class="ssg">${body}</div></div>`);
+const preload = makePreloader(dist);
+const page = (html, body, src) => html
+  .replace('</head>', `${src ? preload(src) : ''}</head>`)
+  .replace('<div id="root"></div>', `<div id="root"><div class="ssg">${body}</div></div>`);
 const out = (path, html) => {
   const dir = join(dist, path.replace(/^\//, ''));
   mkdirSync(dir, { recursive: true });
@@ -84,7 +88,7 @@ ${related.length ? `<h2>More ${esc(app.group.toLowerCase())} apps</h2>${ul(relat
 <p>Facts checked against the live store listings on ${esc(catalog.checked)}. <a href="/apps">All apps</a></p>
 </main>
 ${foot}`;
-  out(P.appPath(app.slug), page(head({ title: P.appTitle(app), description: P.appDescription(app), url, ld: P.appJsonLd(app) }), body));
+  out(P.appPath(app.slug), page(head({ title: P.appTitle(app), description: P.appDescription(app), url, ld: P.appJsonLd(app) }), body, 'src/pages/Apps/AppDetail.tsx'));
   written++;
 }
 
@@ -108,7 +112,7 @@ ${apps.map((o) => `<h3>${a(P.appPath(o.slug), o.name)}</h3><p>${esc(o.descriptio
 <p>These are our own apps. Facts checked against the live store listings on ${esc(catalog.checked)}.</p>
 </main>
 ${foot}`;
-  out(P.categoryPath(cat.slug), page(head({ title: cat.metaTitle, description: cat.description, url, ld: P.categoryJsonLd(cat, catalog) }), body));
+  out(P.categoryPath(cat.slug), page(head({ title: cat.metaTitle, description: cat.description, url, ld: P.categoryJsonLd(cat, catalog) }), body, 'src/pages/Apps/AppsHub.tsx'));
   written++;
 }
 
@@ -127,7 +131,7 @@ ${catalog.groups.map((g) => {
   }).join('\n')}
 </main>
 ${foot}`;
-  out('/apps', page(head({ title: `${P.HUB.metaTitle} | ShaadDev Studio`, description: P.HUB.description, url, ld: P.hubJsonLd(catalog) }), body));
+  out('/apps', page(head({ title: `${P.HUB.metaTitle} | ShaadDev Studio`, description: P.HUB.description, url, ld: P.hubJsonLd(catalog) }), body, 'src/pages/Apps/AppsHub.tsx'));
   written++;
 }
 

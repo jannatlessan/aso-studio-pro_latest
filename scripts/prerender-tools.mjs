@@ -8,6 +8,7 @@
 // Data: src/data/tools.json (name, path) + src/data/toolDocs.json (facts) + each tool's <SEO> tag.
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { makePreloader } from './route-preload.mjs';
 import { dirname, join } from 'node:path';
 
 const BASE = 'https://shaaddev.studio';
@@ -22,6 +23,7 @@ const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
 
 // Title/description exactly as the tool's own <SEO> component sets them (so Helmet agrees).
 const seoByUrl = {};
+const fileByUrl = {};
 const toolDir = join(root, 'src/pages/Tools');
 for (const f of readdirSync(toolDir).filter((n) => n.endsWith('.tsx'))) {
   const src = readFileSync(join(toolDir, f), 'utf8');
@@ -29,8 +31,11 @@ for (const f of readdirSync(toolDir).filter((n) => n.endsWith('.tsx'))) {
   if (!m) continue;
   const attr = (k) => (m[0].match(new RegExp(`${k}="([^"]*)"`)) || [])[1];
   const url = attr('url');
-  if (url) seoByUrl[url] = { title: attr('title'), description: attr('description') };
+  if (url) { seoByUrl[url] = { title: attr('title'), description: attr('description') }; fileByUrl[url] = `src/pages/Tools/${f}`; }
 }
+
+const preload = makePreloader(dist);
+const preloadRoute = (src) => (src ? preload(src) : '');
 
 const ORG = { '@type': 'Organization', '@id': `${BASE}/#organization`, name: docs.site.name, url: BASE, logo: docs.site.logo };
 
@@ -107,7 +112,8 @@ ${doc.faq.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('\n')}
 <ul>${others}</ul>
 </main>
 ${foot}`;
-  const html = withBody(head({ title, description, url, ld: { '@context': 'https://schema.org', '@graph': graph } }), body);
+  const html = withBody(head({ title, description, url, ld: { '@context': 'https://schema.org', '@graph': graph } }), body)
+    .replace('</head>', `${preloadRoute(fileByUrl[url])}</head>`);
   const outDir = join(dist, t.path.replace(/^\//, ''));
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, 'index.html'), html);
@@ -137,7 +143,7 @@ ${cats.map((c) => `<h2>${esc(c)}</h2><ul>${tools.filter((t) => t.category === c)
 </main>
 ${foot}`;
   mkdirSync(join(dist, 'tools'), { recursive: true });
-  writeFileSync(join(dist, 'tools', 'index.html'), withBody(head({ title, description, url, ld }), body));
+  writeFileSync(join(dist, 'tools', 'index.html'), withBody(head({ title, description, url, ld }), body).replace('</head>', `${preloadRoute('src/pages/Tools/ToolsList.tsx')}</head>`));
   written++;
 }
 

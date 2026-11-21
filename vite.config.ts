@@ -39,6 +39,10 @@ export default defineConfig(({mode}) => {
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
     },
+    build: {
+      // dist/.vite/manifest.json: lets the prerender scripts modulepreload each route's chunks.
+      manifest: true,
+    },
     optimizeDeps: {
       exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util', '@imgly/background-removal'],
     },

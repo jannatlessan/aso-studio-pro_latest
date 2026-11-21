@@ -2,11 +2,13 @@
 // scripts/snapshot-home.mjs) into dist/index.html so the first paint needs only HTML + CSS.
 // dist/index.html is also the SPA fallback for every non-prerendered route, so an inline
 // script drops the hero before first paint on any path other than "/".
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+// The Vite manifest is only needed by the prerender scripts; do not publish it.
+rmSync(join(root, 'dist/.vite'), { recursive: true, force: true });
 const file = join(root, 'dist/index.html');
 const shellFile = join(root, 'src/ssg/home-shell.html');
 if (!existsSync(shellFile)) { console.log('prerender-home: no snapshot, skipped'); process.exit(0); }
