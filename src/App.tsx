@@ -69,6 +69,8 @@ const TicTacToe = lazy(() => import('./pages/Games/TicTacToe'));
 const TraceMaster = lazy(() => import('./pages/Games/TraceMaster'));
 const HoopShot = lazy(() => import('./pages/Games/HoopShot'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Hire = lazy(() => import('./pages/Hire'));
+const ServicePage = lazy(() => import('./pages/Hire').then((m) => ({ default: m.ServicePage })));
 import WebMcpBridge from './components/WebMcpBridge';
 
 // Every route except Home is a lazy chunk, so the home page does not download every tool's code
@@ -126,6 +128,8 @@ export default function App() {
         <Route path="/apps/stamppedia" element={<Stamppedia />} />
         <Route path="/apps/stamppedia/privacy" element={<StamppediaPrivacyPolicy />} />
         <Route path="/apps/stamppedia/terms" element={<StamppediaTerms />} />
+        <Route path="/hire" element={<Hire />} />
+        <Route path="/services/:service" element={<ServicePage />} />
         <Route path="/apps" element={<AppsHub />} />
         <Route path="/apps/category/:category" element={<AppCategory />} />
         <Route path="/apps/:slug" element={<AppDetail />} />

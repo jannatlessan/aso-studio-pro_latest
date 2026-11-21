@@ -4,6 +4,19 @@
 
 Every tool is free and runs in a modern web browser; no sign-in is needed. Each tool page has a "Quick facts" section (input, output, limits, privacy) and an FAQ. Full details for every tool: https://shaaddev.studio/llms-full.txt
 
+## Hire: freelance mobile and web app developer
+
+Rizwan Rasheed (Software Engineer, ShaadDev Studio) is a freelance developer for iPhone and Android apps (Flutter, React Native), web apps (React, Next.js, TypeScript), full-stack backends (Node.js, Go, Laravel, AWS) and AI features. 5+ years of production work; available for new projects. Based in Pakistan, working remotely with clients worldwide (remote first). No published prices: quotes per project. Contact: https://shaaddev.studio/contact. Profiles: https://github.com/Rizwan884 , https://www.linkedin.com/in/rashidrizwan-connect/
+
+- [Hire Rizwan Rasheed](https://shaaddev.studio/hire): who he is, services, live proof, how he works, contact, FAQ.
+- [Mobile app development (iPhone and Android)](https://shaaddev.studio/services/mobile-app-development): Rizwan Rasheed builds cross-platform mobile apps with Flutter and React Native (and SwiftUI or Kotlin Multiplatform where native fits better), from first screens to App Store and Google Play release. 21 of the studio's own apps are live in the stores today, plus enterprise apps for clients.
+- [Web app development](https://shaaddev.studio/services/web-development): Rizwan Rasheed builds fast, responsive web apps with React, Next.js and TypeScript, backed by Node.js, Go or Laravel APIs: dashboards, SaaS tools, fintech forms with CRM integrations and payment flows.
+- [Flutter app development](https://shaaddev.studio/services/flutter-development): Rizwan Rasheed has built production Flutter apps since 2020 (Mercury Sols, then Kairos Business Solutions Singapore) and ships the studio's own Flutter apps to Google Play, with localization, subscriptions, ads and store release.
+- [React and Next.js development](https://shaaddev.studio/services/react-development): Rizwan Rasheed builds React and Next.js front ends in TypeScript with Tailwind CSS, plus React Native for mobile. Live examples include the Win Your PIP Next.js site with Stripe and this site's React tool suite.
+- [Full-stack and AI feature development](https://shaaddev.studio/services/full-stack-ai-development): Rizwan Rasheed builds the whole product, app plus backend (Node.js, Go, Laravel, cloud) and integrates AI: chat assistants, voice cloning and text to speech, text-to-image, camera scanners that identify and value items, AI body scans.
+
+Proof you can check: CardVault: Sports Card Scanner (https://shaaddev.studio/apps/cardvault); AI Voice Clone & Text-to-Speech Studio (https://shaaddev.studio/apps/fish-audio); Volume Lock: Parental Control (https://shaaddev.studio/apps/volume-lock); BDVibes: Birthday Reminders (https://shaaddev.studio/apps/bdvibes); Riz Word: Calm Letter Puzzle (https://shaaddev.studio/apps/riz-words); Kairos Time Entry TW (https://play.google.com/store/apps/details?id=com.kairos.kairos_time_entry_tw); Epicor Kinetic Time Entry (fleet) (https://play.google.com/store/apps/details?id=com.kairos.kairos_fleet_management); Selfiestreet (https://play.google.com/store/apps/details?id=com.goodbarber.selfiestreet); Identifee (https://identifee.com); SYNZUR (https://synzur.com); Cash Advance (https://web.cashadvance-usa.com); Win Your PIP (Age Trust) (https://winyourpip.com); NOICE Audio Platform (https://open.noice.id); ShaadDev Studio free browser tools (https://shaaddev.studio/tools); Footprint: Username Checker (https://shaaddev.studio/apps/footprint-check); PixelForge - Text to Image AI (https://shaaddev.studio/apps/pixelforge); Fyzik: Body Scan & AI Workout Planner (https://shaaddev.studio/apps/fyzik).
+
 ## Images & Media
 
 - [GIF Online Viewer](https://shaaddev.studio/tools/gif-viewer): Upload any GIF to pause, scrub frame-by-frame, and extract absolute high-definition PNG frame slices locally.
@@ -88,6 +101,7 @@ Mobile apps published by ShaadDev Studio (developer "shaad dev studio" on Google
 
 ## Optional
 
+- [Hire](https://shaaddev.studio/hire)
 - [About](https://shaaddev.studio/about)
 - [Contact](https://shaaddev.studio/contact)
 - [Privacy policy](https://shaaddev.studio/privacy)

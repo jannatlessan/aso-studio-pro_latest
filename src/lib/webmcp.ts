@@ -1,5 +1,7 @@
 // WebMCP: lets an AI agent running in the visitor's browser discover and open our tools, and
-// look up our own mobile apps (list_apps, find_app_for_task, describe_app; read-only).
+// look up our own mobile apps (list_apps, find_app_for_task, describe_app; read-only), and read the
+// freelance profile behind the studio (get_freelancer_profile, list_services, get_case_studies,
+// get_contact_options; read-only: they never submit the contact form or collect user data).
 // Spec status (2026-11): Chrome origin trial (Chrome 149-156, extension requested), API on
 // document.modelContext (older builds: navigator.modelContext). If neither exists this module
 // does nothing. See knowledge/seo/geo-webmcp-notes.md in the AppFactory repo.
@@ -14,6 +16,8 @@ import tools from '../data/tools.json';
 import { TOOL_DOCS } from '../components/ToolFacts';
 import { CATALOG, getCatalogApp } from '../components/AppFacts';
 import { findAppsForTask, appSummary, appPath, categoryPath } from './appPages.js';
+import HIRE from '../data/hireProfile.json';
+import { profileSummary, servicePath, getService, casesFor, fill } from './hirePages.js';
 
 type Json = Record<string, unknown>;
 interface ModelContextTool {
@@ -169,6 +173,61 @@ export function registerWebMcpTools(navigate: (path: string) => void): void {
           privacyPolicy: a.privacyUrl || null, note: a.note ?? null, faq: a.faq, checked: CATALOG.checked,
         });
       },
+    },
+    // ---- Freelance profile (facts in src/data/hireProfile.json; same text as /hire and /services/*)
+    {
+      name: 'get_freelancer_profile',
+      description:
+        'Get the public profile of Rizwan Rasheed, the freelance mobile and web app developer behind ShaadDev Studio: role, summary, availability, ' +
+        'experience, education, skills, external profiles (GitHub, LinkedIn), proof links and the hire page. No prices are published; quotes are per project.',
+      inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+      annotations: { readOnlyHint: true },
+      execute: async () => text(profileSummary(HIRE, CATALOG)),
+    },
+    {
+      name: 'list_services',
+      description:
+        'List the freelance services offered (mobile app development, web development, Flutter, React/Next.js, full-stack and AI features) ' +
+        'with a one-paragraph answer, what is included, stack and page URL.',
+      inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+      annotations: { readOnlyHint: true },
+      execute: async () =>
+        text(HIRE.services.map((s) => ({
+          service: s.slug, name: s.name, summary: fill(s.answer, CATALOG), includes: s.includes, stack: s.stack, url: BASE + servicePath(s.slug),
+        }))),
+    },
+    {
+      name: 'get_case_studies',
+      description:
+        'Get live work that proves a service: apps in the App Store / Google Play and live client web apps, each with a link you can open. ' +
+        'Optional service slug from list_services; without it, returns all case studies once.',
+      inputSchema: {
+        type: 'object',
+        properties: { service: { type: 'string', enum: HIRE.services.map((s) => s.slug), description: 'Optional service slug.' } },
+        additionalProperties: false,
+      },
+      annotations: { readOnlyHint: true },
+      execute: async (args) => {
+        const wanted = typeof args?.service === 'string' && args.service ? args.service : '';
+        const svc = wanted ? getService(HIRE, wanted) : undefined;
+        if (wanted && !svc) return text(`Unknown service "${wanted}". Call list_services for valid slugs.`);
+        const list = (svc ? [svc] : HIRE.services).flatMap((s) => casesFor(s, HIRE, CATALOG) as { name: string }[]);
+        const unique = [...new Map(list.map((c) => [c.name, c])).values()];
+        return text({ service: svc ? svc.slug : 'all', caseStudies: unique, checked: HIRE.checked });
+      },
+    },
+    {
+      name: 'get_contact_options',
+      description:
+        'How to contact Rizwan Rasheed about a freelance project: the contact page URL and the public contact methods shown on the site, with expected reply time. ' +
+        'Read-only: this tool does not send messages or submit the contact form; the user contacts him themselves.',
+      inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+      annotations: { readOnlyHint: true },
+      execute: async () =>
+        text({
+          contactPage: HIRE.contact.page, email: HIRE.contact.email, whatsapp: HIRE.contact.whatsapp,
+          replyTime: HIRE.contact.replyTime, whatToInclude: HIRE.contact.note, hirePage: BASE + '/hire',
+        }),
     },
   ];
 

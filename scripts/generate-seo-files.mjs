@@ -17,6 +17,8 @@ const games = JSON.parse(read('src/data/games.json'));
 const docs = JSON.parse(read('src/data/toolDocs.json'));
 const catalog = JSON.parse(read('src/data/appCatalog.json'));
 const AP = await import(pathToFileURL(join(root, 'src/lib/appPages.js')).href);
+const HP = await import(pathToFileURL(join(root, 'src/lib/hirePages.js')).href);
+const hire = JSON.parse(read('src/data/hireProfile.json'));
 
 const gitDate = (...files) => {
   let best = '';
@@ -68,6 +70,11 @@ const gameFile = (path) => {
   for (const c of catalog.categories) urls.push({ p: AP.categoryPath(c.slug), pr: 0.7, cf: 'monthly', d });
   for (const a of catalog.apps) urls.push({ p: AP.appPath(a.slug), pr: 0.8, cf: 'monthly', d });
 }
+{
+  const d = gitDate('src/data/hireProfile.json', 'src/lib/hirePages.js', 'scripts/prerender-hire.mjs', 'src/data/appCatalog.json');
+  urls.push({ p: HP.HIRE_PATH, pr: 0.9, cf: 'monthly', d });
+  for (const sv of hire.services) urls.push({ p: HP.servicePath(sv.slug), pr: 0.8, cf: 'monthly', d });
+}
 for (const g of games) urls.push({ p: g.path, pr: 0.5, cf: 'monthly', d: gitDate(pageFile[g.path] || gameFile(g.path)) });
 
 writeFileSync(join(root, 'public/sitemap.xml'),
@@ -82,6 +89,17 @@ writeFileSync(join(root, 'public/robots.txt'),
   aiBots.map((b) => `User-agent: ${b}\nAllow: /\n`).join('\n') +
   `\nSitemap: ${BASE}/sitemap.xml\n`);
 
+const hp = hire.person;
+const hireCases = [...new Map(hire.services.flatMap((sv) => HP.casesFor(sv, hire, catalog)).map((c) => [c.name, c])).values()];
+const hireLlms = `## Hire: freelance mobile and web app developer
+
+${hp.name} (${hp.jobTitle}, ShaadDev Studio) is a freelance developer for iPhone and Android apps (Flutter, React Native), web apps (React, Next.js, TypeScript), full-stack backends (Node.js, Go, Laravel, AWS) and AI features. ${hp.experienceYears} years of production work; ${hp.status.toLowerCase()}. ${hp.location}. No published prices: quotes per project. Contact: ${hire.contact.page}. Profiles: ${hp.sameAs.join(' , ')}
+
+- [Hire Rizwan Rasheed](${BASE}${HP.HIRE_PATH}): who he is, services, live proof, how he works, contact, FAQ.
+${hire.services.map((sv) => `- [${sv.name}](${BASE}${HP.servicePath(sv.slug)}): ${HP.fill(sv.answer, catalog)}`).join('\n')}
+
+Proof you can check: ${hireCases.map((c) => `${c.name} (${c.page})`).join('; ')}.
+`;
 const cats = [...new Set(tools.map((t) => t.category))];
 const llms = `# ${docs.site.name}
 
@@ -89,6 +107,7 @@ const llms = `# ${docs.site.name}
 
 Every tool is free and runs in a modern web browser; no sign-in is needed. Each tool page has a "Quick facts" section (input, output, limits, privacy) and an FAQ. Full details for every tool: ${BASE}/llms-full.txt
 
+${hireLlms}
 ${cats.map((c) => `## ${c}\n\n` + tools.filter((t) => t.category === c).map((t) => `- [${t.name}](${BASE}${t.path}): ${t.description}`).join('\n')).join('\n\n')}
 
 ## Mobile apps (Android and iPhone)
@@ -105,6 +124,7 @@ ${catalog.apps.map((a) => `- [${a.name}](${BASE}${AP.appPath(a.slug)}) (${a.plat
 
 ## Optional
 
+- [Hire](${BASE}/hire)
 - [About](${BASE}/about)
 - [Contact](${BASE}/contact)
 - [Privacy policy](${BASE}/privacy)
@@ -174,7 +194,41 @@ ${a.features.map((f) => `- ${f}`).join('\n')}
 FAQ:
 ${a.faq.map((f) => `- Q: ${f.q}\n  A: ${f.a}`).join('\n')}
 `).join('\n');
-writeFileSync(join(root, 'public/llms-full.txt'), full + appsFull);
+const hireFull = `
+
+# Hire ${hp.name}: freelance mobile and web app developer
+
+URL: ${BASE}${HP.HIRE_PATH}
+${hp.headline}. ${hp.summary}
+- Status: ${hp.status}
+- Location: ${hp.location}
+- Experience: ${hp.experience.map((e) => `${e.role}, ${e.org} (${e.period}): ${e.what}`).join(' | ')}
+- Education: ${hp.education.degree}, ${hp.education.school} (${hp.education.period})
+- Skills: ${hp.knowsAbout.join(', ')}
+- Profiles: ${hp.sameAs.join(' , ')}
+- Pricing: no published prices; quote per project after a scope review.
+- Contact: ${hire.contact.page} (form), ${hire.contact.email}, WhatsApp ${hire.contact.whatsapp}; replies ${hire.contact.replyTime}.
+
+How he works:
+${hire.howIWork.map((x) => `- ${x}`).join('\n')}
+
+FAQ:
+${HP.hireFaq(hire, catalog).map((f) => `- Q: ${f.q}\n  A: ${f.a}`).join('\n')}
+
+` + hire.services.map((sv) => `## ${sv.name}
+
+URL: ${BASE}${HP.servicePath(sv.slug)}
+${HP.fill(sv.answer, catalog)}
+Includes: ${sv.includes.join('; ')}
+Stack: ${sv.stack.join(', ')}
+
+Case studies (live):
+${HP.casesFor(sv, hire, catalog).map((c) => `- ${c.name} (${c.kind}): ${c.what} ${c.page}`).join('\n')}
+
+FAQ:
+${HP.serviceFaq(sv, catalog).map((f) => `- Q: ${f.q}\n  A: ${f.a}`).join('\n')}
+`).join('\n');
+writeFileSync(join(root, 'public/llms-full.txt'), full + appsFull + hireFull);
 writeFileSync(join(root, 'public/apps.json'), JSON.stringify({
   publisher: docs.site.name, checked: catalog.checked, about: catalog.about,
   categories: catalog.categories.map((c) => ({ slug: c.slug, title: c.title, url: BASE + AP.categoryPath(c.slug) })),

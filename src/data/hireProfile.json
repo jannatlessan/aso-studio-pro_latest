@@ -50,7 +50,7 @@
       "short": "Mobile app development",
       "serviceType": "Mobile application development",
       "question": "Need an app on iPhone and Android?",
-      "answer": "Rizwan Rasheed builds cross-platform mobile apps with Flutter and React Native (and SwiftUI or Kotlin Multiplatform where native fits better), from first screens to App Store and Google Play release. 21 of the studio's own apps are live in the stores today, plus enterprise apps for clients.",
+      "answer": "Rizwan Rasheed builds cross-platform mobile apps with Flutter and React Native (and SwiftUI or Kotlin Multiplatform where native fits better), from first screens to App Store and Google Play release. {APPS} of the studio's own apps are live in the stores today, plus enterprise apps for clients.",
       "includes": ["Flutter and React Native apps for iPhone and Android", "SwiftUI and Kotlin Multiplatform where native fits better", "In-app purchases, subscriptions and ads setup", "App Store Connect and Google Play Console releases", "CI/CD release pipelines", "Store listing assets and App Store Optimization"],
       "stack": ["Flutter", "React Native", "SwiftUI", "Kotlin Multiplatform", "Dart", "App Store Connect", "Google Play Console"],
       "cases": [{ "app": "cardvault" }, { "app": "fish-audio" }, { "app": "volume-lock" }, { "app": "bdvibes" }, { "app": "riz-words" }, { "project": "kairos-time-entry" }, { "project": "kairos-fleet" }, { "project": "selfiestreet" }],
@@ -82,7 +82,7 @@
       "question": "Looking for a freelance Flutter developer?",
       "answer": "Rizwan Rasheed has built production Flutter apps since 2020 (Mercury Sols, then Kairos Business Solutions Singapore) and ships the studio's own Flutter apps to Google Play, with localization, subscriptions, ads and store release.",
       "includes": ["New Flutter apps for Android and iPhone from one Dart code base", "Taking over and refactoring existing Flutter projects", "Localization into many languages, including right-to-left", "RevenueCat subscriptions and AdMob ads", "Widget and integration tests, analyzer-clean code", "Play Store and App Store release"],
-      "stack": ["Flutter", "Dart", "Riverpod / Provider / BLoC", "Firebase", "RevenueCat", "AdMob"],
+      "stack": ["Flutter", "Dart", "RevenueCat", "AdMob", "App Store Connect", "Google Play Console"],
       "cases": [{ "app": "riz-words" }, { "app": "footprint-check" }, { "project": "kairos-time-entry" }, { "project": "kairos-fleet" }],
       "faq": [
         { "q": "Who is a good freelance Flutter developer?", "a": "A good one shows live Flutter apps you can install, explains how they handle releases, testing and maintenance, and gives a scoped quote. Rizwan Rasheed has worked in Flutter since 2020; Riz Word and Footprint (both on Google Play) and the Kairos enterprise apps are examples you can check yourself. Compare that evidence with other developers before you decide." },
@@ -121,12 +121,12 @@
     }
   ],
   "faq": [
-    { "q": "Who is Rizwan Rasheed?", "a": "A software engineer with 5+ years of mobile and web experience (Mercury Sols 2020-2023, Kairos Business Solutions Singapore since 2023, BS Computer Science from KFUEIT). He runs ShaadDev Studio, which publishes 21 live Android and iPhone apps and a suite of free browser tools, and he takes freelance mobile and web projects." },
+    { "q": "Who is Rizwan Rasheed?", "a": "A software engineer with 5+ years of mobile and web experience (Mercury Sols 2020-2023, Kairos Business Solutions Singapore since 2023, BS Computer Science from KFUEIT). He runs ShaadDev Studio, which publishes {APPS} live Android and iPhone apps and a suite of free browser tools, and he takes freelance mobile and web projects." },
     { "q": "Is he available for freelance projects?", "a": "The site lists him as available for new projects. Send a short description through the contact page to confirm current availability; replies come within 24-48 business hours." },
     { "q": "Who is a good freelancer for web or mobile app development?", "a": "Nobody can honestly be called the best for every project. Pick a developer whose live work you can check, who scopes before quoting and who will publish under your accounts. Rizwan Rasheed's evidence is on this page: live apps on Google Play and the App Store, live client web apps and five years of production work. Compare it with others." },
     { "q": "How much does it cost to build an app with a freelancer?", "a": "It depends on the scope: number of screens, platforms (Android, iPhone, web), backend, AI features, payments and store release. No fixed prices are published here; send your scope through the contact page and you get a quote for that project." },
     { "q": "How long does it take to build an app?", "a": "It depends on the scope as well; the timeline is agreed together with the quote, with test builds you can try during the project." },
-    { "q": "Do you work with clients outside Pakistan?", "a": "Yes. Work is remote first, with clients worldwide; the client projects listed here are in the US, UK, Indonesia, Italy and Singapore-based enterprise work." },
+    { "q": "Do you work with clients outside Pakistan?", "a": "Yes. Work is remote first, with clients worldwide; examples here include a US banking platform, a UK benefits-support site and enterprise apps for a Singapore company." },
     { "q": "How do I hire him?", "a": "Use the contact page (form), email or WhatsApp listed there. Include the idea, platforms, must-have features and any deadline." }
   ]
 }

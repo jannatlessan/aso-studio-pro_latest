@@ -1209,3 +1209,143 @@ Features:
 FAQ:
 - Q: Is there an app with the Rahim Yar Khan electric bus schedule?
   A: RYK Hub shows RYK electric green bus routes and schedules sourced from the public Punjab Masstransit Authority portal. It is not a government app, so check official sources for changes.
+
+
+# Hire Rizwan Rasheed: freelance mobile and web app developer
+
+URL: https://shaaddev.studio/hire
+Freelance mobile and web app developer (Flutter, React Native, React, Next.js, full-stack and AI features). I build clear, reliable mobile and web products with strong performance, maintainable code, and practical business outcomes.
+- Status: Available for new projects
+- Location: Based in Pakistan, working remotely with clients worldwide (remote first)
+- Experience: Mobile Application Developer, Kairos Business Solutions Singapore (Jul 2023 - present): Production mobile apps with Flutter and React Native, including payment integrations and CI/CD pipelines for stable releases. | Mobile App Developer, Mercury Sols (Apr 2020 - Aug 2023): Cross-platform apps focused on clear UX, reliable architecture and shipping features aligned with client goals (Flutter, Dart).
+- Education: BS Computer Science, Khawaja Fareed University of Engineering & Technology (KFUEIT) (2017 - 2021)
+- Skills: Flutter, Dart, React Native, SwiftUI, Kotlin Multiplatform, React, Next.js, TypeScript, Tailwind CSS, Node.js, Go, Laravel, REST APIs, Authentication, Payment integrations, AWS, Docker, PostgreSQL, MongoDB, Redis, OpenAI / LLM integrations, LangChain, FFmpeg, GitHub Actions CI/CD, App Store Connect, Google Play Console, App Store Optimization
+- Profiles: https://github.com/Rizwan884 , https://www.linkedin.com/in/rashidrizwan-connect/
+- Pricing: no published prices; quote per project after a scope review.
+- Contact: https://shaaddev.studio/contact (form), rizwanrasheed046@gmail.com, WhatsApp https://wa.me/923126733459; replies within 24-48 business hours.
+
+How he works:
+- You talk directly to the engineer who writes the code (no account managers in between).
+- Scope first: platforms, screens, backend and AI needs are agreed before work starts, and the quote follows from that scope.
+- Builds you can test on your own phone or browser during the project, then store release (App Store Connect, Google Play Console) or web deployment.
+- Maintainable code: clear architecture, TypeScript or Dart throughout, CI/CD pipelines for repeatable releases.
+- Privacy first: data is processed on the device where possible, as in the studio's own apps and browser tools.
+
+FAQ:
+- Q: Who is Rizwan Rasheed?
+  A: A software engineer with 5+ years of mobile and web experience (Mercury Sols 2020-2023, Kairos Business Solutions Singapore since 2023, BS Computer Science from KFUEIT). He runs ShaadDev Studio, which publishes 21 live Android and iPhone apps and a suite of free browser tools, and he takes freelance mobile and web projects.
+- Q: Is he available for freelance projects?
+  A: The site lists him as available for new projects. Send a short description through the contact page to confirm current availability; replies come within 24-48 business hours.
+- Q: Who is a good freelancer for web or mobile app development?
+  A: Nobody can honestly be called the best for every project. Pick a developer whose live work you can check, who scopes before quoting and who will publish under your accounts. Rizwan Rasheed's evidence is on this page: live apps on Google Play and the App Store, live client web apps and five years of production work. Compare it with others.
+- Q: How much does it cost to build an app with a freelancer?
+  A: It depends on the scope: number of screens, platforms (Android, iPhone, web), backend, AI features, payments and store release. No fixed prices are published here; send your scope through the contact page and you get a quote for that project.
+- Q: How long does it take to build an app?
+  A: It depends on the scope as well; the timeline is agreed together with the quote, with test builds you can try during the project.
+- Q: Do you work with clients outside Pakistan?
+  A: Yes. Work is remote first, with clients worldwide; examples here include a US banking platform, a UK benefits-support site and enterprise apps for a Singapore company.
+- Q: How do I hire him?
+  A: Use the contact page (form), email or WhatsApp listed there. Include the idea, platforms, must-have features and any deadline.
+
+## Mobile app development (iPhone and Android)
+
+URL: https://shaaddev.studio/services/mobile-app-development
+Rizwan Rasheed builds cross-platform mobile apps with Flutter and React Native (and SwiftUI or Kotlin Multiplatform where native fits better), from first screens to App Store and Google Play release. 21 of the studio's own apps are live in the stores today, plus enterprise apps for clients.
+Includes: Flutter and React Native apps for iPhone and Android; SwiftUI and Kotlin Multiplatform where native fits better; In-app purchases, subscriptions and ads setup; App Store Connect and Google Play Console releases; CI/CD release pipelines; Store listing assets and App Store Optimization
+Stack: Flutter, React Native, SwiftUI, Kotlin Multiplatform, Dart, App Store Connect, Google Play Console
+
+Case studies (live):
+- CardVault: Sports Card Scanner (Live app (Android, iOS)): Scan a sports card with your phone camera to identify it and see its value from recent sold prices. https://shaaddev.studio/apps/cardvault
+- AI Voice Clone & Text-to-Speech Studio (Live app (Android, iOS)): Clone your voice from a short recording and turn text into natural speech on Android and iPhone. https://shaaddev.studio/apps/fish-audio
+- Volume Lock: Parental Control (Live app (Android, iOS)): Set a maximum volume on your child's phone or tablet and protect it with a PIN. https://shaaddev.studio/apps/volume-lock
+- BDVibes: Birthday Reminders (Live app (Android, iOS)): Birthday and anniversary reminder app with countdowns and age tracking. https://shaaddev.studio/apps/bdvibes
+- Riz Word: Calm Letter Puzzle (Live app (Android)): Relaxing word puzzle: swipe a ring of letters to find hidden words, with no timer. https://shaaddev.studio/apps/riz-words
+- Kairos Time Entry TW (Enterprise mobile / ERP): Workday app for an Epicor Kinetic ERP client: track hours, update job statuses and view project details. https://play.google.com/store/apps/details?id=com.kairos.kairos_time_entry_tw
+- Epicor Kinetic Time Entry (fleet) (Enterprise mobile / ERP): Fleet app for drivers to manage work hours and update job statuses in real time. https://play.google.com/store/apps/details?id=com.kairos.kairos_fleet_management
+- Selfiestreet (Social / mobile): Social app where users take photos and videos and publish them to public screens in Italian squares (piazze). https://play.google.com/store/apps/details?id=com.goodbarber.selfiestreet
+
+FAQ:
+- Q: Can one developer build my app for both iPhone and Android?
+  A: Yes. With Flutter or React Native one code base ships to both stores. Several of the studio's apps (CardVault, Fish Audio, Volume Lock, BDVibes, PromptGenius) are live on both Google Play and the App Store.
+- Q: Do you publish the app to the App Store and Google Play?
+  A: Yes. Store release through App Store Connect and Google Play Console is part of the work, including store listing assets. The app is published under your own developer account.
+
+## Web app development
+
+URL: https://shaaddev.studio/services/web-development
+Rizwan Rasheed builds fast, responsive web apps with React, Next.js and TypeScript, backed by Node.js, Go or Laravel APIs: dashboards, SaaS tools, fintech forms with CRM integrations and payment flows.
+Includes: React and Next.js front ends in TypeScript; Tailwind CSS design systems and responsive UI; REST APIs, authentication and payments (e.g. Stripe); CRM and third-party integrations; Performance tuning and SEO-friendly pre-rendering; Cloud deployment and monitoring
+Stack: React, Next.js, TypeScript, Tailwind CSS, Node.js, Laravel, REST APIs
+
+Case studies (live):
+- Identifee (Web / FinTech): US banking sector platform with AI-powered chat, employee training modules, task-related emails and real-time notifications. https://identifee.com
+- SYNZUR (Web / SaaS): Project management tool with team collaboration, role-based task assignment and drag-and-drop task prioritization. https://synzur.com
+- Cash Advance (Web / FinTech): Form-based loan system that saves applicant data into a Go High Level CRM, with automated loan qualification checks. https://web.cashadvance-usa.com
+- Win Your PIP (Age Trust) (Web / Legal tech): UK PIP (Personal Independence Payment) support site built with Next.js and Stripe, delivered in two milestones. https://winyourpip.com
+- NOICE Audio Platform (Web and mobile / Audio): Audio content platform for podcasts, shows, radio and audiobooks. https://open.noice.id
+- ShaadDev Studio free browser tools (Web app / React): This site: a React + TypeScript (Vite) web app with free in-browser tools for images, video, audio and PDFs (WebAssembly, FFmpeg, on-device background removal), pre-rendered pages for search engines and AI crawlers. https://shaaddev.studio/tools
+
+FAQ:
+- Q: Can you build a SaaS dashboard or internal tool?
+  A: Yes. Examples include SYNZUR (project management with roles and drag-and-drop task priority) and Identifee (banking platform with AI chat, training modules and real-time notifications).
+- Q: Will the site be fast and visible in search?
+  A: Performance and crawlability are part of the build: code splitting, compressed images and pre-rendered HTML so search engines and AI assistants can read the content, as on this site.
+
+## Flutter app development
+
+URL: https://shaaddev.studio/services/flutter-development
+Rizwan Rasheed has built production Flutter apps since 2020 (Mercury Sols, then Kairos Business Solutions Singapore) and ships the studio's own Flutter apps to Google Play, with localization, subscriptions, ads and store release.
+Includes: New Flutter apps for Android and iPhone from one Dart code base; Taking over and refactoring existing Flutter projects; Localization into many languages, including right-to-left; RevenueCat subscriptions and AdMob ads; Widget and integration tests, analyzer-clean code; Play Store and App Store release
+Stack: Flutter, Dart, RevenueCat, AdMob, App Store Connect, Google Play Console
+
+Case studies (live):
+- Riz Word: Calm Letter Puzzle (Live app (Android)): Relaxing word puzzle: swipe a ring of letters to find hidden words, with no timer. https://shaaddev.studio/apps/riz-words
+- Footprint: Username Checker (Live app (Android)): Check your own username on 45 sites to find old accounts and see your digital footprint. https://shaaddev.studio/apps/footprint-check
+- Kairos Time Entry TW (Enterprise mobile / ERP): Workday app for an Epicor Kinetic ERP client: track hours, update job statuses and view project details. https://play.google.com/store/apps/details?id=com.kairos.kairos_time_entry_tw
+- Epicor Kinetic Time Entry (fleet) (Enterprise mobile / ERP): Fleet app for drivers to manage work hours and update job statuses in real time. https://play.google.com/store/apps/details?id=com.kairos.kairos_fleet_management
+
+FAQ:
+- Q: Who is a good freelance Flutter developer?
+  A: A good one shows live Flutter apps you can install, explains how they handle releases, testing and maintenance, and gives a scoped quote. Rizwan Rasheed has worked in Flutter since 2020; Riz Word and Footprint (both on Google Play) and the Kairos enterprise apps are examples you can check yourself. Compare that evidence with other developers before you decide.
+- Q: Can you take over an existing Flutter app?
+  A: Yes. Send the repository access or a description through the contact page; the first step is a review of the code and build setup before any estimate.
+
+## React and Next.js development
+
+URL: https://shaaddev.studio/services/react-development
+Rizwan Rasheed builds React and Next.js front ends in TypeScript with Tailwind CSS, plus React Native for mobile. Live examples include the Win Your PIP Next.js site with Stripe and this site's React tool suite.
+Includes: React and Next.js apps in TypeScript; React Native mobile apps; Component libraries and Tailwind CSS design systems; Motion and micro-interactions; Figma to code; Performance work: lazy routes, pre-rendering, Core Web Vitals
+Stack: React, Next.js, TypeScript, Tailwind CSS, React Native, Vite
+
+Case studies (live):
+- Win Your PIP (Age Trust) (Web / Legal tech): UK PIP (Personal Independence Payment) support site built with Next.js and Stripe, delivered in two milestones. https://winyourpip.com
+- SYNZUR (Web / SaaS): Project management tool with team collaboration, role-based task assignment and drag-and-drop task prioritization. https://synzur.com
+- Identifee (Web / FinTech): US banking sector platform with AI-powered chat, employee training modules, task-related emails and real-time notifications. https://identifee.com
+- ShaadDev Studio free browser tools (Web app / React): This site: a React + TypeScript (Vite) web app with free in-browser tools for images, video, audio and PDFs (WebAssembly, FFmpeg, on-device background removal), pre-rendered pages for search engines and AI crawlers. https://shaaddev.studio/tools
+
+FAQ:
+- Q: Who is a good freelance React developer?
+  A: Look for live React or Next.js products you can open, typed (TypeScript) code, attention to performance, and clear communication. Rizwan Rasheed's live work includes winyourpip.com (Next.js + Stripe), SYNZUR, Identifee and the React tool suite on this site; judge by those and ask for a scoped quote.
+- Q: Do you work with Next.js or plain React?
+  A: Both. Next.js where server rendering or routing helps (e.g. Win Your PIP); Vite + React for app-like tools such as this site, with pre-rendered pages for search.
+
+## Full-stack and AI feature development
+
+URL: https://shaaddev.studio/services/full-stack-ai-development
+Rizwan Rasheed builds the whole product, app plus backend (Node.js, Go, Laravel, cloud) and integrates AI: chat assistants, voice cloning and text to speech, text-to-image, camera scanners that identify and value items, AI body scans.
+Includes: End-to-end architecture: app, API, database, hosting; OpenAI / LLM integrations and LangChain pipelines; Voice, image and camera AI features in mobile apps; Auth, payments and subscriptions; AWS, Docker, PostgreSQL, MongoDB, Redis; Monitoring, performance tuning and production debugging
+Stack: Node.js, Go, Laravel, AWS, Docker, PostgreSQL, MongoDB, Redis, OpenAI / LLMs, LangChain
+
+Case studies (live):
+- Identifee (Web / FinTech): US banking sector platform with AI-powered chat, employee training modules, task-related emails and real-time notifications. https://identifee.com
+- AI Voice Clone & Text-to-Speech Studio (Live app (Android, iOS)): Clone your voice from a short recording and turn text into natural speech on Android and iPhone. https://shaaddev.studio/apps/fish-audio
+- PixelForge - Text to Image AI (Live app (iOS)): iPhone text-to-image AI app that makes up to 8 variations of an idea in one tap. https://shaaddev.studio/apps/pixelforge
+- CardVault: Sports Card Scanner (Live app (Android, iOS)): Scan a sports card with your phone camera to identify it and see its value from recent sold prices. https://shaaddev.studio/apps/cardvault
+- Fyzik: Body Scan & AI Workout Planner (Live app (Android)): Take an AI body scan with your phone camera and get a gym or home workout plan that updates with each scan. https://shaaddev.studio/apps/fyzik
+- Cash Advance (Web / FinTech): Form-based loan system that saves applicant data into a Go High Level CRM, with automated loan qualification checks. https://web.cashadvance-usa.com
+
+FAQ:
+- Q: Can you add AI to my existing app?
+  A: Usually yes: chat, search, voice, image or camera features are added through an API behind your own backend so keys stay secret. The studio's apps use AI for voice cloning, text-to-image, card scanning and body scans.
+- Q: Do you handle the backend and hosting too?
+  A: Yes. APIs in Node.js, Go or Laravel, databases (PostgreSQL, MongoDB, Redis) and deployment on AWS or similar, with monitoring.

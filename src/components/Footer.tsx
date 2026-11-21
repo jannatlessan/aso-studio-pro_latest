@@ -23,6 +23,7 @@ export default function Footer() {
     { name: "Tools", path: "/tools" },
     { name: "Games", path: "/games" },
     { name: "MicroSaaS", path: "/microsaas" },
+    { name: "Hire a developer", path: "/hire" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" }
   ];

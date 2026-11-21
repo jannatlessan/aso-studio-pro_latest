@@ -61,7 +61,7 @@ function head({ title, description, url, ld }) {
   return h;
 }
 
-const nav = `<nav><a href="/">ShaadDev Studio</a> · <a href="/tools">All tools</a> · <a href="/games">Games</a> · <a href="/about">About</a></nav>`;
+const nav = `<nav><a href="/">ShaadDev Studio</a> · <a href="/tools">All tools</a> · <a href="/games">Games</a> · <a href="/hire">Hire a developer</a> · <a href="/about">About</a></nav>`;
 const foot = `<footer><p>${esc(docs.site.analytics)}</p><p><a href="/privacy">Privacy policy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></p></footer>`;
 const withBody = (html, body) => html.replace('<div id="root"></div>', `<div id="root"><div class="ssg">${body}</div></div>`);
 

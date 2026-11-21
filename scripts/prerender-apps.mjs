@@ -41,7 +41,7 @@ function head({ title, description, url, ld }) {
   return h;
 }
 
-const nav = `<nav><a href="/">ShaadDev Studio</a> · <a href="/apps">Apps</a> · <a href="/tools">Free tools</a> · <a href="/about">About</a></nav>`;
+const nav = `<nav><a href="/">ShaadDev Studio</a> · <a href="/apps">Apps</a> · <a href="/tools">Free tools</a> · <a href="/hire">Hire a developer</a> · <a href="/about">About</a></nav>`;
 const foot = `<footer><p><a href="/privacy">Privacy policy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></p></footer>`;
 const preload = makePreloader(dist);
 const page = (html, body, src) => html
@@ -85,7 +85,7 @@ ${ul([...app.platforms.map((p) => `${a(p.url, `${app.storeName} on ${p.store}`, 
 ${app.faq.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('\n')}
 ${cats.length ? `<p>Compare: ${cats.map((c) => a(P.categoryPath(c.slug), c.title)).join(', ')}</p>` : ''}
 ${related.length ? `<h2>More ${esc(app.group.toLowerCase())} apps</h2>${ul(related.map((o) => `${a(P.appPath(o.slug), o.name)}: ${esc(o.oneLine)}`))}` : ''}
-<p>Facts checked against the live store listings on ${esc(catalog.checked)}. <a href="/apps">All apps</a></p>
+<p>Facts checked against the live store listings on ${esc(catalog.checked)}. <a href="/apps">All apps</a> · Built by <a href="/hire">Rizwan Rasheed (hire)</a></p>
 </main>
 ${foot}`;
   out(P.appPath(app.slug), page(head({ title: P.appTitle(app), description: P.appDescription(app), url, ld: P.appJsonLd(app) }), body, 'src/pages/Apps/AppDetail.tsx'));
@@ -109,6 +109,7 @@ ${apps.map((o) => `<tr><td>${a(P.appPath(o.slug), o.name)}</td>${(cat.rows[o.slu
 </tbody></table>
 <h2>Details</h2>
 ${apps.map((o) => `<h3>${a(P.appPath(o.slug), o.name)}</h3><p>${esc(o.description)}</p><p>Pricing: ${esc(o.pricing)}</p><p>Get it: ${o.platforms.map((p) => a(p.url, `${p.store} (${p.os})`, true)).join(' · ')}</p>`).join('\n')}
+<p>Built by <a href="/hire">Rizwan Rasheed, freelance mobile and web app developer</a>.</p>
 <p>These are our own apps. Facts checked against the live store listings on ${esc(catalog.checked)}.</p>
 </main>
 ${foot}`;
