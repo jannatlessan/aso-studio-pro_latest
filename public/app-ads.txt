@@ -313,3 +313,9 @@ video.unrulymedia.com, 586616193, RESELLER
 smartadserver.com, 4111, RESELLER
 facebook.com, 740902701836542, DIRECT, c3e20eee3f780d68
 vungle.com, 68ee170c28ef88362377c250, DIRECT, c107d686becd2d77
+pubmatic.com, 159856, DIRECT, 5d62403b186f2ace
+smartadserver.com, 4194-OB, RESELLER, 060d053dcf45cbf3
+smartadserver.com, 4194, RESELLER, 060d053dcf45cbf3
+sharethrough.com, 4194-OB, RESELLER, 060d053dcf45cbf3
+sharethrough.com, 4194, RESELLER, 060d053dcf45cbf3
+rubiconproject.com, 22884, DIRECT, 0bfd66d529a55807
