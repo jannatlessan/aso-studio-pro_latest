@@ -311,3 +311,4 @@ pubmatic.com, 161593, RESELLER, 5d62403b186f2ace
 rubiconproject.com, 11006, RESELLER, 0bfd66d529a55807
 video.unrulymedia.com, 586616193, RESELLER
 smartadserver.com, 4111, RESELLER
+facebook.com, 740902701836542, DIRECT, c3e20eee3f780d68
