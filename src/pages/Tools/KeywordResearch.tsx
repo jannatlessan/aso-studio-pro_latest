@@ -126,17 +126,17 @@ export default function KeywordResearch() {
             </button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
-            <label className="space-y-1 text-sm font-bold text-[#8B958F]">Source
+            <label className="space-y-1 text-sm font-bold text-[#55605B]">Source
               <select value={source} onChange={(e) => setSource(e.target.value)} className={`${field} w-full`}>
                 {SOURCES.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
               </select>
             </label>
-            <label className="space-y-1 text-sm font-bold text-[#8B958F]">Country
+            <label className="space-y-1 text-sm font-bold text-[#55605B]">Country
               <select value={gl} onChange={(e) => setGl(e.target.value)} className={`${field} w-full`}>
                 {COUNTRIES.map(([c, n]) => <option key={c} value={c}>{n}</option>)}
               </select>
             </label>
-            <label className="space-y-1 text-sm font-bold text-[#8B958F]">Language
+            <label className="space-y-1 text-sm font-bold text-[#55605B]">Language
               <select value={hl} onChange={(e) => setHl(e.target.value)} className={`${field} w-full`}>
                 {LANGS.map(([c, n]) => <option key={c} value={c}>{n}</option>)}
               </select>
@@ -168,14 +168,14 @@ export default function KeywordResearch() {
 
             {visible.map((g) => (
               <div key={g.group} className="space-y-3">
-                <h2 className="text-lg font-bold text-ink">{GROUP_LABELS[g.group]} <span className="text-[#8B958F] font-semibold">({g.items.length})</span></h2>
+                <h2 className="text-lg font-bold text-ink">{GROUP_LABELS[g.group]} <span className="text-[#55605B] font-semibold">({g.items.length})</span></h2>
                 <ul className="flex flex-wrap gap-2">
                   {g.items.map((x) => (
                     <li key={x.kw}>
                       <button onClick={() => copy(x.kw, x.kw)} title={`${result.source === 'all' ? `Found in ${x.srcs.map((s) => REAL_SOURCES.find((r) => r.id === s)?.label).join(', ')}. ` : ''}Rank ${x.rank} in this list. Click to copy.`} className="bg-[#F6F8F7] border border-black/10 hover:border-primary hover:bg-mint rounded-full px-4 py-1.5 text-sm text-ink transition-colors">
                         {copied === x.kw ? 'Copied' : x.kw}
                         {result.source === 'all' && copied !== x.kw && (
-                          <span className="ml-2 text-[10px] font-black text-primary tracking-wider">{x.srcs.map((s) => REAL_SOURCES.find((r) => r.id === s)?.tag).join('')}</span>
+                          <span className="ml-2 text-[10px] font-black text-[#006622] tracking-wider">{x.srcs.map((s) => REAL_SOURCES.find((r) => r.id === s)?.tag).join('')}</span>
                         )}
                       </button>
                     </li>
@@ -183,7 +183,7 @@ export default function KeywordResearch() {
                 </ul>
               </div>
             ))}
-            <p className="text-sm text-[#8B958F]">Suggestions come in the order the search engine lists them, so earlier ones are usually more common. With All sources, keywords found in more engines come first (G Google, Y YouTube, B Bing, D DuckDuckGo). This tool does not show search volume or difficulty.</p>
+            <p className="text-sm text-[#55605B]">Suggestions come in the order the search engine lists them, so earlier ones are usually more common. With All sources, keywords found in more engines come first (G Google, Y YouTube, B Bing, D DuckDuckGo). This tool does not show search volume or difficulty.</p>
           </section>
         )}
 
