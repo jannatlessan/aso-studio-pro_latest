@@ -98,7 +98,7 @@ export default function KeywordResearch() {
             <ChevronLeft className="w-4 h-4" />
             {isToolUsed ? 'Keyword Research' : 'Back to Tools'}
           </button>
-          <div className="flex items-center gap-2 text-xs font-bold text-primary bg-mint px-3 py-1.5 rounded-full border border-primary/20">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#006622] bg-mint px-3 py-1.5 rounded-full border border-primary/20">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             NEW TOOL
           </div>
@@ -121,7 +121,7 @@ export default function KeywordResearch() {
               aria-label="Keyword"
               className={`${field} flex-1 text-lg`}
             />
-            <button type="submit" disabled={loading} className="bg-primary text-white px-8 py-3 rounded-2xl font-black flex items-center justify-center gap-2 transition-all hover:bg-primary-dark active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-60">
+            <button type="submit" disabled={loading} className="bg-[#006622] text-white px-8 py-3 rounded-2xl font-black flex items-center justify-center gap-2 transition-all hover:bg-[#004d19] active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-60">
               {loading ? <Loader2 size={20} className="animate-spin" /> : <Search size={20} />} {loading ? 'Searching...' : 'Find keywords'}
             </button>
           </div>
@@ -158,7 +158,7 @@ export default function KeywordResearch() {
                 <button onClick={() => copy(allText(), 'all')} disabled={shownCount === 0} className="border border-black/10 text-ink hover:bg-black/[0.04] px-5 py-2 rounded-2xl font-bold flex items-center gap-2 disabled:opacity-50">
                   {copied === 'all' ? <Check size={18} /> : <Copy size={18} />} {copied === 'all' ? 'Copied' : 'Copy all'}
                 </button>
-                <button onClick={downloadCsv} disabled={shownCount === 0} className="bg-primary text-white px-5 py-2 rounded-2xl font-bold flex items-center gap-2 hover:bg-primary-dark disabled:opacity-50">
+                <button onClick={downloadCsv} disabled={shownCount === 0} className="bg-[#006622] text-white px-5 py-2 rounded-2xl font-bold flex items-center gap-2 hover:bg-[#004d19] disabled:opacity-50">
                   <Download size={18} /> CSV
                 </button>
               </div>
