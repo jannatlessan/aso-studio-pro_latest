@@ -45,7 +45,7 @@ export default function QRCodeGenerator() {
 
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
-      <SEO title="QR Code Generator | ShaadDev Studio" description="Generate high-res QR codes instantly." url="https://shaaddev.studio/tools/qr-code-generator" keywords="qr code generator, url to qr graphic, trackable codes" />
+      <SEO title="Free QR Code Generator: High-Res, No Sign-Up | ShaadDev Studio" description="Free online QR code generator: turn a link or text into a high-resolution QR code in your browser. No sign-up needed." url="https://shaaddev.studio/tools/qr-code-generator" keywords="qr code generator, free qr code generator, qr code generator online free, qr code generator no sign up, url to qr code, high resolution qr code" />
 
       {/* Header */}
       <ToolHeader

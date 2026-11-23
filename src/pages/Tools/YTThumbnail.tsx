@@ -67,7 +67,7 @@ export default function YTThumbnail() {
 
   return (
     <div className="min-h-screen bg-white text-ink p-5 sm:p-8 md:p-12 selection:bg-primary/20 transform-gpu">
-      <SEO title="YT Thumbnail Saver | ShaadDev Studio" description="Fetch maximum resolution thumbnails from YouTube." url="https://shaaddev.studio/tools/yt-thumbnail" keywords="yt thumbnail, youtube grabber, extract hq cover" />
+      <SEO title="YouTube Thumbnail Downloader: Save HD Thumbnails | ShaadDev Studio" description="Paste a YouTube link and download its thumbnail in the highest available resolution. Free online YouTube thumbnail downloader." url="https://shaaddev.studio/tools/yt-thumbnail" keywords="youtube thumbnail downloader, youtube thumbnail download hd, yt thumbnail saver, youtube thumbnail grabber, download youtube thumbnail" />
 
 <div className="max-w-4xl mx-auto space-y-8">
         <button onClick={handleBackClick} className="mt-8 inline-flex items-center gap-2 text-sm text-[#55605B] hover:text-primary transition-colors" title={isToolUsed ? "(Click to reset)" : undefined}>

@@ -122,7 +122,7 @@ export default function ReactionTime() {
       slug={SLUG}
       title="Reaction Time Test"
       tagline="Wait for green, then tap. Five rounds, averaged, to find out how fast your reflexes really are."
-      keywords="reaction time test, reflex test online, human benchmark reaction, ms reaction speed game"
+      keywords="reaction time test, reaction time test online, reaction time tester, reaction time test game, reflex test online, ms reaction speed game"
       stats={[
         { label: 'Last', value: last !== null ? `${last}ms` : '—', accent: true },
         { label: 'Average', value: average !== null ? `${average}ms` : '—' },

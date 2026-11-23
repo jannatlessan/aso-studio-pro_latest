@@ -72,9 +72,9 @@ export default function PasswordGenerator() {
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
-        title="Free Online Password Generator | ShaadDev Studio"
+        title="Free Strong Password Generator: Random & Secure | ShaadDev Studio"
         description="Generate strong, secure, and random passwords instantly for your daily data protection needs."
-        url="https://shaaddev.studio/tools/password-generator" keywords="password generator, strong safe keys, uncrackable pword" />
+        url="https://shaaddev.studio/tools/password-generator" keywords="password generator, strong password generator, random password generator, secure password generator, free password generator" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

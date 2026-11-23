@@ -290,9 +290,10 @@ export default function VideoToImages() {
       <AdBlockDetector />
       <div className="min-h-screen bg-white text-ink selection:bg-primary/20 font-sans">
         <SEO
-          title="AuraCut Studio | Video to Images Frame Extractor"
+          title="Video to Images Converter Online: Extract Frames, Free | ShaadDev Studio"
           description="Convert any video into a sequence of high-quality images. Extract frames at a custom rate, preview every image, and download individually or as a single ZIP archive. 100% offline browser processing."
           url="https://shaaddev.studio/tools/video-to-images"
+          keywords="video to images converter, video to images online, video to images frame by frame, video frame extractor, video to images free"
         />
 
         {/* Modern Header */}

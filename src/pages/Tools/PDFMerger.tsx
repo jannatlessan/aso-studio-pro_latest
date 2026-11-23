@@ -101,9 +101,9 @@ export default function PDFMerger() {
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
-        title="Free Online PDF Merger | ShaadDev Studio"
+        title="Free PDF Merger Online: Combine PDFs in Your Browser | ShaadDev Studio"
         description="Merge multiple PDF files into one document securely in your browser. 100% free and local processing without server uploads."
-        url="https://shaaddev.studio/tools/pdf-merger" keywords="pdf merger, join pdf documents, stitch pages" />
+        url="https://shaaddev.studio/tools/pdf-merger" keywords="pdf merger, pdf merger free, pdf merger online, merge pdf online free, combine pdf files, join pdf documents" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

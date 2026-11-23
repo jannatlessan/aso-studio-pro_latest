@@ -60,7 +60,7 @@ ${html}</body>
 
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
-      <SEO title="Markdown to HTML | ShaadDev Studio" description="Convert MD strings to clean HTML code instantly." url="https://shaaddev.studio/tools/markdown-to-html" keywords="markdown to html, markdown compile, clean html preview" />
+      <SEO title="Markdown to HTML Converter & Parser, Free Online | ShaadDev Studio" description="Paste Markdown and get clean HTML with a live preview. A free online Markdown to HTML parser that runs in your browser, no sign-up." url="https://shaaddev.studio/tools/markdown-to-html" keywords="markdown to html, markdown to html converter, markdown to html parser, markdown parser online, md to html, clean html preview" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

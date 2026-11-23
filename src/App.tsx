@@ -7,6 +7,7 @@ const UnitConverter = lazy(() => import('./pages/Tools/UnitConverter'));
 const ColorPalette = lazy(() => import('./pages/Tools/ColorPalette'));
 const CSSGradient = lazy(() => import('./pages/Tools/CSSGradient'));
 const LoremIpsum = lazy(() => import('./pages/Tools/LoremIpsum'));
+const KeywordResearch = lazy(() => import('./pages/Tools/KeywordResearch'));
 const MarkdownToHtml = lazy(() => import('./pages/Tools/MarkdownToHtml'));
 const PercentageCalculator = lazy(() => import('./pages/Tools/PercentageCalculator'));
 const YTThumbnail = lazy(() => import('./pages/Tools/YTThumbnail'));
@@ -96,6 +97,7 @@ export default function App() {
         <Route path="/tools/color-palette" element={<ColorPalette />} />
         <Route path="/tools/css-gradient" element={<CSSGradient />} />
         <Route path="/tools/lorem-ipsum" element={<LoremIpsum />} />
+        <Route path="/tools/keyword-research" element={<KeywordResearch />} />
         <Route path="/tools/markdown-to-html" element={<MarkdownToHtml />} />
         <Route path="/tools/percentage-calculator" element={<PercentageCalculator />} />
         <Route path="/tools/yt-thumbnail" element={<YTThumbnail />} />

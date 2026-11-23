@@ -687,6 +687,32 @@
           "a": "Yes, pick an audio file from your device to play in the background."
         }
       ]
+    },
+    "/tools/keyword-research": {
+      "who": "Bloggers, developers, app makers and YouTubers looking for phrases people type into search boxes.",
+      "steps": [
+        "Type a topic of at least 2 characters.",
+        "Choose Google, YouTube, Bing or DuckDuckGo, a country and a language.",
+        "Search, filter the list, click a keyword to copy it, or export CSV."
+      ],
+      "input": "A keyword or short phrase (2 to 60 characters).",
+      "output": "Grouped keyword suggestions: direct, questions, prepositions, modifiers and A to Z, with CSV export.",
+      "limits": "Shows suggestions only. No search volume, difficulty or competition. Very specific topics return few results. Limited to 12 searches per minute per visitor.",
+      "privacy": "Your keyword is sent to our server to fetch suggestions from the chosen search engine. Nothing is stored and results are cached briefly.",
+      "faq": [
+        {
+          "q": "Does it show search volume?",
+          "a": "No. Search suggestions do not include volume or difficulty."
+        },
+        {
+          "q": "Where do the keywords come from?",
+          "a": "From the public search-box suggestions of Google, YouTube, Bing or DuckDuckGo, whichever source you pick."
+        },
+        {
+          "q": "Is it free?",
+          "a": "Yes, with no sign-up."
+        }
+      ]
     }
   }
 }

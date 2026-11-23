@@ -225,9 +225,9 @@ export default function ImageCompressor() {
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
-        title="Free Online Image Compressor | ShaadDev Studio"
-        description="Compress bulk or individual image files without losing quality. Export to WEBP and JPEG optimized entirely within your browser locally."
-        url="https://shaaddev.studio/tools/image-compressor" keywords="image compressor, jpeg minimizer, webp optimize" />
+        title="Free Image Compressor Online: WEBP & JPEG, Bulk | ShaadDev Studio"
+        description="Compress one image or many at once and export WEBP or JPEG. Runs locally in your browser, so your files are not uploaded."
+        url="https://shaaddev.studio/tools/image-compressor" keywords="image compressor, image compressor online, free image compressor, compress images in bulk, jpeg compressor, webp compressor" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

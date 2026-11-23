@@ -193,8 +193,8 @@ export default function WordScramble() {
     <GameShell
       slug={SLUG}
       title="Word Scramble"
-      tagline="Unscramble the letters against the clock. Hints cost points, so trust your instincts first."
-      keywords="word scramble game, anagram solver game, unscramble letters online, free word game"
+      tagline="Play word scramble online free: unscramble the letters against the clock. Hints cost points, so trust your instincts first."
+      keywords="scramble words game online free, word scramble game, word scramble online, anagram game, unscramble letters online, free word game"
       stats={[
         { label: 'Score', value: score, accent: true },
         { label: 'Best', value: best ?? 0 },

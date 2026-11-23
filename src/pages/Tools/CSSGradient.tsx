@@ -43,7 +43,7 @@ background: ${gradient};`;
 
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
-      <SEO title="CSS Gradient | ShaadDev Studio" description="Visually create CSS gradients." url="https://shaaddev.studio/tools/css-gradient" keywords="css gradient, hex code linear, simple gradient export" />
+      <SEO title="CSS Gradient Generator Online, Free | ShaadDev Studio" description="Free online CSS gradient generator: build a gradient visually, pick the colors and copy the CSS code." url="https://shaaddev.studio/tools/css-gradient" keywords="css gradient generator, css gradient generator online, css gradient generator tool, gradient css code, css gradient" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

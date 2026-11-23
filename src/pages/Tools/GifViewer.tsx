@@ -183,9 +183,10 @@ export default function GifViewer() {
       <AdBlockDetector />
       <div className="min-h-screen bg-white text-ink selection:bg-primary/20 font-sans">
       <SEO
-        title="AuraCut Studio | GIF to Video Converter & Viewer"
+        title="GIF Viewer Online: Pause, Frame by Frame, GIF to MP4 | ShaadDev Studio"
         description="Upload any GIF to perfectly pause, rewind, scrub frame-by-frame, and convert to high-definition MP4 video. Extract ultra high-definition PNG frame slices. 100% free and fully private offline processing."
         url="https://shaaddev.studio/tools/gif-viewer"
+        keywords="gif viewer online, gif viewer online free, gif player online, gif frame viewer, gif to mp4"
       />
 
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)]">

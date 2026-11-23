@@ -254,6 +254,31 @@ FAQ:
 - Q: Is it free?
   A: Yes.
 
+## Keyword Research Tool
+
+URL: https://shaaddev.studio/tools/keyword-research
+Category: Utilities
+Find long-tail keyword ideas from Google, YouTube, Bing and DuckDuckGo search suggestions.
+
+- Who it is for: Bloggers, developers, app makers and YouTubers looking for phrases people type into search boxes.
+- Input: A keyword or short phrase (2 to 60 characters).
+- Output: Grouped keyword suggestions: direct, questions, prepositions, modifiers and A to Z, with CSV export.
+- Limits: Shows suggestions only. No search volume, difficulty or competition. Very specific topics return few results. Limited to 12 searches per minute per visitor.
+- Privacy: Your keyword is sent to our server to fetch suggestions from the chosen search engine. Nothing is stored and results are cached briefly.
+
+How to use:
+1. Type a topic of at least 2 characters.
+2. Choose Google, YouTube, Bing or DuckDuckGo, a country and a language.
+3. Search, filter the list, click a keyword to copy it, or export CSV.
+
+FAQ:
+- Q: Does it show search volume?
+  A: No. Search suggestions do not include volume or difficulty.
+- Q: Where do the keywords come from?
+  A: From the public search-box suggestions of Google, YouTube, Bing or DuckDuckGo, whichever source you pick.
+- Q: Is it free?
+  A: Yes, with no sign-up.
+
 ## Markdown to HTML
 
 URL: https://shaaddev.studio/tools/markdown-to-html

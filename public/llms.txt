@@ -32,6 +32,7 @@ Proof you can check: CardVault: Sports Card Scanner (https://shaaddev.studio/app
 
 - [QR Code Generator](https://shaaddev.studio/tools/qr-code-generator): Generate high-res QR codes instantly for URLs, text, and contact info.
 - [Pomodoro Timer](https://shaaddev.studio/tools/pomodoro-timer): Boost productivity with our sleek customizable Pomodoro technique timer.
+- [Keyword Research Tool](https://shaaddev.studio/tools/keyword-research): Find long-tail keyword ideas from Google, YouTube, Bing and DuckDuckGo search suggestions.
 - [YT Thumbnail Saver](https://shaaddev.studio/tools/yt-thumbnail): Fetch max-resolution YouTube video thumbnails directly to your device.
 - [Secure Password Generator](https://shaaddev.studio/tools/password-generator): Instantly create strong, random, and highly secure passwords with customizable parameters to keep data safe.
 

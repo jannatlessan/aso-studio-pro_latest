@@ -148,9 +148,9 @@ export default function JSONFormatter() {
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
-        title="Free Online JSON Formatter | ShaadDev Studio"
+        title="JSON Formatter Online Free: Format & Validate JSON | ShaadDev Studio"
         description="Format, prettify, and validate JSON data quickly directly from your browser."
-        url="https://shaaddev.studio/tools/json-formatter" keywords="json formatter, format json online, pretify syntax" />
+        url="https://shaaddev.studio/tools/json-formatter" keywords="json formatter, json formatter online free, format json online, json validator, json beautifier" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

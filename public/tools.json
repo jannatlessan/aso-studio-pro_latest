@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-21T17:20:42.179Z",
+  "generatedAt": "2026-11-23T14:48:19.881Z",
   "baseUrl": "https://shaaddev.studio",
   "brand": {
     "name": "ShaadDev Studio",
@@ -8,7 +8,7 @@
     "logo": "https://shaaddev.studio/og-image.jpg",
     "icon": "https://shaaddev.studio/favicon.svg"
   },
-  "count": 51,
+  "count": 52,
   "categories": [
     "Calculators",
     "Design",
@@ -168,6 +168,21 @@
       "icon": "AlignLeft",
       "iconSlug": "align-left",
       "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/align-left.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "KEY-001",
+      "title": "Keyword Research Tool",
+      "description": "Find long-tail keyword ideas from Google, YouTube, Bing and DuckDuckGo search suggestions.",
+      "category": "Utilities",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/tools/keyword-research",
+      "link": "https://shaaddev.studio/tools/keyword-research",
+      "icon": "Search",
+      "iconSlug": "search",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/search.svg",
       "color": "#0E9D52"
     },
     {

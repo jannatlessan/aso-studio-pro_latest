@@ -232,9 +232,9 @@ export default function ImageResizer() {
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
-        title="Free Online Bulk Image Resizer | ShaadDev Studio"
+        title="Free Online Bulk Image Resizer: Resize Many Images at Once | ShaadDev Studio"
         description="Fast, local, high-quality bulk image resizing and format conversion tool. Resize single or multiple images instantly entirely in your browser."
-        url="https://shaaddev.studio/tools/image-resizer" keywords="image resizer, crop images online, pixel width scaler" />
+        url="https://shaaddev.studio/tools/image-resizer" keywords="bulk image resizer, bulk image resizer online, bulk image resizer free, resize multiple images online, image resizer, crop images online" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

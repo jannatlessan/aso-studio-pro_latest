@@ -65,9 +65,9 @@ export default function TextUtilities() {
   return (
     <div className="min-h-screen bg-white text-ink selection:bg-primary/20 flex flex-col">
       <SEO
-        title="Free Online Text & String Utilities | ShaadDev Studio"
-        description="Convert string case, analyze word count, and manage encodings conveniently."
-        url="https://shaaddev.studio/tools/text-utilities" keywords="text utilities, base64 encode, counting strings" />
+        title="Free Online String Manipulation Tools: Case, Word Count, Base64 | ShaadDev Studio"
+        description="Free online string manipulation tools: change text case, count words and characters, and encode or decode Base64. Runs in your browser, nothing is uploaded."
+        url="https://shaaddev.studio/tools/text-utilities" keywords="string manipulation tools, online string tools, text utilities, case converter, word counter, character counter, base64 encode decode" />
 
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(16,19,18,0.06)] px-4 sm:px-8 py-4">

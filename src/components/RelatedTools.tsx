@@ -3,7 +3,7 @@ import ToolFacts from './ToolFacts';
 import {
   ChevronRight, Image as ImageIcon, Wand2, Layers, Film, Images, Heart, Minimize, FileBox,
   FileOutput, Music, Palette, Paintbrush, Smartphone, FileJson, Code, Type, AlignLeft,
-  Calculator, Scale, Percent, QrCode, Lock, Timer, Youtube
+  Calculator, Scale, Percent, QrCode, Lock, Timer, Youtube, Search
 } from 'lucide-react';
 
 type Category = 'Images & Media' | 'Documents & Files' | 'Design' | 'Development' | 'Text' | 'Calculators' | 'Utilities';
@@ -40,6 +40,7 @@ const CATALOG: ToolLink[] = [
   { path: '/tools/markdown-to-html', name: 'Markdown to HTML', icon: Code, desc: 'Convert Markdown into clean, formatted HTML instantly.', category: 'Development' },
 
   { path: '/tools/text-utilities', name: 'Text Utilities', icon: Type, desc: 'Count words, switch case, and encode/decode Base64.', category: 'Text' },
+  { path: '/tools/keyword-research', name: 'Keyword Research Tool', icon: Search, desc: 'Find long-tail keyword ideas from real search suggestions.', category: 'Utilities' },
   { path: '/tools/lorem-ipsum', name: 'Lorem Ipsum Generator', icon: AlignLeft, desc: 'Generate customizable placeholder dummy text.', category: 'Text' },
 
   { path: '/tools/age-calculator', name: 'Age Calculator', icon: Calculator, desc: 'Calculate exact age in years, months, days and seconds.', category: 'Calculators' },

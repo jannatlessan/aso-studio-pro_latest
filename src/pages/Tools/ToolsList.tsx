@@ -42,7 +42,7 @@ import toolsData from '../../data/tools.json';
 const ICON_MAP: Record<string, typeof Film> = {
   Image: ImageIcon, Film, Images, QrCode, Calculator, Timer, Scale, Palette, Paintbrush, AlignLeft,
   Code, Percent, Youtube, Smartphone, Lock, FileJson, Type, Wand2, Layers, Music, Minimize,
-  FileOutput, FileBox, Heart
+  FileOutput, FileBox, Heart, Search
 };
 
 const tools = toolsData.map((t) => ({
@@ -145,6 +145,15 @@ const _legacyTools = [
     icon: AlignLeft,
     path: "/tools/lorem-ipsum",
     status: "Trending",
+    actionLabel: "Open Tool"
+  },
+  {
+    id: "KEY-001",
+    name: "Keyword Research Tool",
+    description: "Find long-tail keyword ideas from Google, YouTube, Bing and DuckDuckGo search suggestions.",
+    icon: Search,
+    path: "/tools/keyword-research",
+    status: "New",
     actionLabel: "Open Tool"
   },
   {

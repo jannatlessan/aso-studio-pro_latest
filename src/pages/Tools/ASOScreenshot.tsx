@@ -908,9 +908,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-bg text-text transition-colors duration-300 selection:bg-primary/20">
       <SEO 
-        title="Free Online ASO Screenshot Generator | ShaadDev Studio" 
-        description="Create polished App Store and Play Store screenshots with customizable layouts, text, colors, and device sizes." 
-        url="https://shaaddev.studio/tools/aso-screenshot" keywords="aso screenshot, app store asset grab, play store shots" />
+        title="ASO Screenshot Generator: App Store & Play Store Screenshots, Free | ShaadDev Studio" 
+        description="Free ASO screenshot maker: build App Store and Google Play screenshots with custom layouts, text, colors and device sizes, right in your browser." 
+        url="https://shaaddev.studio/tools/aso-screenshot" keywords="aso screenshot, aso screenshot generator, app store screenshot maker, play store screenshot generator, app screenshot maker" />
       {/* Header */}
       <header className="sticky top-0 z-50 bg-bg/80 backdrop-blur-xl border-b border-black/[0.06] px-4 sm:px-8 py-3">
         <input
