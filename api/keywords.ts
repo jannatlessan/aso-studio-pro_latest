@@ -16,7 +16,7 @@ const MAX_SEED = 60;
 const TIMEOUT_MS = 4000;
 const CONCURRENCY = 8;
 
-// Light per-instance rate limit. Responses are also cached at the edge (see Cache-Control below).
+// Light per-instance rate limit (20 requests a minute; "All sources" in the page makes 4 requests). Responses are also cached at the edge (see Cache-Control below).
 const hits = new Map<string, number[]>();
 function limited(ip: string): boolean {
   const now = Date.now();
@@ -24,7 +24,7 @@ function limited(ip: string): boolean {
   recent.push(now);
   hits.set(ip, recent);
   if (hits.size > 500) hits.clear();
-  return recent.length > 12;
+  return recent.length > 20;
 }
 
 function endpoint(source: Source, q: string, hl: string, gl: string): string {

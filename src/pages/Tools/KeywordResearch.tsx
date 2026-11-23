@@ -5,15 +5,16 @@ import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
 
-type Groups = Record<string, string[]>;
-interface Result { seed: string; source: string; total: number; groups: Groups }
+interface Item { kw: string; rank: number; srcs: string[] }
+interface Result { seed: string; source: string; okSources: string[]; groups: Record<string, Item[]> }
 
-const SOURCES = [
-  { id: 'google', label: 'Google' },
-  { id: 'youtube', label: 'YouTube' },
-  { id: 'bing', label: 'Bing' },
-  { id: 'duckduckgo', label: 'DuckDuckGo' },
+const REAL_SOURCES = [
+  { id: 'google', label: 'Google', tag: 'G' },
+  { id: 'youtube', label: 'YouTube', tag: 'Y' },
+  { id: 'bing', label: 'Bing', tag: 'B' },
+  { id: 'duckduckgo', label: 'DuckDuckGo', tag: 'D' },
 ];
+const SOURCES = [...REAL_SOURCES, { id: 'all', label: 'All sources (merged)', tag: '' }];
 const COUNTRIES = [
   ['us', 'United States'], ['gb', 'United Kingdom'], ['ca', 'Canada'], ['au', 'Australia'], ['in', 'India'],
   ['pk', 'Pakistan'], ['ae', 'United Arab Emirates'], ['sa', 'Saudi Arabia'], ['de', 'Germany'], ['fr', 'France'],
@@ -57,11 +58,33 @@ export default function KeywordResearch() {
     if (q.length < 2) { setError('Type a keyword with at least 2 characters.'); return; }
     setLoading(true); setError(''); setResult(null);
     try {
-      const params = new URLSearchParams({ q, src: source, gl, hl, deep: deep ? '1' : '0' });
-      const res = await fetch(`/api/keywords?${params.toString()}`);
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || 'The search failed. Try again in a moment.');
-      setResult(data as Result);
+      const fetchOne = async (src: string) => {
+        const params = new URLSearchParams({ q, src, gl, hl, deep: deep ? '1' : '0' });
+        const res = await fetch(`/api/keywords?${params.toString()}`);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || 'The search failed. Try again in a moment.');
+        return { src, groups: (data.groups || {}) as Record<string, string[]> };
+      };
+      const wanted = source === 'all' ? REAL_SOURCES.map((s) => s.id) : [source];
+      const settled = await Promise.allSettled(wanted.map(fetchOne));
+      const ok = settled.flatMap((r) => (r.status === 'fulfilled' ? [r.value] : []));
+      if (ok.length === 0) {
+        const first = settled.find((r) => r.status === 'rejected') as PromiseRejectedResult | undefined;
+        throw first?.reason instanceof Error ? first.reason : new Error('The search failed. Try again in a moment.');
+      }
+      const groups: Record<string, Item[]> = {};
+      for (const g of GROUP_ORDER) {
+        const map = new Map<string, Item>();
+        for (const r of ok) {
+          (r.groups[g] || []).forEach((kw, i) => {
+            const cur = map.get(kw);
+            if (cur) { cur.srcs.push(r.src); cur.rank = Math.min(cur.rank, i + 1); }
+            else map.set(kw, { kw, rank: i + 1, srcs: [r.src] });
+          });
+        }
+        groups[g] = [...map.values()].sort((a, b) => b.srcs.length - a.srcs.length || a.rank - b.rank);
+      }
+      setResult({ seed: q.toLowerCase(), source, okSources: ok.map((r) => r.src), groups });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'The search failed. Try again in a moment.');
     } finally {
@@ -70,11 +93,11 @@ export default function KeywordResearch() {
   };
 
   const visible = useMemo(() => {
-    if (!result) return [] as { group: string; items: { kw: string; rank: number }[] }[];
+    if (!result) return [] as { group: string; items: Item[] }[];
     const f = filter.trim().toLowerCase();
     return GROUP_ORDER.map((g) => ({
       group: g,
-      items: (result.groups[g] || []).map((kw, i) => ({ kw, rank: i + 1 })).filter((x) => !f || x.kw.includes(f)),
+      items: (result.groups[g] || []).filter((x) => !f || x.kw.includes(f)),
     })).filter((g) => g.items.length > 0);
   }, [result, filter]);
 
@@ -87,8 +110,8 @@ export default function KeywordResearch() {
   };
   const allText = () => visible.flatMap((g) => g.items.map((x) => x.kw)).join('\n');
   const downloadCsv = () => {
-    const rows = ['keyword,group,rank_in_group,source'];
-    visible.forEach((g) => g.items.forEach((x) => rows.push(`"${x.kw.replace(/"/g, '""')}",${g.group},${x.rank},${result?.source}`)));
+    const rows = ['keyword,group,rank_in_group,sources'];
+    visible.forEach((g) => g.items.forEach((x) => rows.push(`"${x.kw.replace(/"/g, '""')}",${g.group},${x.rank},${x.srcs.join('|')}`)));
     const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -163,7 +186,7 @@ export default function KeywordResearch() {
         {result && (
           <section className="space-y-6" aria-live="polite">
             <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
-              <p className="text-[#55605B]"><strong className="text-ink">{shownCount}</strong> keywords{filter ? ' match your filter' : ''} for <strong className="text-ink">&ldquo;{result.seed}&rdquo;</strong> from {SOURCES.find((s) => s.id === result.source)?.label}.</p>
+              <p className="text-[#55605B]"><strong className="text-ink">{shownCount}</strong> keywords{filter ? ' match your filter' : ''} for <strong className="text-ink">&ldquo;{result.seed}&rdquo;</strong> from {SOURCES.find((s) => s.id === result.source)?.label}{result.source === 'all' ? ` (${result.okSources.length} of ${REAL_SOURCES.length} sources responded)` : ''}.</p>
               <div className="flex flex-wrap gap-3">
                 <input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Filter results" aria-label="Filter results" className={`${field} py-2`} />
                 <button onClick={() => copy(allText(), 'all')} disabled={shownCount === 0} className="border border-black/10 text-ink hover:bg-black/[0.04] px-5 py-2 rounded-2xl font-bold flex items-center gap-2 disabled:opacity-50">
@@ -183,15 +206,18 @@ export default function KeywordResearch() {
                 <ul className="flex flex-wrap gap-2">
                   {g.items.map((x) => (
                     <li key={x.kw}>
-                      <button onClick={() => copy(x.kw, x.kw)} title={`Rank ${x.rank} in this list. Click to copy.`} className="bg-[#F6F8F7] border border-black/10 hover:border-primary hover:bg-mint rounded-full px-4 py-1.5 text-sm text-ink transition-colors">
+                      <button onClick={() => copy(x.kw, x.kw)} title={`${result.source === 'all' ? `Found in ${x.srcs.map((s) => REAL_SOURCES.find((r) => r.id === s)?.label).join(', ')}. ` : ''}Rank ${x.rank} in this list. Click to copy.`} className="bg-[#F6F8F7] border border-black/10 hover:border-primary hover:bg-mint rounded-full px-4 py-1.5 text-sm text-ink transition-colors">
                         {copied === x.kw ? 'Copied' : x.kw}
+                        {result.source === 'all' && copied !== x.kw && (
+                          <span className="ml-2 text-[10px] font-black text-primary tracking-wider">{x.srcs.map((s) => REAL_SOURCES.find((r) => r.id === s)?.tag).join('')}</span>
+                        )}
                       </button>
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
-            <p className="text-sm text-[#8B958F]">Suggestions come in the order the search engine lists them, so earlier ones are usually more common. This tool does not show search volume or difficulty.</p>
+            <p className="text-sm text-[#8B958F]">Suggestions come in the order the search engine lists them, so earlier ones are usually more common. With All sources, keywords found in more engines come first (G Google, Y YouTube, B Bing, D DuckDuckGo). This tool does not show search volume or difficulty.</p>
           </section>
         )}
 
