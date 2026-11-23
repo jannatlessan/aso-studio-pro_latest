@@ -4,17 +4,10 @@ import { useToolNavigation } from '../../hooks/useToolNavigation';
 import SEO from '../../components/SEO';
 import Footer from '../../components/Footer';
 import RelatedTools from '../../components/RelatedTools';
+import { runKeywordSearch, REAL_SOURCES, GROUP_ORDER, type Item, type Result } from '../../lib/keywordSearch';
 
-interface Item { kw: string; rank: number; srcs: string[] }
-interface Result { seed: string; source: string; okSources: string[]; groups: Record<string, Item[]> }
-
-const REAL_SOURCES = [
-  { id: 'google', label: 'Google', tag: 'G' },
-  { id: 'youtube', label: 'YouTube', tag: 'Y' },
-  { id: 'bing', label: 'Bing', tag: 'B' },
-  { id: 'duckduckgo', label: 'DuckDuckGo', tag: 'D' },
-];
-const SOURCES = [...REAL_SOURCES, { id: 'all', label: 'All sources (merged)', tag: '' }];
+const ALL_SOURCE = { id: 'all', label: 'All sources (merged)', tag: '' };
+const SOURCES = [...REAL_SOURCES, ALL_SOURCE];
 const COUNTRIES = [
   ['us', 'United States'], ['gb', 'United Kingdom'], ['ca', 'Canada'], ['au', 'Australia'], ['in', 'India'],
   ['pk', 'Pakistan'], ['ae', 'United Arab Emirates'], ['sa', 'Saudi Arabia'], ['de', 'Germany'], ['fr', 'France'],
@@ -31,7 +24,6 @@ const GROUP_LABELS: Record<string, string> = {
   modifiers: 'With modifiers (free, online, best...)',
   alphabet: 'Alphabet expansion (A to Z)',
 };
-const GROUP_ORDER = ['base', 'questions', 'prepositions', 'modifiers', 'alphabet'];
 
 export default function KeywordResearch() {
   const [seed, setSeed] = useState('');
@@ -58,33 +50,7 @@ export default function KeywordResearch() {
     if (q.length < 2) { setError('Type a keyword with at least 2 characters.'); return; }
     setLoading(true); setError(''); setResult(null);
     try {
-      const fetchOne = async (src: string) => {
-        const params = new URLSearchParams({ q, src, gl, hl, deep: deep ? '1' : '0' });
-        const res = await fetch(`/api/keywords?${params.toString()}`);
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(data.error || 'The search failed. Try again in a moment.');
-        return { src, groups: (data.groups || {}) as Record<string, string[]> };
-      };
-      const wanted = source === 'all' ? REAL_SOURCES.map((s) => s.id) : [source];
-      const settled = await Promise.allSettled(wanted.map(fetchOne));
-      const ok = settled.flatMap((r) => (r.status === 'fulfilled' ? [r.value] : []));
-      if (ok.length === 0) {
-        const first = settled.find((r) => r.status === 'rejected') as PromiseRejectedResult | undefined;
-        throw first?.reason instanceof Error ? first.reason : new Error('The search failed. Try again in a moment.');
-      }
-      const groups: Record<string, Item[]> = {};
-      for (const g of GROUP_ORDER) {
-        const map = new Map<string, Item>();
-        for (const r of ok) {
-          (r.groups[g] || []).forEach((kw, i) => {
-            const cur = map.get(kw);
-            if (cur) { cur.srcs.push(r.src); cur.rank = Math.min(cur.rank, i + 1); }
-            else map.set(kw, { kw, rank: i + 1, srcs: [r.src] });
-          });
-        }
-        groups[g] = [...map.values()].sort((a, b) => b.srcs.length - a.srcs.length || a.rank - b.rank);
-      }
-      setResult({ seed: q.toLowerCase(), source, okSources: ok.map((r) => r.src), groups });
+      setResult(await runKeywordSearch({ q, source, gl, hl, deep }));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'The search failed. Try again in a moment.');
     } finally {
