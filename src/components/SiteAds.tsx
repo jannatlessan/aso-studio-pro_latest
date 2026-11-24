@@ -90,36 +90,23 @@ function AdBlockWall() {
 
   useEffect(() => {
     let alive = true;
-    const show = () => alive && setBlocked(true);
 
-    // Check 1 (instant): blockers hide elements with ad-like class names.
-    const bait = document.createElement('div');
-    bait.className = 'ad-banner adsbox doubleclick ad-placement ad-container';
-    bait.style.cssText = 'position:absolute;left:-9999px;width:10px;height:10px;display:block';
-    document.body.appendChild(bait);
-    const baitTimer = setTimeout(() => {
-      if (bait.offsetHeight === 0 || getComputedStyle(bait).display === 'none') show();
-      bait.remove();
-    }, 300);
-
-    // Check 2: the ad server request is blocked. 3 quick tries in a row must fail, so one
-    // network hiccup never shows the wall.
+    // The ad server request is blocked. A blocker rejects it instantly, so 3 quick tries in a
+    // row decide in about a second; one network hiccup alone never shows the wall.
     (async () => {
       for (let i = 0; i < 3; i++) {
         try {
           await fetch(`${BANNER_HOST}${BANNER_KEYS['728x90'].key}`, { method: 'GET', mode: 'no-cors', cache: 'no-store' });
           return;
         } catch {
-          if (i < 2) await new Promise((r) => setTimeout(r, 400));
+          if (i < 2) await new Promise((r) => setTimeout(r, 300));
         }
       }
-      show();
+      if (alive) setBlocked(true);
     })();
 
     return () => {
       alive = false;
-      clearTimeout(baitTimer);
-      bait.remove();
     };
   }, []);
 
