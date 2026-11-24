@@ -91,11 +91,15 @@ function AdBlockWall() {
   useEffect(() => {
     let alive = true;
     const t = setTimeout(async () => {
-      let detected = false;
-      try {
-        await fetch(`${BANNER_HOST}${BANNER_KEYS['728x90'].key}`, { method: 'HEAD', mode: 'no-cors', cache: 'no-store' });
-      } catch {
-        detected = true;
+      // Blocked only if 3 tries in a row fail: one network hiccup must never show the wall.
+      let detected = true;
+      for (let i = 0; i < 3 && detected; i++) {
+        try {
+          await fetch(`${BANNER_HOST}${BANNER_KEYS['728x90'].key}`, { method: 'GET', mode: 'no-cors', cache: 'no-store' });
+          detected = false;
+        } catch {
+          await new Promise((r) => setTimeout(r, 1500));
+        }
       }
       if (!detected) {
         const bait = document.createElement('div');
