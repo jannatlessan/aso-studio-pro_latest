@@ -137,16 +137,20 @@ export function AdsBeforeFooter() {
   );
 }
 
-// Adblock wall: based on adblock-detect-react (pinned 1.3.1, MIT, vetted). It decides on a single
-// failed request, so a second set of tries confirms it. Adsterra's own domains are NOT used for
-// the decision: some browsers still block them while the blocker is paused for the site.
-async function requestBlocked(url: string, tries = 3): Promise<boolean> {
+// Adblock wall. Two signals, either one is enough:
+//  1. Adsterra's own ad server cannot be reached (this is what a blocker does to our ads). Four
+//     tries ~0.4s apart must all fail, so one network hiccup never shows the wall.
+//  2. adblock-detect-react (pinned 1.3.1, MIT, vetted) flags a blocked doubleclick.net request;
+//     it decides on one failure, so we confirm it again.
+const ADSTERRA_PROBE = `https://bauval.org/22/${BANNER_KEYS['728x90'].key}`;
+
+async function requestBlocked(url: string, tries = 3, gap = 300): Promise<boolean> {
   for (let i = 0; i < tries; i++) {
     try {
       await fetch(url, { method: 'GET', mode: 'no-cors', cache: 'no-store' });
       return false;
     } catch {
-      if (i < tries - 1) await new Promise((r) => setTimeout(r, 300));
+      if (i < tries - 1) await new Promise((r) => setTimeout(r, gap));
     }
   }
   return true;
@@ -155,6 +159,14 @@ async function requestBlocked(url: string, tries = 3): Promise<boolean> {
 function AdBlockWall() {
   const [blocked, setBlocked] = useState(false);
   const packageSuspects = useDetectAdBlock();
+
+  useEffect(() => {
+    let alive = true;
+    requestBlocked(ADSTERRA_PROBE, 4, 400).then((b) => alive && b && setBlocked(true));
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!packageSuspects) return;
