@@ -9,6 +9,7 @@ import {
   Globe
 } from 'lucide-react';
 import Logo from './Logo';
+import { AdsBeforeFooter } from './SiteAds';
 
 export default function Footer() {
   const socialLinks = [
@@ -42,6 +43,8 @@ export default function Footer() {
   ];
 
   return (
+    <>
+    <AdsBeforeFooter />
     <footer className="relative z-10 bg-dark-gradient text-white pt-16 pb-8 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
@@ -125,5 +128,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

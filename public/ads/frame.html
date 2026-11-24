@@ -17,6 +17,23 @@
   } else if (KEYS[k]) {
     document.write('<script>atOptions={"key":"' + k + '","format":"iframe","height":' + KEYS[k][1] + ',"width":' + KEYS[k][0] + ',"params":{}};<\/script><script data-cfasync="false" src="https://bauval.org/22/' + k + '"><\/script>');
   }
+  // Tell the parent page when an ad has really rendered, so empty slots take no space.
+  var id = q.get('id'), sent = false, tries = 0;
+  function rendered() {
+    var c = document.getElementById('container-' + NATIVE);
+    if (c && c.children.length) return c;
+    return document.querySelector('body > iframe, body > ins, body > a, body > img, body > div iframe, body > div img');
+  }
+  var timer = setInterval(function () {
+    tries++;
+    var el = rendered();
+    if (el && !sent) {
+      sent = true;
+      parent.postMessage({ adReady: id, h: Math.ceil(document.documentElement.scrollHeight) }, location.origin);
+      clearInterval(timer);
+    }
+    if (tries > 60) clearInterval(timer);
+  }, 500);
 })();
 </script>
 </body></html>
