@@ -930,3 +930,4 @@ pubmatic.com, 163754, RESELLER, 5d62403b186f2ace
 smartadserver.com, 4721-OB, RESELLER, 060d053dcf45cbf3
 mobupps.com, c74d97b01eae257e44aa9d5bade97baf5001, RESELLER
 themediagrid.com,IRK975,RESELLER,35d5010d7789b49d
+openx.com, 667523471, RESELLER, 6a698e2ec38604c6
