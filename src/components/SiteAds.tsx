@@ -104,16 +104,9 @@ function AdBlockWall() {
   const [blocked, setBlocked] = useState(false);
   // adblock-detect-react (pinned 1.3.1, MIT, vetted): flags a blocked doubleclick.net request.
   // It decides on a single failure, so we only trust it after confirming it again below.
+  // The wall is based ONLY on this signal: some browsers/extensions still block Adsterra's domains
+  // while the blocker is paused for the site, and the visitor cannot fix that, so it must not trigger it.
   const packageSuspects = useDetectAdBlock();
-
-  useEffect(() => {
-    let alive = true;
-    // Our own ad server (Adsterra) is what matters most: if it cannot load, show the wall.
-    adRequestBlocked(`${BANNER_HOST}${BANNER_KEYS['728x90'].key}`).then((b) => alive && b && setBlocked(true));
-    return () => {
-      alive = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (!packageSuspects) return;
