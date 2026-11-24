@@ -137,11 +137,12 @@ export function AdsBeforeFooter() {
   );
 }
 
-// Adblock wall. Two signals, either one is enough:
-//  1. Adsterra's own ad server cannot be reached (this is what a blocker does to our ads). Four
-//     tries ~0.4s apart must all fail, so one network hiccup never shows the wall.
-//  2. adblock-detect-react (pinned 1.3.1, MIT, vetted) flags a blocked doubleclick.net request;
-//     it decides on one failure, so we confirm it again.
+// Adblock wall. It shows only when a blocker is really active on this page:
+//  A. Adsterra's ad server cannot be reached (4 tries ~0.4s apart all fail) AND the blocker hides
+//     an ad-like bait element. Pausing the blocker un-hides the bait, so the wall goes away even
+//     if a network/DNS layer still resets Adsterra's domains (which a visitor cannot fix).
+//  B. adblock-detect-react (pinned 1.3.1, MIT, vetted) flags a blocked doubleclick.net request,
+//     confirmed by two more tries.
 const ADSTERRA_PROBE = `https://bauval.org/22/${BANNER_KEYS['728x90'].key}`;
 
 async function requestBlocked(url: string, tries = 3, gap = 300): Promise<boolean> {
@@ -156,13 +157,29 @@ async function requestBlocked(url: string, tries = 3, gap = 300): Promise<boolea
   return true;
 }
 
+// True when a blocker hides an element with typical ad class names (cosmetic filtering).
+async function baitHidden(): Promise<boolean> {
+  const bait = document.createElement('div');
+  bait.className = 'adsbox ad-banner ad-placement ad-container pub_300x250 text-ad';
+  bait.style.cssText = 'position:absolute;left:0;top:0;width:12px;height:12px;pointer-events:none;opacity:0.01';
+  document.body.appendChild(bait);
+  await new Promise((r) => setTimeout(r, 600));
+  const cs = getComputedStyle(bait);
+  const hidden = !bait.isConnected || bait.offsetHeight === 0 || cs.display === 'none' || cs.visibility === 'hidden';
+  bait.remove();
+  return hidden;
+}
+
 function AdBlockWall() {
   const [blocked, setBlocked] = useState(false);
   const packageSuspects = useDetectAdBlock();
 
   useEffect(() => {
     let alive = true;
-    requestBlocked(ADSTERRA_PROBE, 4, 400).then((b) => alive && b && setBlocked(true));
+    (async () => {
+      if (!(await requestBlocked(ADSTERRA_PROBE, 4, 400))) return;
+      if (await baitHidden()) alive && setBlocked(true);
+    })();
     return () => {
       alive = false;
     };
