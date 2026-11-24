@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Advertisement</title></head>
+<body style="margin:0;overflow:hidden;background:transparent">
+<script>
+// Hosts one Adsterra unit on a real shaaddev.studio URL so the ad network sees the registered
+// domain and referrer (a srcdoc iframe has neither). Only known unit keys are accepted.
+(function () {
+  var KEYS = {
+    '79dd6d77d4efd8dbb9da2b23626ba070': [728, 90], 'dc4af9b2741a7e6c115deb48fa47c706': [468, 60],
+    '0a339c502d4fcb1b67575e097cfacab7': [320, 50], 'd3302ed5d8fc9e7d0fabd6b7989d0068': [300, 250],
+    'e3b4ede3f5fd1cd5cc92cf90c04e12ae': [160, 300], '31a2bc5fb10b0c8ef7e26b2015efde22': [160, 600]
+  };
+  var NATIVE = '422cf36ab897c1ddcd8115be19bea05b';
+  var q = new URLSearchParams(location.search), k = q.get('k') || '';
+  if (q.get('t') === 'native' && k === NATIVE) {
+    document.write('<script async data-cfasync="false" src="https://bauval.org/21/' + k + '"><\/script><div id="container-' + k + '"></div>');
+  } else if (KEYS[k]) {
+    document.write('<script>atOptions={"key":"' + k + '","format":"iframe","height":' + KEYS[k][1] + ',"width":' + KEYS[k][0] + ',"params":{}};<\/script><script data-cfasync="false" src="https://bauval.org/22/' + k + '"><\/script>');
+  }
+})();
+</script>
+</body></html>

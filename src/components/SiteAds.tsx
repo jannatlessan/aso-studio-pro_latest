@@ -12,28 +12,24 @@ const BANNER_KEYS: Record<string, { key: string; w: number; h: number }> = {
   '160x300': { key: 'e3b4ede3f5fd1cd5cc92cf90c04e12ae', w: 160, h: 300 },
   '160x600': { key: '31a2bc5fb10b0c8ef7e26b2015efde22', w: 160, h: 600 },
 };
-const BANNER_HOST = 'https://bauval.org/22/';
 const NATIVE_KEY = '422cf36ab897c1ddcd8115be19bea05b';
 const POPUNDER_SRC = 'https://abscloud.org/1/2afbe426408f1bbe880221935a5545a4';
 const SOCIAL_BAR_SRC = 'https://bauval.org/14/07b9fff71f0bb4fac2dfae0b3cbcf9c1';
 
-// Each ad lives in its own sandboxed iframe: its script cannot read the page or navigate the
-// page away (no allow-top-navigation), and several ads can share one page.
-const SANDBOX = 'allow-scripts allow-popups allow-popups-to-escape-sandbox';
+// Each ad lives in its own sandboxed iframe: it cannot navigate the page away (no
+// allow-top-navigation), and several ads can share one page. allow-same-origin is needed because
+// Adsterra's banner script uses cookies/storage and fails silently in an opaque-origin sandbox.
+const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
 
-function bannerDoc(size: string) {
-  const b = BANNER_KEYS[size];
-  return `<!doctype html><html><body style="margin:0;overflow:hidden;background:transparent"><script>atOptions={'key':'${b.key}','format':'iframe','height':${b.h},'width':${b.w},'params':{}};</script><script data-cfasync="false" src="${BANNER_HOST}${b.key}"></script></body></html>`;
-}
-
-const nativeDoc = `<!doctype html><html><body style="margin:0;background:transparent"><script async fetchpriority="high" data-cfasync="false" src="https://bauval.org/21/${NATIVE_KEY}"></script><div id="container-${NATIVE_KEY}"></div></body></html>`;
+const frameSrc = (size: string) => `/ads/frame.html?t=banner&k=${BANNER_KEYS[size].key}`;
+const nativeSrc = `/ads/frame.html?t=native&k=${NATIVE_KEY}`;
 
 function Banner({ size }: { size: keyof typeof BANNER_KEYS }) {
   const b = BANNER_KEYS[size];
   return (
     <iframe
       title={`Advertisement ${size}`}
-      srcDoc={bannerDoc(size)}
+      src={frameSrc(size)}
       width={b.w}
       height={b.h}
       sandbox={SANDBOX}
@@ -48,7 +44,7 @@ function Native() {
   return (
     <iframe
       title="Advertisement"
-      srcDoc={nativeDoc}
+      src={nativeSrc}
       sandbox={SANDBOX}
       scrolling="no"
       loading="lazy"
