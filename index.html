@@ -38,6 +38,25 @@
     <!-- WebMCP origin trial (Chrome), registered 2026-11-20 for https://shaaddev.studio, expires 2027-03-30 (renew at developer.chrome.com/origintrials). -->
     <meta http-equiv="origin-trial" content="AiC1N5TgVjvYLmfCUvYUbDsgIuSQVzuTHZVZVmnXOoRl84I+fHKP/X7MX75Huubc1QMdEE0fCKeAIfBNAL0eBAoAAABPeyJvcmlnaW4iOiJodHRwczovL3NoYWFkZGV2LnN0dWRpbzo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxODA2MzY0ODAwfQ==">
     
+    <style>
+      /* Loading splash. Pre-rendered pages (class "ssg") carry full text for crawlers; visitors see a
+         styled skeleton (header bar, title, shimmer blocks) until the React page replaces it, never the
+         raw unstyled text. Pages with an empty #root (e.g. games) get a top progress bar and a white ground. */
+      body .ssg{position:fixed;inset:0;z-index:60;max-width:none;margin:0;padding:0;overflow:hidden;background:#fff;text-align:center}
+      body .ssg nav{position:absolute;top:0;left:0;right:0;height:52px;overflow:hidden;color:transparent;border-bottom:1px solid #eceeed;background:#fff;z-index:3}
+      body .ssg nav a{color:transparent;pointer-events:none}
+      body .ssg main{position:relative;margin-top:52px;height:150px;overflow:hidden;padding:28px 20px 0;z-index:2}
+      body .ssg h1{font:800 28px/1.15 Outfit,Inter,system-ui,sans-serif;color:#000;margin:0 0 10px;letter-spacing:-.01em}
+      body .ssg main>p{margin:0 auto;max-width:560px;font-size:15px;line-height:1.5;color:#555}
+      body .ssg main>p+p{visibility:hidden}
+      body .ssg footer{position:absolute;left:-9999px;top:0}
+      body .ssg::after{content:"";position:absolute;left:16px;right:16px;top:230px;bottom:auto;height:min(46vh,320px);max-width:880px;margin:0 auto;border:2px dashed #d9dedc;border-radius:24px;z-index:4;
+        background:linear-gradient(100deg,#f4f6f5 30%,#fbfcfb 50%,#f4f6f5 70%) 0 0/200% 100%;animation:ssgShimmer 1.2s linear infinite}
+      @keyframes ssgShimmer{to{background-position:-200% 0}}
+      #root:empty{min-height:100vh;background:#fff}
+      #root:empty::before{content:"";position:fixed;top:0;left:0;height:3px;width:40%;background:#0E9D52;animation:ssgBar 1s ease-in-out infinite}
+      @keyframes ssgBar{0%{left:-40%}100%{left:100%}}
+    </style>
     <title>ShaadDev Studio | Premium Developer Tools</title>
     <meta name="description" content="Discover premium developer tools and web applications by ShaadDev Studio. Try our Free Bulk Image Resizer, Audio Merger, ASO Screenshot Maker, and more." />
 
