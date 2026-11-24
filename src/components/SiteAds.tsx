@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RefreshCcw, ShieldAlert, X } from 'lucide-react';
+import { useDetectAdBlock } from 'adblock-detect-react';
 
 // Adsterra ad units for shaaddev.studio (website 6224645). Home page ("/") never shows ads.
 const BANNER_KEYS: Record<string, { key: string; w: number; h: number }> = {
@@ -85,30 +86,43 @@ function injectPageScripts() {
   document.body.appendChild(bar);
 }
 
+// Reused: a request to an ad server that is rejected 3 times in a row (blockers reject at once,
+// so one network hiccup alone never counts).
+async function adRequestBlocked(url: string, tries = 3): Promise<boolean> {
+  for (let i = 0; i < tries; i++) {
+    try {
+      await fetch(url, { method: 'GET', mode: 'no-cors', cache: 'no-store' });
+      return false;
+    } catch {
+      if (i < tries - 1) await new Promise((r) => setTimeout(r, 300));
+    }
+  }
+  return true;
+}
+
 function AdBlockWall() {
   const [blocked, setBlocked] = useState(false);
+  // adblock-detect-react (pinned 1.3.1, MIT, vetted): flags a blocked doubleclick.net request.
+  // It decides on a single failure, so we only trust it after confirming it again below.
+  const packageSuspects = useDetectAdBlock();
 
   useEffect(() => {
     let alive = true;
-
-    // The ad server request is blocked. A blocker rejects it instantly, so 3 quick tries in a
-    // row decide in about a second; one network hiccup alone never shows the wall.
-    (async () => {
-      for (let i = 0; i < 3; i++) {
-        try {
-          await fetch(`${BANNER_HOST}${BANNER_KEYS['728x90'].key}`, { method: 'GET', mode: 'no-cors', cache: 'no-store' });
-          return;
-        } catch {
-          if (i < 2) await new Promise((r) => setTimeout(r, 300));
-        }
-      }
-      if (alive) setBlocked(true);
-    })();
-
+    // Our own ad server (Adsterra) is what matters most: if it cannot load, show the wall.
+    adRequestBlocked(`${BANNER_HOST}${BANNER_KEYS['728x90'].key}`).then((b) => alive && b && setBlocked(true));
     return () => {
       alive = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!packageSuspects) return;
+    let alive = true;
+    adRequestBlocked('https://www3.doubleclick.net').then((b) => alive && b && setBlocked(true));
+    return () => {
+      alive = false;
+    };
+  }, [packageSuspects]);
 
   if (!blocked) return null;
   return (
