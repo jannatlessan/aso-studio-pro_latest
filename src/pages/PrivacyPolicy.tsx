@@ -79,7 +79,16 @@ export default function PrivacyPolicy() {
 
             <section className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.015] p-6">
               <h2 className="text-xl font-bold text-white flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 3. Contact Us
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 3. Advertising
+              </h2>
+              <p className="leading-relaxed text-sm">
+                Pages other than the home page show ads served by the third-party ad network Adsterra. Ad networks may use cookies and similar technologies to show and measure ads, and to limit how often you see them. We do not give ad networks your files or tool inputs, which stay on your device. You can limit ad personalisation in your browser settings, but we ask visitors to allow ads on this site because they keep the tools free.
+              </p>
+            </section>
+
+            <section className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.015] p-6">
+              <h2 className="text-xl font-bold text-white flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" /> 4. Contact Us
               </h2>
               <p className="leading-relaxed text-sm">
                 If you have questions regarding data privacy:

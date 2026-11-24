@@ -73,6 +73,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Hire = lazy(() => import('./pages/Hire'));
 const ServicePage = lazy(() => import('./pages/Hire').then((m) => ({ default: m.ServicePage })));
 import WebMcpBridge from './components/WebMcpBridge';
+import SiteAds from './components/SiteAds';
 
 // Every route except Home is a lazy chunk, so the home page does not download every tool's code
 // (pdf/ffmpeg/onnx/xlsx...). Pre-rendered pages (dist/tools/*, dist/apps/*) keep showing their
@@ -86,6 +87,7 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <WebMcpBridge />
+      <SiteAds>
       <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -170,6 +172,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       </Suspense>
+      </SiteAds>
     </Router>
   );
 }
