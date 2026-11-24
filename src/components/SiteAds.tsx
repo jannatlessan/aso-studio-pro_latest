@@ -1,7 +1,6 @@
 import { useEffect, useId, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import { RefreshCcw, ShieldAlert, X } from 'lucide-react';
-import { useDetectAdBlock } from 'adblock-detect-react';
+import { X } from 'lucide-react';
 
 // Adsterra ad units for shaaddev.studio (website 6224645). Home, About and Contact never show ads.
 // Each unit is hosted on /ads/frame.html (a real shaaddev.studio URL, so the ad network sees the
@@ -137,91 +136,6 @@ export function AdsBeforeFooter() {
   );
 }
 
-// Adblock wall. It shows only when a blocker is really active on this page:
-//  A. Adsterra's ad server cannot be reached (4 tries ~0.4s apart all fail) AND the blocker hides
-//     an ad-like bait element. Pausing the blocker un-hides the bait, so the wall goes away even
-//     if a network/DNS layer still resets Adsterra's domains (which a visitor cannot fix).
-//  B. adblock-detect-react (pinned 1.3.1, MIT, vetted) flags a blocked doubleclick.net request,
-//     confirmed by two more tries.
-const ADSTERRA_PROBE = `https://bauval.org/22/${BANNER_KEYS['728x90'].key}`;
-
-async function requestBlocked(url: string, tries = 3, gap = 300): Promise<boolean> {
-  for (let i = 0; i < tries; i++) {
-    try {
-      await fetch(url, { method: 'GET', mode: 'no-cors', cache: 'no-store' });
-      return false;
-    } catch {
-      if (i < tries - 1) await new Promise((r) => setTimeout(r, gap));
-    }
-  }
-  return true;
-}
-
-// True when a blocker hides an element with typical ad class names (cosmetic filtering).
-async function baitHidden(): Promise<boolean> {
-  const bait = document.createElement('div');
-  bait.className = 'adsbox ad-banner ad-placement ad-container pub_300x250 text-ad';
-  bait.style.cssText = 'position:absolute;left:0;top:0;width:12px;height:12px;pointer-events:none;opacity:0.01';
-  document.body.appendChild(bait);
-  await new Promise((r) => setTimeout(r, 600));
-  const cs = getComputedStyle(bait);
-  const hidden = !bait.isConnected || bait.offsetHeight === 0 || cs.display === 'none' || cs.visibility === 'hidden';
-  bait.remove();
-  return hidden;
-}
-
-function AdBlockWall() {
-  const [blocked, setBlocked] = useState(false);
-  const packageSuspects = useDetectAdBlock();
-
-  useEffect(() => {
-    let alive = true;
-    (async () => {
-      if (!(await requestBlocked(ADSTERRA_PROBE, 4, 400))) return;
-      if (await baitHidden()) alive && setBlocked(true);
-    })();
-    return () => {
-      alive = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!packageSuspects) return;
-    let alive = true;
-    requestBlocked('https://www3.doubleclick.net').then((b) => alive && b && setBlocked(true));
-    return () => {
-      alive = false;
-    };
-  }, [packageSuspects]);
-
-  if (!blocked) return null;
-  return (
-    <div role="dialog" aria-modal="true" className="fixed inset-0 z-[99999] bg-[#0A0C0B]/95 backdrop-blur-2xl flex items-center justify-center p-6 text-center">
-      <div className="max-w-lg w-full bg-white rounded-3xl p-8 sm:p-10 shadow-2xl space-y-6">
-        <div className="w-20 h-20 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto">
-          <ShieldAlert className="w-10 h-10 text-amber-500" />
-        </div>
-        <div className="space-y-3">
-          <h2 className="text-2xl sm:text-3xl font-bold text-ink tracking-tight">Please pause your ad blocker</h2>
-          <p className="text-[#55605B] leading-relaxed">
-            Every tool and game here is free. A few ads pay for the servers and the time it takes to build them.
-            Could you pause your ad blocker for shaaddev.studio and reload? It only takes a few seconds, and we really appreciate it.
-          </p>
-          <p className="text-sm text-[#55605B]">
-            Click the blocker icon in your browser toolbar, choose &ldquo;Pause on this site&rdquo;, then press the button below.
-          </p>
-        </div>
-        <button
-          onClick={() => window.location.reload()}
-          className="w-full flex justify-center items-center gap-2 py-4 bg-primary-dark text-white hover:bg-[#048532] rounded-full font-semibold text-sm transition-all"
-        >
-          <RefreshCcw className="w-5 h-5" /> I&rsquo;ve paused it, reload
-        </button>
-      </div>
-    </div>
-  );
-}
-
 export default function SiteAds({ children }: { children: ReactNode }) {
   const isHome = useIsHome();
   const desktop = useMinWidth(768);
@@ -276,7 +190,6 @@ export default function SiteAds({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <AdBlockWall />
     </>
   );
 }
