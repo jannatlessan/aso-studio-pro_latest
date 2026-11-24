@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { RefreshCcw, ShieldAlert, X } from 'lucide-react';
 import { useDetectAdBlock } from 'adblock-detect-react';
 
-// Adsterra ad units for shaaddev.studio (website 6224645). Home page ("/") never shows ads.
+// Adsterra ad units for shaaddev.studio (website 6224645). Home, About and Contact never show ads.
 // Each unit is hosted on /ads/frame.html (a real shaaddev.studio URL, so the ad network sees the
 // registered domain and referrer). The frame tells the page when an ad really rendered; until then
 // the slot takes no space, so there are never empty gaps.
@@ -23,9 +23,13 @@ const SOCIAL_BAR_SRC = 'https://bauval.org/14/07b9fff71f0bb4fac2dfae0b3cbcf9c1';
 // because Adsterra's banner script uses cookies/storage.
 const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox';
 
+// Pages that never show ads (Boss 2026-11-24): Home, About, Contact.
+const AD_FREE_PATHS = ['/', '/about', '/contact'];
+
 function useIsHome() {
   const { pathname } = useLocation();
-  return pathname === '/' || pathname === '';
+  const clean = pathname.length > 1 ? pathname.replace(/\/+$/, '') : '/';
+  return clean === '' || AD_FREE_PATHS.includes(clean.toLowerCase());
 }
 
 function useMinWidth(px: number) {
@@ -198,8 +202,8 @@ export default function SiteAds({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isHome) {
-      // The pop-under and social bar scripts cannot be unloaded, so coming back to Home
-      // reloads it clean and ad-free.
+      // The pop-under and social bar scripts cannot be unloaded, so coming back to an ad-free
+      // page (Home, About, Contact) reloads it clean.
       if (adScriptsInjected) window.location.reload();
       return;
     }
