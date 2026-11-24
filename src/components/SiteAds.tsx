@@ -25,10 +25,15 @@ const SANDBOX = 'allow-scripts allow-same-origin allow-popups allow-popups-to-es
 // Pages that never show ads (Boss 2026-11-24): Home, About, Contact.
 const AD_FREE_PATHS = ['/', '/about', '/contact'];
 
+// Our Ryk Hub app opens the tools inside an Android WebView. Third-party web ads (pop-under,
+// social bar) inside an app are a Google Play ads-policy risk, so no ads there. The app adds
+// "RykHubApp" to its user agent; every Android WebView also carries "; wv)" (covers old app builds).
+const IN_APP_WEBVIEW = typeof navigator !== 'undefined' && /RykHubApp|; wv\)/.test(navigator.userAgent);
+
 function useIsHome() {
   const { pathname } = useLocation();
   const clean = pathname.length > 1 ? pathname.replace(/\/+$/, '') : '/';
-  return clean === '' || AD_FREE_PATHS.includes(clean.toLowerCase());
+  return IN_APP_WEBVIEW || clean === '' || AD_FREE_PATHS.includes(clean.toLowerCase());
 }
 
 function useMinWidth(px: number) {
