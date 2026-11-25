@@ -28,6 +28,9 @@ import {
   Equal,
   Calculator,
   Sigma,
+  Crown,
+  Spline,
+  Paintbrush,
   Gamepad2,
   type LucideIcon
 } from 'lucide-react';
@@ -66,7 +69,10 @@ export const GAME_ICON_MAP: Record<string, LucideIcon> = {
   Diff,
   Equal,
   Calculator,
-  Sigma
+  Sigma,
+  Crown,
+  Spline,
+  Paintbrush
 };
 
 export const GAME_ICON_FALLBACK: LucideIcon = Gamepad2;

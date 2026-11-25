@@ -71,7 +71,7 @@
   <url><loc>https://shaaddev.studio/services/flutter-development</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/services/react-development</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/services/full-stack-ai-development</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://shaaddev.studio/games/2048</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/2048</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/sliding-puzzle</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/minesweeper</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/sudoku</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -100,4 +100,7 @@
   <url><loc>https://shaaddev.studio/games/missing-signs</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/make-the-number</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/math-crossword</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/kingdoms</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/pair-paths</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/hidden-pixels</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

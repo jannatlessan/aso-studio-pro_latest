@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-25T18:19:56.500Z",
+  "generatedAt": "2026-11-25T18:34:23.296Z",
   "baseUrl": "https://shaaddev.studio",
   "brand": {
     "name": "ShaadDev Studio",
@@ -8,7 +8,7 @@
     "logo": "https://shaaddev.studio/og-image.jpg",
     "icon": "https://shaaddev.studio/favicon.svg"
   },
-  "count": 56,
+  "count": 59,
   "categories": [
     "Calculators",
     "Design",
@@ -858,6 +858,51 @@
       "icon": "Calculator",
       "iconSlug": "calculator",
       "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/calculator.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-030",
+      "title": "Kingdoms",
+      "description": "One crown in every row, column and coloured kingdom, and no two crowns touching. Pure logic, one answer.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/kingdoms",
+      "link": "https://shaaddev.studio/games/kingdoms",
+      "icon": "Crown",
+      "iconSlug": "crown",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/crown.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-031",
+      "title": "Pair Paths",
+      "description": "Link every pair of matching dots with lines that never cross, and cover the whole board while you do it.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/pair-paths",
+      "link": "https://shaaddev.studio/games/pair-paths",
+      "icon": "Spline",
+      "iconSlug": "spline",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/spline.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-032",
+      "title": "Hidden Pixels",
+      "description": "A nonogram: use the row and column number clues to fill the right squares and reveal the hidden shape.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/hidden-pixels",
+      "link": "https://shaaddev.studio/games/hidden-pixels",
+      "icon": "Paintbrush",
+      "iconSlug": "paintbrush",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/paintbrush.svg",
       "color": "#0E9D52"
     }
   ]

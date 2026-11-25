@@ -66,6 +66,19 @@ run('cross', generateCross, canonCross, (p) => {
   console.log(`reload: 5 sessions x 150 levels + dailies, ${all.size} unique`);
 }
 
+// Exhaustion: 1000 puzzles all requested at level 1 (whose space is ~215) still never repeat;
+// the generator moves on in difficulty instead.
+{
+  const h = new PuzzleHistory('exhaust', memoryStore());
+  const seen = new Set<string>();
+  for (let i = 0; i < 1000; i++) {
+    const p = h.next(`X${i}`, (seed, a) => generateFill(seed, effectiveLevel(1, a, seed)), canonFill);
+    if (seen.has(canonFill(p))) fail(`exhaust: repeat at ${i}`);
+    seen.add(canonFill(p));
+  }
+  console.log(`exhaust: 1000 level-1 requests, ${seen.size} unique`);
+}
+
 // Canonical forms: reordered terms count as the same Fill puzzle.
 {
   const a = { ops: ['*', '+'] as const, target: 14, tiles: [2, 4, 6], solution: [2, 4, 6], tier: '' };

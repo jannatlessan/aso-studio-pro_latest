@@ -73,6 +73,9 @@ const FillTheEquation = lazy(() => import('./pages/Games/FillTheEquation'));
 const MissingSigns = lazy(() => import('./pages/Games/MissingSigns'));
 const MakeTheNumber = lazy(() => import('./pages/Games/MakeTheNumber'));
 const MathCrossword = lazy(() => import('./pages/Games/MathCrossword'));
+const Kingdoms = lazy(() => import('./pages/Games/Kingdoms'));
+const PairPaths = lazy(() => import('./pages/Games/PairPaths'));
+const HiddenPixels = lazy(() => import('./pages/Games/HiddenPixels'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Hire = lazy(() => import('./pages/Hire'));
 const ServicePage = lazy(() => import('./pages/Hire').then((m) => ({ default: m.ServicePage })));
@@ -175,6 +178,9 @@ export default function App() {
         <Route path="/games/missing-signs" element={<MissingSigns />} />
         <Route path="/games/make-the-number" element={<MakeTheNumber />} />
         <Route path="/games/math-crossword" element={<MathCrossword />} />
+        <Route path="/games/kingdoms" element={<Kingdoms />} />
+        <Route path="/games/pair-paths" element={<PairPaths />} />
+        <Route path="/games/hidden-pixels" element={<HiddenPixels />} />
 
         {/* 404 Page Not Found */}
         <Route path="*" element={<NotFound />} />

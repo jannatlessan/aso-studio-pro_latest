@@ -13,7 +13,7 @@
     "lint": "tsc --noEmit",
     "gen:seo": "node scripts/generate-seo-files.mjs",
     "snap:home": "node scripts/snapshot-home.mjs",
-    "test": "tsx tests/reverse-math.test.ts"
+    "test": "tsx tests/reverse-math.test.ts && tsx tests/mind-puzzles.test.ts"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.12.10",

@@ -98,7 +98,7 @@ Mobile apps published by ShaadDev Studio (developer "shaad dev studio" on Google
 
 ## Games
 
-- [Browser games](https://shaaddev.studio/games): 29 free casual games (puzzle, word, arcade) that run in the browser.
+- [Browser games](https://shaaddev.studio/games): 32 free casual games (puzzle, word, arcade) that run in the browser.
 
 ## Optional
 
