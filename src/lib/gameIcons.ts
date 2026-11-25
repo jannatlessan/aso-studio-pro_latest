@@ -24,6 +24,10 @@ import {
   Type,
   Worm,
   Zap,
+  Diff,
+  Equal,
+  Calculator,
+  Sigma,
   Gamepad2,
   type LucideIcon
 } from 'lucide-react';
@@ -58,7 +62,11 @@ export const GAME_ICON_MAP: Record<string, LucideIcon> = {
   Target,
   Type,
   Worm,
-  Zap
+  Zap,
+  Diff,
+  Equal,
+  Calculator,
+  Sigma
 };
 
 export const GAME_ICON_FALLBACK: LucideIcon = Gamepad2;

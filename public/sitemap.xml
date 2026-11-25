@@ -10,7 +10,7 @@
   <url><loc>https://shaaddev.studio/apps/stamppedia/terms</loc><lastmod>2026-09-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shaaddev.studio/about</loc><lastmod>2026-09-23</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/contact</loc><lastmod>2026-10-07</lastmod><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://shaaddev.studio/privacy</loc><lastmod>2026-09-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://shaaddev.studio/privacy</loc><lastmod>2026-11-24</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shaaddev.studio/terms</loc><lastmod>2026-09-23</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://shaaddev.studio/tools/gif-viewer</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://shaaddev.studio/tools/video-to-gif</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -96,4 +96,8 @@
   <url><loc>https://shaaddev.studio/games/tic-tac-toe</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/trace-master</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://shaaddev.studio/games/hoop-shot</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/fill-the-equation</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/missing-signs</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/make-the-number</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://shaaddev.studio/games/math-crossword</loc><lastmod>2026-11-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

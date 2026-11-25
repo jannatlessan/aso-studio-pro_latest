@@ -12,7 +12,8 @@
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
     "gen:seo": "node scripts/generate-seo-files.mjs",
-    "snap:home": "node scripts/snapshot-home.mjs"
+    "snap:home": "node scripts/snapshot-home.mjs",
+    "test": "tsx tests/reverse-math.test.ts"
   },
   "dependencies": {
     "@ffmpeg/core": "^0.12.10",

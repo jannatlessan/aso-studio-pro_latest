@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-23T16:36:20.060Z",
+  "generatedAt": "2026-11-25T18:19:56.500Z",
   "baseUrl": "https://shaaddev.studio",
   "brand": {
     "name": "ShaadDev Studio",
@@ -8,7 +8,7 @@
     "logo": "https://shaaddev.studio/og-image.jpg",
     "icon": "https://shaaddev.studio/favicon.svg"
   },
-  "count": 52,
+  "count": 56,
   "categories": [
     "Calculators",
     "Design",
@@ -798,6 +798,66 @@
       "icon": "Target",
       "iconSlug": "target",
       "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/target.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-026",
+      "title": "Fill the Equation",
+      "description": "Reverse math: you get the answer and the signs, you find the numbers. Place every tile so the sum hits the target.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/fill-the-equation",
+      "link": "https://shaaddev.studio/games/fill-the-equation",
+      "icon": "Equal",
+      "iconSlug": "equal",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/equal.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-027",
+      "title": "Missing Signs",
+      "description": "The numbers and the answer are there, the + − × ÷ signs are gone. Put them back so the sum is true.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/missing-signs",
+      "link": "https://shaaddev.studio/games/missing-signs",
+      "icon": "Diff",
+      "iconSlug": "diff",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/diff.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-028",
+      "title": "Make the Number",
+      "description": "Combine the numbers two at a time until only the target is left. Endless levels plus a daily make-24.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/make-the-number",
+      "link": "https://shaaddev.studio/games/make-the-number",
+      "icon": "Sigma",
+      "iconSlug": "sigma",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/sigma.svg",
+      "color": "#0E9D52"
+    },
+    {
+      "id": "GAME-029",
+      "title": "Math Crossword",
+      "description": "A crossword made of sums. Fill the blanks from the tray so every equation across and down is true.",
+      "category": "Games",
+      "status": "New",
+      "isNew": true,
+      "isTrending": false,
+      "path": "/games/math-crossword",
+      "link": "https://shaaddev.studio/games/math-crossword",
+      "icon": "Calculator",
+      "iconSlug": "calculator",
+      "iconUrl": "https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/calculator.svg",
       "color": "#0E9D52"
     }
   ]

@@ -69,6 +69,10 @@ const SimonSays = lazy(() => import('./pages/Games/SimonSays'));
 const TicTacToe = lazy(() => import('./pages/Games/TicTacToe'));
 const TraceMaster = lazy(() => import('./pages/Games/TraceMaster'));
 const HoopShot = lazy(() => import('./pages/Games/HoopShot'));
+const FillTheEquation = lazy(() => import('./pages/Games/FillTheEquation'));
+const MissingSigns = lazy(() => import('./pages/Games/MissingSigns'));
+const MakeTheNumber = lazy(() => import('./pages/Games/MakeTheNumber'));
+const MathCrossword = lazy(() => import('./pages/Games/MathCrossword'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Hire = lazy(() => import('./pages/Hire'));
 const ServicePage = lazy(() => import('./pages/Hire').then((m) => ({ default: m.ServicePage })));
@@ -167,6 +171,10 @@ export default function App() {
         <Route path="/games/tic-tac-toe" element={<TicTacToe />} />
         <Route path="/games/trace-master" element={<TraceMaster />} />
         <Route path="/games/hoop-shot" element={<HoopShot />} />
+        <Route path="/games/fill-the-equation" element={<FillTheEquation />} />
+        <Route path="/games/missing-signs" element={<MissingSigns />} />
+        <Route path="/games/make-the-number" element={<MakeTheNumber />} />
+        <Route path="/games/math-crossword" element={<MathCrossword />} />
 
         {/* 404 Page Not Found */}
         <Route path="*" element={<NotFound />} />
