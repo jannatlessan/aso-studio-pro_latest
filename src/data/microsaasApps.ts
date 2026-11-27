@@ -17,13 +17,13 @@ export interface MicroSaasApp {
 export const microsaasApps: MicroSaasApp[] = [
   {
     slug: 'fish-audio',
-    name: 'Fish Audio: AI Voice Clone TTS',
+    name: 'Shad Audio: AI Voice Clone TTS',
     tagline: 'AI voice clone & text-to-speech',
     description: 'Voice cloning and text-to-speech app; original name of the app now also released as Mimicly/VoiceTwin under rebrands.',
     longDescription: [
-      "Fish Audio (Shad Audio) is an AI-powered voice cloning and text-to-speech platform built for creators, podcasters, and developers who need natural-sounding audio fast.",
-      "Record a short voice sample and Fish Audio creates a digital twin of your voice, ready to read out any script you give it. Prefer not to use your own voice? Pick from a library of AI voices instead.",
-      "Under the hood, Fish Audio is powered by cutting-edge speech synthesis technology, tuned for clarity and natural intonation across long-form scripts as well as short clips."
+      "Shad Audio is an AI-powered voice cloning and text-to-speech platform built for creators, podcasters, and developers who need natural-sounding audio fast.",
+      "Record a short voice sample and Shad Audio creates a digital twin of your voice, ready to read out any script you give it. Prefer not to use your own voice? Pick from a library of AI voices instead.",
+      "Under the hood, Shad Audio is powered by cutting-edge speech synthesis technology, tuned for clarity and natural intonation across long-form scripts as well as short clips."
     ],
     iconUrl: '/assets/microsaas/shad-audio/icon.png',
     featureUrl: '/assets/microsaas/shad-audio/feature.png',
@@ -42,7 +42,7 @@ export const microsaasApps: MicroSaasApp[] = [
     slug: 'mimicly',
     name: 'Mimicly: AI Voice Clone App',
     tagline: 'Instant mobile voice cloning',
-    description: 'Rebranded voice cloning/TTS app (previously Fish Audio, previously Shaad), using the Fish Audio API.',
+    description: 'Rebranded voice cloning and TTS app that uses the speech API of Fish Audio (fish.audio), a separate company.',
     longDescription: [
       "Mimicly is a fast mobile voice cloning application that transforms written scripts into natural human speech using custom-trained AI voice models.",
       "Capture short audio samples to generate cloned voice profiles or select from celebrity and character presets.",
@@ -56,7 +56,7 @@ export const microsaasApps: MicroSaasApp[] = [
       'Instant voice cloning on Android',
       'Custom text-to-speech generation',
       'High fidelity audio export',
-      'Powered by Fish Audio speech engine'
+      'Uses the speech API of Fish Audio (fish.audio), a separate company'
     ]
   },
   {

@@ -55,7 +55,7 @@
       "stack": ["Flutter", "React Native", "SwiftUI", "Kotlin Multiplatform", "Dart", "App Store Connect", "Google Play Console"],
       "cases": [{ "app": "cardvault" }, { "app": "fish-audio" }, { "app": "volume-lock" }, { "app": "bdvibes" }, { "app": "riz-words" }, { "project": "kairos-time-entry" }, { "project": "kairos-fleet" }, { "project": "selfiestreet" }],
       "faq": [
-        { "q": "Can one developer build my app for both iPhone and Android?", "a": "Yes. With Flutter or React Native one code base ships to both stores. Several of the studio's apps (CardVault, Fish Audio, Volume Lock, BDVibes, PromptGenius) are live on both Google Play and the App Store." },
+        { "q": "Can one developer build my app for both iPhone and Android?", "a": "Yes. With Flutter or React Native one code base ships to both stores. Several of the studio's apps (CardVault, Shad Audio, Volume Lock, BDVibes, PromptGenius) are live on both Google Play and the App Store." },
         { "q": "Do you publish the app to the App Store and Google Play?", "a": "Yes. Store release through App Store Connect and Google Play Console is part of the work, including store listing assets. The app is published under your own developer account." }
       ]
     },

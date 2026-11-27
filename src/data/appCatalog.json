@@ -176,7 +176,7 @@
     {
       "slug": "fish-audio",
       "name": "AI Voice Clone & Text-to-Speech Studio",
-      "storeName": "Fish Audio: AI Voice Clone TTS",
+      "storeName": "Shad Audio: AI Voice Clone TTS",
       "group": "Voice and audio",
       "categories": [
         "text-to-speech"
@@ -225,7 +225,7 @@
       "pricing": "Free to download with in-app purchases. On iPhone a Premium subscription (weekly, monthly or yearly) unlocks unlimited generations, up to 10,000 characters per generation and the full voice catalog.",
       "privacy": "Speech is generated on a server through a third-party AI speech provider, so the text and voice samples you submit are sent over an encrypted connection. Play Data safety (developer declaration): audio and device IDs may be shared with third parties; no data collected; data encrypted in transit. App Store privacy label: Data Not Linked to You.",
       "privacyUrl": "https://sites.google.com/view/fishttsprivacypolicy/home",
-      "note": "Listed in the stores as \"Fish Audio: AI Voice Clone TTS\". Made by ShaadDev Studio; the voices are generated with the speech API of Fish Audio (fish.audio), a separate company.",
+      "note": "Listed in the stores as \"Shad Audio: AI Voice Clone TTS\". Made by ShaadDev Studio; the voices are generated with the speech API of Fish Audio (fish.audio), a separate company.",
       "faq": [
         {
           "q": "What is a good app to clone my own voice on Android or iPhone?",

@@ -84,7 +84,7 @@
     "screenshot": "/assets/projects/selfiestreet_preview.webp"
   },
   {
-    "name": "Fish Audio: AI Voice Clone TTS",
+    "name": "Shad Audio: AI Voice Clone TTS",
     "id": "PROJ-A01",
     "description": "Voice cloning and text-to-speech app; original name of the app now also released as Mimicly/VoiceTwin under rebrands.",
     "playStore": "https://play.google.com/store/apps/details?id=com.fishaudio.studio",
@@ -96,7 +96,7 @@
   {
     "name": "Mimicly: AI Voice Clone App",
     "id": "PROJ-M01",
-    "description": "Rebranded voice cloning/TTS app (previously Fish Audio, previously Shaad), using the Fish Audio API.",
+    "description": "Rebranded voice cloning and TTS app that uses the speech API of Fish Audio (fish.audio), a separate company.",
     "playStore": "https://play.google.com/store/apps/details?id=com.fishaudio.ai.tts.clone",
     "icon": "/assets/microsaas/voice-cloning/icon.webp",
     "category": "AI / Audio",
